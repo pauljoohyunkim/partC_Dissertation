@@ -1,5 +1,3 @@
-import numpy as np
-import matplotlib.pyplot as plt
 
 
 # Based on NSPDEs 5.5 Finite Difference Approximation of the Heat Equation
@@ -13,7 +11,7 @@ import matplotlib.pyplot as plt
 # Dirichlet Boundary Conditions u_a = u(a), u_b = u(b)
 
 # This returns an array of u values at each time step and spacial position
-def heatEvolveExplicitEuler(a=-1,b=1,J=20,T=10,M=10000,u_a=0,u_b=0,u_initial = lambda x: 10):
+def heatEvolveExplicitEuler(a=-1,b=1,J=20,T=100,M=100000,u_a=0,u_b=0,u_initial = lambda x: 10):
     deltaT = T/M        # Time mesh size
     deltaX = (b-a) / J  # Space mesh size
     cfl = deltaT / (deltaX ** 2)            # Want this below 1/2
@@ -21,13 +19,13 @@ def heatEvolveExplicitEuler(a=-1,b=1,J=20,T=10,M=10000,u_a=0,u_b=0,u_initial = l
         print(f"Warning: the CFL number is {cfl}, so stability is not guaranteed")
     
     # Explicit Scheme
-    u = np.array([[u_a] + [u_initial(a + j * deltaX) for j in range(1,J)] + [u_b]], dtype=float)
+    u = [[u_a] + [u_initial(a + j * deltaX) for j in range(1,J)] + [u_b]]
     for m in range(M):
-        ump1 = np.array([[u_a] + [0 for _ in range(1, J)] + [u_b]], dtype=float)
+        ump1 = [[u_a] + [0 for _ in range(1, J)] + [u_b]]
         # Explicit Scheme
         for j in range(1,J):
-            ump1[0,j] = u[m,j] + cfl * (u[m,j+1] - 2 * u[m,j] + u[m,j-1])
-        u = np.vstack([u, ump1])
+            ump1[0][j] = u[m][j] + cfl * (u[m][j+1] - 2 * u[m][j] + u[m][j-1])
+        u += ump1
     return u
 
 
@@ -40,9 +38,11 @@ if __name__ == "__main__":
     u = heatEvolveExplicitEuler()
     deltaX = (b-a) / J  # Space mesh size
     
+    '''
     for m in range(0, M, 50):
         plt.plot([a + j * deltaX for j in range(J+1)], u[m])
     plt.show()
+    '''
 
-    print(u)
+    #print(u)
 
