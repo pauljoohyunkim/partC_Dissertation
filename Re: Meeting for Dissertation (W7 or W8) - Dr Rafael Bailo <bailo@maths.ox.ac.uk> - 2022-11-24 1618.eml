@@ -1,0 +1,434 @@
+Received: from LO6P265MB5933.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2a8::6)
+ by CWLP265MB2052.GBRP265.PROD.OUTLOOK.COM with HTTPS; Thu, 24 Nov 2022
+ 16:18:50 +0000
+Received: from FR3P281CA0027.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1c::14)
+ by LO6P265MB5933.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2a8::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.19; Thu, 24 Nov
+ 2022 16:18:49 +0000
+Received: from VI1EUR02FT046.eop-EUR02.prod.protection.outlook.com
+ (2603:10a6:d10:1c:cafe::19) by FR3P281CA0027.outlook.office365.com
+ (2603:10a6:d10:1c::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.19 via Frontend
+ Transport; Thu, 24 Nov 2022 16:18:48 +0000
+Authentication-Results: spf=pass (sender IP is 163.1.154.216)
+ smtp.mailfrom=maths.ox.ac.uk; dkim=fail (body hash did not verify)
+ header.d=maths.ox.ac.uk;dmarc=bestguesspass action=none
+ header.from=maths.ox.ac.uk;
+Received-SPF: Pass (protection.outlook.com: domain of maths.ox.ac.uk
+ designates 163.1.154.216 as permitted sender)
+ receiver=protection.outlook.com; client-ip=163.1.154.216;
+ helo=smtp.nexus.ox.ac.uk; pr=C
+Received: from smtp.nexus.ox.ac.uk (163.1.154.216) by
+ VI1EUR02FT046.mail.protection.outlook.com (10.13.60.169) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.5857.17 via Frontend Transport; Thu, 24 Nov 2022 16:18:48 +0000
+Received: from relay17.mail.ox.ac.uk (129.67.1.165) by Hub03.ad.oak.ox.ac.uk
+ (163.1.154.216) with Microsoft SMTP Server (TLS) id 14.3.498.0; Thu, 24 Nov
+ 2022 16:18:23 +0000
+Received: from shunt.maths.ox.ac.uk ([129.67.184.99])	by relay17.mail.ox.ac.uk
+ with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)	(Exim 4.92)
+	(envelope-from <bailo@maths.ox.ac.uk>)	id 1oyEvf-0002P6-5V	for
+ joo-hyun.kim@balliol.ox.ac.uk; Thu, 24 Nov 2022 16:18:23 +0000
+Received: from [129.67.185.168] (hamilton-mattress.maths.ox.ac.uk
+ [129.67.185.168])	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256
+ bits))	(No client certificate requested)	by shunt.maths.ox.ac.uk (Postfix)
+ with ESMTPSA id 950FC60786	for <joo-hyun.kim@balliol.ox.ac.uk>; Thu, 24 Nov
+ 2022 16:18:23 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=maths.ox.ac.uk;
+	s=mail; t=1669306703;
+	bh=BBDS/ZHRHjkFL1Kzs1M39J2c1SB6FRc1ccm7GA0M3kY=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=biBIdoThXRzqdYzj12OaVHc4i3HSZiJ9JNFjAHVB2fQ8vXA8Gtekl0EtaRKHfkiXD
+	 28/XNj4yvKB2lPpjVdYWaUUjQ6ZrBlN+iSdhEmE/kxzxneEeK3x13apFPIpNfHuxwF
+	 cfpMsPb91ek7I+7Ycrrt8HzRkZW6oQ8Gnpqw/xdw=
+Content-Type: multipart/alternative;
+	boundary="------------E1NptAJtqqXT8P3kWvCgmIUy"
+Message-ID: <c1f2b91c-bf0c-cf64-3421-e05a27c90636@maths.ox.ac.uk>
+Date: Thu, 24 Nov 2022 16:18:23 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: Meeting for Dissertation (W7 or W8)
+Content-Language: en-US
+To: Joo-Hyun Kim <joo-hyun.kim@balliol.ox.ac.uk>
+References: <CWLP265MB2052D592E307406B2C3D2A5CBA009@CWLP265MB2052.GBRP265.PROD.OUTLOOK.COM>
+ <a1b9d4f9-43fe-973f-7fb7-32e954ff3323@maths.ox.ac.uk>
+ <CWLP265MB2052D8A7E31771A52547ED41BA059@CWLP265MB2052.GBRP265.PROD.OUTLOOK.COM>
+From: Dr Rafael Bailo <bailo@maths.ox.ac.uk>
+In-Reply-To: <CWLP265MB2052D8A7E31771A52547ED41BA059@CWLP265MB2052.GBRP265.PROD.OUTLOOK.COM>
+X-NTG-DKIM-verify: pass 
+Return-Path: bailo@maths.ox.ac.uk
+X-OrganizationHeadersPreserved: Hub03.ad.oak.ox.ac.uk
+X-MS-Exchange-Organization-ExpirationStartTime: 24 Nov 2022 16:18:48.5375
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ 604094af-71d5-4075-2933-08dace379177
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-CrossPremisesHeadersPromoted:
+ VI1EUR02FT046.eop-EUR02.prod.protection.outlook.com
+X-CrossPremisesHeadersFiltered:
+ VI1EUR02FT046.eop-EUR02.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1EUR02FT046:EE_|LO6P265MB5933:EE_
+X-MS-Exchange-Organization-AuthSource: Hub03.ad.oak.ox.ac.uk
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-OriginatorOrg: nexus.ox.ac.uk
+X-MS-Office365-Filtering-Correlation-Id: 604094af-71d5-4075-2933-08dace379177
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:163.1.154.216;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.nexus.ox.ac.uk;PTR:hub03.nexus.ox.ac.uk;CAT:NONE;SFS:(13230022)(451199015)(19627405001)(31686004)(6706004)(8676002)(166002)(956004)(336012)(186003)(356005)(83380400001)(31696002)(86362001)(6966003)(6916009)(1096003)(8936002)(4006050)(5660300002)(2616005)(75640400001)(82310400005)(6266002)(33964004)(7696005)(26005)(58800400005)(53546011)(84300400001)(426003)(156005)(73022008)(43740500002);DIR:INB;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2022 16:18:48.4125
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 604094af-71d5-4075-2933-08dace379177
+X-MS-Exchange-CrossTenant-Id: cc95de1b-97f5-4f93-b4ba-fe68b852cf91
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=cc95de1b-97f5-4f93-b4ba-fe68b852cf91;Ip=[163.1.154.216];Helo=[smtp.nexus.ox.ac.uk]
+X-MS-Exchange-CrossTenant-AuthSource: Hub03.ad.oak.ox.ac.uk
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB5933
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.9610422
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.5857.019
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(930097);
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?R1JmRjJTWk5vaGt5Z2ZhMG5oSDNVZFdRaEJEdmRPN0FIdzRZY1ZHYk9mSW1C?=
+ =?utf-8?B?Y01yMGY1VmFjSm82M2ZhYmFtcU1YMXdRNEJqRXZhRXVWRmNEQVdWeVRzRENh?=
+ =?utf-8?B?L3hVU1JrY3ZzSU9DU29TMGZ6Tnl0Uks1NStBVlJGTklXbDNBNzZncU5iaHhn?=
+ =?utf-8?B?MVRIQTJCakZxeXV2bW9mOWxGd1IvckRUTXcrditvMkt3dkxSek5nTmpETis2?=
+ =?utf-8?B?RU05NnlZc09zenRUcStUM3NkQzl4NU5JVDdNVXhxNEFzQnVta3ZDRTZkYTlB?=
+ =?utf-8?B?dXc2bGkyaGFncEFWS1NoeHh2SmFkYnZLbERPUiszZzdVbDl6WlBQbGZDKy80?=
+ =?utf-8?B?UzNMWHI5enRjSmZaa01lb3I5TVBZNE9sTEZMTmFrQ0FaVWxZVmt6Q29kK0tG?=
+ =?utf-8?B?bnFqUUhqQWlab05PODJvbjM5T3V1RHVDdzJXVWdXUkdwQkVpTnJwR2xsUk5L?=
+ =?utf-8?B?enltb09GRUF5LzlOT1VwcWd1QjVVRlc3MlU5eGVUZjlTYTZaU3lBb0w2M1kv?=
+ =?utf-8?B?QU1OdlRrbUpxeXZwUEFFL1d0aFNyRmUwa2gxV1NxTWZHQTlhalV1Q0lGR0c1?=
+ =?utf-8?B?UHNuajVBOExKZUliZ3F0bXhCUDVpT21aSWd6dExBQkJtQW42RmtZdDJmdTRJ?=
+ =?utf-8?B?T01xVTdVdUNLcXlQTXVoK1JJMVYrN1M4NXZuYkc3dS9RTmVFT0JZSlVjSk0z?=
+ =?utf-8?B?dTJGY3NTOEVrcVdGV0k4eER0ZlBxamhvZXp5RzZLWkczcDFHWjlPdVJGZ0ZD?=
+ =?utf-8?B?NDlZckI5eUFUM2U4bHEyZmxqWHdiK0ljZjdPVW1JV1BPNERKM3MyWkowNjIx?=
+ =?utf-8?B?dENiMWtTVjhCb1p3bWFyaXVsZ1YrdWhxaStQajVyOTl4aXR2Z3RGaWRiNUdV?=
+ =?utf-8?B?cGhBZXpTaVRzR1Z0M0prQlVJTUN1SEppcjBpcWtlNGs2N29JUFdIWkFzL1Bp?=
+ =?utf-8?B?OGJUMnM5S3d2Wm5oTXVLdHFYWGdnMVVpejE4MWdpMUVWZzJXQ2VMSTNZQy83?=
+ =?utf-8?B?cGF3UUNRR0luekZndkRmcmU3aS9PQUhINmROZStNdFZiMmJSbGFKQVFaNG1H?=
+ =?utf-8?B?OXo5VzY1MHY0UjZva09idExlbHBKTVUvZzlUTEQ2Q1hVWnJ0UUk0ckt1VU0w?=
+ =?utf-8?B?b3ZoVnpxV3psRkEvWFBKcVhzNlVRMnlMK3pWTWVWOWdzS1pLOXdJMXBXdzhq?=
+ =?utf-8?B?bWhCU1k2YTBiT0krdEVEV2swa2JROXk1VDN3RHlqa1czM0VjY21HQ3Zxb0tk?=
+ =?utf-8?B?ODFlc21GY0NIcjJoQ1FTdDloeUxzK2NRNDhyN3ZmTC9hRDVnU3l0YWpNeWZ3?=
+ =?utf-8?B?M1lIOEhyT2t0MHNobzZWSXFxWms0aU5ieEFUVk9HalZCcFA0eHhRSk11em5t?=
+ =?utf-8?B?dlc1ajVSb0pSWWtaMHBCandSWWZEcVh1elo0Q05TRWdINHBmOTFmd1F1Mnh1?=
+ =?utf-8?B?NVJJZDRHL3phY1A0bHdaeGc3TGZRclA3MjdKM2VnMWN0MFpkNU9uQzVyZXdC?=
+ =?utf-8?B?NVJRQXVBbENXL3FXbnVPQzhydU9JQnR3V0lQSm9kWUloYUMybEpYN3AvMmM5?=
+ =?utf-8?B?L2NCaDNmdExYa2t3NlBBUGlDRW9GSDlsN2taN00ySzdVSEQ3c0ZSQllBaFpT?=
+ =?utf-8?B?ajhxOVpIODZnSUNBRWFNSFk2Ujc5Tm5GamtWeW5ZVW5xaWlPeERvTnp5NnlT?=
+ =?utf-8?B?WG1XSkJqMnp3K2tZVi8vOGhHaGhCSkRrN3N6Y0E2a3o1bTdKSlNUZElhVjhi?=
+ =?utf-8?B?akdFeURwRkNNQnFJd29nSFcrRVl5UVZnSnB5Qnk3WXhySUUwcWdKa2xuODhI?=
+ =?utf-8?B?VVNqQys4NXZpRUtJeEEvOWVQUTJTcC9GZzJFNGRweEl5SnRUY2MyRjN1d1ZK?=
+ =?utf-8?B?ZDZvTWVlNmkxN1d2ZGRiWEphZFhXbjUzUXRXYzNzTEpXK2xIMzdqcmpZVm1F?=
+ =?utf-8?B?Ym9SdmswSDR2Z2hBS2FLSW90amk4S0RXNThOQXRtUkhWdWt1Lyt0M3BZdmxs?=
+ =?utf-8?B?dERrQnBHSlY1V1B2bTd6c211MWhDNCtEdHhqUThiYk9adU9HdnRjMzRiTEZ4?=
+ =?utf-8?B?K2poalhRUUxOa0lQWUxjNTF4K1d0L0I1b3prUXI3cFk5Z2pna0ZkZW5QVk84?=
+ =?utf-8?B?ZWcrTzUzZzBpNG9XbHF6OFMrdW8yNlBtNnQvZVJMS3orYk9kK2lVOFRjeDF6?=
+ =?utf-8?B?MlRwYkVWKzBDSndKQVVzVkIrelRlOGtqeS9zbTlodm9IaGlFcm5WWFJ3RWp1?=
+ =?utf-8?B?R21tZFZaZElrSlR6NjVtMzF5RWhOTDJheVkzZ2o2NXpxWG9YbnZYZEhSaDdr?=
+ =?utf-8?B?N2RJOERwdjVoNm1SanNVd0VFS0ZMTHBueXVhTklHbHRxM3VrZjhUaDlxQ2o0?=
+ =?utf-8?B?UmFPNThQYnpkZFJYNnY5QmRZTjNCNko3RVdPYzZmWFUyQzZsdTRKL2hadjAw?=
+ =?utf-8?B?NlB1YkNGb1VWVTVGK2JoTDk1WmMxcjgzQ25GQ3J5WE4reUE2cTdHaGdBWndJ?=
+ =?utf-8?B?dit2dnlVc0xkajJoV1pDNE5UZnFkZGEzU285MWJOd1Vtb29hWkcycktwL3hw?=
+ =?utf-8?B?OTJydVY2c2xQK3dDNUlTRXdKTTVQQW9nY3NLeHRWS2FUMlpOUkp1OU9aQVQw?=
+ =?utf-8?Q?/BAvL/GvofqruGSa12lgquGMojxk=3D?=
+MIME-Version: 1.0
+
+--------------E1NptAJtqqXT8P3kWvCgmIUy
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Dear Joo-Hyun,
+
+Excellent. My office is S2.56. If you cannot access the higher floors of 
+AWB, please ask Reception to let you in, or call my office at +44 1865 
+611511.
+
+See you on Wednesday,
+Rafael
+
+On 14/11/2022 18:28, Joo-Hyun Kim wrote:
+> Dear Rafael,
+>
+> 2pm on W8 Wednesday would be perfect!
+>
+> Sincerely,
+> Joo-Hyun Kim
+> ------------------------------------------------------------------------
+> *From:* Dr Rafael Bailo <bailo@maths.ox.ac.uk>
+> *Sent:* Monday, November 14, 2022 5:55 PM
+> *To:* Joo-Hyun Kim <joo-hyun.kim@balliol.ox.ac.uk>
+> *Subject:* Re: Meeting for Dissertation (W7 or W8)
+> Dear Joo-Hyun,
+>
+> Thank you for your email. May I suggest 2pm on Wednesday week 8?
+>
+> I am attaching two references that you should begin to look at. The 
+> first one, a paper by Buck and Orloff, defines the "energy" of a 
+> curve. This is a nice short paper to read, hopefully it won't give you 
+> much trouble.
+>
+> The second one, by Yu, Schumacher, and Crane, will be the main focus 
+> of the project. You should start to look at this after the Buck and 
+> Orloff paper, and I don't expect you will be able to read everything 
+> in full detail before we meet. I recommend watching this short video 
+> by Crane <https://www.youtube.com/watch?v=-uXFYpVumh4> first, and then 
+> this talk by Yu <https://www.youtube.com/watch?v=uEVn2G6_HMU>, which 
+> gives a nice overview of the work. There is also a talk by Schumacher 
+> <https://www.youtube.com/watch?v=HLTBtXDZjvE> that you can watch.
+>
+> You will of course have questions and not necessarily understand all 
+> the technical details, and that's fine. If you have short questions 
+> (e.g. "what does this notation mean"), feel free to email; for longer 
+> questions, we can discuss in person when we meet.
+>
+> Best regards,
+> Rafael
+>
+>
+>
+> On 11/11/2022 15:57, Joo-Hyun Kim wrote:
+>> Dear Rafael,
+>>
+>>
+>> I am writing to you to schedule a meeting for the dissertation for 
+>> week 7 or week 8. I am wondering if any time on Wednesday would be 
+>> great, as I do not have any class or lecture on that day; if not, any 
+>> other day would be fine too.
+>> (I have been assigned "Untangling Knots Through Curve Repulsion" as 
+>> my dissertation topic.)
+>>
+>> Sincerely,
+>> Joo-Hyun Paul Kim
+>
+>
+> *Dr Rafael Bailo* (he/him)
+> ------------------------------------------------------------------------
+> Postdoctoral Research Associate
+> rafaelbailo.com <https://rafaelbailo.com/> – bailo@maths.ox.ac.uk 
+> <mailto:bailo@maths.ox.ac.uk>
+>
+> *University of Oxford*
+> Mathematical Institute, Andrew Wiles Building
+> Radcliffe Observatory Quarter, Woodstock Road
+> Oxford – OX2 6GG – United Kingdom
+>
+>
+
+*Dr Rafael Bailo* (he/him)
+------------------------------------------------------------------------
+Postdoctoral Research Associate
+rafaelbailo.com <https://rafaelbailo.com/> – bailo@maths.ox.ac.uk
+
+*University of Oxford*
+Mathematical Institute, Andrew Wiles Building
+Radcliffe Observatory Quarter, Woodstock Road
+Oxford – OX2 6GG – United Kingdom
+
+
+--------------E1NptAJtqqXT8P3kWvCgmIUy
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">Dear Joo-Hyun,</div>
+    <div class="moz-cite-prefix"><br>
+    </div>
+    <div class="moz-cite-prefix">Excellent. My office is S2.56. If you
+      cannot access the higher floors of AWB, please ask Reception to
+      let you in, or call my office at +44 1865 611511.</div>
+    <div class="moz-cite-prefix"><br>
+    </div>
+    <div class="moz-cite-prefix">See you on Wednesday,</div>
+    <div class="moz-cite-prefix">Rafael<br>
+    </div>
+    <div class="moz-cite-prefix"><br>
+    </div>
+    <div class="moz-cite-prefix">On 14/11/2022 18:28, Joo-Hyun Kim
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:CWLP265MB2052D8A7E31771A52547ED41BA059@CWLP265MB2052.GBRP265.PROD.OUTLOOK.COM">
+      
+      <style type="text/css" style="display:none;">P {margin-top:0;margin-bottom:0;}</style>
+      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255,
+        255, 255);" class="elementToProof">
+        Dear Rafael,</div>
+      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255,
+        255, 255);" class="elementToProof">
+        <br>
+      </div>
+      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255,
+        255, 255);" class="elementToProof">
+        2pm on W8 Wednesday would be perfect!</div>
+      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255,
+        255, 255);" class="elementToProof">
+        <br>
+      </div>
+      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255,
+        255, 255);" class="elementToProof">
+        Sincerely,</div>
+      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255,
+        255, 255);" class="elementToProof">
+        Joo-Hyun Kim<br>
+      </div>
+      <hr style="display:inline-block;width:98%" tabindex="-1">
+      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b> Dr
+          Rafael Bailo <a class="moz-txt-link-rfc2396E" href="mailto:bailo@maths.ox.ac.uk">&lt;bailo@maths.ox.ac.uk&gt;</a><br>
+          <b>Sent:</b> Monday, November 14, 2022 5:55 PM<br>
+          <b>To:</b> Joo-Hyun Kim <a class="moz-txt-link-rfc2396E" href="mailto:joo-hyun.kim@balliol.ox.ac.uk">&lt;joo-hyun.kim@balliol.ox.ac.uk&gt;</a><br>
+          <b>Subject:</b> Re: Meeting for Dissertation (W7 or W8)</font>
+        <div>&nbsp;</div>
+      </div>
+      <div>
+        <div class="x_moz-cite-prefix">Dear Joo-Hyun,</div>
+        <div class="x_moz-cite-prefix"><br>
+        </div>
+        <div class="x_moz-cite-prefix">Thank you for your email. May I
+          suggest 2pm on Wednesday week 8?</div>
+        <div class="x_moz-cite-prefix"><br>
+        </div>
+        <div class="x_moz-cite-prefix">I am attaching two references
+          that you should begin to look at. The first one, a paper by
+          Buck and Orloff, defines the &quot;energy&quot; of a curve. This is a
+          nice short paper to read, hopefully it won't give you much
+          trouble.</div>
+        <div class="x_moz-cite-prefix"><br>
+        </div>
+        <div class="x_moz-cite-prefix">The second one, by Yu,
+          Schumacher, and Crane, will be the main focus of the project.
+          You should start to look at this after the Buck and Orloff
+          paper, and I don't expect you will be able to read everything
+          in full detail before we meet. I recommend watching this <a href="https://www.youtube.com/watch?v=-uXFYpVumh4" moz-do-not-send="true">
+            short video by Crane</a> first, and then <a href="https://www.youtube.com/watch?v=uEVn2G6_HMU" moz-do-not-send="true">
+            this talk by Yu</a>, which gives a nice overview of the
+          work. There is also a <a href="https://www.youtube.com/watch?v=HLTBtXDZjvE" moz-do-not-send="true">
+            talk by Schumacher</a> that you can watch.</div>
+        <div class="x_moz-cite-prefix"><br>
+        </div>
+        <div class="x_moz-cite-prefix">You will of course have questions
+          and not necessarily understand all the technical details, and
+          that's fine. If you have short questions (e.g. &quot;what does this
+          notation mean&quot;), feel free to email; for longer questions, we
+          can discuss in person when we meet.</div>
+        <div class="x_moz-cite-prefix"><br>
+        </div>
+        <div class="x_moz-cite-prefix">Best regards,</div>
+        <div class="x_moz-cite-prefix">Rafael<br>
+        </div>
+        <div class="x_moz-cite-prefix"><br>
+        </div>
+        <div class="x_moz-cite-prefix"><br>
+        </div>
+        <div class="x_moz-cite-prefix"><br>
+        </div>
+        <div class="x_moz-cite-prefix">On 11/11/2022 15:57, Joo-Hyun Kim
+          wrote:<br>
+        </div>
+        <blockquote type="cite">
+          <style type="text/css" style="display:none">p
+	{margin-top:0;
+	margin-bottom:0}</style>
+          <div class="x_elementToProof" style="font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0);
+            background-color:rgb(255,255,255)">
+            Dear Rafael,</div>
+          <div class="x_elementToProof" style="font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0);
+            background-color:rgb(255,255,255)">
+            <br>
+          </div>
+          <div class="x_elementToProof" style="font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0);
+            background-color:rgb(255,255,255)">
+            <br>
+          </div>
+          <div class="x_elementToProof" style="font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0);
+            background-color:rgb(255,255,255)">
+            I am writing to you to schedule a meeting for the
+            dissertation for week 7 or week 8. I am wondering if any
+            time on Wednesday would be great, as I do not have any class
+            or lecture on that day; if not, any other day would be fine
+            too.<br>
+          </div>
+          <div class="x_elementToProof" style="font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0);
+            background-color:rgb(255,255,255)">
+            (I have been assigned &quot;<span data-mce-style="font-size:
+              11.0pt; font-family: 'Calibri',sans-serif;" style="font-size:11.0pt; font-family:'Calibri',sans-serif"></span><span data-mce-style="font-family: 'Calibri',sans-serif;
+              mso-no-proof: yes;" class="x_ContentPasted0" style="font-family:'Calibri',sans-serif">Untangling Knots
+              Through Curve Repulsion</span><span data-mce-style="font-size: 11.0pt; font-family:
+              'Calibri',sans-serif;" style="font-size:11.0pt;
+              font-family:'Calibri',sans-serif"></span>&quot; as my
+            dissertation topic.)</div>
+          <div class="x_elementToProof" style="font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0);
+            background-color:rgb(255,255,255)">
+            <br>
+          </div>
+          <div class="x_elementToProof" style="font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0);
+            background-color:rgb(255,255,255)">
+            Sincerely,</div>
+          <div class="x_elementToProof" style="font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0);
+            background-color:rgb(255,255,255)">
+            Joo-Hyun Paul Kim<br>
+          </div>
+        </blockquote>
+        <p><br>
+        </p>
+        <div class="x_moz-signature"><b>Dr Rafael Bailo</b> (he/him) <br>
+          <hr>
+          Postdoctoral Research Associate <br>
+          <a href="https://rafaelbailo.com/" moz-do-not-send="true">rafaelbailo.com</a>
+          – <a href="mailto:bailo@maths.ox.ac.uk" class="x_moz-txt-link-freetext moz-txt-link-freetext" moz-do-not-send="true">
+            bailo@maths.ox.ac.uk</a> <br>
+          <br>
+          <b>University of Oxford</b><br>
+          Mathematical Institute, Andrew Wiles Building<br>
+          Radcliffe Observatory Quarter, Woodstock Road<br>
+          Oxford – OX2 6GG – United Kingdom<br>
+          <br>
+          <br>
+        </div>
+      </div>
+    </blockquote>
+    <p><br>
+    </p>
+    <div class="moz-signature"><b>Dr Rafael Bailo</b> (he/him)
+      <br>
+      <hr>
+      Postdoctoral Research Associate
+      <br>
+      <a href="https://rafaelbailo.com/">rafaelbailo.com</a> – <a href="mailto:bailo@maths.ox.ac.uk" class="moz-txt-link-freetext">bailo@maths.ox.ac.uk</a>
+      <br>
+      <br>
+      <b>University of Oxford</b><br>
+      Mathematical Institute, Andrew Wiles Building<br>
+      Radcliffe Observatory Quarter, Woodstock Road<br>
+      Oxford – OX2 6GG – United Kingdom<br>
+      <br>
+      <br>
+    </div>
+  </body>
+</html>
+
+--------------E1NptAJtqqXT8P3kWvCgmIUy--
