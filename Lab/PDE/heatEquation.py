@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 # deltaT Time mesh size
 # deltaX Space mesh size
 # Dirichlet Boundary Conditions u_a = u(a), u_b = u(b)
+
+# This returns an array of u values at each time step and spacial position
 def heatEvolveExplicitEuler(a=-1,b=1,J=20,T=10,M=10000,u_a=0,u_b=0,u_initial = lambda x: 10):
     deltaT = T/M        # Time mesh size
     deltaX = (b-a) / J  # Space mesh size
