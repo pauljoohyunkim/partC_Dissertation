@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
-import numpy as np
+#import matplotlib.pyplot as plt
+#import numpy as np
 
 # Based on NSPDEs 5.5 Finite Difference Approximation of the Heat Equation
 # Parameters
@@ -12,7 +12,7 @@ import numpy as np
 # Dirichlet Boundary Conditions u_a = u(a), u_b = u(b)
 
 # This returns an array of u values at each time step and spacial position
-def heatEvolveExplicitEuler(a=-1,b=1,J=20,T=100,M=100000,u_a=0,u_b=0,u_initial = lambda x: 10):
+def heatEvolveExplicitEuler(a=-1,b=1,J=20,T=10000,M=10000000,u_a=0,u_b=0,u_initial = lambda x: 10):
     deltaT = T/M        # Time mesh size
     deltaX = (b-a) / J  # Space mesh size
     cfl = deltaT / (deltaX ** 2)            # Want this below 1/2
@@ -39,9 +39,9 @@ if __name__ == "__main__":
     u = heatEvolveExplicitEuler()
     deltaX = (b-a) / J  # Space mesh size
     
-    for m in range(0, M, 50):
-        plt.plot([a + j * deltaX for j in range(J+1)], u[m])
-    plt.show()
+#    for m in range(0, M, 50):
+        #plt.plot([a + j * deltaX for j in range(J+1)], u[m])
+    #plt.show()
 
     #print(u)
 
