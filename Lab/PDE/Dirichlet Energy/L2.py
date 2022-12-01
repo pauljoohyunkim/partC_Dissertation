@@ -1,4 +1,4 @@
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 #import numpy as np
 
 # Based on NSPDEs 5.5 Finite Difference Approximation of the Heat Equation
@@ -39,9 +39,9 @@ if __name__ == "__main__":
     u = heatEvolveExplicitEuler()
     deltaX = (b-a) / J  # Space mesh size
     
-#    for m in range(0, M, 50):
-        #plt.plot([a + j * deltaX for j in range(J+1)], u[m])
-    #plt.show()
+    for m in range(0, M, 50):
+        plt.plot([a + j * deltaX for j in range(J+1)], u[m])
+    plt.show()
 
     #print(u)
 
