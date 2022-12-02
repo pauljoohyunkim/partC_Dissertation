@@ -25,6 +25,7 @@
 
 \begin{document}
 \maketitle
+\section{Relevant Definitions}
 \begin{definition}[Gradient Flow]
     Given an energy (functional) $\mathcal{E}(f)$, \emph{gradient flow} is:
     \begin{equation}
@@ -124,6 +125,25 @@ The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
 \begin{equation}
     \frac{d}{dt}f = - \Delta^2 f
     \label{equ: H-1 Gradient Flow}
+\end{equation}
+
+\subsection{Gradient Flow in $H^2$}
+We may express the differential (\ref{equ: Dirichlet Differential}) as
+\begin{align}
+    d \mathcal{E}_D|_f (u) &= - \llangle \Delta f, u \rrangle_{L^2} \\
+    &= -\llangle f, \Delta u \rrangle_{L^{2}} \\
+    &= -\llangle \Delta^{-1} f, u \rrangle_{H^2}
+    \label{equ: Gradient H2 Derivation}
+\end{align}
+So by (\ref{equ: Gradient}), the gradient in $H^2$ can be written as
+\begin{equation}
+    \grad \mathcal{E}_{H^2} = - \Delta^{-1} f
+    \label{equ: H2 Gradient}
+\end{equation}
+The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
+\begin{equation}
+    \frac{d}{dt}f = \Delta^{-1} f
+    \label{equ: H2 Gradient Flow}
 \end{equation}
 
 \end{document}
