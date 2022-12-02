@@ -1,0 +1,76 @@
+%        File: Dirichlet Energy.tex
+%     Created: Fri Dec 02 07:00 PM 2022 G
+% Last Change: Fri Dec 02 07:00 PM 2022 G
+%
+\documentclass[a4paper]{article}
+\usepackage[]{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+
+
+\newcommand{\llangle}{\langle \langle}
+\newcommand{\rrangle}{\rangle \rangle}
+\newcommand{\dx}{\, \text{d} x}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\DeclareMathOperator{\grad}{grad}
+
+\title{Dirichlet Energy in Different Spaces}
+\author{ }
+
+\begin{document}
+\maketitle
+\begin{definition}[Gradient Flow]
+    Given an energy (functional) $\mathcal{E}(f)$, \emph{gradient flow} is:
+    \begin{equation}
+        \frac{d}{dt}f = - \grad \mathcal{E}(f)
+        \label{equ: Gradient Flow}
+    \end{equation}
+\end{definition}
+
+\begin{definition}[Differential]
+    \emph{Differential} $d\mathcal{E}$ describes change in $\mathcal{E}$ due to\footnote{analogous in traditional vector space would be ``in the direction of'' $u$} $u$:
+    \begin{equation}
+        d \mathcal{E}|_f(u) = \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \mathcal{E}(f+\epsilon u) - \mathcal{E}(f) \right)
+        \label{equ: Differential}
+    \end{equation}
+\end{definition}
+
+\begin{definition}
+    \emph{Gradient} of $\mathcal{E}$ is the unique function $\grad \mathcal{E}$ such that,
+    \begin{equation}
+        \llangle \grad \mathcal{E}, u \rrangle_V = d \mathcal{E}(u)
+        \label{equ: Gradient}
+    \end{equation}
+\end{definition}
+
+\section{Dirichlet Energy Example}
+
+\begin{definition}[Dirichlet Energy]
+    Dirichlet Energy is defined as:
+    \begin{equation}
+        \mathcal{E}_D(f) \coloneqq \frac{1}{2} \int_{\Omega} |\grad f(x)|^2 \dx
+        = \frac{1}{2} \llangle \nabla f, \nabla f \rrangle_{L^2}
+        = -\frac{1}{2} \llangle \Delta f, f \rrangle_{L^2}
+        \label{equ: Dirichlet Energy}
+    \end{equation}
+\end{definition}
+
+Computing the differential $d \mathcal{E}_D|_f (u)$ of Dirichlet Energy using (\ref{equ: Differential}),
+\begin{align}
+    d \mathcal{E}_D|_f(u) &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \llangle \Delta (f+\epsilon u), f + \epsilon u \rrangle_{L^2} - \llangle \Delta f, f \rrangle_{L^2} \right) \\
+    &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \epsilon \llangle \Delta f, u \rrangle_{L^2} + \epsilon \llangle \Delta u, f \rrangle_{L^2} + \epsilon^2 \llangle u, u \rrangle_{L^2} \right) \\
+    &= -\frac{1}{2} (\llangle \Delta f,u \rrangle_{L^2} + \llangle \Delta u, f \rrangle_{L^2}) \\
+    &= -\frac{1}{2} (\llangle \Delta f,u \rrangle_{L^2} + \llangle \Delta f, u \rrangle_{L^2}) \\
+    &= -\llangle \Delta f, u \rrangle_{L^2}
+\end{align}
+
+
+\end{document}
+
+
