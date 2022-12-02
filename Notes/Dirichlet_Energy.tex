@@ -41,7 +41,7 @@
     \end{equation}
 \end{definition}
 
-\begin{definition}
+\begin{definition}[Gradient]
     \emph{Gradient} of $\mathcal{E}$ is the unique function $\grad \mathcal{E}$ such that,
     \begin{equation}
         \llangle \grad \mathcal{E}, u \rrangle_V = d \mathcal{E}(u)
@@ -61,16 +61,51 @@
     \end{equation}
 \end{definition}
 
-Computing the differential $d \mathcal{E}_D|_f (u)$ of Dirichlet Energy using (\ref{equ: Differential}),
+Computing the differential $d \mathcal{E}_D|_f (u)$ of Dirichlet energy using (\ref{equ: Differential}),
 \begin{align}
     d \mathcal{E}_D|_f(u) &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \llangle \Delta (f+\epsilon u), f + \epsilon u \rrangle_{L^2} - \llangle \Delta f, f \rrangle_{L^2} \right) \\
     &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \epsilon \llangle \Delta f, u \rrangle_{L^2} + \epsilon \llangle \Delta u, f \rrangle_{L^2} + \epsilon^2 \llangle u, u \rrangle_{L^2} \right) \\
     &= -\frac{1}{2} (\llangle \Delta f,u \rrangle_{L^2} + \llangle \Delta u, f \rrangle_{L^2}) \\
     &= -\frac{1}{2} (\llangle \Delta f,u \rrangle_{L^2} + \llangle \Delta f, u \rrangle_{L^2}) \\
     &= -\llangle \Delta f, u \rrangle_{L^2}
+    \label{equ: Dirichlet Differential}
 \end{align}
 
+\subsection{Gradient Flow in $L^2$}
+By (\ref{equ: Gradient}), we may spot from (\ref{equ: Dirichlet Differential}) that the gradient can be written as
+\begin{equation}
+    \grad \mathcal{E}_{L^2} = - \Delta f
+    \label{equ: L2 Gradient}
+\end{equation}
+Hence, the gradient flow equation (\ref{equ: Gradient Flow}) can be written as:
+\begin{equation}
+    \frac{d}{dt} f = \Delta f
+    \label{equ: L2 Gradient Flow}
+\end{equation}
+which is the heat equation.
 
+
+\subsection{Gradient Flow in $H^1$}
+We may express the differential (\ref{equ: Dirichlet Differential}) as
+\begin{align}
+    d \mathcal{E}_D|_f (u) &= - \llangle \Delta f, u \rrangle_{L^2} \\
+    &= \llangle \nabla f, \nabla u \rrangle_{L^2} \\
+    &= \llangle f, u \rrangle_{H^1}
+    \label{equ: Gradient H1 Derivation}
+\end{align}
+So by (\ref{equ: Gradient}), the gradient in $H^1$ can be written as
+\begin{equation}
+    \grad \mathcal{E}_{H^1} = f
+    \label{equ: H1 Gradient}
+\end{equation}
+The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
+\begin{equation}
+    \frac{d}{dt}f = -f
+    \label{equ: H1 Gradient Flow}
+\end{equation}
+which describes exponential decay.
+
+\subsection{Gradient Flow in $H^{-1}$}
 \end{document}
 
 
