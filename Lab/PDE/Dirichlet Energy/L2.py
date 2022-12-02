@@ -37,18 +37,16 @@ if __name__ == "__main__":
     T = 10000              # Final time (in second)
     M = 10000000           # Final time step
     u_initial = lambda x : -10 * (x-a)*(x-b)
-    u = heatEvolveExplicitEuler(u_initial = u_initial)
+    u = heatEvolveExplicitEuler(a, b, J, T, M, u_a = 0, u_b = 0, u_initial = u_initial)
     deltaX = (b-a) / J  # Space mesh size
     
-    '''
     plt.rcParams['text.usetex'] = True
 
     for m in range(0, M, 50):
         plt.plot([a + j * deltaX for j in range(J+1)], u[m])
-    plt.title(r"$u_{tt} = \Delta u$ in $(x,t) \in \left[" + f", ({a},{b}), (0,{T})" + r"\right]$")
+    plt.title(r"$u_{tt} = \Delta u$ in $(x,t) \in \left[" + f"({a},{b}), (0,{T})" + r"\right]$")
     plt.suptitle(f"{J + 1} spacial mesh points, {M+1} time mesh points, {J * (M+1)} points overall")
     plt.show()
-    '''
 
     #print(u)
 
