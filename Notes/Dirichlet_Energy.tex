@@ -106,6 +106,26 @@ The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
 which describes exponential decay.
 
 \subsection{Gradient Flow in $H^{-1}$}
+We may express the differential (\ref{equ: Dirichlet Differential}) as
+\begin{align}
+    d \mathcal{E}_D|_f (u) &= - \llangle \Delta f, u \rrangle_{L^2} \\
+    &= \llangle \nabla f, \nabla u \rrangle_{L^2} \\
+    &= \llangle \nabla^3 f, \nabla^{-1} u \rrangle_{L_2} \\
+    &= \llangle \Delta f, \Delta^{-1} u \rrangle_{H^1} \\
+    &= \llangle \Delta^2 f, u \rrangle_{H^{-1}}
+    \label{equ: Gradient H-1 Derivation}
+\end{align}
+So by (\ref{equ: Gradient}), the gradient in $H^{-1}$ can be written as
+\begin{equation}
+    \grad \mathcal{E}_{H^{-1}} = \Delta^2 f
+    \label{equ: H-1 Gradient}
+\end{equation}
+The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
+\begin{equation}
+    \frac{d}{dt}f = - \Delta^2 f
+    \label{equ: H-1 Gradient Flow}
+\end{equation}
+
 \end{document}
 
 
