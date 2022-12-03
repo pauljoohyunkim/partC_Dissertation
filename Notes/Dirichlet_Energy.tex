@@ -153,43 +153,51 @@ The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
 \section{Appendix}
 \subsection{A (Somewhat) Careful Justification for IBP}
 \label{sct: IBP Justification}
-Suppose we are concerned with the integral $I \coloneqq \llangle \Delta u, f \rrangle_{L^2} = \int_{\mathbb{R}^n} (\Delta u)f \dxx$.
-We may assume that $u$ and $f$ decays sufficiently fast for the integral to be defined.
+Suppose we are concerned with the integral $I \coloneqq \llangle \Delta u, f \rrangle_{L^2} = \int_{R} (\Delta u)f \dxx$, where $R$ is a bounded region with boundary $\partial R$.
+%We may assume that $u$ and $f$ decays sufficiently fast for the integral to be defined.
 
-\subsubsection{IBP (on Laplacian Operator)}
-Note the vector calculus identity\footnote{Sometimes known as \emph{Green's identity}}:
-\begin{equation}
-    \psi \nabla^2 \phi - \phi \nabla^2 \psi = \nabla \cdot \left( \psi \nabla \phi - \phi \nabla \psi \right)
-    \label{equ: Green's Identity}
-\end{equation}
-
-Now, we can think of $I$ as an integral $I_R$ over a spherical region of radius $R$, and taking the radius $R$ to be infinite,
-that is $I_R \stackrel{R \rightarrow \infty}{\longrightarrow} I$.
-
-We use (\ref{equ: Green's Identity}), taking $\phi = u$, $\psi = f$, to shift the Laplacian:
-\begin{align}
-    I_R &= \int_{V_R} (\nabla^2 u) f \dxx \\
-    &= \int_{V_R} u \nabla^2 f \dxx + \int_{V_R} \nabla \cdot \left( f \nabla u - u \nabla f \right) \dxx \\
-    &= \int_{V_R} u \nabla^2 f \dxx + \int_{\partial V_R} \left( f \nabla u - u \nabla f \right) \cdot \, \text{d} \mathbf{S} \\
-    &\stackrel{R \rightarrow \infty}{\longrightarrow}
-    \int_{\mathbb{R}^n} u \nabla^2 f \dxx \\
-    &= \llangle u, \Delta f \rrangle_{L^2}
-    \label{equ: Sufficient Decay on Boundary}
-\end{align}
-where (\ref{equ: Sufficient Decay on Boundary}) is from assuming sufficiently fast decay of $f$ and $u$ at infinity.
-The limit quantity should equal $I$.
+%\subsubsection{IBP (on Laplacian Operator)}
+%Note the vector calculus identity\footnote{Sometimes known as \emph{Green's identity}}:
+%\begin{equation}
+%    \psi \nabla^2 \phi - \phi \nabla^2 \psi = \nabla \cdot \left( \psi \nabla \phi - \phi \nabla \psi \right)
+%    \label{equ: Green's Identity}
+%\end{equation}
+%
+%Now, we can think of $I$ as an integral $I_R$ over a spherical region of radius $R$, and taking the radius $R$ to be infinite,
+%that is $I_R \stackrel{R \rightarrow \infty}{\longrightarrow} I$.
+%
+%We use (\ref{equ: Green's Identity}), taking $\phi = u$, $\psi = f$, to shift the Laplacian:
+%\begin{align}
+%    I_R &= \int_{V_R} (\nabla^2 u) f \dxx \\
+%    &= \int_{V_R} u \nabla^2 f \dxx + \int_{V_R} \nabla \cdot \left( f \nabla u - u \nabla f \right) \dxx \\
+%    &= \int_{V_R} u \nabla^2 f \dxx + \int_{\partial V_R} \left( f \nabla u - u \nabla f \right) \cdot \, \text{d} \mathbf{S} \\
+%    &\stackrel{R \rightarrow \infty}{\longrightarrow}
+%    \int_{\mathbb{R}^n} u \nabla^2 f \dxx \\
+%    &= \llangle u, \Delta f \rrangle_{L^2}
+%    \label{equ: Sufficient Decay on Boundary}
+%\end{align}
+%where (\ref{equ: Sufficient Decay on Boundary}) is from assuming sufficiently fast decay of $f$ and $u$ at infinity.
+%The limit quantity should equal $I$.
 
 \subsubsection{IBP (on Gradient Operator)}
 One could show that 
 \begin{equation}
-    \llangle \Delta u, f \rrangle = - \llangle \nabla u, \nabla f \rrangle = \int \nabla u \cdot \nabla f \dxx
+    \llangle \Delta u, f \rrangle_{L^2} = - \llangle \nabla u, \nabla f \rrangle_{L^2} = - \int_{R} \nabla u \cdot \nabla f \dxx
     \label{equ: IBP Gradient}
 \end{equation}
-using a similar strategy, but by a different identity\footnote{This is also known as Green's Identity in some literature}:
+using the identity\footnote{This is also known as Green's Identity in some literature}:
 \begin{equation}
 \nabla \cdot \left( \phi \nabla \psi \right) = \phi \nabla^2 \psi + \nabla \phi \cdot \nabla \psi
     \label{equ: Green's Identity II}
 \end{equation}
+
+Note that
+\begin{align}
+    \llangle \Delta u, f \rrangle_{L^2} &= - \int_R \nabla u \cdot \nabla f \dxx \\
+    &= \int_R \nabla \cdot \left( f \nabla u \right) \dxx - \int_R \nabla u \cdot \nabla f \dxx \\
+    &= \oint_{\partial R} f \frac{du}{dn} \, \text{d} s - \int_R \nabla u \cdot \nabla f \dxx
+\end{align}
+(Need the first term of last line to be zero\dots)
 
 
 \end{document}
