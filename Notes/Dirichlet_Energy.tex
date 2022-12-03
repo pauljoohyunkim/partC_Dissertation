@@ -199,10 +199,26 @@ we may write down explicit Euler scheme:
     \frac{1}{\Delta t}\left( \frac{f_{j+1}^{m+1} - 2f_j^{m+1} + f_{j-1}^{m+1}}{\left( \Delta x \right)^2} - \frac{f_{j+1}^{m} - 2f_j^{m} + f_{j-1}^{m}}{\left( \Delta x \right)^2} \right) = f_j^m
     \label{equ: H-1 Numeric}
 \end{equation}
-%which can be rewritten as
-%\begin{equation}
-%    f_j^{m+1} = f_j^m - (\Delta t)f_j^m
-%\end{equation}
+which can be rewritten as
+\begin{equation}
+    \begin{pmatrix}
+        1 & -2 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        f_{j-1}^{m+1} \\
+        f_{j}^{m+1} \\
+        f_{j+1}^{m+1}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 & -2 + \Delta t (\Delta x)^2 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        f_{j-1}^{m} \\
+        f_{j}^{m} \\
+        f_{j+1}^{m}
+    \end{pmatrix}
+\end{equation}
 This method has consistency error
 \begin{equation}
     T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + (\Delta t)^2 \right)
