@@ -223,16 +223,14 @@ Assuming Dirichlet boundary condition $f_0^m = a$ and $f_J^m = b$,
 we may write this as a matrix equation:
 \begin{align*}
     &\begin{pmatrix}
-        1 \\
+        -2 & 1 \\
         1 & -2 & 1 \\
         & 1 & -2 & 1 \\
-        & & 1 & -2 & 1 \\
         \vdots \\
         & & & & & 1 & -2 & 1 \\
-        & & & & & & & 1
+        & & & & & & 1 & -2
     \end{pmatrix}
     \begin{pmatrix}
-        a \\
         f_1 \\
         f_2 \\
         f_3 \\
@@ -240,22 +238,19 @@ we may write this as a matrix equation:
         f_{J-4} \\
         f_{J-3} \\
         f_{J-2} \\
-        f_{J-1} \\
-        b
+        f_{J-1}
     \end{pmatrix}^{m+1}
     \\
     &=
     \begin{pmatrix}
-        1 \\
-        1 & -2 + \Delta t (\Delta x)^2 & 1 \\
-        & 1 & -2 + \Delta t (\Delta x)^2  & 1 \\
-        & & 1 & -2 + \Delta t (\Delta x)^2 & 1 \\
+        -2 + \Delta t (\Delta x)^2 & 1 \\
+        1 & -2 + \Delta t (\Delta x)^2  & 1 \\
+        & 1 & -2 + \Delta t (\Delta x)^2 & 1 \\
         \vdots \\
         & & & & & 1 & -2 + \Delta t (\Delta x)^2 & 1 \\
-        & & & & & & & 1
+        & & & & & & 1 & -2
     \end{pmatrix}
     \begin{pmatrix}
-        a \\
         f_1 \\
         f_2 \\
         f_3 \\
@@ -263,8 +258,7 @@ we may write this as a matrix equation:
         f_{J-4} \\
         f_{J-3} \\
         f_{J-2} \\
-        f_{J-1} \\
-        b
+        f_{J-1}
     \end{pmatrix}^{m}
 \end{align*}
 This method has consistency error
