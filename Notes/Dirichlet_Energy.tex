@@ -219,6 +219,54 @@ which can be rewritten as
         f_{j+1}^{m}
     \end{pmatrix}
 \end{equation}
+Assuming Dirichlet boundary condition $f_0^m = a$ and $f_J^m = b$,
+we may write this as a matrix equation:
+\begin{align*}
+    &\begin{pmatrix}
+        1 \\
+        1 & -2 & 1 \\
+        & 1 & -2 & 1 \\
+        & & 1 & -2 & 1 \\
+        \vdots \\
+        & & & & & 1 & -2 & 1 \\
+        & & & & & & & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        a \\
+        f_1 \\
+        f_2 \\
+        f_3 \\
+        \vdots \\
+        f_{J-4} \\
+        f_{J-3} \\
+        f_{J-2} \\
+        f_{J-1} \\
+        b
+    \end{pmatrix}^{m+1}
+    \\
+    &=
+    \begin{pmatrix}
+        1 \\
+        1 & -2 + \Delta t (\Delta x)^2 & 1 \\
+        & 1 & -2 + \Delta t (\Delta x)^2  & 1 \\
+        & & 1 & -2 + \Delta t (\Delta x)^2 & 1 \\
+        \vdots \\
+        & & & & & 1 & -2 + \Delta t (\Delta x)^2 & 1 \\
+        & & & & & & & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        a \\
+        f_1 \\
+        f_2 \\
+        f_3 \\
+        \vdots \\
+        f_{J-4} \\
+        f_{J-3} \\
+        f_{J-2} \\
+        f_{J-1} \\
+        b
+    \end{pmatrix}^{m}
+\end{align*}
 This method has consistency error
 \begin{equation}
     T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + (\Delta t)^2 \right)
