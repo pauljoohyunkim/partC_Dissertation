@@ -150,7 +150,7 @@ The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
 
 
 \section{Numerically Solving Gradient Flow Equations}
-\subsection{Gradient Flow in $L^2$, $H^1$}
+\subsection{Gradient Flow in $L^2$}
 For $L^2$, given the gradient flow equation (\ref{equ: L2 Gradient Flow}),
 we may write down explicit Euler scheme:
 \begin{equation}
@@ -162,8 +162,6 @@ which can be rewritten as
     f_{j}^{m+1} = f_j^m + \mu \left( f_{j+1}^m - 2 f_{j}^m + f_{j-1}^m \right)
 \end{equation}
 where $\mu \coloneqq \frac{\Delta t}{(\Delta x)^2}$ is called the \emph{CFL number}.
-
-Similar construction can be done for $H^1$.
 
 This method is known to have consistency error
 \begin{equation}
@@ -183,21 +181,23 @@ which can be rewritten as
     f_j^{m+1} = f_j^m - (\Delta t)f_j^m
 \end{equation}
 
-%This method is known to have consistency error
-%\begin{equation}
-%    T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + \Delta t \right)
-%    \label{H1 Consistency Error}
-%\end{equation}
-
 \subsection{Gradient Flow in $H^{-1}$}
-Given the gradient flow equation (\ref{equ: H-1 Gradient Flow}), it can be rewritten as
+Given the gradient flow equation (\ref{equ: H-1 Gradient Flow}),
+we may write down explicit Euler scheme:
+\begin{equation}
+    \frac{f_j^{m+1} - f_j^m}{\Delta t} = -\frac{f_{j+2}^m - 4 f_{j+1}^m + 6 f_j^m - 4 f_{j-1}^m + f_{j-2}^m}{(\Delta x)^4}
+    \label{equ: H-1 Numeric}
+\end{equation}
+
+\subsection{Gradient Flow in $H^2$}
+Given the gradient flow equation (\ref{equ: H2 Gradient Flow}), it can be rewritten as
 \begin{equation}
     \frac{d}{dt} \Delta f = f
 \end{equation}
 we may write down explicit Euler scheme:
 \begin{equation}
     \frac{1}{\Delta t}\left( \frac{f_{j+1}^{m+1} - 2f_j^{m+1} + f_{j-1}^{m+1}}{\left( \Delta x \right)^2} - \frac{f_{j+1}^{m} - 2f_j^{m} + f_{j-1}^{m}}{\left( \Delta x \right)^2} \right) = f_j^m
-    \label{equ: H-1 Numeric}
+    \label{equ: H2 Numeric}
 \end{equation}
 which can be rewritten as
 \begin{equation}
@@ -264,7 +264,7 @@ we may write this as a matrix equation:
 This method has consistency error
 \begin{equation}
     T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + (\Delta t)^2 \right)
-    \label{H1 Consistency Error}
+    \label{H2 Consistency Error}
 \end{equation}
 
 
