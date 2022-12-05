@@ -261,6 +261,29 @@ we may write this as a matrix equation:
         f_{J-1}
     \end{pmatrix}^{m}
 \end{align*}
+It might be worth noting that
+\begin{equation}
+    \underbrace{
+    \begin{pmatrix}
+        -2 & 1 & 0 & 0 & \cdots & 0 \\
+        1 & -2 & 1 & 0 & \cdots & 0 \\
+        0 & 1 & -2 & 1 & \cdots & 0 \\
+        \vdots & \vdots & \vdots & \vdots & & \vdots \\
+        0 & 0 & \cdots & 1 & -2 & 1 \\
+        0 & 0 & \cdots & 0 & 1 & -2
+    \end{pmatrix}^{-1}
+}_{n \times n}
+= -\frac{1}{n+1}
+\underbrace{
+\begin{pmatrix}
+    n & (n-1) & (n-2) & \cdots & 1 \\
+    (n-1) & 2(n-1) & 2(n-2) & \cdots & 2 \\
+    (n-2) & 2(n-2) & 3(n-2) & \cdots & 3 \\
+    \vdots & \vdots & \vdots & \cdots & \vdots \\
+    1 & 2 & 3 & \cdots & n
+\end{pmatrix}
+}_{\text{Symmetric Matrix}}
+\end{equation}
 This method has consistency error
 \begin{equation}
     T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + (\Delta t)^2 \right)
