@@ -263,6 +263,7 @@ we may write this as a matrix equation:
 \end{align*}
 It might be worth noting that
 \begin{equation}
+    A_n \coloneqq
     \underbrace{
     \begin{pmatrix}
         -2 & 1 & 0 & 0 & \cdots & 0 \\
@@ -284,6 +285,16 @@ It might be worth noting that
 \end{pmatrix}
 }_{\text{Symmetric Matrix}}
 \end{equation}
+A (potentially) useful fact about this matrix is that the characteristic equation can be written recursively.
+\begin{equation}
+    \begin{cases}
+        |A_n - \lambda I|\eqqcolon J_n = -\delta J_{n-1} - J_{n-2} \\
+        J_1 = -\delta \\
+        J_{2} = \delta^2 - 1
+    \end{cases}
+\end{equation}
+where $\delta \coloneqq \lambda + 2$.
+
 This method has consistency error
 \begin{equation}
     T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + (\Delta t)^2 \right)
