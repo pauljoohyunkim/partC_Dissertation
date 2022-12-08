@@ -10,8 +10,6 @@
 
 
 
-\newcommand{\llangle}{\langle \langle}
-\newcommand{\rrangle}{\rangle \rangle}
 \newcommand{\dx}{\, \text{d} x}
 \newcommand{\dxx}{\, \text{d} \mathbf{x}}
 
@@ -44,9 +42,9 @@
 \end{definition}
 
 \begin{definition}[Gradient]
-    \emph{Gradient} of $\mathcal{E}$ is the unique function $\grad \mathcal{E}$ such that,
+    Given a space $X$, \emph{gradient} of $\mathcal{E}$ is the unique function $\grad_X \mathcal{E}$ such that,
     \begin{equation}
-        \llangle \grad \mathcal{E}, u \rrangle_V = d \mathcal{E}(u)
+        \langle \grad_X \mathcal{E}, u \rangle_V = d \mathcal{E}(u) \hspace{1cm} \forall u \in X
         \label{equ: Gradient}
     \end{equation}
 \end{definition}
@@ -57,19 +55,19 @@
     Dirichlet Energy is defined as:
     \begin{equation}
         \mathcal{E}_D(f) \coloneqq \frac{1}{2} \int_{\Omega} |\grad f(x)|^2 \dx
-        = \frac{1}{2} \llangle \nabla f, \nabla f \rrangle_{L^2}
-        = -\frac{1}{2} \llangle \Delta f, f \rrangle_{L^2}
+        = \frac{1}{2} \langle \nabla f, \nabla f \rangle_{L^2}
+        = -\frac{1}{2} \langle \Delta f, f \rangle_{L^2}
         \label{equ: Dirichlet Energy}
     \end{equation}
 \end{definition}
 
 Computing the differential $d \mathcal{E}_D|_f (u)$ of Dirichlet energy using (\ref{equ: Differential}),
 \begin{align}
-    d \mathcal{E}_D|_f(u) &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \llangle \Delta (f+\epsilon u), f + \epsilon u \rrangle_{L^2} - \llangle \Delta f, f \rrangle_{L^2} \right) \\
-    &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \epsilon \llangle \Delta f, u \rrangle_{L^2} + \epsilon \llangle \Delta u, f \rrangle_{L^2} + \epsilon^2 \llangle u, u \rrangle_{L^2} \right) \\
-    &= -\frac{1}{2} (\llangle \Delta f,u \rrangle_{L^2} + \llangle \Delta u, f \rrangle_{L^2}) \\
-    &= -\frac{1}{2} (\llangle \Delta f,u \rrangle_{L^2} + \llangle \Delta f, u \rrangle_{L^2}) \\
-    &= -\llangle \Delta f, u \rrangle_{L^2}
+    d \mathcal{E}_D|_f(u) &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \langle \Delta (f+\epsilon u), f + \epsilon u \rangle_{L^2} - \langle \Delta f, f \rangle_{L^2} \right) \\
+    &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \epsilon \langle \Delta f, u \rangle_{L^2} + \epsilon \langle \Delta u, f \rangle_{L^2} + \epsilon^2 \langle u, u \rangle_{L^2} \right) \\
+    &= -\frac{1}{2} (\langle \Delta f,u \rangle_{L^2} + \langle \Delta u, f \rangle_{L^2}) \\
+    &= -\frac{1}{2} (\langle \Delta f,u \rangle_{L^2} + \langle \Delta f, u \rangle_{L^2}) \\
+    &= -\langle \Delta f, u \rangle_{L^2}
     \label{equ: Dirichlet Differential}
 \end{align}
 where the last step is by integration by parts (twice)\footnote{This trick will be used all over the place when constructing gradients. See \ref{sct: IBP Justification} in the Appendix}.
@@ -91,9 +89,9 @@ which is the heat equation.
 \subsection{Gradient Flow in $H^1$}
 We may express the differential (\ref{equ: Dirichlet Differential}) as
 \begin{align}
-    d \mathcal{E}_D|_f (u) &= - \llangle \Delta f, u \rrangle_{L^2} \\
-    &= \llangle \nabla f, \nabla u \rrangle_{L^2} \\
-    &= \llangle f, u \rrangle_{H^1}
+    d \mathcal{E}_D|_f (u) &= - \langle \Delta f, u \rangle_{L^2} \\
+    &= \langle \nabla f, \nabla u \rangle_{L^2} \\
+    &= \langle f, u \rangle_{H^1}
     \label{equ: Gradient H1 Derivation}
 \end{align}
 So by (\ref{equ: Gradient}), the gradient in $H^1$ can be written as
@@ -111,11 +109,11 @@ which describes exponential decay.
 \subsection{Gradient Flow in $H^{-1}$}
 We may express the differential (\ref{equ: Dirichlet Differential}) as
 \begin{align}
-    d \mathcal{E}_D|_f (u) &= - \llangle \Delta f, u \rrangle_{L^2} \\
-    &= \llangle \nabla f, \nabla u \rrangle_{L^2} \\
-    &= \llangle \nabla^3 f, \nabla^{-1} u \rrangle_{L_2} \\
-    &= \llangle \Delta f, \Delta^{-1} u \rrangle_{H^1} \\
-    &= \llangle \Delta^2 f, u \rrangle_{H^{-1}}
+    d \mathcal{E}_D|_f (u) &= - \langle \Delta f, u \rangle_{L^2} \\
+    &= \langle \nabla f, \nabla u \rangle_{L^2} \\
+    &= \langle \nabla^3 f, \nabla^{-1} u \rangle_{L_2} \\
+    &= \langle \Delta f, \Delta^{-1} u \rangle_{H^1} \\
+    &= \langle \Delta^2 f, u \rangle_{H^{-1}}
     \label{equ: Gradient H-1 Derivation}
 \end{align}
 So by (\ref{equ: Gradient}), the gradient in $H^{-1}$ can be written as
@@ -132,9 +130,9 @@ The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
 \subsection{Gradient Flow in $H^2$}
 We may express the differential (\ref{equ: Dirichlet Differential}) as
 \begin{align}
-    d \mathcal{E}_D|_f (u) &= - \llangle \Delta f, u \rrangle_{L^2} \\
-    &= -\llangle f, \Delta u \rrangle_{L^{2}} \\
-    &= -\llangle \Delta^{-1} f, u \rrangle_{H^2}
+    d \mathcal{E}_D|_f (u) &= - \langle \Delta f, u \rangle_{L^2} \\
+    &= -\langle f, \Delta u \rangle_{L^{2}} \\
+    &= -\langle \Delta^{-1} f, u \rangle_{H^2}
     \label{equ: Gradient H2 Derivation}
 \end{align}
 So by (\ref{equ: Gradient}), the gradient in $H^2$ can be written as
@@ -306,7 +304,7 @@ This method has consistency error
 \section{Appendix}
 \subsection{A (Somewhat) Careful Justification for IBP}
 \label{sct: IBP Justification}
-Suppose we are concerned with the integral $I \coloneqq \llangle \Delta u, f \rrangle_{L^2} = \int_{R} (\Delta u)f \dxx$, where $R$ is a bounded region with boundary $\partial R$.
+Suppose we are concerned with the integral $I \coloneqq \langle \Delta u, f \rangle_{L^2} = \int_{R} (\Delta u)f \dxx$, where $R$ is a bounded region with boundary $\partial R$.
 %We may assume that $u$ and $f$ decays sufficiently fast for the integral to be defined.
 
 %\subsubsection{IBP (on Laplacian Operator)}
@@ -326,7 +324,7 @@ Suppose we are concerned with the integral $I \coloneqq \llangle \Delta u, f \rr
 %    &= \int_{V_R} u \nabla^2 f \dxx + \int_{\partial V_R} \left( f \nabla u - u \nabla f \right) \cdot \, \text{d} \mathbf{S} \\
 %    &\stackrel{R \rightarrow \infty}{\longrightarrow}
 %    \int_{\mathbb{R}^n} u \nabla^2 f \dxx \\
-%    &= \llangle u, \Delta f \rrangle_{L^2}
+%    &= \langle u, \Delta f \rangle_{L^2}
 %    \label{equ: Sufficient Decay on Boundary}
 %\end{align}
 %where (\ref{equ: Sufficient Decay on Boundary}) is from assuming sufficiently fast decay of $f$ and $u$ at infinity.
@@ -335,7 +333,7 @@ Suppose we are concerned with the integral $I \coloneqq \llangle \Delta u, f \rr
 \subsubsection{IBP (on Gradient Operator)}
 One could show that 
 \begin{equation}
-    \llangle \Delta u, f \rrangle_{L^2} = - \llangle \nabla u, \nabla f \rrangle_{L^2} = - \int_{R} \nabla u \cdot \nabla f \dxx
+    \langle \Delta u, f \rangle_{L^2} = - \langle \nabla u, \nabla f \rangle_{L^2} = - \int_{R} \nabla u \cdot \nabla f \dxx
     \label{equ: IBP Gradient}
 \end{equation}
 using the identity\footnote{This is also known as Green's Identity in some literature}:
@@ -346,7 +344,7 @@ using the identity\footnote{This is also known as Green's Identity in some liter
 
 Note that
 \begin{align}
-    \llangle \Delta u, f \rrangle_{L^2} &= - \int_R \nabla u \cdot \nabla f \dxx \\
+    \langle \Delta u, f \rangle_{L^2} &= - \int_R \nabla u \cdot \nabla f \dxx \\
     &= \int_R \nabla \cdot \left( f \nabla u \right) \dxx - \int_R \nabla u \cdot \nabla f \dxx \\
     &= \oint_{\partial R} f \frac{du}{dn} \, \text{d} s - \int_R \nabla u \cdot \nabla f \dxx
 \end{align}
