@@ -110,8 +110,9 @@ which describes exponential decay.
 We may express the differential (\ref{equ: Dirichlet Differential}) as
 \begin{align}
     d \mathcal{E}_D|_f (u) &= - \langle \Delta f, u \rangle_{L^2} \\
-    &= \langle \nabla f, \nabla u \rangle_{L^2} \\
-    &= \langle \nabla^3 f, \nabla^{-1} u \rangle_{L_2} \\
+    &= \langle \nabla \left( \Delta f \right), \nabla \left( \Delta^{-1} u \right) \rangle_{L^2} \\
+    %&= \langle \nabla f, \nabla u \rangle_{L^2} \\
+    %&= \langle \nabla^3 f, \nabla^{-1} u \rangle_{L_2} \\
     &= \langle \Delta f, \Delta^{-1} u \rangle_{H^1} \\
     &= \langle \Delta^2 f, u \rangle_{H^{-1}}
     \label{equ: Gradient H-1 Derivation}
