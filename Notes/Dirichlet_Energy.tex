@@ -261,7 +261,7 @@ we may write this as a matrix equation:
 \end{align*}
 It might be worth noting that
 \begin{equation}
-    A_n \coloneqq
+    A_n^{-1} \coloneqq
     \underbrace{
     \begin{pmatrix}
         -2 & 1 & 0 & 0 & \cdots & 0 \\
@@ -283,6 +283,8 @@ It might be worth noting that
 \end{pmatrix}
 }_{\text{Symmetric Matrix}}
 \end{equation}
+In terms of practical computation, it might be worth investigating how the condition number grows as the size of $A_n^{-1}$ (which is equivalent to the condition number of $A_n$) grows.
+To do this, we could investigate eigenvalues\footnote{Analytically, solutions to the characteristic equation.}
 A (potentially) useful fact about this matrix is that the characteristic equation can be written recursively.
 \begin{equation}
     \begin{cases}
