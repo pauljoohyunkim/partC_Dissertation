@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # deltaT Time mesh size
 # deltaX Space mesh size
 # Dirichlet Boundary Conditions u_a = u(a), u_b = u(b)
-def ode1EvolveExplicitEuler(a=-1, b=1, J=20, T = 10000, M = 10000000, u_a=0, u_b=0, u_initial = lambda x: 10):
+def ode1EvolveExplicitEulerDirichlet(a=-1, b=1, J=20, T = 10000, M = 10000000, u_a=0, u_b=0, u_initial = lambda x: 10):
     deltaT = T/M        # Time mesh size
     deltaX = (b-a) / J  # Space mesh size
 
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     T = 10000           # Final time (in second)
     M = 10000000        # Final time step
     u_initial = lambda x : -10 * (x-a) * (x-b)
-    u = ode1EvolveExplicitEuler(a,b,J,T,M,u_a=0, u_b=0, u_initial=u_initial)
+    u = ode1EvolveExplicitEulerDirichlet(a,b,J,T,M,u_a=0, u_b=0, u_initial=u_initial)
     deltaX = (b-a) / J  # Space mesh size
 
 
