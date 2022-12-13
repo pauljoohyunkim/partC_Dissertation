@@ -21,14 +21,27 @@ def ode1EvolveExplicitEulerDirichlet(a=-1, b=1, J=20, T = 10000, M = 10000000, u
         u += ump1
     return u
 
+def ode1EvolveExplicitEulerPeriodic(a=-1, b=1, J=20, T = 10000, M = 10000000, u_initial = lambda x: 10):
+    deltaT = T/M        # Time mesh size
+    deltaX = (b-a) / J  # Space mesh size
+
+    # Explicit Scheme
+    u = [[u_initial(a + j * deltaX) for j in range(0,J+1)]]
+    for m in range(M):
+        ump1 = [[0 for _ in range(0, J+1)]]
+        # Explicit Scheme
+        for j in range(0,J+1):
+            ump1[0][j] = u[m][j] * (1 - deltaT)
+        u += ump1
+    return u
 if __name__ == "__main__":
     a = -1
     b = 1
     J = 20              # Final spacial point index
-    T = 10000           # Final time (in second)
-    M = 10000000        # Final time step
+    T = 100             # Final time (in second)
+    M = 100000          # Final time step
     u_initial = lambda x : -10 * (x-a) * (x-b)
-    u = ode1EvolveExplicitEulerDirichlet(a,b,J,T,M,u_a=0, u_b=0, u_initial=u_initial)
+    u = ode1EvolveExplicitEulerPeriodic(a,b,J,T,M, u_initial=u_initial)
     deltaX = (b-a) / J  # Space mesh size
 
 
