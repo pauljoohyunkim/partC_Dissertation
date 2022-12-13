@@ -29,6 +29,23 @@ def heatEvolveExplicitEulerDirichlet(a=-1,b=1,J=20,T=10000,M=10000000,u_a=0,u_b=
         u += ump1
     return u
 
+# This returns an array of u values at each time step and spacial position
+def heatEvolveExplicitEulerPeriodic(a=-1,b=1,J=20,T=10000,M=10000000,u_initial = lambda x: 10):
+    deltaT = T/M        # Time mesh size
+    deltaX = (b-a) / J  # Space mesh size
+    cfl = deltaT / (deltaX ** 2)            # Want this below 1/2
+    if(cfl > 0.5):
+        print(f"Warning: the CFL number is {cfl}, so stability is not guaranteed")
+    
+    # Explicit Scheme
+    u = [u_initial(a + j * deltaX) for j in range(1,J + 1)]
+    for m in range(M):
+        ump1 = [[u_a] + [0 for _ in range(1, J)] + [u_b]]
+        # Explicit Scheme
+        for j in range(1,J):
+            ump1[0][j] = u[m][j] + cfl * (u[m][j+1] - 2 * u[m][j] + u[m][j-1])
+        u += ump1
+    return u
 
 if __name__ == "__main__":
     a = -1
