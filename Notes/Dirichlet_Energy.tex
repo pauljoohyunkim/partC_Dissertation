@@ -11,6 +11,8 @@
 
 
 \newcommand{\dx}{\, \text{d} x}
+\newcommand{\dV}{\, \text{d} V}
+\newcommand{\ds}{\, \text{d} s}
 \newcommand{\dxx}{\, \text{d} \mathbf{x}}
 
 
@@ -65,12 +67,14 @@ Computing the differential $d \mathcal{E}_D|_f (u)$ of Dirichlet energy using (\
 \begin{align}
     d \mathcal{E}_D|_f(u) &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \langle \Delta (f+\epsilon u), f + \epsilon u \rangle_{L^2} - \langle \Delta f, f \rangle_{L^2} \right) \\
     &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \epsilon \langle \Delta f, u \rangle_{L^2} + \epsilon \langle \Delta u, f \rangle_{L^2} + \epsilon^2 \langle u, u \rangle_{L^2} \right) \\
-    &= -\frac{1}{2} (\langle \Delta f,u \rangle_{L^2} + \langle \Delta u, f \rangle_{L^2}) \\
+    &= -\frac{1}{2} (\langle \Delta f,u \rangle_{L^2} + \langle \Delta u, f \rangle_{L^2})
+    \label{equ: Dirichlet Differential No IBP}
+    \\
     &= -\frac{1}{2} (\langle \Delta f,u \rangle_{L^2} + \langle \Delta f, u \rangle_{L^2}) \\
     &= -\langle \Delta f, u \rangle_{L^2}
     \label{equ: Dirichlet Differential}
 \end{align}
-where the last step is by integration by parts (twice)\footnote{This trick will be used all over the place when constructing gradients. See \ref{sct: IBP Justification} in the Appendix}.
+where the last step is by integration by parts \footnote{This trick will be used all over the place when constructing gradients. See \ref{sct: Natural Boundary Condition} in the Appendix}.
 
 \subsection{Gradient Flow in $L^2$}
 By (\ref{equ: Gradient}), we may spot from (\ref{equ: Dirichlet Differential}) that the gradient can be written as
@@ -306,28 +310,31 @@ This method has consistency error
 
 \newpage
 \section{Appendix}
-\subsection{A (Somewhat) Careful Justification for IBP}
-\label{sct: IBP Justification}
-Suppose we are concerned with the integral $I \coloneqq \langle \Delta u, f \rangle_{L^2} = \int_{R} (\Delta u)f \dxx$, where $R$ is a bounded region with boundary $\partial R$.
+\subsection{Natural Boundary Condition}
+\label{sct: Natural Boundary Condition}
+We pay more attention to the boundary terms in the process of integrating by parts.
 
-\subsubsection{IBP (on Gradient Operator)}
-One could show that 
-\begin{equation}
-    \langle \Delta u, f \rangle_{L^2} = - \langle \nabla u, \nabla f \rangle_{L^2} = - \int_{R} \nabla u \cdot \nabla f \dxx
-    \label{equ: IBP Gradient}
-\end{equation}
-using the identity\footnote{This is also known as Green's Identity in some literature}:
-\begin{equation}
-\nabla \cdot \left( \phi \nabla \psi \right) = \phi \nabla^2 \psi + \nabla \phi \cdot \nabla \psi
-    \label{equ: Green's Identity II}
-\end{equation}
+From (\ref{equ: Dirichlet Differential No IBP}), we use IBP while assuming for conditons that eliminates the boundary terms.
 
-Note that
+\subsubsection{$L^2$}
+Starting from (\ref{equ: Dirichlet Differential No IBP}),
 \begin{align}
-    \langle \Delta u, f \rangle_{L^2} &= \int_R \nabla \cdot \left( f \nabla u \right) \dxx - \int_R \nabla u \cdot \nabla f \dxx \\
-    &= \oint_{\partial R} f \frac{du}{dn} \, \text{d} s - \int_R \nabla u \cdot \nabla f \dxx
+    -2 d \mathcal{E}_D |_f(u) - \langle \Delta f, u \rangle_{L^2} &= \langle \Delta u, f \rangle_{L^2} \\
+    &= \int_{R} f \nabla^2 u \dV \\
+    &= \int_{R} u \nabla^2 f + \nabla \cdot \left( f \nabla u - u \nabla f \right) \dV \\
+    &= \int_{R} u \nabla^2 f + \oint_{\partial R} \left( f \nabla u - u \nabla f \right) \cdot \mathbf{n} \ds \\
+    &= \langle \Delta f, u \rangle_{L^2} + \oint_{\partial R} \underbrace{\left( f \nabla u - u \nabla f \right)\cdot \mathbf{n}}_{\text{Boundary Terms}}  \ds 
 \end{align}
-(Need the first term of last line to be zero\dots)
+
+\subsubsection{$H^1$}
+Starting from (\ref{equ: Dirichlet Differential No IBP}),
+\begin{align}
+    -2 d \mathcal{E}_D |_f(u) &= \left( \langle \Delta f, u \rangle_{L^2} + \langle \Delta u, f \rangle_{L^2} \right) \\
+    &= \int_R \left( u \nabla^2 f + f \nabla^2 u \right) \dV \\
+    &= \int_R \nabla \cdot \left( u \nabla^2 f \right) - \nabla u \cdot \nabla f \dV + \int_R \nabla \cdot \left( f \nabla^2 u \right) - \nabla u \cdot \nabla f \dV \\
+    &= -2 \int_R \nabla u \cdot \nabla f \dV + \oint_{\partial R} \left( u \nabla^2 f + f \nabla^2 u \right) \cdot \mathbf{n} \ds \\
+    &= -2 \langle \nabla u, \nabla f \rangle_{H^1} + \oint_{\partial R} \underbrace{\left( u \nabla^2 f + f \nabla^2 u \right)\cdot \mathbf{n}}_{\text{Boundary Terms}}  \ds 
+\end{align}
 
 
 \end{document}
