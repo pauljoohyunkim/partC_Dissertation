@@ -1,0 +1,372 @@
+%        File: Dirichlet Energy.tex
+%     Created: Fri Dec 02 07:00 PM 2022 G
+% Last Change: Fri Dec 02 07:00 PM 2022 G
+%
+\documentclass[a4paper]{article}
+\usepackage[]{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+
+
+\newcommand{\dx}{\, \text{d} x}
+\newcommand{\dV}{\, \text{d} V}
+\newcommand{\ds}{\, \text{d} s}
+\newcommand{\dxx}{\, \text{d} \mathbf{x}}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\DeclareMathOperator{\grad}{grad}
+
+\title{Dirichlet Energy in Different Spaces}
+\author{ }
+
+\begin{document}
+\maketitle
+\section{Relevant Definitions}
+\begin{definition}[Gradient Flow]
+    Given an energy (functional) $\mathcal{E}(f)$, \emph{gradient flow} is:
+    \begin{equation}
+        \frac{d}{dt}f = - \grad \mathcal{E}(f)
+        \label{equ: Gradient Flow}
+    \end{equation}
+\end{definition}
+
+\begin{definition}[Differential]
+    \emph{Differential} $d\mathcal{E}$ describes change in $\mathcal{E}$ due to\footnote{analogous in traditional vector space would be ``in the direction of'' $u$} $u$:
+ f  \begin{equation}
+        d \mathcal{E}|_f(u) = \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \mathcal{E}(f+\epsilon u) - \mathcal{E}(f) \right)
+        \label{equ: Differential}
+    \end{equation}
+\end{definition}
+
+\begin{definition}[Gradient]
+    Given a space $X$, \emph{gradient} of $\mathcal{E}$ is the unique function $\grad_X \mathcal{E}$ such that,
+    \begin{equation}
+        \langle \grad_X \mathcal{E}, u \rangle_X = d \mathcal{E}(u) \hspace{1cm} \forall u \in X
+        \label{equ: Gradient}
+    \end{equation}
+\end{definition}
+
+\section{Dirichlet Energy Example}
+
+\begin{definition}[Dirichlet Energy]
+    Dirichlet Energy is defined as:
+    \begin{equation}
+        \mathcal{E}_D(f) \coloneqq \frac{1}{2} \int_{\Omega} |\grad f(x)|^2 \dx
+        = \frac{1}{2} \langle \nabla f, \nabla f \rangle_{L^2}
+        = -\frac{1}{2} \langle \Delta f, f \rangle_{L^2}
+        \label{equ: Dirichlet Energy}
+    \end{equation}
+    where the last equality comes from IBP.
+\end{definition}
+
+Computing the differential $d \mathcal{E}_D|_f (u)$ of Dirichlet energy using (\ref{equ: Differential}),
+\begin{align}
+    d \mathcal{E}_D|_f(u) &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \langle \Delta (f+\epsilon u), f + \epsilon u \rangle_{L^2} - \langle \Delta f, f \rangle_{L^2} \right) \\
+    &= -\frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \epsilon \langle \Delta f, u \rangle_{L^2} + \epsilon \langle \Delta u, f \rangle_{L^2} + \epsilon^2 \langle u, u \rangle_{L^2} \right) \\
+    &= -\frac{1}{2} (\langle \Delta f,u \rangle_{L^2} + \langle \Delta u, f \rangle_{L^2})
+    \label{equ: Dirichlet Differential No IBP}
+    \\
+    &= -\frac{1}{2} (\langle \Delta f,u \rangle_{L^2} + \langle \Delta f, u \rangle_{L^2})
+    \label{equ: Dirichlet Differential with IBP}
+    \\
+    &= -\langle \Delta f, u \rangle_{L^2}
+    \label{equ: Dirichlet Differential}
+\end{align}
+where the step from (\ref{equ: Dirichlet Differential No IBP}) to (\ref{equ: Dirichlet Differential with IBP}) is by integration by parts \footnote{This trick will be used all over the place when constructing gradients and forming \textbf{natural boundary condition}. See \ref{sct: Natural Boundary Condition} in the Appendix}.
+
+\subsection{Gradient Flow in $L^2$}
+By (\ref{equ: Gradient}), we may spot from (\ref{equ: Dirichlet Differential}) that the gradient can be written as
+\begin{equation}
+    \grad \mathcal{E}_{L^2} = - \Delta f
+    \label{equ: L2 Gradient}
+\end{equation}
+Hence, the gradient flow equation (\ref{equ: Gradient Flow}) can be written as:
+\begin{equation}
+    \frac{d}{dt} f = \Delta f
+    \label{equ: L2 Gradient Flow}
+\end{equation}
+which is the heat equation.
+
+
+\subsection{Gradient Flow in $H^1$}
+We may express the differential (\ref{equ: Dirichlet Differential}) as
+\begin{align}
+    d \mathcal{E}_D|_f (u) &= - \langle \Delta f, u \rangle_{L^2} \\
+    &= \langle \nabla f, \nabla u \rangle_{L^2} \\
+    &= \langle f, u \rangle_{H^1}
+    \label{equ: Gradient H1 Derivation}
+\end{align}
+So by (\ref{equ: Gradient}), the gradient in $H^1$ can be written as
+\begin{equation}
+    \grad \mathcal{E}_{H^1} = f
+    \label{equ: H1 Gradient}
+\end{equation}
+The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
+\begin{equation}
+    \frac{d}{dt}f = -f
+    \label{equ: H1 Gradient Flow}
+\end{equation}
+which describes exponential decay.
+
+\subsection{Gradient Flow in $H^{-1}$}
+We may express the differential (\ref{equ: Dirichlet Differential}) as
+\begin{align}
+    d \mathcal{E}_D|_f (u) &= - \langle \Delta f, u \rangle_{L^2} \\
+    &= \langle \nabla \left( \Delta f \right), \nabla \left( \Delta^{-1} u \right) \rangle_{L^2} \\
+    %&= \langle \nabla f, \nabla u \rangle_{L^2} \\
+    %&= \langle \nabla^3 f, \nabla^{-1} u \rangle_{L_2} \\
+    &= \langle \Delta f, \Delta^{-1} u \rangle_{H^1} \\
+    &= \langle \Delta^2 f, u \rangle_{H^{-1}}
+    \label{equ: Gradient H-1 Derivation}
+\end{align}
+So by (\ref{equ: Gradient}), the gradient in $H^{-1}$ can be written as
+\begin{equation}
+    \grad \mathcal{E}_{H^{-1}} = \Delta^2 f
+    \label{equ: H-1 Gradient}
+\end{equation}
+The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
+\begin{equation}
+    \frac{d}{dt}f = - \Delta^2 f
+    \label{equ: H-1 Gradient Flow}
+\end{equation}
+
+\subsection{Gradient Flow in $H^2$}
+We may express the differential (\ref{equ: Dirichlet Differential}) as
+\begin{align}
+    d \mathcal{E}_D|_f (u) &= - \langle \Delta f, u \rangle_{L^2} \\
+    &= -\langle f, \Delta u \rangle_{L^{2}} \\
+    &= -\langle \Delta^{-1} f, u \rangle_{H^2}
+    \label{equ: Gradient H2 Derivation}
+\end{align}
+So by (\ref{equ: Gradient}), the gradient in $H^2$ can be written as
+\begin{equation}
+    \grad \mathcal{E}_{H^2} = - \Delta^{-1} f
+    \label{equ: H2 Gradient}
+\end{equation}
+The gradient flow equation (\ref{equ: Gradient Flow}) can be written as
+\begin{equation}
+    \frac{d}{dt}f = \Delta^{-1} f
+    \label{equ: H2 Gradient Flow}
+\end{equation}
+
+
+\section{Numerically Solving Gradient Flow Equations}
+\subsection{Gradient Flow in $L^2$}
+For $L^2$, given the gradient flow equation (\ref{equ: L2 Gradient Flow}),
+we may write down explicit Euler scheme:
+\begin{equation}
+    \frac{f_j^{m+1} - f_j^m}{\Delta t} = \frac{f_{j+1}^m - 2 f_{j}^m + f_{j-1}^m}{(\Delta x)^2}
+    \label{equ: L2 Numeric}
+\end{equation}
+which can be rewritten as
+\begin{equation}
+    f_{j}^{m+1} = f_j^m + \mu \left( f_{j+1}^m - 2 f_{j}^m + f_{j-1}^m \right)
+\end{equation}
+where $\mu \coloneqq \frac{\Delta t}{(\Delta x)^2}$ is called the \emph{CFL number}.
+
+This method is known to have consistency error
+\begin{equation}
+    T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + \Delta t \right)
+    \label{L2 Consistency Error}
+\end{equation}
+
+\subsection{Gradient Flow in $H^1$}
+Given the gradient flow equation (\ref{equ: H1 Gradient Flow}),
+we may write down explicit Euler scheme:
+\begin{equation}
+    \frac{f_j^{m+1} - f_j^m}{\Delta t} = -f_{j}^m
+    \label{equ: H1 Numeric}
+\end{equation}
+which can be rewritten as
+\begin{equation}
+    f_j^{m+1} = f_j^m - (\Delta t)f_j^m
+\end{equation}
+
+\subsection{Gradient Flow in $H^{-1}$}
+Given the gradient flow equation (\ref{equ: H-1 Gradient Flow}),
+we may write down explicit Euler scheme:
+\begin{equation}
+    \frac{f_j^{m+1} - f_j^m}{\Delta t} = -\frac{f_{j+2}^m - 4 f_{j+1}^m + 6 f_j^m - 4 f_{j-1}^m + f_{j-2}^m}{(\Delta x)^4}
+    \label{equ: H-1 Numeric}
+\end{equation}
+
+\subsection{Gradient Flow in $H^2$}
+Given the gradient flow equation (\ref{equ: H2 Gradient Flow}), it can be rewritten as
+\begin{equation}
+    \frac{d}{dt} \Delta f = f
+\end{equation}
+we may write down explicit Euler scheme:
+\begin{equation}
+    \frac{1}{\Delta t}\left( \frac{f_{j+1}^{m+1} - 2f_j^{m+1} + f_{j-1}^{m+1}}{\left( \Delta x \right)^2} - \frac{f_{j+1}^{m} - 2f_j^{m} + f_{j-1}^{m}}{\left( \Delta x \right)^2} \right) = f_j^m
+    \label{equ: H2 Numeric}
+\end{equation}
+which can be rewritten as
+\begin{equation}
+    \begin{pmatrix}
+        1 & -2 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        f_{j-1}^{m+1} \\
+        f_{j}^{m+1} \\
+        f_{j+1}^{m+1}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 & -2 + \Delta t (\Delta x)^2 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        f_{j-1}^{m} \\
+        f_{j}^{m} \\
+        f_{j+1}^{m}
+    \end{pmatrix}
+\end{equation}
+Assuming Dirichlet boundary condition $f_0^m = a$ and $f_J^m = b$,
+we may write this as a matrix equation:
+\begin{align*}
+    &\begin{pmatrix}
+        -2 & 1 \\
+        1 & -2 & 1 \\
+        & 1 & -2 & 1 \\
+        \vdots \\
+        & & & & & 1 & -2 & 1 \\
+        & & & & & & 1 & -2
+    \end{pmatrix}
+    \begin{pmatrix}
+        f_1 \\
+        f_2 \\
+        f_3 \\
+        \vdots \\
+        f_{J-4} \\
+        f_{J-3} \\
+        f_{J-2} \\
+        f_{J-1}
+    \end{pmatrix}^{m+1}
+    \\
+    &=
+    \begin{pmatrix}
+        -2 + \Delta t (\Delta x)^2 & 1 \\
+        1 & -2 + \Delta t (\Delta x)^2  & 1 \\
+        & 1 & -2 + \Delta t (\Delta x)^2 & 1 \\
+        \vdots \\
+        & & & & & 1 & -2 + \Delta t (\Delta x)^2 & 1 \\
+        & & & & & & 1 & -2
+    \end{pmatrix}
+    \begin{pmatrix}
+        f_1 \\
+        f_2 \\
+        f_3 \\
+        \vdots \\
+        f_{J-4} \\
+        f_{J-3} \\
+        f_{J-2} \\
+        f_{J-1}
+    \end{pmatrix}^{m}
+\end{align*}
+It might be worth noting that
+\begin{equation}
+    A_n^{-1} \coloneqq
+    \underbrace{
+    \begin{pmatrix}
+        -2 & 1 & 0 & 0 & \cdots & 0 \\
+        1 & -2 & 1 & 0 & \cdots & 0 \\
+        0 & 1 & -2 & 1 & \cdots & 0 \\
+        \vdots & \vdots & \vdots & \vdots & & \vdots \\
+        0 & 0 & \cdots & 1 & -2 & 1 \\
+        0 & 0 & \cdots & 0 & 1 & -2
+    \end{pmatrix}^{-1}
+}_{n \times n}
+= -\frac{1}{n+1}
+\underbrace{
+\begin{pmatrix}
+    n & (n-1) & (n-2) & \cdots & 1 \\
+    (n-1) & 2(n-1) & 2(n-2) & \cdots & 2 \\
+    (n-2) & 2(n-2) & 3(n-2) & \cdots & 3 \\
+    \vdots & \vdots & \vdots & \cdots & \vdots \\
+    1 & 2 & 3 & \cdots & n
+\end{pmatrix}
+}_{\text{Symmetric Matrix}}
+\end{equation}
+In terms of practical computation, it might be worth investigating how the condition number grows as the size of $A_n^{-1}$ (which is equivalent to the condition number of $A_n$) grows.
+To do this, we could investigate eigenvalues\footnote{Analytically, solutions to the characteristic equation.}
+A (potentially) useful fact about this matrix is that the characteristic equation can be written recursively.
+\begin{equation}
+    \begin{cases}
+        |A_n - \lambda I|\eqqcolon J_n = -\delta J_{n-1} - J_{n-2} \\
+        J_1 = -\delta \\
+        J_{2} = \delta^2 - 1
+    \end{cases}
+\end{equation}
+where $\delta \coloneqq \lambda + 2$.\footnote{The term \emph{continuant} might be interesting to look at}
+
+This method has consistency error
+\begin{equation}
+    % See Lab/PDE/Dirichlet Energy/H2_Consistency.nb
+    T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + \Delta t \right)
+    \label{H2 Consistency Error}
+\end{equation}
+
+
+\newpage
+\section{Appendix}
+\subsection{Natural Boundary Condition}
+\label{sct: Natural Boundary Condition}
+We pay more attention to the boundary terms in the process of integrating by parts.
+
+Starting from (\ref{equ: Dirichlet Energy}), we compute the differential $d \mathcal{E}_D |_f (u)$ again, but with boundary terms.
+Recall that the Dirichlet energy is given by:
+\begin{equation*}
+    \mathcal{E}_D (f) \coloneqq \frac{1}{2} \int_{\Omega} |\nabla f(x)|^2 \dx = \frac{1}{2} \langle \nabla f, \nabla f \rangle_{L^2}
+\end{equation*}
+
+Computing the differential with boundary terms:
+\begin{align}
+    d \mathcal{E}_D|_f(u) &= \lim_{\epsilon \rightarrow 0}\frac{1}{\epsilon} \left( \mathcal{E}(f+\epsilon u) - \mathcal{E}(f) \right) \\
+    &= \frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \int_{\Omega} \left( |\nabla f + \epsilon \nabla u|^2 - |\nabla f|^2 \right) \dx \\
+    &= \frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \int_{\Omega} \left( 2\epsilon \nabla f \cdot \nabla u + \epsilon^2 |\nabla u|^2 \right) \dx \\
+    &= \int_{\Omega} \nabla f \cdot \nabla u \dx
+    \label{equ: Differential in Integral}
+\end{align}
+
+\subsubsection{$L^2$}
+We continue from (\ref{equ: Differential in Integral})
+\begin{align}
+    d \mathcal{E}_D|_f(u) &= \int_{\Omega} \nabla f \cdot \nabla u \dx \\
+    &= \int_{\Omega} \left( \nabla \cdot \left( u \nabla f \right) - u \Delta f \right) \dx \\
+    &= \langle -\Delta f, u \rangle_{L^2} + \underbrace{\oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds}_{\text{Boundary Term}}
+    \label{equ: L2 Natural Boundary}
+\end{align}
+
+So for $L^2$, the we can take the natural boundary condition to be
+\begin{equation*}
+    \nabla f \cdot \mathbf{n} \equiv 0 \hspace{1cm} \text{on } \partial \Omega
+\end{equation*}
+
+\subsubsection{$H^1$}
+Note, from (\ref{equ: Differential in Integral}),
+\begin{align}
+    d \mathcal{E}_D|_f(u) &= \int_{\Omega} \nabla f \cdot \nabla u \dx \\
+    &= \langle f, u \rangle_{H^1}
+\end{align}
+
+So for $H^1$, there is no need to take a natural boundary condition.
+\subsubsection{$H^{-1}$}
+We continue from (\ref{equ: L2 Natural Boundary}).
+Define $g \coloneqq \Delta f$ and $v \coloneqq \Delta^{-1} u$
+\begin{align}
+    d \mathcal{E}_D|_f(u) &= \langle -\Delta f, u \rangle_{L^2} + \oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds \\
+    &= \langle -g, \Delta v \rangle_{L^2} + \oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds \\
+    &= -\int_{\Omega} g \nabla^2 v \dx + \oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds \\
+    &= -\int_{\Omega} \left( \nabla \cdot \left( g \nabla v \right) - \nabla g \cdot \nabla v \right)  \dx + \oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds \\
+    &= \int_{\Omega} \nabla g \cdot \nabla v \dx -\oint_{\partial \Omega} g \nabla v \cdot \mathbf{n} ds + \oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds \\
+    &= \int_{\Omega} \nabla \left( \Delta f \right) \cdot \nabla \left( \Delta^{-1} u \right) \dx 
+    + \underbrace{\oint_{\partial \Omega} \left( u \nabla f - (\Delta f) \, \nabla \left( \Delta^{-1} u \right) \right) \cdot \mathbf{n} \ds}_{\text{Boundary Terms}}
+\end{align}
+
+\end{document}
+
+
