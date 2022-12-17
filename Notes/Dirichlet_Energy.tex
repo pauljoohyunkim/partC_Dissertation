@@ -338,6 +338,7 @@ We continue from (\ref{equ: Differential in Integral})
     d \mathcal{E}_D|_f(u) &= \int_{\Omega} \nabla f \cdot \nabla u \dx \\
     &= \int_{\Omega} \left( \nabla \cdot \left( u \nabla f \right) - u \Delta f \right) \dx \\
     &= \langle -\Delta f, u \rangle_{L^2} + \underbrace{\oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds}_{\text{Boundary Term}}
+    \label{equ: L2 Natural Boundary}
 \end{align}
 
 So for $L^2$, the we can take the natural boundary condition to be
@@ -353,6 +354,19 @@ Note, from (\ref{equ: Differential in Integral}),
 \end{align}
 
 So for $H^1$, there is no need to take a natural boundary condition.
+\subsubsection{$H^{-1}$}
+We continue from (\ref{equ: L2 Natural Boundary}).
+Define $g \coloneqq \Delta f$ and $v \coloneqq \Delta^{-1} u$
+\begin{align}
+    d \mathcal{E}_D|_f(u) &= \langle -\Delta f, u \rangle_{L^2} + \oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds \\
+    &= \langle -g, \Delta v \rangle_{L^2} + \oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds \\
+    &= -\int_{\Omega} g \nabla^2 v \dx + \oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds \\
+    &= -\int_{\Omega} \left( \nabla \cdot \left( g \nabla v \right) - \nabla g \cdot \nabla v \right)  \dx + \oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds \\
+    &= \int_{\Omega} \nabla g \cdot \nabla v \dx -\oint_{\partial \Omega} g \nabla v \cdot \mathbf{n} ds + \oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds \\
+    &= \int_{\Omega} \nabla \left( \Delta f \right) \cdot \nabla \left( \Delta^{-1} u \right) \dx 
+    + \underbrace{\oint_{\partial \Omega} \left( u \nabla f - (\Delta f) \, \nabla \left( \Delta^{-1} u \right) \right) \cdot \mathbf{n} \ds}_{\text{Boundary Terms}}
+\end{align}
+
 \end{document}
 
 
