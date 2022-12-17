@@ -37,7 +37,7 @@
 
 \begin{definition}[Differential]
     \emph{Differential} $d\mathcal{E}$ describes change in $\mathcal{E}$ due to\footnote{analogous in traditional vector space would be ``in the direction of'' $u$} $u$:
-    \begin{equation}
+ f  \begin{equation}
         d \mathcal{E}|_f(u) = \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \mathcal{E}(f+\epsilon u) - \mathcal{E}(f) \right)
         \label{equ: Differential}
     \end{equation}
@@ -61,6 +61,7 @@
         = -\frac{1}{2} \langle \Delta f, f \rangle_{L^2}
         \label{equ: Dirichlet Energy}
     \end{equation}
+    where the last equality comes from IBP.
 \end{definition}
 
 Computing the differential $d \mathcal{E}_D|_f (u)$ of Dirichlet energy using (\ref{equ: Differential}),
@@ -70,11 +71,13 @@ Computing the differential $d \mathcal{E}_D|_f (u)$ of Dirichlet energy using (\
     &= -\frac{1}{2} (\langle \Delta f,u \rangle_{L^2} + \langle \Delta u, f \rangle_{L^2})
     \label{equ: Dirichlet Differential No IBP}
     \\
-    &= -\frac{1}{2} (\langle \Delta f,u \rangle_{L^2} + \langle \Delta f, u \rangle_{L^2}) \\
+    &= -\frac{1}{2} (\langle \Delta f,u \rangle_{L^2} + \langle \Delta f, u \rangle_{L^2})
+    \label{equ: Dirichlet Differential with IBP}
+    \\
     &= -\langle \Delta f, u \rangle_{L^2}
     \label{equ: Dirichlet Differential}
 \end{align}
-where the last step is by integration by parts \footnote{This trick will be used all over the place when constructing gradients. See \ref{sct: Natural Boundary Condition} in the Appendix}.
+where the step from (\ref{equ: Dirichlet Differential No IBP}) to (\ref{equ: Dirichlet Differential with IBP}) is by integration by parts \footnote{This trick will be used all over the place when constructing gradients and forming \textbf{natural boundary condition}. See \ref{sct: Natural Boundary Condition} in the Appendix}.
 
 \subsection{Gradient Flow in $L^2$}
 By (\ref{equ: Gradient}), we may spot from (\ref{equ: Dirichlet Differential}) that the gradient can be written as
