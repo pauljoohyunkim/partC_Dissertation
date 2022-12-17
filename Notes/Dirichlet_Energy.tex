@@ -317,29 +317,42 @@ This method has consistency error
 \label{sct: Natural Boundary Condition}
 We pay more attention to the boundary terms in the process of integrating by parts.
 
-From (\ref{equ: Dirichlet Differential No IBP}), we use IBP while assuming for conditons that eliminates the boundary terms.
+Starting from (\ref{equ: Dirichlet Energy}), we compute the differential $d \mathcal{E}_D |_f (u)$ again, but with boundary terms.
+Recall that the Dirichlet energy is given by:
+\begin{equation*}
+    \mathcal{E}_D (f) \coloneqq \frac{1}{2} \int_{\Omega} |\nabla f(x)|^2 \dx = \frac{1}{2} \langle \nabla f, \nabla f \rangle_{L^2}
+\end{equation*}
+
+Computing the differential with boundary terms:
+\begin{align}
+    d \mathcal{E}_D|_f(u) &= \lim_{\epsilon \rightarrow 0}\frac{1}{\epsilon} \left( \mathcal{E}(f+\epsilon u) - \mathcal{E}(f) \right) \\
+    &= \frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \int_{\Omega} \left( |\nabla f + \epsilon \nabla u|^2 - |\nabla f|^2 \right) \dx \\
+    &= \frac{1}{2} \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \int_{\Omega} \left( 2\epsilon \nabla f \cdot \nabla u + \epsilon^2 |\nabla u|^2 \right) \dx \\
+    &= \int_{\Omega} \nabla f \cdot \nabla u \dx
+    \label{equ: Differential in Integral}
+\end{align}
 
 \subsubsection{$L^2$}
-Starting from (\ref{equ: Dirichlet Differential No IBP}),
+We continue from (\ref{equ: Differential in Integral})
 \begin{align}
-    -2 d \mathcal{E}_D |_f(u) - \langle \Delta f, u \rangle_{L^2} &= \langle \Delta u, f \rangle_{L^2} \\
-    &= \int_{R} f \nabla^2 u \dV \\
-    &= \int_{R} u \nabla^2 f + \nabla \cdot \left( f \nabla u - u \nabla f \right) \dV \\
-    &= \int_{R} u \nabla^2 f + \oint_{\partial R} \left( f \nabla u - u \nabla f \right) \cdot \mathbf{n} \ds \\
-    &= \langle \Delta f, u \rangle_{L^2} + \oint_{\partial R} \underbrace{\left( f \nabla u - u \nabla f \right)\cdot \mathbf{n}}_{\text{Boundary Terms}}  \ds 
+    d \mathcal{E}_D|_f(u) &= \int_{\Omega} \nabla f \cdot \nabla u \dx \\
+    &= \int_{\Omega} \left( \nabla \cdot \left( u \nabla f \right) - u \Delta f \right) \dx \\
+    &= \langle -\Delta f, u \rangle_{L^2} + \underbrace{\oint_{\partial \Omega} u \nabla f \cdot \mathbf{n} \ds}_{\text{Boundary Term}}
 \end{align}
+
+So for $L^2$, the we can take the natural boundary condition to be
+\begin{equation*}
+    \nabla f \cdot \mathbf{n} \equiv 0 \hspace{1cm} \text{on } \partial \Omega
+\end{equation*}
 
 \subsubsection{$H^1$}
-Starting from (\ref{equ: Dirichlet Differential No IBP}),
+Note, from (\ref{equ: Differential in Integral}),
 \begin{align}
-    -2 d \mathcal{E}_D |_f(u) &= \left( \langle \Delta f, u \rangle_{L^2} + \langle \Delta u, f \rangle_{L^2} \right) \\
-    &= \int_R \left( u \nabla^2 f + f \nabla^2 u \right) \dV \\
-    &= \int_R \nabla \cdot \left( u \nabla^2 f \right) - \nabla u \cdot \nabla f \dV + \int_R \nabla \cdot \left( f \nabla^2 u \right) - \nabla u \cdot \nabla f \dV \\
-    &= -2 \int_R \nabla u \cdot \nabla f \dV + \oint_{\partial R} \left( u \nabla^2 f + f \nabla^2 u \right) \cdot \mathbf{n} \ds \\
-    &= -2 \langle \nabla u, \nabla f \rangle_{H^1} + \oint_{\partial R} \underbrace{\left( u \nabla^2 f + f \nabla^2 u \right)\cdot \mathbf{n}}_{\text{Boundary Terms}}  \ds 
+    d \mathcal{E}_D|_f(u) &= \int_{\Omega} \nabla f \cdot \nabla u \dx \\
+    &= \langle f, u \rangle_{H^1}
 \end{align}
 
-
+So for $H^1$, there is no need to take a natural boundary condition.
 \end{document}
 
 
