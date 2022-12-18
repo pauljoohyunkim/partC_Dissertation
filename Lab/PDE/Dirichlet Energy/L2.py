@@ -65,8 +65,10 @@ def heatEvolveExplicitEulerNatural(a=-1,b=1,J=20,T=10000,M=10000000,u_initial = 
         # Explicit Scheme
         for j in range(1,J):
             ump1[0][j] = u[m][j] + cfl * (u[m][j+1] - 2 * u[m][j] + u[m][j-1])
-        ump1[0][0] = u[m][0] + cfl * (u[m][1] - 2 * u[m][0] + u[m][J])
-        ump1[0][J] = u[m][J] + cfl * (u[m][0] - 2 * u[m][J] + u[m][J-1])
+        #ump1[0][0] = u[m][0] + cfl * (u[m][1] - 2 * u[m][0] + u[m][J])
+        ump1[0][0] = u[m][0] + cfl * (u[m][1] - u[m][0])
+        #ump1[0][J] = u[m][J] + cfl * (u[m][0] - 2 * u[m][J] + u[m][J-1])
+        ump1[0][J] = u[m][J] + cfl * (-u[m][J] + u[m][J-1])
         u += ump1
     return u
 
@@ -80,17 +82,18 @@ if __name__ == "__main__":
     deltaX = (b-a) / J  # Space mesh size
     u_initial = lambda x : -(x-1)*(x+1)*10
     #u = heatEvolveExplicitEulerDirichlet(a, b, J, T, M, u_a = 0, u_b = 0, u_initial = u_initial)
-    u = heatEvolveExplicitEulerPeriodic(a, b, J, T, M, u_initial=u_initial)
+    u = heatEvolveExplicitEulerNatural(a, b, J, T, M, u_initial=u_initial)
     deltaX = (b-a) / J  # Space mesh size
     
     plt.rcParams['text.usetex'] = True
 
     # Two plots
-    fig, axs = plt.subplots(2)
+    #fig, axs = plt.subplots(2)
+    axs = plt.subplots(1)
 
     for m in range(0, M, 10):
         axs[0].plot([a + j * deltaX for j in range(J+1)], u[m])
-    axs[1].plot(range(M), [discretelPNorm(u[m], deltaX, p=1) for m in range(M)])
+    #axs[1].plot(range(M), [discretelPNorm(u[m], deltaX, p=1) for m in range(M)])
     #fig.title(r"$u_{tt} = \Delta u$ in $(x,t) \in \left[" + f"({a},{b}), (0,{T})" + r"\right]$")
     #fig.suptitle(f"{J + 1} spacial mesh points, {M+1} time mesh points, {J * (M+1)} points overall")
     fig.suptitle(r"$u_{tt} = \Delta u$ in $(x,t) \in \left[" + f"({a},{b}), (0,{T})" + r"\right]$" + "\n" + f"{J + 1} spacial mesh points, {M+1} time mesh points, {J * (M+1)} points overall")
