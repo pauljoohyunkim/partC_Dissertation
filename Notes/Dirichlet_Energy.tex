@@ -169,6 +169,23 @@ which can be rewritten as
 \end{equation}
 where $\mu \coloneqq \frac{\Delta t}{(\Delta x)^2}$ is called the \emph{CFL number}.
 
+\subsubsection{Boundary Conditions}
+For \emph{periodic boundary condition}, we impose:
+\begin{equation*}
+    f_0^{m} = f_{J}^m \hspace{1cm} \forall m
+\end{equation*}
+For \emph{natural boundary condition}, we impose:
+\begin{equation*}
+    \begin{cases}
+        f_{-1}^m = f_{0}^m \\
+        f_{J}^m = f_{J+1}^m
+    \end{cases}
+    \hspace{1cm}
+    \forall m
+\end{equation*}
+where this comes from Neumann BC as derived at subsection \ref{sct: L2 Natural BC}.
+
+\subsubsection{Consistency Error}
 This method is known to have consistency error
 \begin{equation}
     T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + \Delta t \right)
@@ -333,6 +350,7 @@ Computing the differential with boundary terms:
 \end{align}
 
 \subsubsection{$L^2$}
+\label{sct: L2 Natural BC}
 We continue from (\ref{equ: Differential in Integral})
 \begin{align}
     d \mathcal{E}_D|_f(u) &= \int_{\Omega} \nabla f \cdot \nabla u \dx \\
