@@ -58,5 +58,3 @@ if __name__ == "__main__":
     plt.suptitle(r"$u_{tt} = -\Delta^{2} u$ in $(x,t) \in \left[" + f"({a},{b}), (0,{T})" + r"\right]$" + "\n" + f"{J + 1} spacial mesh points, {M+1} time mesh points, {J * (M+1)} points overall")
     plt.show()
 
-    print(u[-1])
-
