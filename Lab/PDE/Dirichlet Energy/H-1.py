@@ -19,7 +19,7 @@ def biharmonicEvolveExplicitEulerPeriodic(a=-1,b=1,J=20,T=10000,M=10000000,u_ini
     deltaT = T/M        # Time mesh size
     deltaX = (b-a) / J  # Space mesh size
     pseudocfl = deltaT / (deltaX ** 4)
-    if(pseudocfl > 0.5):
+    if(pseudocfl > 1/8):
         print(f"Warning: the CFL number is {pseudocfl}, so stability is not guaranteed")
     
     # Explicit Scheme

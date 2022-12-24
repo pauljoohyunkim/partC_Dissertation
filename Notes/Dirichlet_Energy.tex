@@ -167,7 +167,7 @@ which can be rewritten as
 \begin{equation}
     f_{j}^{m+1} = f_j^m + \mu \left( f_{j+1}^m - 2 f_{j}^m + f_{j-1}^m \right)
 \end{equation}
-where $\mu \coloneqq \frac{\Delta t}{(\Delta x)^2}$ is called the \emph{CFL number}.
+where $\mu \coloneqq \frac{\Delta t}{(\Delta x)^2}$ is called the \emph{CFL number}. For this explicit Euler scheme to be stable, it is needed that $\mu \leq \frac{1}{2}$
 
 \subsubsection{Boundary Conditions}
 For \emph{periodic boundary condition}, we impose:
@@ -211,6 +211,7 @@ we may write down explicit Euler scheme:
     \frac{f_j^{m+1} - f_j^m}{\Delta t} = -\frac{f_{j+2}^m - 4 f_{j+1}^m + 6 f_j^m - 4 f_{j-1}^m + f_{j-2}^m}{(\Delta x)^4}
     \label{equ: H-1 Numeric}
 \end{equation}
+Define an analogous quantity to CFL number by $\mu \coloneqq \frac{\Delta t}{\left( \Delta x \right)^4}$. By discrete Fourier transform, we deduce that we can guarantee stability of the scheme by imposing condition $\mu \leq \frac{1}{8}$.
 
 \subsection{Gradient Flow in $H^2$}
 Given the gradient flow equation (\ref{equ: H2 Gradient Flow}), it can be rewritten as
