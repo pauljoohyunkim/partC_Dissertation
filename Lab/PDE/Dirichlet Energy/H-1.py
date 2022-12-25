@@ -40,8 +40,8 @@ if __name__ == "__main__":
     a = -1
     b = 1
     J = 20                 # Final spacial point index
-    T = 100                # Final time (in second)
-    M = 10000000             # Final time step
+    T = 10                # Final time (in second)
+    M = 1000000             # Final time step
     deltaT = T/M        # Time mesh size
     deltaX = (b-a) / J  # Space mesh size
     u_initial = lambda x : -(x-1)*(x+1)*10
@@ -50,9 +50,11 @@ if __name__ == "__main__":
     
     plt.rcParams['text.usetex'] = True
 
+    fig, axs = plt.subplots(2,1)
+
     for m in range(0, M, 10):
-        plt.plot([a + j * deltaX for j in range(J+1)], u[m])
-    #axs[1].plot(range(M), [discretelPNorm(u[m], deltaX, p=1) for m in range(M)])
+        axs[0].plot([a + j * deltaX for j in range(J+1)], u[m])
+    axs[1].plot(range(M), [discretelPNorm(u[m], deltaX, p=1) for m in range(M)])
     #fig.title(r"$u_{tt} = \Delta u$ in $(x,t) \in \left[" + f"({a},{b}), (0,{T})" + r"\right]$")
     #fig.suptitle(f"{J + 1} spacial mesh points, {M+1} time mesh points, {J * (M+1)} points overall")
     plt.suptitle(r"$u_{tt} = -\Delta^{2} u$ in $(x,t) \in \left[" + f"({a},{b}), (0,{T})" + r"\right]$" + "\n" + f"{J + 1} spacial mesh points, {M+1} time mesh points, {J * (M+1)} points overall")
