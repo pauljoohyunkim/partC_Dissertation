@@ -38,6 +38,11 @@ Explicit Euler scheme can now be written
     &= 2 U_j^m \left( \frac{U_{j+1}^m - 2 U_{j}^m + U_{j-1}^m}{\Delta x^2} \right)
     + \frac{\left( U_{j+1}^m - U_{j-1}^m \right)^2}{2 \Delta x^2}
 \end{align}
+which can be rewritten as:
+\begin{equation}
+    U_j^{m+1} = 2 \mu U_j^m \left( U_{j+1}^m - 2 U_{j}^m + U_{j-1}^m \right) 
+    + \frac{1}{2} \mu \left( U_{j+1}^m - U_{j-1}^m \right)^2
+\end{equation}
 
 
 
