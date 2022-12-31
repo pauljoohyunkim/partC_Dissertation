@@ -4,6 +4,7 @@
 %
 \documentclass[a4paper]{article}
 \usepackage[]{amsmath}
+\usepackage{mathtools}
 
 
 \title{Tackling $u_{t} = \Delta \left( u^2 \right)$}
@@ -43,6 +44,7 @@ which can be rewritten as:
     U_j^{m+1} = 2 \mu U_j^m \left( U_{j+1}^m - 2 U_{j}^m + U_{j-1}^m \right) 
     + \frac{1}{2} \mu \left( U_{j+1}^m - U_{j-1}^m \right)^2
 \end{equation}
+where $\mu \coloneqq \frac{\Delta t}{\Delta x^2}$ is the CFL number.
 
 
 
