@@ -41,7 +41,7 @@ Explicit Euler scheme can now be written
 \end{align}
 which can be rewritten as:
 \begin{equation}
-    U_j^{m+1} = 2 \mu U_j^m \left( U_{j+1}^m - 2 U_{j}^m + U_{j-1}^m \right) 
+    U_j^{m+1} = U_j^m + 2 \mu U_j^m \left( U_{j+1}^m - 2 U_{j}^m + U_{j-1}^m \right) 
     + \frac{1}{2} \mu \left( U_{j+1}^m - U_{j-1}^m \right)^2
 \end{equation}
 where $\mu \coloneqq \frac{\Delta t}{\Delta x^2}$ is the CFL number.
