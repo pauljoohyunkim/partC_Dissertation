@@ -21,10 +21,10 @@ def nonlinearEvolve(a=-1,b=1,J=20,T=10000,M=10000000,u_initial = lambda x: 1 if 
         # Explicit Scheme
         for j in range(1,J):
             #ump1[0][j] = u[m][j] + cfl * (u[m][j+1] - 2 * u[m][j] + u[m][j-1])
-            ump1[0][j] = cfl * (2 * u[m][j] * (u[m][j+1] - 2 * u[m][j] + u[m][j-1]) + 0.5 * ((u[m][j+1] - u[m][j-1])**2))
-        ump1[0][0] = cfl * (2 * u[m][0] * (u[m][1] - 2 * u[m][0] + u[m][J]) + 0.5 * ((u[m][1] - u[m][J])**2))
+            ump1[0][j] = u[m][j] + cfl * (2 * u[m][j] * (u[m][j+1] - 2 * u[m][j] + u[m][j-1]) + 0.5 * ((u[m][j+1] - u[m][j-1])**2))
+        ump1[0][0] = u[m][j] + cfl * (2 * u[m][0] * (u[m][1] - 2 * u[m][0] + u[m][J]) + 0.5 * ((u[m][1] - u[m][J])**2))
         #ump1[0][0] = u[m][0] + cfl * (u[m][1] - 2 * u[m][0] + u[m][J])
-        ump1[0][J] = cfl * (2 * u[m][J] * (u[m][0] - 2 * u[m][J] + u[m][J-1]) + 0.5 * ((u[m][0] - u[m][J-1])**2))
+        ump1[0][J] = u[m][j] + cfl * (2 * u[m][J] * (u[m][0] - 2 * u[m][J] + u[m][J-1]) + 0.5 * ((u[m][0] - u[m][J-1])**2))
         #ump1[0][J] = u[m][J] + cfl * (u[m][0] - 2 * u[m][J] + u[m][J-1])
         u += ump1
     return u
