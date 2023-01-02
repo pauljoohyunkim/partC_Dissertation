@@ -34,6 +34,7 @@
         \label{equ: Gradient Flow}
     \end{equation}
 \end{definition}
+See \ref{sct: Motivation of Gradient Flow} for motivation of the gradient flow equation.
 
 \begin{definition}[Differential]
     \emph{Differential} $d\mathcal{E}$ describes change in $\mathcal{E}$ due to\footnote{analogous in traditional vector space would be ``in the direction of'' $u$} $u$:
@@ -331,6 +332,30 @@ This method has consistency error
 
 \newpage
 \section{Appendix}
+\subsection{Motivation of Gradient Flow}
+\label{sct: Motivation of Gradient Flow}
+Recall the gradient flow equation:
+\begin{equation}
+    \frac{d}{dt}f = - \grad \mathcal{E}(f)
+\end{equation}
+
+Compare this with the original gradient method used for solving the optimization problem:
+$\min_{\mathbf{x}} f(\mathbf{x})$
+\begin{equation}
+    \mathbf{x}_{n+1} = \mathbf{x}_n - \alpha_n \nabla f (\mathbf{x}_n)
+    \label{equ: Standard Gradient Descent}
+\end{equation}
+
+We may use this to motivate the gradient flow equation, which is for solving the optimization problem:
+$\min_f \mathcal{E} (f)$.
+Note that the standard gradient descent method (\ref{equ: Standard Gradient Descent}) suggests that we may
+analogously write:
+\begin{equation}
+    f_{n+1} = f_n - \alpha_n \grad \mathcal{E} (f_n)
+\end{equation}
+Suppose $\alpha_n \equiv 1$, and divide by the time step $\Delta t$, then take the limit as $\Delta t \rightarrow 0$ to arrive at the gradient flow equation
+
+
 \subsection{Natural Boundary Condition}
 \label{sct: Natural Boundary Condition}
 We pay more attention to the boundary terms in the process of integrating by parts.
