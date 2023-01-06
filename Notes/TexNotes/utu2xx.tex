@@ -44,8 +44,22 @@ which can be rewritten as:
     U_j^{m+1} = U_j^m + 2 \mu U_j^m \left( U_{j+1}^m - 2 U_{j}^m + U_{j-1}^m \right) 
     + \frac{1}{2} \mu \left( U_{j+1}^m - U_{j-1}^m \right)^2
 \end{equation}
-where $\mu \coloneqq \frac{\Delta t}{\Delta x^2}$ is the CFL number.
+where $\mu \coloneqq \frac{\Delta t}{\Delta x^2}$ is the ``CFL number''.
+\footnote{Proving stability condition is quite involved apparently\dots}
 
+\subsection{Scheme Construction Without Simplification}
+Define $v \coloneqq u^2$, then (\ref{equ: Nonlinear Equation}) can be written as
+\begin{equation}
+    \frac{\partial u}{\partial t} = \Delta v
+\end{equation}
+
+Explicit Euler scheme can now be written
+\begin{equation}
+    \begin{cases}
+        \frac{U_j^{m+1} - U_j^m}{\Delta t} = \frac{V_{j+1}^m - 2 V_j^m + V_{j-1}^m}{\left( \Delta x \right)^2} \\
+        V_j^m = \left( U_j^m \right)^2
+    \end{cases}
+\end{equation}
 
 
 \end{document}
