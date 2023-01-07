@@ -1,0 +1,67 @@
+%        File: u_t u2_xx.tex
+%     Created: Sat Dec 31 12:00 AM 2022 C
+% Last Change: Sat Dec 31 12:00 AM 2022 C
+%
+\documentclass[a4paper]{article}
+\usepackage[]{amsmath}
+\usepackage{mathtools}
+
+
+\title{Tackling $u_{t} = \Delta \left( u^2 \right)$}
+\author{Paul Kim}
+\begin{document}
+\maketitle
+\section{The Equation}
+The equation we are concerned with is:
+\begin{equation}
+    u_{t} = \Delta \left( u^2 \right)
+    \label{equ: Nonlinear Equation}
+\end{equation}
+
+\section{Explicit Scheme}
+For convenience we consider explicit Euler schemes.
+
+\subsection{Scheme Construction After Simplification}
+Note that (\ref{equ: Nonlinear Equation}) can be written as:
+\begin{align}
+    u_t &= \Delta \left( u^2 \right) \\
+    &= 2 u \Delta u + 2 || \nabla u ||^2
+\end{align}
+In 1-dimensional case, we simplify it as:
+\begin{equation}
+    \frac{\partial u}{\partial t} = 2 u \frac{\partial^2 u}{\partial x^2} + 2 \left( \frac{\partial u}{\partial x} \right)^2
+\end{equation}
+Explicit Euler scheme can now be written
+\begin{align}
+    \frac{U_j^{m+1} - U_j^m}{\Delta t}
+    &= 2 U_j^m \left( \frac{U_{j+1}^m - 2 U_{j}^m + U_{j-1}^m}{\Delta x^2} \right)
+    + 2 \left( \frac{U_{j+1}^m - U_{j-1}^m}{2 \Delta x} \right)^2 \\
+    &= 2 U_j^m \left( \frac{U_{j+1}^m - 2 U_{j}^m + U_{j-1}^m}{\Delta x^2} \right)
+    + \frac{\left( U_{j+1}^m - U_{j-1}^m \right)^2}{2 \Delta x^2}
+\end{align}
+which can be rewritten as:
+\begin{equation}
+    U_j^{m+1} = U_j^m + 2 \mu U_j^m \left( U_{j+1}^m - 2 U_{j}^m + U_{j-1}^m \right) 
+    + \frac{1}{2} \mu \left( U_{j+1}^m - U_{j-1}^m \right)^2
+\end{equation}
+where $\mu \coloneqq \frac{\Delta t}{\Delta x^2}$ is the ``CFL number''.
+\footnote{Proving stability condition is quite involved apparently\dots}
+
+\subsection{Scheme Construction Without Simplification}
+Define $v \coloneqq u^2$, then (\ref{equ: Nonlinear Equation}) can be written as
+\begin{equation}
+    \frac{\partial u}{\partial t} = \Delta v
+\end{equation}
+
+Explicit Euler scheme can now be written
+\begin{equation}
+    \begin{cases}
+        \frac{U_j^{m+1} - U_j^m}{\Delta t} = \frac{V_{j+1}^m - 2 V_j^m + V_{j-1}^m}{\left( \Delta x \right)^2} \\
+        V_j^m = \left( U_j^m \right)^2
+    \end{cases}
+\end{equation}
+
+
+\end{document}
+
+
