@@ -7,22 +7,22 @@
 \usepackage{mathtools}
 
 
-\title{Tackling $u_{t} = \Delta \left( u^2 \right)$}
+\title{Tackling $u_{t} = \Delta \left( u^2 \right)$, Porous Medium Equation}
 \author{Paul Kim}
 \begin{document}
 \maketitle
-\section{The Equation}
+\section{Porous Medium Equation}
 The equation we are concerned with is:
 \begin{equation}
     u_{t} = \Delta \left( u^2 \right)
-    \label{equ: Nonlinear Equation}
+    \label{Porous Medium Equation}
 \end{equation}
 
 \section{Explicit Scheme}
 For convenience we consider explicit Euler schemes.
 
-\subsection{Scheme Construction After Simplification}
-Note that (\ref{equ: Nonlinear Equation}) can be written as:
+\subsection{Scheme Construction After Simplification [Deprecated]}
+Note that (\ref{Porous Medium Equation}) can be written as:
 \begin{align}
     u_t &= \Delta \left( u^2 \right) \\
     &= 2 u \Delta u + 2 || \nabla u ||^2
@@ -47,8 +47,10 @@ which can be rewritten as:
 where $\mu \coloneqq \frac{\Delta t}{\Delta x^2}$ is the ``CFL number''.
 \footnote{Proving stability condition is quite involved apparently\dots}
 
-\subsection{Scheme Construction Without Simplification}
-Define $v \coloneqq u^2$, then (\ref{equ: Nonlinear Equation}) can be written as
+This method is deprecated apparently, as it is not in ``divergence form'' and does not conserve $L^1$ norm.
+
+\subsection{Scheme Construction Without Simplification [Suggested]}
+Define $v \coloneqq u^2$, then (\ref{Porous Medium Equation}) can be written as
 \begin{equation}
     \frac{\partial u}{\partial t} = \Delta v
 \end{equation}
