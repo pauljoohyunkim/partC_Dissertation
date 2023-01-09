@@ -51,12 +51,12 @@ def nonlinearEvolve2(a=-1,b=1,J=20,T=10000,M=10000000,u_initial = lambda x: 1 if
 if __name__ == "__main__":
     a = -1
     b = 1
-    J = 20                 # Final spacial point index
+    J = 40                 # Final spacial point index
     T = 10                # Final time (in second)
-    M = 40000             # Final time step
+    M = 80000             # Final time step
     deltaT = T/M        # Time mesh size
     deltaX = (b-a) / J  # Space mesh size
-    u_initial = lambda x: 1 if (x < 1 and -1 < x) else 0
+    u_initial = lambda x: 1 if (x < 0.2 and -0.2 < x) else 0
     u = nonlinearEvolve2(a, b, J, T, M, u_initial)
     deltaX = (b-a) / J  # Space mesh size
     
