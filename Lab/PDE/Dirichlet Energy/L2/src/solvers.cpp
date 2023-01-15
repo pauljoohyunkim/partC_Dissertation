@@ -6,9 +6,9 @@
 
 void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M)
 {
-    auto deltaT = T / M;
-    auto deltaX = (b - a) / J;
-    auto cfl = deltaT / (deltaX * deltaX);
+    double deltaT = (double) T / M;
+    double deltaX = (b - a) / J;
+    double cfl = deltaT / (deltaX * deltaX);
     std::vector<double> u {};
     std::vector<double> x {};                   /* Vector of x values */
     std::vector<double> ump1 {};
