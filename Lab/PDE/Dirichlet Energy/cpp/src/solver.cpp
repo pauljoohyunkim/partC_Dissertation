@@ -45,3 +45,15 @@ void Solver::allocate()
         qAllocated = false;
     }
 }
+
+void Solver::free()
+{
+    if(!qAllocated)
+    {
+        for (auto m = 0; m <= M; m++)
+        {
+            delete [] (u[m]);
+        }
+        delete [] u;
+    }
+}

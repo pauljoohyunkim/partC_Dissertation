@@ -20,6 +20,7 @@ int main()
 
     Solver heatEquationSolver(u_initial);
     heatEquationSolver.setScheme(heatEvolveExplicitEulerPeriodic);
+    heatEquationSolver.solve();
 
     return 0;
 }
