@@ -309,3 +309,6 @@ TSWLatexianTemp*
 *.exe
 *.out
 *.app
+
+# Build Directory
+*build*
