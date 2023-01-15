@@ -17,7 +17,12 @@ void Solver::setScheme(std::function<void(std::function<double(double)>, double,
 
 void Solver::solve()
 {
-    
+    if(!qSolved)
+    {
+        qSolved = true;
+        Solver::allocate();
+        schemeFun(u_initial, a, b, J, T, M, u);
+    }
 }
 
 void Solver::plotSolution()
@@ -25,5 +30,18 @@ void Solver::plotSolution()
     if (!qSolved)
     {
         Solver::solve();
+    }
+}
+
+void Solver::allocate()
+{
+    if(!qAllocated)
+    {
+        u = new double* [M + 1];
+        for (auto m = 0; m <= M; m++)
+        {
+            u[m] = new double [J + 1];
+        }
+        qAllocated = false;
     }
 }

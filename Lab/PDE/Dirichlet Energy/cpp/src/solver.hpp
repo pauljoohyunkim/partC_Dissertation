@@ -27,10 +27,18 @@ class Solver
         unsigned int T;         /* Time interval (0,T) */
         unsigned int M;         /* The last time step */
         double** u;             /* Entire Solution */
+        bool qAllocated {false};    /* Whether or not if u is allocated or not */
         bool qSolved {false};   /* Whether or not if solve was used before */
         std::function<double(double)> u_initial;    /* Initial Datum */
         /* Scheme function that takes u_initial, a, b, J, T, and M as parameters */
         std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&)> schemeFun;
+
+        /* Allocator for u */
+        void allocate();
+
+        /* Free for u */
+        void free();
+
 
 };
 
