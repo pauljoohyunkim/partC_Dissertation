@@ -1,4 +1,5 @@
 #include "solvers.hpp"
+#include "params.hpp"
 #include <functional>
 #include <iostream>
 #include <vector>
@@ -43,6 +44,9 @@ void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, do
         ump1.push_back(u[J] + cfl * (u[0] - 2 * u[J] + u[J - 1]));
         u = ump1;
         matplot::plot(x, ump1);
+        matplot::xlim({XLIM_L, XLIM_R});
+        matplot::ylim({YLIM_D, YLIM_U});
+
     }
     
     matplot::show();
