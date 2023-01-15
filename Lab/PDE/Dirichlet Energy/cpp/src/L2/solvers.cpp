@@ -1,5 +1,5 @@
 #include "solvers.hpp"
-#include "params.hpp"
+#include "../params.hpp"
 #include <functional>
 #include <algorithm>
 #include <iterator>
