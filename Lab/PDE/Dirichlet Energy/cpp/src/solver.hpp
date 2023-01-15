@@ -10,7 +10,7 @@ class Solver
         Solver(std::function<double(double)> au_initial, double aa = -1, double ab = 1, unsigned int aJ = 20, unsigned int aT = 1, unsigned int aM = 1000);
 
         /* Set scheme */
-        void setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int)> aScheme);
+        void setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&)> aScheme);
 
         /* Solve */
         void solve();
@@ -30,7 +30,7 @@ class Solver
         bool qSolved {false};   /* Whether or not if solve was used before */
         std::function<double(double)> u_initial;    /* Initial Datum */
         /* Scheme function that takes u_initial, a, b, J, T, and M as parameters */
-        std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int)> schemeFun;
+        std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&)> schemeFun;
 
 };
 

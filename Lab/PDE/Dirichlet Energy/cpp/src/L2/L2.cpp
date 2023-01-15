@@ -8,7 +8,7 @@
 #include "../params.hpp"
 #include "L2.hpp"
 
-static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M);
+static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u);
 
 int main()
 {
@@ -25,12 +25,11 @@ int main()
 }
 
 
-static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M)
+static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u)
 {
     double deltaT = (double) T / M;
     double deltaX = (b - a) / J;
     double cfl = deltaT / (deltaX * deltaX);
-    double *u = new double [J + 1];
     std::vector<double> x {};
     double *ump1 = new double [J + 1];
     std::vector<double> plotVec(J + 1, 0);
@@ -72,7 +71,6 @@ static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_init
         std::cout << "Progress: " << m << "/" << M << "    " << (double) m / M * 100 << std::endl;
     }
 
-    delete [] u;
     delete [] ump1;
     
     matplot::show();
