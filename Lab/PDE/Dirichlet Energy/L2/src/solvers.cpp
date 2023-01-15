@@ -1,6 +1,8 @@
 #include "solvers.hpp"
 #include "params.hpp"
 #include <functional>
+#include <algorithm>
+#include <iterator>
 #include <iostream>
 #include <vector>
 #include <matplot/matplot.h>
@@ -47,6 +49,8 @@ void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, do
         matplot::xlim({XLIM_L, XLIM_R});
         matplot::ylim({YLIM_D, YLIM_U});
 
+        std::copy(std::begin(plotVec), std::end(plotVec), u);
+        //std::copy(std::begin(plotVec), std::end(plotVec), std::begin(u));
     }
 
     delete [] u;
