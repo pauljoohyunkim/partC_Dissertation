@@ -21,6 +21,7 @@ int main()
     Solver heatEquationSolver(u_initial);
     heatEquationSolver.setScheme(heatEvolveExplicitEulerPeriodic);
     heatEquationSolver.solve();
+    heatEquationSolver.plotSolution();
 
     return 0;
 }

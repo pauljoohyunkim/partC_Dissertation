@@ -1,4 +1,6 @@
 #include "solver.hpp"
+#include "params.hpp"
+#include <matplot/matplot.h>
 
 Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, unsigned int aJ, unsigned int aT, unsigned int aM)
 {
@@ -27,10 +29,36 @@ void Solver::solve()
 
 void Solver::plotSolution()
 {
-    if (!qSolved)
+    std::vector<double> x {};
+    std::vector<double> y {};
+    double deltaX = (b - a) / J;
+    if (!qAllocated || !qSolved)
     {
         Solver::solve();
     }
+
+    /* x values and preallocation of y */
+    for (unsigned int j = 0; j <= J; j++)
+    {
+        x.push_back(a + (double) j * deltaX);
+        y.push_back(0);
+    }
+
+    matplot::hold(matplot::on);
+    /* Load each array to vector, then plot */
+    for (unsigned int m = 0; m <= M; m++)
+    {
+        y.assign(u[m], u[m] + J + 1);
+
+        matplot::plot(x, y);
+        matplot::xlim({XLIM_L, XLIM_R});
+        matplot::ylim({YLIM_D, YLIM_U});
+    }
+
+    /* Deallocate */
+    Solver::free();
+
+
 }
 
 void Solver::allocate()
@@ -42,7 +70,7 @@ void Solver::allocate()
         {
             u[m] = new double [J + 1];
         }
-        qAllocated = false;
+        qAllocated = true;
     }
 }
 
@@ -56,4 +84,5 @@ void Solver::free()
         }
         delete [] u;
     }
+    qAllocated = false;
 }
