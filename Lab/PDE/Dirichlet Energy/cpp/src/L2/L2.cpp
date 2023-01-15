@@ -10,4 +10,8 @@ int main()
     {
         return -(x - 1) * (x + 1);
     };
+
+    Solver heatEquationSolver(u_initial);
+
+    return 0;
 }
