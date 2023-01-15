@@ -50,7 +50,8 @@ void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, do
         matplot::ylim({YLIM_D, YLIM_U});
 
         std::copy(std::begin(plotVec), std::end(plotVec), u);
-        //std::copy(std::begin(plotVec), std::end(plotVec), std::begin(u));
+
+        std::cout << "Progress: " << m << "/" << M << "    " << (double) m / M * 100 << std::endl;
     }
 
     delete [] u;

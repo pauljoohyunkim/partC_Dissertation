@@ -11,6 +11,6 @@ int main()
         return -(x - 1) * (x + 1);
     };
 
-    heatEvolveExplicitEulerPeriodic(u_initial);
+    heatEvolveExplicitEulerPeriodic(u_initial, -1, 1, 40, 10, 10000);
     
 }
