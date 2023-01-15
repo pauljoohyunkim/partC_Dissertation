@@ -14,3 +14,16 @@ void Solver::setScheme(std::function<void(std::function<double(double)>, double,
 {
     schemeFun = aScheme;
 }
+
+void Solver::solve()
+{
+    
+}
+
+void Solver::plotSolution()
+{
+    if (!qSolved)
+    {
+        Solver::solve();
+    }
+}
