@@ -31,8 +31,6 @@ static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_init
     double deltaX = (b - a) / J;
     double cfl = deltaT / (deltaX * deltaX);
     std::vector<double> x {};
-    double *ump1 = new double [J + 1];
-    std::vector<double> plotVec(J + 1, 0);
     
     if (cfl > 0.5)
     {
@@ -43,35 +41,23 @@ static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_init
     for (auto j = 0; j <= J; j++)
     {
         x.push_back(a + (double) j * deltaX);
-        u[j] = u_initial(x[j]);
+        u[0][j] = u_initial(x[j]);
     }
 
 
-    matplot::hold(matplot::on);
-    
     /* Explicit Scheme */
     /*
     The first and the last steps are separate.
     */
     for (auto m = 0; m < M; m++)
     {
-        ump1[0] = u[0] + cfl * (u[1] - 2 * u[0] + u[J]);
+        u[m + 1][0] = u[m][0] + cfl * (u[m][1] - 2 * u[m][0] + u[m][J]);
         for (auto j = 1; j < J; j++)
         {
-            ump1[j] = u[j] + cfl * (u[j + 1] - 2 * u[j] + u[j - 1]);
+            u[m + 1][j] = u[m][j] + cfl * (u[m][j + 1] - 2 * u[m][j] + u[m][j - 1]);
         }
-        ump1[J] = u[J] + cfl * (u[0] - 2 * u[J] + u[J - 1]);
-        plotVec.assign(ump1, ump1 + J + 1);
-        matplot::plot(x, plotVec);
-        matplot::xlim({XLIM_L, XLIM_R});
-        matplot::ylim({YLIM_D, YLIM_U});
-
-        std::copy(std::begin(plotVec), std::end(plotVec), u);
+        u[m + 1][J] = u[m][J] + cfl * (u[m][0] - 2 * u[m][J] + u[m][J - 1]);
 
         std::cout << "Progress: " << m << "/" << M << "    " << (double) m / M * 100 << std::endl;
     }
-
-    delete [] ump1;
-    
-    matplot::show();
 }
