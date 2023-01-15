@@ -1,7 +1,6 @@
 #include <iostream>
 #include <matplot/matplot.h>
 #include "solvers.hpp"
-#include "plotter.hpp"
 #include "L2.hpp"
 
 int main()

@@ -1,5 +1,4 @@
 #include "solvers.hpp"
-#include "plotter.hpp"
 #include <functional>
 #include <iostream>
 #include <vector>
@@ -20,7 +19,7 @@ void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, do
     }
 
     /* Initial Datum */
-    for (auto j = 0; j < J; j++)
+    for (auto j = 0; j <= J; j++)
     {
         x.push_back(a + (double) j * deltaX);
         u.push_back(u_initial(x.back()));
