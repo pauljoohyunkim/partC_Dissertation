@@ -1,6 +1,6 @@
 #include <iostream>
 #include <matplot/matplot.h>
-#include "solvers.hpp"
+#include "../solver.hpp"
 #include "L2.hpp"
 
 int main()
@@ -10,7 +10,4 @@ int main()
     {
         return -(x - 1) * (x + 1);
     };
-
-    heatEvolveExplicitEulerPeriodic(u_initial, -1, 1, 40, 10, 10000);
-    
 }

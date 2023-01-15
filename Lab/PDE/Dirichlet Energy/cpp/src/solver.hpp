@@ -1,6 +1,8 @@
 #ifndef SOLVER_HPP
 #define SOLVER_HPP
 
+#include <functional>
+
 class Solver
 {
     public:
@@ -14,6 +16,8 @@ class Solver
         unsigned int T;         /* Time interval (0,T) */
         unsigned int M;         /* The last time step */
         std::function<double(double)> u_initial;    /* Initial Datum */
+        /* Scheme function that takes u_initial, a, b, J, T, and M as parameters */
+        std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int)> schemeFun;
 
 };
 
