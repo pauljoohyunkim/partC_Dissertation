@@ -21,7 +21,7 @@ Solver::~Solver()
     std::cout << "Solver Destructed" << std::endl;
 }
 
-void Solver::setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&)> aScheme)
+void Solver::setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&, std::vector<double>&)> aScheme)
 {
     schemeFun = aScheme;
 }
@@ -32,7 +32,7 @@ void Solver::solve()
     {
         qSolved = true;
         Solver::allocate();
-        schemeFun(u_initial, a, b, J, T, M, u);
+        schemeFun(u_initial, a, b, J, T, M, u, x);
     }
 }
 
@@ -40,7 +40,6 @@ void Solver::solve()
  * Use exportSolution, then the python program json_plot.py to get a visual solution! */
 void Solver::plotSolution()
 {
-    std::vector<double> x {};
     std::vector<double> y {};
     double deltaX = (b - a) / J;
     if (!qAllocated || !qSolved)
@@ -48,10 +47,9 @@ void Solver::plotSolution()
         Solver::solve();
     }
 
-    /* x values and preallocation of y */
+    /* Preallocation of y */
     for (unsigned int j = 0; j <= J; j++)
     {
-        x.push_back(a + (double) j * deltaX);
         y.push_back(0);
     }
 
@@ -73,7 +71,6 @@ void Solver::plotSolution()
 void Solver::exportSolution(std::string filename)
 {
     std::ofstream exportFile(filename);
-    double deltaX = (b - a) / J;
 
     /* Exporting data in json file 
      * First entry is the list of x values.
@@ -85,7 +82,7 @@ void Solver::exportSolution(std::string filename)
     exportFile << "[";
     for(unsigned int j = 0; j <= J; j++)
     {
-        exportFile << std::setprecision(DOUBLE_PRECISION) << a + (double) j * deltaX;
+        exportFile << std::setprecision(DOUBLE_PRECISION) << x[j];
         if(j != J)
         {
             exportFile << ",";

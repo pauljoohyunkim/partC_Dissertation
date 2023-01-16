@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <iostream>
+#include <vector>
 
 #define DOUBLE_PRECISION 15
 
@@ -16,7 +17,7 @@ class Solver
         ~Solver();
 
         /* Set scheme */
-        void setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&)> aScheme);
+        void setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&, std::vector<double>&)> aScheme);
 
         /* Solve */
         void solve();
@@ -28,6 +29,8 @@ class Solver
         void exportSolution(std::string filename);
         
         
+        /* Mesh Points */
+        std::vector<double> x;
     private:
         /* Interval of interest: (a, b) */
         double a;
@@ -40,7 +43,7 @@ class Solver
         bool qSolved {false};   /* Whether or not if solve was used before */
         std::function<double(double)> u_initial;    /* Initial Datum */
         /* Scheme function that takes u_initial, a, b, J, T, and M as parameters */
-        std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&)> schemeFun;
+        std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&, std::vector<double>&)> schemeFun;
 
         /* Allocator for u */
         void allocate();

@@ -8,7 +8,7 @@
 #include "../params.hpp"
 #include "L2.hpp"
 
-static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u);
+static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u, std::vector<double> &x);
 
 int main()
 {
@@ -27,13 +27,12 @@ int main()
 }
 
 
-static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u)
+static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u, std::vector<double> &x)
 {
     double deltaT = (double) T / M;
     double deltaX = (b - a) / J;
     double cfl = deltaT / (deltaX * deltaX);
-    std::vector<double> x {};
-    
+
     if (cfl > 0.5)
     {
         std::cout << "Warning: the CFL number is " << cfl << ", so stability is not guaranteed";
