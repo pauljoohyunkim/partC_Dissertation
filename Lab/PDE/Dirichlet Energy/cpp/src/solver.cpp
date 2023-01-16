@@ -15,6 +15,12 @@ Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, u
     M = aM;
 }
 
+Solver::~Solver()
+{
+    free();
+    std::cout << "Solver Destructed" << std::endl;
+}
+
 void Solver::setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&)> aScheme)
 {
     schemeFun = aScheme;
