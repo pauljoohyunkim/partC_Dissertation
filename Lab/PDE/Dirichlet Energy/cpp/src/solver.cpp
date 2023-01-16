@@ -1,5 +1,7 @@
 #include "solver.hpp"
 #include "params.hpp"
+#include <iostream>
+#include <fstream>
 #include <matplot/matplot.h>
 
 Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, unsigned int aJ, unsigned int aT, unsigned int aM)
@@ -57,8 +59,43 @@ void Solver::plotSolution()
 
     /* Deallocate */
     Solver::free();
+}
 
+void Solver::exportSolution(std::string filename)
+{
+    std::ofstream exportFile(filename);
 
+    /* Exporting data in json file */
+    exportFile << "[";
+    for(unsigned int m = 0; m <= M; m++)
+    {
+        exportFile << "[";
+        for(unsigned int j = 0; j <= J; j++)
+        {
+            if(j == J)
+            {
+                exportFile << u[m][j];
+            }
+            else
+            {
+                exportFile << u[m][j] << ",";
+            }
+        }
+        if (m == M)
+        {
+            exportFile << "]";
+        }
+        else
+        {
+            exportFile << "]," << std::endl;
+        }
+    }
+    exportFile << "]";
+
+    exportFile.close();
+
+    /* Deallocate */
+    Solver::free();
 }
 
 void Solver::allocate()

@@ -2,6 +2,7 @@
 #define SOLVER_HPP
 
 #include <functional>
+#include <iostream>
 
 class Solver
 {
@@ -17,6 +18,9 @@ class Solver
 
         /* Plot */
         void plotSolution();
+
+        /* Export */
+        void exportSolution(std::string filename);
         
         
     private:
