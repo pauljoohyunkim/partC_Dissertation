@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <iterator>
 #include <vector>
-#include <matplot/matplot.h>
 #include "../solver.hpp"
 #include "../params.hpp"
 #include "L2.hpp"
