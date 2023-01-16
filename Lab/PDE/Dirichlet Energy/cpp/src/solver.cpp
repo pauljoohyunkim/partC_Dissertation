@@ -36,6 +36,8 @@ void Solver::solve()
     }
 }
 
+/* DEPRECATED!!!!!!
+ * Use exportSolution, then the python program json_plot.py to get a visual solution! */
 void Solver::plotSolution()
 {
     std::vector<double> x {};
