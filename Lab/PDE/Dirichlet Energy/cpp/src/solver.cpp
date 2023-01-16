@@ -33,6 +33,10 @@ void Solver::solve()
         qSolved = true;
         Solver::allocate();
         schemeFun(u_initial, a, b, J, T, M, u, x);
+        if(!x.size())
+        {
+            std::cerr << "[Warning] Solver::solve: The scheme may have not allocated x, hence invalid" << std::endl;
+        }
     }
 }
 
