@@ -1,6 +1,9 @@
 #include "solver.hpp"
 #include "params.hpp"
+#include <iostream>
+#include <fstream>
 #include <matplot/matplot.h>
+#include <iomanip>
 
 Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, unsigned int aJ, unsigned int aT, unsigned int aM)
 {
@@ -10,6 +13,12 @@ Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, u
     J = aJ;
     T = aT;
     M = aM;
+}
+
+Solver::~Solver()
+{
+    free();
+    std::cout << "Solver Destructed" << std::endl;
 }
 
 void Solver::setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&)> aScheme)
@@ -27,6 +36,8 @@ void Solver::solve()
     }
 }
 
+/* DEPRECATED!!!!!!
+ * Use exportSolution, then the python program json_plot.py to get a visual solution! */
 void Solver::plotSolution()
 {
     std::vector<double> x {};
@@ -57,8 +68,67 @@ void Solver::plotSolution()
 
     /* Deallocate */
     Solver::free();
+}
+
+void Solver::exportSolution(std::string filename)
+{
+    std::ofstream exportFile(filename);
+    double deltaX = (b - a) / J;
+
+    /* Exporting data in json file 
+     * First entry is the list of x values.
+     * Second entry is the 2D array of solution in the form u[m][j]
+     * */
+
+    exportFile << "[";
+
+    exportFile << "[";
+    for(unsigned int j = 0; j <= J; j++)
+    {
+        exportFile << std::setprecision(DOUBLE_PRECISION) << a + (double) j * deltaX;
+        if(j != J)
+        {
+            exportFile << ",";
+        }
+    }
+    exportFile << "]";
+    
 
 
+    exportFile << "," << std::endl;
+
+    exportFile << "[";
+    for(unsigned int m = 0; m <= M; m++)
+    {
+        exportFile << "[";
+        for(unsigned int j = 0; j <= J; j++)
+        {
+            if(j == J)
+            {
+                exportFile << std::setprecision(DOUBLE_PRECISION) << u[m][j];
+            }
+            else
+            {
+                exportFile << std::setprecision(DOUBLE_PRECISION) <<  u[m][j] << ",";
+            }
+        }
+        if (m == M)
+        {
+            exportFile << "]";
+        }
+        else
+        {
+            exportFile << "]," << std::endl;
+        }
+    }
+    exportFile << "]";
+
+    exportFile << "]";
+
+    exportFile.close();
+
+    /* Deallocate */
+    Solver::free();
 }
 
 void Solver::allocate()

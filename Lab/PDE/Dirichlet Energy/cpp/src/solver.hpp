@@ -2,12 +2,18 @@
 #define SOLVER_HPP
 
 #include <functional>
+#include <iostream>
+
+#define DOUBLE_PRECISION 15
 
 class Solver
 {
     public:
         /* Constructor */
         Solver(std::function<double(double)> au_initial, double aa = -1, double ab = 1, unsigned int aJ = 20, unsigned int aT = 1, unsigned int aM = 1000);
+
+        /* Destructor */
+        ~Solver();
 
         /* Set scheme */
         void setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&)> aScheme);
@@ -17,6 +23,9 @@ class Solver
 
         /* Plot */
         void plotSolution();
+
+        /* Export */
+        void exportSolution(std::string filename);
         
         
     private:
