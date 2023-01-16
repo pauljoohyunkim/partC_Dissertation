@@ -17,7 +17,7 @@ Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, u
 
 Solver::~Solver()
 {
-    free();
+    Solver::free();
     std::cout << "Solver Destructed" << std::endl;
 }
 
