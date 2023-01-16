@@ -4,6 +4,8 @@
 #include <functional>
 #include <iostream>
 
+#define DOUBLE_PRECISION 15
+
 class Solver
 {
     public:

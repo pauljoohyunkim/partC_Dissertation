@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <matplot/matplot.h>
+#include <iomanip>
 
 Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, unsigned int aJ, unsigned int aT, unsigned int aM)
 {
@@ -76,7 +77,7 @@ void Solver::exportSolution(std::string filename)
     exportFile << "[";
     for(unsigned int j = 0; j <= J; j++)
     {
-        exportFile << a + (double) j * deltaX;
+        exportFile << std::setprecision(DOUBLE_PRECISION) << a + (double) j * deltaX;
         if(j != J)
         {
             exportFile << ",";
@@ -96,11 +97,11 @@ void Solver::exportSolution(std::string filename)
         {
             if(j == J)
             {
-                exportFile << u[m][j];
+                exportFile << std::setprecision(DOUBLE_PRECISION) << u[m][j];
             }
             else
             {
-                exportFile << u[m][j] << ",";
+                exportFile << std::setprecision(DOUBLE_PRECISION) <<  u[m][j] << ",";
             }
         }
         if (m == M)
