@@ -64,8 +64,30 @@ void Solver::plotSolution()
 void Solver::exportSolution(std::string filename)
 {
     std::ofstream exportFile(filename);
+    double deltaX = (b - a) / J;
 
-    /* Exporting data in json file */
+    /* Exporting data in json file 
+     * First entry is the list of x values.
+     * Second entry is the 2D array of solution in the form u[m][j]
+     * */
+
+    exportFile << "[";
+
+    exportFile << "[";
+    for(unsigned int j = 0; j <= J; j++)
+    {
+        exportFile << a + (double) j * deltaX;
+        if(j != J)
+        {
+            exportFile << ",";
+        }
+    }
+    exportFile << "]";
+    
+
+
+    exportFile << "," << std::endl;
+
     exportFile << "[";
     for(unsigned int m = 0; m <= M; m++)
     {
@@ -90,6 +112,8 @@ void Solver::exportSolution(std::string filename)
             exportFile << "]," << std::endl;
         }
     }
+    exportFile << "]";
+
     exportFile << "]";
 
     exportFile.close();
