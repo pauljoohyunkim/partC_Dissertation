@@ -22,6 +22,8 @@ if __name__ == "__main__":
         for i in range(0, len(us), skipnum):
             plt.plot(x, us[i])
 
+        plt.xlim(-1,1)
+
         plt.show()
     except KeyboardInterrupt:
         print("Keyboard Interrupt Received. Quitting")
