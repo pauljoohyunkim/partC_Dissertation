@@ -2,10 +2,9 @@
 #include "params.hpp"
 #include <iostream>
 #include <fstream>
-#include <matplot/matplot.h>
 #include <iomanip>
 
-Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, unsigned int aJ, unsigned int aT, unsigned int aM)
+Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, unsigned int aJ, double aT, unsigned int aM)
 {
     u_initial = au_initial;
     a = aa;
@@ -21,7 +20,7 @@ Solver::~Solver()
     std::cout << "Solver Destructed" << std::endl;
 }
 
-void Solver::setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, unsigned int, unsigned int, double**&, std::vector<double>&)> aScheme)
+void Solver::setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, double, unsigned int, double**&, std::vector<double>&)> aScheme)
 {
     schemeFun = aScheme;
 }
@@ -38,38 +37,6 @@ void Solver::solve()
             std::cerr << "[Warning] Solver::solve: The scheme may have not allocated x, hence invalid" << std::endl;
         }
     }
-}
-
-/* DEPRECATED!!!!!!
- * Use exportSolution, then the python program json_plot.py to get a visual solution! */
-void Solver::plotSolution()
-{
-    std::vector<double> y {};
-    double deltaX = (b - a) / J;
-    if (!qAllocated || !qSolved)
-    {
-        Solver::solve();
-    }
-
-    /* Preallocation of y */
-    for (unsigned int j = 0; j <= J; j++)
-    {
-        y.push_back(0);
-    }
-
-    matplot::hold(matplot::on);
-    /* Load each array to vector, then plot */
-    for (unsigned int m = 0; m <= M; m++)
-    {
-        y.assign(u[m], u[m] + J + 1);
-
-        matplot::plot(x, y);
-        matplot::xlim({XLIM_L, XLIM_R});
-        matplot::ylim({YLIM_D, YLIM_U});
-    }
-
-    /* Deallocate */
-    Solver::free();
 }
 
 void Solver::exportSolution(std::string filename, unsigned int timeskip)
