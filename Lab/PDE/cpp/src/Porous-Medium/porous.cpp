@@ -5,7 +5,7 @@
 #include <vector>
 
 
-static void porousMediumExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u, std::vector<double> &x);
+static void porousMediumExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, double T, unsigned int M, double** &u, std::vector<double> &x);
 
 int main()
 {
@@ -22,15 +22,15 @@ int main()
         }
     };
 
-    Solver porousMediumEquationSolver(u_initial, -1, 1, 400, 1, 80000);
+    Solver porousMediumEquationSolver(u_initial, -1, 1, 400, 0.25, 80000);
     porousMediumEquationSolver.setScheme(porousMediumExplicitEulerPeriodic);
     porousMediumEquationSolver.solve();
-    porousMediumEquationSolver.exportSolution("test.json");
+    porousMediumEquationSolver.exportSolution("test.json", 10);
 
     return 0;
 }
 
-static void porousMediumExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u, std::vector<double> &x)
+static void porousMediumExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, double T, unsigned int M, double** &u, std::vector<double> &x)
 {
     double deltaT = (double) T / M;
     double deltaX = (b - a) / J;

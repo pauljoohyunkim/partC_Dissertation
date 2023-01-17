@@ -5,7 +5,7 @@
 #include "../solver.hpp"
 
 
-static void ode1EvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u, std::vector<double> &x);
+static void ode1EvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, double T, unsigned int M, double** &u, std::vector<double> &x);
 
 int main()
 {
@@ -23,7 +23,7 @@ int main()
     return 0;
 }
 
-static void ode1EvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u, std::vector<double> &x)
+static void ode1EvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, double T, unsigned int M, double** &u, std::vector<double> &x)
 {
     double deltaT = (double) T / M;
     double deltaX = (b - a) / J;

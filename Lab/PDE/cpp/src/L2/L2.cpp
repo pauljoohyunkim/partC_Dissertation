@@ -7,8 +7,8 @@
 #include "../params.hpp"
 #include "L2.hpp"
 
-static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u, std::vector<double> &x);
-static void heatEvolveExplicitEulerNatural(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u, std::vector<double> &x);
+static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, double T, unsigned int M, double** &u, std::vector<double> &x);
+static void heatEvolveExplicitEulerNatural(std::function<double(double)> u_initial, double a, double b, unsigned int J, double T, unsigned int M, double** &u, std::vector<double> &x);
 
 int main()
 {
@@ -27,7 +27,7 @@ int main()
 }
 
 
-static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u, std::vector<double> &x)
+static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_initial, double a, double b, unsigned int J, double T, unsigned int M, double** &u, std::vector<double> &x)
 {
     double deltaT = (double) T / M;
     double deltaX = (b - a) / J;
@@ -64,7 +64,7 @@ static void heatEvolveExplicitEulerPeriodic(std::function<double(double)> u_init
 }
 
 
-static void heatEvolveExplicitEulerNatural(std::function<double(double)> u_initial, double a, double b, unsigned int J, unsigned int T, unsigned int M, double** &u, std::vector<double> &x)
+static void heatEvolveExplicitEulerNatural(std::function<double(double)> u_initial, double a, double b, unsigned int J, double T, unsigned int M, double** &u, std::vector<double> &x)
 {
     double deltaT = (double) T / M;
     double deltaX = (b - a) / J;
