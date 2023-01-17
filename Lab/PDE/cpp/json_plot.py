@@ -14,10 +14,10 @@ if __name__ == "__main__":
 
 
     # Load the solution at each time step and plot
-    for i in range(0, len(us), 10):
-        plt.plot(x, us[i])
+    #for i in range(0, len(us), 10):
+    #    plt.plot(x, us[i])
 
-   # for u in us:
-   #     plt.plot(x, u)
+    for u in us:
+        plt.plot(x, u)
 
     plt.show()
