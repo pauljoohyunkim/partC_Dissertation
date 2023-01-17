@@ -18,7 +18,7 @@ int main()
     Solver biharmonicEquationSolver(u_initial, -1, 1, 20, 10, 1000000);
     biharmonicEquationSolver.setScheme(biharmonicEvolveExplicitEulerPeriodic);
     biharmonicEquationSolver.solve();
-    biharmonicEquationSolver.exportSolution("test.json");
+    biharmonicEquationSolver.exportSolution("test.json", 10);
     
     return 0;
 }

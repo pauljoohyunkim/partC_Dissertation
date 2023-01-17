@@ -26,7 +26,7 @@ class Solver
         void plotSolution();
 
         /* Export */
-        void exportSolution(std::string filename);
+        void exportSolution(std::string filename, unsigned int timeskip = 1);
         
         
         /* Mesh Points */

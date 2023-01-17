@@ -72,7 +72,7 @@ void Solver::plotSolution()
     Solver::free();
 }
 
-void Solver::exportSolution(std::string filename)
+void Solver::exportSolution(std::string filename, unsigned int timeskip)
 {
     std::ofstream exportFile(filename);
 
@@ -99,7 +99,7 @@ void Solver::exportSolution(std::string filename)
     exportFile << "," << std::endl;
 
     exportFile << "[";
-    for(unsigned int m = 0; m <= M; m++)
+    for(unsigned int m = 0; m <= M; m += timeskip)
     {
         exportFile << "[";
         for(unsigned int j = 0; j <= J; j++)
@@ -113,7 +113,7 @@ void Solver::exportSolution(std::string filename)
                 exportFile << std::setprecision(DOUBLE_PRECISION) <<  u[m][j] << ",";
             }
         }
-        if (m == M)
+        if (m + timeskip > M)
         {
             exportFile << "]";
         }
