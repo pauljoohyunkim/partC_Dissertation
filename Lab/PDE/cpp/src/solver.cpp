@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iomanip>
 
-Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, unsigned int aJ, double aT, unsigned int aM)
+Solver1D::Solver1D(std::function<double(double)> au_initial, double aa, double ab, unsigned int aJ, double aT, unsigned int aM)
 {
     u_initial = au_initial;
     a = aa;
@@ -14,32 +14,32 @@ Solver::Solver(std::function<double(double)> au_initial, double aa, double ab, u
     M = aM;
 }
 
-Solver::~Solver()
+Solver1D::~Solver1D()
 {
-    Solver::free();
-    std::cout << "Solver Destructed" << std::endl;
+    Solver1D::free();
+    std::cout << "Solver1D Destructed" << std::endl;
 }
 
-void Solver::setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, double, unsigned int, double**&, std::vector<double>&)> aScheme)
+void Solver1D::setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, double, unsigned int, double**&, std::vector<double>&)> aScheme)
 {
     schemeFun = aScheme;
 }
 
-void Solver::solve()
+void Solver1D::solve()
 {
     if(!qSolved)
     {
         qSolved = true;
-        Solver::allocate();
+        Solver1D::allocate();
         schemeFun(u_initial, a, b, J, T, M, u, x);
         if(!x.size())
         {
-            std::cerr << "[Warning] Solver::solve: The scheme may have not allocated x, hence invalid" << std::endl;
+            std::cerr << "[Warning] Solver1D::solve: The scheme may have not allocated x, hence invalid" << std::endl;
         }
     }
 }
 
-void Solver::exportSolution(std::string filename, unsigned int timeskip)
+void Solver1D::exportSolution(std::string filename, unsigned int timeskip)
 {
     std::ofstream exportFile(filename);
 
@@ -96,10 +96,10 @@ void Solver::exportSolution(std::string filename, unsigned int timeskip)
     exportFile.close();
 
     /* Deallocate */
-    Solver::free();
+    Solver1D::free();
 }
 
-void Solver::allocate()
+void Solver1D::allocate()
 {
     if(!qAllocated)
     {
@@ -112,7 +112,7 @@ void Solver::allocate()
     }
 }
 
-void Solver::free()
+void Solver1D::free()
 {
     if(!qAllocated)
     {

@@ -18,7 +18,7 @@ int main()
         return -(x - 1) * (x + 1);
     };
 
-    Solver heatEquationSolver(u_initial);
+    Solver1D heatEquationSolver(u_initial);
     heatEquationSolver.setScheme(heatEvolveExplicitEulerNatural);
     heatEquationSolver.solve();
     heatEquationSolver.exportSolution("test.json");

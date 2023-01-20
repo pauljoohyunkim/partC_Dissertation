@@ -7,15 +7,15 @@
 
 #define DOUBLE_PRECISION 15
 
-/* PDE Solver */
-class Solver
+/* PDE from Dirichlet energy Solver */
+class Solver1D
 {
     public:
         /* Constructor */
-        Solver(std::function<double(double)> au_initial, double aa = -1, double ab = 1, unsigned int aJ = 20, double aT = 1, unsigned int aM = 1000);
+        Solver1D(std::function<double(double)> au_initial, double aa = -1, double ab = 1, unsigned int aJ = 20, double aT = 1, unsigned int aM = 1000);
 
         /* Destructor */
-        ~Solver();
+        ~Solver1D();
 
         /* Set scheme */
         void setScheme(std::function<void(std::function<double(double)>, double, double, unsigned int, double, unsigned int, double**&, std::vector<double>&)> aScheme);
