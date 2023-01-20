@@ -2,23 +2,29 @@
 
 int main()
 {
-     Matrix A(3, 2, 1);
+    double** a = new double* [2];
+    a[0] = new double [2];
+    a[1] = new double [2];
 
-     double** b = new double* [3];
-     b[0] = new double [2];
-     b[1] = new double [2];
-     b[2] = new double [2];
-     
 
-     b[0][0] = 3;
-     b[0][1] = 2;
-     b[1][0] = 6;
-     b[1][1] = 4.2;
-     b[2][0] = 1;
+    double** b = new double* [2];
+    b[0] = new double [2];
+    b[1] = new double [2];
 
-     Matrix B(3, 2, b);
+    a[0][0] = -2;
+    a[0][1] = 1;
+    a[1][0] = 0;
+    a[1][1] = 4;
 
-     auto C = A - B;
+    b[0][0] = 6;
+    b[0][1] = 5;
+    b[1][0] = -7;
+    b[1][1] = 1;
 
-     return 0;
+    Matrix A(2, 2, a);
+    Matrix B(2, 2, b);
+
+    auto C = A * B;
+
+    return 0;
 }

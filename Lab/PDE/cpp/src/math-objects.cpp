@@ -75,3 +75,21 @@ Matrix Matrix::operator - (Matrix &M)
 
     return matrix;
 }
+
+Matrix Matrix::operator * (Matrix &M)
+{
+    /* Follow the format from the current matrix. */
+    Matrix matrix(this->dimensions.first, M.dimensions.second, 0);
+    for (unsigned int i = 0; i < matrix.getNRows(); i++)
+    {
+        for (unsigned int j = 0; j < matrix.getNColumns(); j++)
+        {
+            for (unsigned int k = 0; k < this->getNColumns(); k++)
+            {
+                matrix.rawMatrix[i][j] += this->rawMatrix[i][k] * M.rawMatrix[k][j];
+            }
+        }
+    }
+
+    return matrix;
+}

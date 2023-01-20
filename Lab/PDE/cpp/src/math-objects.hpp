@@ -23,6 +23,7 @@ class Matrix
         /* Operators */
         Matrix operator + (Matrix &M);
         Matrix operator - (Matrix &M);
+        Matrix operator * (Matrix &M);
 
     private:
         /* Matrix Characteristics */
