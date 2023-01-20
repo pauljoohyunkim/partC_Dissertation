@@ -13,6 +13,7 @@
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\dx}{\,\text{d}x}
 \newcommand{\dy}{\,\text{d}y}
+\newcommand{\norm}[1]{||#1||}
 
 \title{Curve Repulsion - 1}
 \date{20/01/2023}
@@ -73,7 +74,28 @@ Also approximate the kernel by the average of the kernel evaluated at each pair 
     \left( \hat{k}_{\beta}^{\alpha} \right)_{I,J} &\coloneqq \frac{1}{4} \sum_{i \in J, j \in J} k_{\beta}^{\alpha} \left( \gamma_i, \gamma_j, T_I \right)
 \end{align}
 
-\section{Discrete Gradient Flow in $L^2$}
+\section{Discrete Gradient Flow in $L^2$ for Closed Loop}
+Suppose a curve is discretized as position vectors:
+$x_1, x_2, \cdots, x_M$ (and $x_{M+1} \coloneqq x_1$).
+
+Also denote the edge from $x_i$ to $x_{i+1}$ as $I_i$ (as opposed to the previous section).
+
+The \textbf{discretized energy} $E$ can be expressed as:
+\begin{align}
+    E &= \sum_{i = 1}^{M} \sum_{\substack{j = 1 \\ |j-i| > 1}} k_{i,j} \norm{x_{i+1} - x_i} \, \norm{x_{j+1} - x_j} \\
+    k_{i,j} &= \frac{1}{4} \left( 
+        k_{\beta}^{\alpha} \left( x_i, x_j, T_i \right)
+        + k_{\beta}^{\alpha} \left( x_i, x_{j+1}, T_i \right)
+        + k_{\beta}^{\alpha} \left( x_{i+1}, x_j, T_i \right)
+        + k_{\beta}^{\alpha} \left( x_{i+1}, x_{j+1}, T_i \right)
+    \right)
+\end{align}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.6]{kernel-2x2.png}
+    \caption{Kernel $k_{i,j}$ computation}
+\end{figure}
 
 \end{document}
 
