@@ -7,6 +7,7 @@
 \usepackage[]{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage{amsthm}
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
 
@@ -14,6 +15,13 @@
 \newcommand{\dx}{\,\text{d}x}
 \newcommand{\dy}{\,\text{d}y}
 \newcommand{\norm}[1]{||#1||}
+\newcommand{\inner}[1]{\langle \langle #1 \rangle \rangle}
+
+\DeclareMathOperator{\grad}{grad}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
 
 \title{Curve Repulsion - 1}
 \date{20/01/2023}
@@ -96,6 +104,28 @@ The \textbf{discretized energy} $E$ can be expressed as:
     \includegraphics[scale=0.6]{kernel-2x2.png}
     \caption{Kernel $k_{i,j}$ computation}
 \end{figure}
+
+Recall the definition of differential, gradient, and gradient flow.
+\begin{definition}[Differential]
+    Given functional $\mathcal{E}(\gamma)$, the \textbf{differential} is defined as:
+    \begin{equation}
+        \text{d}\mathcal{E}|_{\gamma} (u) = \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( \mathcal{E}\left( \gamma + \epsilon u \right) - \mathcal{E}\left( \gamma \right) \right)
+    \end{equation}
+\end{definition}
+
+\begin{definition}[Gradient]
+    Given functional $\mathcal{E}\left( \gamma \right)$ and space $V$, the \textbf{gradient} $\grad \mathcal{E}$ is the unique function satisfying the following for any function $u$:
+    \begin{equation}
+        \inner{\grad \mathcal{E}, u}_V = \text{d} \mathcal{E} (u)
+    \end{equation}
+\end{definition}
+
+\begin{definition}[Gradient Flow]
+    Given functional $\mathcal{E}(\gamma)$, the \textbf{gradient flow} equation is defined as:
+    \begin{equation}
+        \frac{d}{dt} \gamma = - \grad \mathcal{E} (\gamma)
+    \end{equation}
+\end{definition}
 
 Gradient flow equation in $L^2$ is given by:
 \begin{equation}
