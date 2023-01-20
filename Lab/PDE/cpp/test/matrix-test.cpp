@@ -21,10 +21,10 @@ int main()
     b[1][0] = -7;
     b[1][1] = 1;
 
-    Matrix A(2, 2, a);
+    Matrix A(2, 1, a);
     Matrix B(2, 2, b);
 
-    auto C = A * B;
+    auto C = A + B;
 
     return 0;
 }

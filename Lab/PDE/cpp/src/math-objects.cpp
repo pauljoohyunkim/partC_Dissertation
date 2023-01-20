@@ -1,4 +1,5 @@
 #include "math-objects.hpp"
+#include <stdexcept>
 
 /* Constructor for Matrix */
 Matrix::Matrix(unsigned int m, unsigned int n, double initval)
@@ -48,6 +49,11 @@ std::pair<unsigned int, unsigned int> Matrix::getNRowsColumns()
 
 Matrix Matrix::operator + (Matrix &M)
 {
+    if (this->dimensions != M.dimensions)
+    {
+        throw std::length_error("Matrix addition for given matrices is not defined.");
+    }
+
     /* Follow the format from the current matrix. */
     Matrix matrix(this->dimensions.first, this->dimensions.second);
     for (unsigned int mi = 0; mi < matrix.getNRows(); mi++)
@@ -63,6 +69,11 @@ Matrix Matrix::operator + (Matrix &M)
 
 Matrix Matrix::operator - (Matrix &M)
 {
+    if (this->dimensions != M.dimensions)
+    {
+        throw std::length_error("Matrix subtraction for given matrices is not defined.");
+    }
+
     /* Follow the format from the current matrix. */
     Matrix matrix(this->dimensions.first, this->dimensions.second);
     for (unsigned int mi = 0; mi < matrix.getNRows(); mi++)
@@ -78,6 +89,11 @@ Matrix Matrix::operator - (Matrix &M)
 
 Matrix Matrix::operator * (Matrix &M)
 {
+    if (this->dimensions.second != M.getNRows())
+    {
+        throw std::length_error("Matrix multiplication for given matrices is not defined.");
+    }
+
     /* Follow the format from the current matrix. */
     Matrix matrix(this->dimensions.first, M.dimensions.second, 0);
     for (unsigned int i = 0; i < matrix.getNRows(); i++)
