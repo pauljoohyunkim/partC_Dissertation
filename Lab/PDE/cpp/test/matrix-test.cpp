@@ -1,4 +1,5 @@
 #include "../src/math-objects.hpp"
+#include <iostream>
 
 int main()
 {
@@ -21,10 +22,12 @@ int main()
     b[1][0] = -7;
     b[1][1] = 1;
 
-    Matrix A(2, 1, a);
+    Matrix A(2, 2, a);
     Matrix B(2, 2, b);
 
     auto C = A + B;
+
+    std::cout << C[0][1] << std::endl;
 
     return 0;
 }

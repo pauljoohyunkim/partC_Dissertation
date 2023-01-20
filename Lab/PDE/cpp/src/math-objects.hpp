@@ -24,6 +24,7 @@ class Matrix
         Matrix operator + (Matrix &M);
         Matrix operator - (Matrix &M);
         Matrix operator * (Matrix &M);
+        std::vector<double>& operator [](unsigned int i);
 
     private:
         /* Matrix Characteristics */

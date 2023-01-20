@@ -109,3 +109,8 @@ Matrix Matrix::operator * (Matrix &M)
 
     return matrix;
 }
+
+std::vector<double>& Matrix::operator [](unsigned int i)
+{
+    return this->rawMatrix[i];
+}
