@@ -7,6 +7,7 @@
 
 #define DOUBLE_PRECISION 15
 
+/* PDE Solver */
 class Solver
 {
     public:
@@ -47,8 +48,6 @@ class Solver
 
         /* Free for u */
         void free();
-
-
 };
 
 #endif  // solver.hpp

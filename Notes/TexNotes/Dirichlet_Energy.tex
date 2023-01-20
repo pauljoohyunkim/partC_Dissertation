@@ -374,6 +374,13 @@ we may write this as a matrix equation:
     \end{pmatrix}^{m}
 \end{align*}
 
+A few remarks:
+\begin{itemize}
+    \item Because $A$ is diagonally dominant tridiagonal matrix, this matrix equation can be solved using Thomas' algorithm (stably)\footnote{https://en.wikipedia.org/wiki/Tridiagonal\_matrix\_algorithm}
+    \item Alternatively, one could write down the inverse matrix explicitly
+        (Although, matrix multiplication is usually not stable\dots)
+\end{itemize}
+
 \newpage
 \section{Appendix}
 \subsection{Motivation of Gradient Flow}
