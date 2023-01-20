@@ -244,6 +244,14 @@ which can be rewritten as
         f_{j+1}^{m}
     \end{pmatrix}
 \end{equation}
+This method has consistency error
+\begin{equation}
+    % See Lab/PDE/Dirichlet Energy/H2_Consistency.nb
+    T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + \Delta t \right)
+    \label{H2 Consistency Error}
+\end{equation}
+
+\subsubsection{Dirichlet Boundary Condition (Deprecated)}
 Assuming Dirichlet boundary condition $f_0^m = a$ and $f_J^m = b$,
 we may write this as a matrix equation:
 \begin{align*}
@@ -322,13 +330,49 @@ A (potentially) useful fact about this matrix is that the characteristic equatio
 \end{equation}
 where $\delta \coloneqq \lambda + 2$.\footnote{The term \emph{continuant} might be interesting to look at}
 
-This method has consistency error
-\begin{equation}
-    % See Lab/PDE/Dirichlet Energy/H2_Consistency.nb
-    T_j^m = \mathcal{O}\left( \left( \Delta x \right)^2 + \Delta t \right)
-    \label{H2 Consistency Error}
-\end{equation}
-
+\subsubsection{Periodic Boundary Condition}
+Assuming periodic boundary condition $f_0^m = f_J^m$,
+we may write this as a matrix equation:
+\begin{align*}
+    &\underbrace{
+        \begin{pmatrix}
+        1 \\
+        1 & -2 & 1 \\
+        & 1 & -2 & 1 \\
+        \vdots \\
+        & & & & & 1 & -2 & 1 \\
+        & & & & & & & 1
+    \end{pmatrix}
+}_A
+    \begin{pmatrix}
+        f_0 \\
+        f_1 \\
+        f_2 \\
+        \vdots \\
+        f_{J-2} \\
+        f_{J-1} \\
+        f_J
+    \end{pmatrix}^{m+1}
+    \\
+    &=
+    \begin{pmatrix}
+        & & & & & & & 1 \\
+        1 & -2 + \Delta t (\Delta x)^2  & 1 \\
+        & 1 & -2 + \Delta t (\Delta x)^2 & 1 \\
+        \vdots \\
+        & & & & & 1 & -2 + \Delta t (\Delta x)^2 & 1 \\
+        1
+    \end{pmatrix}
+    \begin{pmatrix}
+        f_0 \\
+        f_1 \\
+        f_2 \\
+        \vdots \\
+        f_{J-2} \\
+        f_{J-1} \\
+        f_J
+    \end{pmatrix}^{m}
+\end{align*}
 
 \newpage
 \section{Appendix}
