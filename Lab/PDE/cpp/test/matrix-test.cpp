@@ -2,7 +2,7 @@
 
 int main()
 {
-     Matrix A(3,2);
+     Matrix A(3, 2, 1);
 
      double** b = new double* [3];
      b[0] = new double [2];
@@ -17,6 +17,8 @@ int main()
      b[2][0] = 1;
 
      Matrix B(3, 2, b);
+
+     auto C = A - B;
 
      return 0;
 }

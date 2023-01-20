@@ -45,3 +45,33 @@ std::pair<unsigned int, unsigned int> Matrix::getNRowsColumns()
 {
     return dimensions;
 }
+
+Matrix Matrix::operator + (Matrix &M)
+{
+    /* Follow the format from the current matrix. */
+    Matrix matrix(this->dimensions.first, this->dimensions.second);
+    for (unsigned int mi = 0; mi < matrix.getNRows(); mi++)
+    {
+        for (unsigned int ni = 0; ni < matrix.getNColumns(); ni++)
+        {
+            matrix.rawMatrix[mi][ni] = this->rawMatrix[mi][ni] + M.rawMatrix[mi][ni];
+        }
+    }
+
+    return matrix;
+}
+
+Matrix Matrix::operator - (Matrix &M)
+{
+    /* Follow the format from the current matrix. */
+    Matrix matrix(this->dimensions.first, this->dimensions.second);
+    for (unsigned int mi = 0; mi < matrix.getNRows(); mi++)
+    {
+        for (unsigned int ni = 0; ni < matrix.getNColumns(); ni++)
+        {
+            matrix.rawMatrix[mi][ni] = this->rawMatrix[mi][ni] - M.rawMatrix[mi][ni];
+        }
+    }
+
+    return matrix;
+}

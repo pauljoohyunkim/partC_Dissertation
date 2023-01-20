@@ -15,9 +15,14 @@ class Matrix
         Matrix(unsigned int m, unsigned int n, double initval = 0);
         Matrix(unsigned int m, unsigned int n, double** &pMatrix);
 
+        /* Class Functions */
         unsigned int getNRows();
         unsigned int getNColumns();
         std::pair<unsigned int, unsigned int> getNRowsColumns();
+
+        /* Operators */
+        Matrix operator + (Matrix &M);
+        Matrix operator - (Matrix &M);
 
     private:
         /* Matrix Characteristics */
