@@ -20,9 +20,10 @@ Matrix::Matrix(unsigned int m, unsigned int n, double** &pMatrix)
     /* Copy values from pMatrix */
     for (unsigned int mi = 0; mi < m; mi++)
     {
+        rawMatrix[mi].resize(n);
         for (unsigned int ni = 0; ni < n; ni++)
         {
-            rawMatrix[mi].push_back(pMatrix[mi][ni]);
+            rawMatrix[mi][ni] = pMatrix[mi][ni];
         }
     }
 
