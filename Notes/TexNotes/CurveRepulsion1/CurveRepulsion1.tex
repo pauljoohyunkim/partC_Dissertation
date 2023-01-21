@@ -118,12 +118,35 @@ Recall the definition of differential, gradient, and gradient flow.
     \begin{equation}
         \inner{\grad \mathcal{E}, u}_V = \text{d} \mathcal{E} (u)
     \end{equation}
+    Note that the LHS is a inner product of two vector-valued functions.
+    A natural inner product in $L^2$ to define is:
+    \begin{equation}
+        \inner{u,v}_{L^2} \coloneqq \int_{\Omega} u \cdot v \dx
+    \end{equation}
+
 \end{definition}
 
 \begin{definition}[Gradient Flow]
     Given functional $\mathcal{E}(\gamma)$, the \textbf{gradient flow} equation is defined as:
     \begin{equation}
         \frac{d}{dt} \gamma = - \grad \mathcal{E} (\gamma)
+    \end{equation}
+    Note that $\gamma = \left( \gamma_x, \gamma_y, \gamma_z \right)^T \in \mathbb{R}^3$, so it might be clearer to write:
+    \begin{equation}
+        \frac{d}{dt}
+        \begin{pmatrix}
+            \gamma_x \\
+            \gamma_y \\
+            \gamma_z
+        \end{pmatrix}
+        =
+        \grad \mathcal{E} \left( 
+            \begin{pmatrix}
+                \gamma_x \\
+                \gamma_y \\
+                \gamma_z
+            \end{pmatrix}
+        \right)
     \end{equation}
 \end{definition}
 
