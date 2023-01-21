@@ -195,9 +195,12 @@ Vector vectorize(Matrix &M)
     return v;
 }
 
-Vector3D vectorize(Vector &v)
+
+Vector3D vectorize3d(Matrix &v)
 {
-    Vector3D v3(v[0], v[1], v[2]);
+    Vector3D v3(v[0][0], v[1][0], v[2][0]);
 
     return v3;
 }
+
+

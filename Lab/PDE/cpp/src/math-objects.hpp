@@ -57,8 +57,13 @@ class Vector3D: public Vector
         Vector3D operator ^ (Vector3D& v);
 };
 
+/* Vectorization
+ * vectorize function takes a Matrix (VARIABLE) and flattens it to a vertical vector.
+ * vectorize 3d function takes a Matrix (VARIABLE) and takes the (0,0), (1,0), (2,0) entries
+ * to create a 3D vertical vector.
+ * */
 Vector vectorize(Matrix &M);
-Vector3D vectorize(Vector &v);
+Vector3D vectorize3d(Matrix &v);
 
 
 #endif  // MATH_OBJECTS_HPP
