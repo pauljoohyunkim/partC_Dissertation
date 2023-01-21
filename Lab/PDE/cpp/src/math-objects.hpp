@@ -39,7 +39,15 @@ class Vector: public Matrix
         /* Vector Constructor */
         Vector(unsigned int n, double initval = 0);
         Vector(std::vector<double> &stdvector);
+};
 
+class Vector3D: public Vector
+{
+    public:
+        /* Vector3D Constructor */
+        Vector3D(double initval = 0);
+        Vector3D(double v1, double v2, double v3);
+        Vector3D(std::vector<double> &stdvector);
 };
 
 

@@ -30,8 +30,8 @@ int main()
 
     std::cout << C[0][1] << std::endl;
 
-    auto v1 = std::vector<double> {1,2,3};
-    Vector v(v1);
+    auto v4 = std::vector<double> {1,2,3};
+    Vector3D v(v4);
 
     return 0;
 }
