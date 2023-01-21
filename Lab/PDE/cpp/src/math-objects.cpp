@@ -114,3 +114,8 @@ std::vector<double>& Matrix::operator [](unsigned int i)
 {
     return this->rawMatrix[i];
 }
+
+///* Vector Class Constructor */
+//Vector::Vector(std::vector<double> stdvector)
+//{
+//}

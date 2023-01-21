@@ -26,10 +26,28 @@ class Matrix
         Matrix operator * (Matrix &M);
         std::vector<double>& operator [](unsigned int i);
 
-    private:
+    protected:
         /* Matrix Characteristics */
         std::pair<unsigned int, unsigned int> dimensions {1, 1};
         std::vector<std::vector<double>> rawMatrix;
+
+};
+
+class Vector: public Matrix
+{
+    public:
+        /* Vector Constructor */
+        Vector(unsigned int n, double initval = 0) : Matrix(n, 1, initval)
+        {
+        }
+        Vector(std::vector<double> &stdvector) : Matrix(stdvector.size(), 1)
+        {
+            for (unsigned int i = 0; i < stdvector.size(); i++)
+            {
+                rawMatrix[i][0] = stdvector[i];
+            }
+        }
+
 
 
 };

@@ -1,4 +1,5 @@
 #include "../src/math-objects.hpp"
+#include <vector>
 #include <iostream>
 
 int main()
@@ -28,6 +29,9 @@ int main()
     auto C = A + B;
 
     std::cout << C[0][1] << std::endl;
+
+    auto v1 = std::vector<double> {1,2,3};
+    Vector v(v1);
 
     return 0;
 }
