@@ -177,6 +177,11 @@ Vector3D Vector3D::operator ^ (Vector3D &v)
 }
 
 /* Functions */
+/* Vectorization
+ * vectorize function takes a Matrix (VARIABLE) and flattens it to a vertical vector.
+ * vectorize 3d function takes a Matrix (VARIABLE) and takes the (0,0), (1,0), (2,0) entries
+ * to create a 3D vertical vector.
+ * */
 Vector vectorize(Matrix &M)
 {
     auto nRow = M.getNRows();
