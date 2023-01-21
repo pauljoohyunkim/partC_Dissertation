@@ -179,12 +179,11 @@ Vector3D Vector3D::operator ^ (Vector3D &v)
 /* Functions */
 Vector vectorize(Matrix &M)
 {
-    auto length = M.getNRows() * M.getNColumns();
     auto nRow = M.getNRows();
     auto nColumn = M.getNColumns();
 
     
-    Vector v(length);
+    Vector v(M.getNRows() * M.getNColumns());
     for (unsigned int mi = 0; mi < nRow; mi++)
     {
         for (unsigned int ni = 0; ni < nColumn; ni++)
@@ -194,4 +193,11 @@ Vector vectorize(Matrix &M)
     }
 
     return v;
+}
+
+Vector3D vectorize(Vector &v)
+{
+    Vector3D v3(v[0], v[1], v[2]);
+
+    return v3;
 }

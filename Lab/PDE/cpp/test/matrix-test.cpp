@@ -36,6 +36,7 @@ int main()
     auto v3 = v1 ^ v2;
     auto x = v1 % v2;
     auto vA = vectorize(A);
+    auto vA3 = vectorize(vA);
 
     return 0;
 }

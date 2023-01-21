@@ -58,6 +58,7 @@ class Vector3D: public Vector
 };
 
 Vector vectorize(Matrix &M);
+Vector3D vectorize(Vector &v);
 
 
 #endif  // MATH_OBJECTS_HPP
