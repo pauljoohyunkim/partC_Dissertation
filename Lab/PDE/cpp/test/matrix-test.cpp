@@ -30,10 +30,11 @@ int main()
 
     std::cout << C[0][1] << std::endl;
 
-    auto v4 = std::vector<double> {1,2,3};
-    Vector3D v(v4);
+    Vector3D v1(2,-3,-1);
+    Vector3D v2(1,4,-2);
 
-    std::cout << v[1] << std::endl;
+    auto v3 = v1 ^ v2;
+    auto x = v1 % v2;
 
     return 0;
 }
