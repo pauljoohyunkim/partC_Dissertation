@@ -33,5 +33,7 @@ int main()
     auto v4 = std::vector<double> {1,2,3};
     Vector3D v(v4);
 
+    std::cout << v[1] << std::endl;
+
     return 0;
 }

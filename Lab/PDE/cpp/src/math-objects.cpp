@@ -128,6 +128,11 @@ Vector::Vector(std::vector<double> &stdvector) : Matrix::Matrix(stdvector.size()
     }
 }
 
+double& Vector::operator [] (unsigned int i)
+{
+    return this->rawMatrix[i][0];
+}
+
 Vector3D::Vector3D(double initval) : Vector::Vector(3, initval)
 {
 }
@@ -142,3 +147,10 @@ Vector3D::Vector3D(double v1, double v2, double v3) : Vector::Vector(3)
 Vector3D::Vector3D(std::vector<double> &stdvector) : Vector::Vector(stdvector)
 {
 }
+
+////Matrix Matrix::operator * (Matrix &M);
+//Vector3D Vector3D::operator ^ (Vector3D &v)
+//{
+//    Vector3D cross(0);
+//
+//}
