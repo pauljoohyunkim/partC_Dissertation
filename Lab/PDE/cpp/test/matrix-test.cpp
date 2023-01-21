@@ -1,4 +1,5 @@
 #include "../src/math-objects.hpp"
+#include <vector>
 #include <iostream>
 
 int main()
@@ -28,6 +29,12 @@ int main()
     auto C = A + B;
 
     std::cout << C[0][1] << std::endl;
+
+    Vector3D v1(2,-3,-1);
+    Vector3D v2(1,4,-2);
+
+    auto v3 = v1 ^ v2;
+    auto x = v1 % v2;
 
     return 0;
 }
