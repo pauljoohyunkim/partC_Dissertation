@@ -37,18 +37,8 @@ class Vector: public Matrix
 {
     public:
         /* Vector Constructor */
-        Vector(unsigned int n, double initval = 0) : Matrix(n, 1, initval)
-        {
-        }
-        Vector(std::vector<double> &stdvector) : Matrix(stdvector.size(), 1)
-        {
-            for (unsigned int i = 0; i < stdvector.size(); i++)
-            {
-                rawMatrix[i][0] = stdvector[i];
-            }
-        }
-
-
+        Vector(unsigned int n, double initval = 0);
+        Vector(std::vector<double> &stdvector);
 
 };
 

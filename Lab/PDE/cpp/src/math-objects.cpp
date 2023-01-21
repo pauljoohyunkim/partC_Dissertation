@@ -116,6 +116,14 @@ std::vector<double>& Matrix::operator [](unsigned int i)
 }
 
 ///* Vector Class Constructor */
-//Vector::Vector(std::vector<double> stdvector)
-//{
-//}
+Vector::Vector(unsigned int n, double initval) : Matrix(n, 1, initval)
+{
+}
+
+Vector::Vector(std::vector<double> &stdvector) : Matrix(stdvector.size(), 1)
+{
+    for (unsigned int i = 0; i < stdvector.size(); i++)
+    {
+        rawMatrix[i][0] = stdvector[i];
+    }
+}
