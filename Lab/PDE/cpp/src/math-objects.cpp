@@ -175,3 +175,23 @@ Vector3D Vector3D::operator ^ (Vector3D &v)
     return cross;
 
 }
+
+/* Functions */
+Vector vectorize(Matrix &M)
+{
+    auto length = M.getNRows() * M.getNColumns();
+    auto nRow = M.getNRows();
+    auto nColumn = M.getNColumns();
+
+    
+    Vector v(length);
+    for (unsigned int mi = 0; mi < nRow; mi++)
+    {
+        for (unsigned int ni = 0; ni < nColumn; ni++)
+        {
+            v[mi + nColumn * ni] = M[mi][ni];
+        }
+    }
+
+    return v;
+}

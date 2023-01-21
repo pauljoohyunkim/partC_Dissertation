@@ -57,5 +57,7 @@ class Vector3D: public Vector
         Vector3D operator ^ (Vector3D& v);
 };
 
+Vector vectorize(Matrix &M);
+
 
 #endif  // MATH_OBJECTS_HPP
