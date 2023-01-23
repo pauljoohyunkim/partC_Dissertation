@@ -31,8 +31,6 @@ Matrix::Matrix(unsigned int m, unsigned int n, double** &pMatrix)
 
 }
 
-
-
 unsigned int Matrix::getNRows()
 {
     return dimensions.first;
@@ -243,6 +241,18 @@ Vector columnvector(Matrix &M, unsigned int i)
 Vector3D columnvector3D(Matrix &M, unsigned int i)
 {
     return Vector3D(M[0][i], M[1][i], M[2][i]);
+}
+
+/* Matrix-Vector Multiplication Slightly Optimized */
+Vector matvecmul(Matrix &M, Vector &v)
+{
+    auto length = M.getNColumns();
+    if (length != v.getNRows())
+    {
+        throw std::length_error("Dimensions do not match for multiplication!");
+    }
+
+
 }
 
 /* Vectorization
