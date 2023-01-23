@@ -240,6 +240,11 @@ Vector columnvector(Matrix &M, unsigned int i)
     return v;
 }
 
+Vector3D columnvector3D(Matrix &M, unsigned int i)
+{
+    return Vector3D(M[0][i], M[1][i], M[2][i]);
+}
+
 /* Vectorization
  * vectorize function takes a Matrix (VARIABLE) and flattens it to a vertical vector.
  * vectorize 3d function takes a Matrix (VARIABLE) and takes the (0,0), (1,0), (2,0) entries

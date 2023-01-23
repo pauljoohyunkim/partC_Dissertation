@@ -16,7 +16,7 @@ int main()
 
     Matrix B(3, 3, b);
 
-    auto v = columnvector(B, 1);
+    auto v = columnvector3D(B, 1);
 
 
     for (auto i = 0; i < 3; i++)

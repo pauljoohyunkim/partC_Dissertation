@@ -64,7 +64,7 @@ class Vector3D: public Vector
 
 /* Get column vector */
 Vector columnvector(Matrix &M, unsigned int i);
-//Vector3D columnvector3D(Matrix &M, unsigned int i);
+Vector3D columnvector3D(Matrix &M, unsigned int i);
 
 /* Vectorization
  * vectorize function takes a Matrix (VARIABLE) and flattens it to a vertical vector.
