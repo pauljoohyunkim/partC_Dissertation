@@ -6,14 +6,18 @@ static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1
 int main()
 {
     DiscreteKernel dk = DiscreteKernel(2, 4, kernel1);
-    Vector3D v1(0, 0, 1);
-    Vector3D v2(0, 1, 0);
-    Vector3D v3(1, 0, 2);
-    Vector3D v4(-1, 2, 1);
-    Vector3D v5(-3, 2, 1);
 
-    auto val = kernel1(v1, v2, v3, v4, v5, dk);
+    /* Points on the curve (or rather... polygon)
+     * x1(2.5, 3, 2)
+     * x2(-3.5, 3.5, -2)
+     * x3(-3.2, -3.25, 1.8)
+     * x4(5.5, -6.5, 0)
+     * */
 
+    Vector3D x1(2.5, 3, 2);
+    Vector3D x2(-3.5, 3.5, -2);
+    Vector3D x3(-3.2, -3.25, 1.8);
+    Vector3D x4(5.5, -6.5, 0);
     return 0;
 }
 
