@@ -15,6 +15,7 @@ class DiscreteKernel
     private:
         double alpha {};
         double beta {};
+        function<double(Vector3D&, Vector3D&, Vector3D&)> kernelalphabeta;
 };
 
 

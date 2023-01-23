@@ -166,6 +166,26 @@ Vector3D::Vector3D(std::vector<double> &stdvector) : Vector::Vector(stdvector)
 {
 }
 
+Vector3D Vector3D::operator + (Vector3D &v)
+{
+    if (this->dimensions != v.dimensions)
+    {
+        throw std::length_error("3D vector addition for given parameters is not defined.");
+    }
+
+    /* Follow the format from the current matrix. */
+    Vector3D vector;
+    for (unsigned int mi = 0; mi < vector.getNRows(); mi++)
+    {
+        for (unsigned int ni = 0; ni < vector.getNColumns(); ni++)
+        {
+            vector.rawMatrix[mi][ni] = this->rawMatrix[mi][ni] + v.rawMatrix[mi][ni];
+        }
+    }
+
+    return vector;
+}
+
 Vector3D Vector3D::operator ^ (Vector3D &v)
 {
     Vector3D cross(0);

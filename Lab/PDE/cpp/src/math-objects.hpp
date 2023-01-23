@@ -54,6 +54,7 @@ class Vector3D: public Vector
         Vector3D(std::vector<double> &stdvector);
 
         /* Operator */
+        Vector3D operator + (Vector3D &v);
         Vector3D operator ^ (Vector3D& v);
 };
 
