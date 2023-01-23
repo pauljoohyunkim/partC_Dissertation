@@ -5,17 +5,25 @@
 int main()
 {
 
-    Vector u(4);
-    Vector v(4);
+    double** b = new double* [3];
+    for (auto i = 0; i < 3; i++)
+    {
+        b[i] = new double [3];
+    }
 
-    u[0] = 1;
-    u[1] = 2;
-    u[2] = 3;
-    v[1] = 10;
+    b[1][1] = 1;
+    b[2][1] = 3;
 
-    auto w = u + v;
+    Matrix B(3, 3, b);
+
+    auto v = columnvector3D(B, 1);
 
 
+    for (auto i = 0; i < 3; i++)
+    {
+        delete [] b[i];
+    }
+    delete [] b;
 
     return 0;
 }
