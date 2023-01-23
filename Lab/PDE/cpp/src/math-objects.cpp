@@ -129,6 +129,30 @@ Vector::Vector(std::vector<double> &stdvector) : Matrix::Matrix(stdvector.size()
     }
 }
 
+Vector Vector::operator + (Vector &v)
+{
+    /* Follow the format from the current matrix. */
+    Vector vector(v.getNRows());
+    for (unsigned int mi = 0; mi < vector.getNRows(); mi++)
+    {
+        vector.rawMatrix[mi][0] = this->rawMatrix[mi][0] + v.rawMatrix[mi][0];
+    }
+
+    return vector;
+}
+
+Vector Vector::operator - (Vector &v)
+{
+    /* Follow the format from the current matrix. */
+    Vector vector(v.getNRows());
+    for (unsigned int mi = 0; mi < vector.getNRows(); mi++)
+    {
+        vector.rawMatrix[mi][0] = this->rawMatrix[mi][0] - v.rawMatrix[mi][0];
+    }
+
+    return vector;
+}
+
 double& Vector::operator [] (unsigned int i)
 {
     return this->rawMatrix[i][0];
@@ -168,16 +192,23 @@ Vector3D::Vector3D(std::vector<double> &stdvector) : Vector::Vector(stdvector)
 
 Vector3D Vector3D::operator + (Vector3D &v)
 {
-    if (this->dimensions != v.dimensions)
-    {
-        throw std::length_error("3D vector addition for given parameters is not defined.");
-    }
-
     /* Follow the format from the current matrix. */
     Vector3D vector;
     for (unsigned int mi = 0; mi < vector.getNRows(); mi++)
     {
         vector.rawMatrix[mi][0] = this->rawMatrix[mi][0] + v.rawMatrix[mi][0];
+    }
+
+    return vector;
+}
+
+Vector3D Vector3D::operator - (Vector3D &v)
+{
+    /* Follow the format from the current matrix. */
+    Vector3D vector;
+    for (unsigned int mi = 0; mi < vector.getNRows(); mi++)
+    {
+        vector.rawMatrix[mi][0] = this->rawMatrix[mi][0] - v.rawMatrix[mi][0];
     }
 
     return vector;

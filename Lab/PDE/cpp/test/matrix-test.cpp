@@ -5,10 +5,16 @@
 int main()
 {
 
-    Vector3D v1(2,-3,-1);
-    Vector3D v2(1,4,-2);
+    Vector u(4);
+    Vector v(4);
 
-    Vector3D v3 = v1 + v2;
+    u[0] = 1;
+    u[1] = 2;
+    u[2] = 3;
+    v[1] = 10;
+
+    auto w = u + v;
+
 
 
     return 0;
