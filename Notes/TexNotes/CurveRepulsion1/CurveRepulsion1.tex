@@ -18,6 +18,7 @@
 \newcommand{\inner}[1]{\langle \langle #1 \rangle \rangle}
 
 \DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\Var}{Var}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
@@ -190,6 +191,30 @@ which the gradient flow equation turns into
 where $\lambda$ is a parameter which one could experiment with.
 
 Seems to parallel Lagrange constant in the method of Langrange multipliers.
+\section{Appendix}
+\subsection{Index of Regular-Polygonness}
+If a closed curve is topologically equivalent to a hoop, we expect the untangling process to approach a perfect circle.
+In a discrete scheme, we expect the curve to approach a regular polygon.
+
+To measure how ``regular-polygonlike'' a curve is, one may define the following function:
+\begin{definition}
+    \textbf{Regularity} $\mathcal{R}$ of a polygon $P$ with verticies at $\left( x_1, x_2, \cdots, x_M \right)$:
+    \begin{equation}
+        \mathcal{R} \coloneqq \Var \left( I \right) + \Var \left( \Theta \right)
+    \end{equation}
+    where
+    \begin{itemize}
+        \item $I$ is a tuple of edge lengths.
+        \item $\Theta$ is a tuple of inner angles.
+        \item $\Var (A)$ computes the variance of tuple $A$ by
+            \begin{equation}
+                \Var (A) \coloneqq \frac{1}{|A|} \sum_{j = 1}^{|A|} \left( \frac{1}{|A|} \sum_{i = 1}^{|A|} A_i - A_j \right)^2
+            \end{equation}
+    \end{itemize}
+    This quantity penalizes a polygon which has high ``variance'' in its edge lengths and its angles;
+    minimized when all the edge lengths are equal and all the angles are equal.
+\end{definition}
+
 \end{document}
 
 
