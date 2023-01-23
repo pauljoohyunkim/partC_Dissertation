@@ -2,11 +2,10 @@
 
 /* Curve Class */
 /* Constructor
- * The parameter is the index of the last element.
- * Since 0 to M, there are M + 1 elements. */
+ * The parameter is the number of points. */
 Curve::Curve(unsigned int aM)
 {
-    points.reserve(M + 1);
+    points.reserve(M);
     M = aM;
 }
 
