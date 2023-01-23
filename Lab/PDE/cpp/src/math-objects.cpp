@@ -177,10 +177,7 @@ Vector3D Vector3D::operator + (Vector3D &v)
     Vector3D vector;
     for (unsigned int mi = 0; mi < vector.getNRows(); mi++)
     {
-        for (unsigned int ni = 0; ni < vector.getNColumns(); ni++)
-        {
-            vector.rawMatrix[mi][ni] = this->rawMatrix[mi][ni] + v.rawMatrix[mi][ni];
-        }
+        vector.rawMatrix[mi][0] = this->rawMatrix[mi][0] + v.rawMatrix[mi][0];
     }
 
     return vector;
