@@ -1,5 +1,6 @@
 #include "math-objects.hpp"
 #include <stdexcept>
+#include <cmath>
 
 /* Constructor for Matrix */
 Matrix::Matrix(unsigned int m, unsigned int n, double initval)
@@ -208,4 +209,9 @@ Vector3D vectorize3d(Matrix &v)
     return v3;
 }
 
-
+/* Norm */
+double l2norm(Vector& v)
+{
+    /* Take scalar product of itself, then sqrt */
+    return sqrt(v % v);
+}

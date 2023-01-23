@@ -65,5 +65,9 @@ class Vector3D: public Vector
 Vector vectorize(Matrix &M);
 Vector3D vectorize3d(Matrix &v);
 
+/* Norm */
+double l2norm(Vector& v);
+
+
 
 #endif  // MATH_OBJECTS_HPP
