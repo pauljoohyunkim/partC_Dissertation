@@ -66,6 +66,10 @@ class Vector3D: public Vector
 Vector columnvector(Matrix &M, unsigned int i);
 Vector3D columnvector3D(Matrix &M, unsigned int i);
 
+/* Matrix-Vector Multiplication */
+Vector matvecmul(Matrix &M, Vector &v);
+Vector3D matvecmul3D(Matrix &M, Vector3D &v);
+
 /* Vectorization
  * vectorize function takes a Matrix (VARIABLE) and flattens it to a vertical vector.
  * vectorize 3d function takes a Matrix (VARIABLE) and takes the (0,0), (1,0), (2,0) entries
