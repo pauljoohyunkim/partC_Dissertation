@@ -1,5 +1,8 @@
 #include "../math-objects.hpp"
+#include "../geometric-objects.hpp"
 #include "discrete-kernel.hpp"
+#include "curve-repulsion-1.hpp"
+#include <vector>
 
 static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, DiscreteKernel& dk);
 
@@ -18,6 +21,11 @@ int main()
     Vector3D x2(-3.5, 3.5, -2);
     Vector3D x3(-3.2, -3.25, 1.8);
     Vector3D x4(5.5, -6.5, 0);
+
+    std::vector<Vector3D> veclist = { Vector3D(2,3,0),Vector3D(1,0,2)} ;
+
+    Curve c(veclist);
+
     return 0;
 }
 
