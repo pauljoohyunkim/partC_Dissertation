@@ -150,11 +150,33 @@ Recall the definition of differential, gradient, and gradient flow.
     \end{equation}
 \end{definition}
 
-Gradient flow equation in $L^2$ is given by:
+Gradient flow equation in $L^2$ is given by\footnote{
+    https://math.stackexchange.com/questions/1687804/what-is-the-l2-gradient-flow
+}:
+\begin{equation}
+    \frac{d \gamma}{dt} = - \underbrace{\frac{\partial \mathcal{E}}{\partial \gamma}}_{\text{Functional Derivative}}
+\end{equation}
+or in our case with discrete energy,
 \begin{equation}
     \dot{x}_i = - \frac{\partial E}{\partial x_i}
 \end{equation}
+For an explicit definition of functional derivatives, see link in the footnote.
 
+\section{Constraint}
+There is a risk that the curve might keep expanding in order to minimize the energy.
+
+To mitigate that, we put an additional ``penalty'' for the length to the energy.
+In the case of discrete energy, we modify $E$ to $F$ by:
+\begin{equation}
+    F = E + \lambda \sum_i \frac{|x_i|^2}{2}
+\end{equation}
+which the gradient flow equation turns into
+\begin{equation}
+    \dot{x}_i =  - \frac{\partial E}{\partial x_i} - \lambda x_i
+\end{equation}
+where $\lambda$ is a parameter which one could experiment with.
+
+Seems to parallel Lagrange constant in the method of Langrange multipliers.
 \end{document}
 
 
