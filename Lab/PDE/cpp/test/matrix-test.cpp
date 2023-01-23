@@ -18,9 +18,9 @@ int main()
 
     Matrix B(3, 3, b);
 
-    Vector v(3, 1);
+    Vector3D v(1);
 
-    auto Bv = matvecmul(B, v);
+    auto Bv = matvecmul3D(B, v);
 
     for (auto i = 0; i < 3; i++)
     {

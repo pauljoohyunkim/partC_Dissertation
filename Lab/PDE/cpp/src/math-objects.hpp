@@ -68,6 +68,7 @@ Vector3D columnvector3D(Matrix &M, unsigned int i);
 
 /* Matrix-Vector Multiplication */
 Vector matvecmul(Matrix &M, Vector &v);
+Vector3D matvecmul3D(Matrix &M, Vector3D &v);
 
 /* Vectorization
  * vectorize function takes a Matrix (VARIABLE) and flattens it to a vertical vector.

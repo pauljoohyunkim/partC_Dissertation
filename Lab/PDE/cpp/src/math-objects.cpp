@@ -265,6 +265,22 @@ Vector matvecmul(Matrix &M, Vector &v)
     return Mv;
 }
 
+Vector3D matvecmul3D(Matrix &M, Vector3D &v)
+{
+    auto nIterator = M.getNColumns();
+
+    Vector3D Mv(0);
+    for (unsigned int i = 0; i < 3; i++)
+    {
+        for (unsigned int j = 0; j < nIterator; j++)
+        {
+            Mv[i] += M[i][j] * v[j];
+        }
+    }
+
+    return Mv;
+}
+
 /* Vectorization
  * vectorize function takes a Matrix (VARIABLE) and flattens it to a vertical vector.
  * vectorize 3d function takes a Matrix (VARIABLE) and takes the (0,0), (1,0), (2,0) entries
