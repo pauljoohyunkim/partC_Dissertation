@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.25.1)
 project(gradient-flow)
 
 add_library(SolverLib STATIC src/solver.cpp)
+add_library(MathObjectsLib STATIC src/math-objects.cpp)
+add_library(DiscreteKernelLib STATIC src/Curve-Repulsion/discrete-kernel.cpp)
 
 add_executable(L2 src/L2/L2.cpp)
 add_executable(H1 src/H1/H1.cpp)
