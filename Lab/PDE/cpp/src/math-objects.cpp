@@ -226,6 +226,20 @@ Vector3D Vector3D::operator ^ (Vector3D &v)
 }
 
 /* Functions */
+/* Extracting column vector */
+Vector columnvector(Matrix &M, unsigned int i)
+{
+    auto length = M.getNRows();
+
+    Vector v(length);
+    for (unsigned int j = 0; j < length; j++)
+    {
+        v[j] = M[j][i];
+    }
+
+    return v;
+}
+
 /* Vectorization
  * vectorize function takes a Matrix (VARIABLE) and flattens it to a vertical vector.
  * vectorize 3d function takes a Matrix (VARIABLE) and takes the (0,0), (1,0), (2,0) entries
