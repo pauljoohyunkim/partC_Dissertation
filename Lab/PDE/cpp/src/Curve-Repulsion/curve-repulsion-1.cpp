@@ -17,12 +17,18 @@ int main()
     return 0;
 }
 
+/* Based on "Trapezoid rule":
+ * Takes average based on four points
+ * */
 static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, DiscreteKernel& dk)
 {
     double kij { 0 };  
 
     kij += dk.kernelalphabeta(xi, xj, Ti);
+    kij += dk.kernelalphabeta(xi, xjp1, Ti);
+    kij += dk.kernelalphabeta(xip1, xj, Ti);
+    kij += dk.kernelalphabeta(xip1, xjp1, Ti);
 
-    return kij;
+    return kij / 4;
 
 }
