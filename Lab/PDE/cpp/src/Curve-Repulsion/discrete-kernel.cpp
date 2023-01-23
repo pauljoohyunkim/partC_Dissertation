@@ -3,7 +3,7 @@
 #include <cmath>
 
 /* Discrete Kernel Constructor */
-DiscreteKernel::DiscreteKernel(double aAlpha, double aBeta, std::function<double(Vector3D&, Vector3D&, Vector3D&, Vector3D&, Vector3D&)> aKernelFunction)
+DiscreteKernel::DiscreteKernel(double aAlpha, double aBeta, std::function<double(Vector3D&, Vector3D&, Vector3D&, Vector3D&, Vector3D&, DiscreteKernel&)> aKernelFunction)
 {
     alpha = aAlpha;
     beta = aBeta;
