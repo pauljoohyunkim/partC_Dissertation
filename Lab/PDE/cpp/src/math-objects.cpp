@@ -246,13 +246,23 @@ Vector3D columnvector3D(Matrix &M, unsigned int i)
 /* Matrix-Vector Multiplication Slightly Optimized */
 Vector matvecmul(Matrix &M, Vector &v)
 {
-    auto length = M.getNColumns();
-    if (length != v.getNRows())
+    auto length = M.getNRows();
+    auto nIterator = M.getNColumns();
+    if (nIterator != v.getNRows())
     {
         throw std::length_error("Dimensions do not match for multiplication!");
     }
 
+    Vector Mv(length, 0);
+    for (unsigned int i = 0; i < length; i++)
+    {
+        for (unsigned int j = 0; j < nIterator; j++)
+        {
+            Mv[i] += M[i][j] * v[j];
+        }
+    }
 
+    return Mv;
 }
 
 /* Vectorization

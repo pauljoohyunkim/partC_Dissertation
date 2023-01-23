@@ -11,13 +11,16 @@ int main()
         b[i] = new double [3];
     }
 
+    b[0][0] = -2;
+    b[0][1] = 2;
     b[1][1] = 1;
     b[2][1] = 3;
 
     Matrix B(3, 3, b);
 
-    auto v = columnvector3D(B, 1);
+    Vector v(3, 1);
 
+    auto Bv = matvecmul(B, v);
 
     for (auto i = 0; i < 3; i++)
     {
