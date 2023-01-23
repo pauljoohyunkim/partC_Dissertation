@@ -40,8 +40,8 @@
     \caption{Discretization process}
 \end{figure}
 We now consider a discretization of a curve.
-Index the points on the curve by $\mathcal{I} = \left\{ 1, 2, \cdots,  M \right\}$, such that
-points are given by $\left\{ \gamma_1, \gamma_2, \cdots, \gamma_M \right\}$
+Index the points on the curve by $\mathcal{I} = \left\{ 1, 2, \cdots,  J \right\}$, such that
+points are given by $\left\{ \gamma_1, \gamma_2, \cdots, \gamma_J \right\}$
 
 Using the similar notation to the paper by Yu, Schumacher, and Crane,
 for edge $I = \left\{ \gamma_i, \gamma_j \right\} \in E$
@@ -87,13 +87,13 @@ Also approximate the kernel by the average of the kernel evaluated at each pair 
 
 \section{Discrete Gradient Flow in $L^2$ for Closed Loop}
 Suppose a curve is discretized as position vectors:
-$x_1, x_2, \cdots, x_M$ (and $x_{M+1} \coloneqq x_1$).
+$x_1, x_2, \cdots, x_J$ (and $x_{J+1} \coloneqq x_1$).
 
 Also denote the edge from $x_i$ to $x_{i+1}$ as $I_i$ (as opposed to the previous section).
 
 The \textbf{discretized energy} $E$ can be expressed as:
 \begin{align}
-    E &= \sum_{i = 1}^{M} \sum_{\substack{j = 1 \\ |j-i| > 1}} k_{i,j} \norm{x_{i+1} - x_i} \, \norm{x_{j+1} - x_j} \\
+    E &= \sum_{i = 1}^{J} \sum_{\substack{j = 1 \\ |j-i| > 1}} k_{i,j} \norm{x_{i+1} - x_i} \, \norm{x_{j+1} - x_j} \\
     k_{i,j} &= \frac{1}{4} \left( 
         k_{\beta}^{\alpha} \left( x_i, x_j, T_i \right)
         + k_{\beta}^{\alpha} \left( x_i, x_{j+1}, T_i \right)
@@ -170,11 +170,23 @@ For an explicit definition of functional derivatives, see link in the footnote.
     Note that each $x_i$ is a 3D vector,
     meaning in reality, (\ref{equ: Discrete L2 Gradient Flow}) is
     \begin{align}
-        \dot{x}_{i, 1} &= -\frac{\partial E}{\partial x_{i, 1}} \\
-        \dot{x}_{i, 2} &= -\frac{\partial E}{\partial x_{i, 2}} \\
+        \dot{x}_{i, 1} &= -\frac{\partial E}{\partial x_{i, 1}}
+        \label{equ: Discrete L2 Gradient Flow x}
+        \\
+        \dot{x}_{i, 2} &= -\frac{\partial E}{\partial x_{i, 2}} 
+        \label{equ: Discrete L2 Gradient Flow y}
+        \\
         \dot{x}_{i, 3} &= -\frac{\partial E}{\partial x_{i, 3}}
+        \label{equ: Discrete L2 Gradient Flow z}
     \end{align}
 \end{remark}
+
+\subsection{Explicit Euler Scheme}
+One could now write an explicit Euler scheme based on (\ref{equ: Discrete L2 Gradient Flow x}) $\sim$ (\ref{equ: Discrete L2 Gradient Flow z})
+\begin{align}
+    \frac{X_{i,1}^{m+1} - X_{i,1}^{m}}{\Delta t} &=  - \frac{E\left( X_1^{m}, \cdots, X_i^m + \Delta x e_x, \cdots, X_J^m \right) - E\left( X_1^{m}, \cdots, X_J^m \right)}{\Delta x}
+    \label{equ: Discrete L2 Gradient Flow x Explicit Scheme}
+\end{align}
 
 \section{Constraint}
 There is a risk that the curve might keep expanding in order to minimize the energy.
@@ -198,7 +210,7 @@ In a discrete scheme, we expect the curve to approach a regular polygon.
 
 To measure how ``regular-polygonlike'' a curve is, one may define the following function:
 \begin{definition}
-    \textbf{Regularity} $\mathcal{R}$ of a polygon $P$ with verticies at $\left( x_1, x_2, \cdots, x_M \right)$:
+    \textbf{Regularity} $\mathcal{R}$ of a polygon $P$ with verticies at $\left( x_1, x_2, \cdots, x_J \right)$:
     \begin{equation}
         \mathcal{R} \coloneqq \Var \left( I \right) + \Var \left( \Theta \right)
     \end{equation}
