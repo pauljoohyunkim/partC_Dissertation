@@ -39,6 +39,9 @@ class Vector: public Matrix
         /* Vector Constructor */
         Vector(unsigned int n, double initval = 0);
         Vector(std::vector<double> &stdvector);
+        /* Operator */
+        Vector operator + (Vector &v);
+        Vector operator - (Vector &v);
         /* Fetch values instead of std::vector */
         double& operator [] (unsigned int i);
         /* Scalar Product */
@@ -54,6 +57,8 @@ class Vector3D: public Vector
         Vector3D(std::vector<double> &stdvector);
 
         /* Operator */
+        Vector3D operator + (Vector3D &v);
+        Vector3D operator - (Vector3D &v);
         Vector3D operator ^ (Vector3D& v);
 };
 
@@ -64,6 +69,10 @@ class Vector3D: public Vector
  * */
 Vector vectorize(Matrix &M);
 Vector3D vectorize3d(Matrix &v);
+
+/* Norm */
+double l2norm(Vector& v);
+
 
 
 #endif  // MATH_OBJECTS_HPP
