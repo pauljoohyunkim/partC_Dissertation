@@ -34,13 +34,13 @@ int main()
     Curve d(c.getNPoints());
 
     /* Gradient Descent */
-    for (auto t = 0; t < 10000; t++)
+    for (auto t = 0; t < 4500; t++)
     {
         for (auto i = 0; i < J; i++)
         {
-            d[i][0] = c[i][0] - dk.energyDifferential(c, Vector3D(0.1, 0, 0), i);
-            d[i][1] = c[i][1] - dk.energyDifferential(c, Vector3D(0, 0.1, 0), i);
-            d[i][2] = c[i][2] - dk.energyDifferential(c, Vector3D(0, 0, 0.1), i);
+            d[i][0] = c[i][0] - dk.energyDifferential(c, Vector3D(0.1, 0, 0), i) - c[i][0];
+            d[i][1] = c[i][1] - dk.energyDifferential(c, Vector3D(0, 0.1, 0), i) - c[i][1];
+            d[i][2] = c[i][2] - dk.energyDifferential(c, Vector3D(0, 0, 0.1), i) - c[i][2];
         }
         c = d;
         std::cout << t << ": " << dk.energy(c) << std::endl;
