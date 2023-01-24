@@ -1,0 +1,5 @@
+# Another example of L2 Gradient Flow
+https://math.stackexchange.com/questions/1687804/what-is-the-l2-gradient-flow
+
+# Discussion of L2 Gradient Flow
+https://math.stackexchange.com/questions/156236/gradient-flow-and-what-is-for-example-l2-gradient?noredirect=1&lq=1

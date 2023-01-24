@@ -15,7 +15,7 @@ int main()
         return -(x - 1) * (x + 1);
     };
 
-    Solver odeSolver(u_initial);
+    Solver1D odeSolver(u_initial);
     odeSolver.setScheme(ode1EvolveExplicitEulerPeriodic);
     odeSolver.solve();
     odeSolver.exportSolution("test.json");

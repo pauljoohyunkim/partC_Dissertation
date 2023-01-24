@@ -22,7 +22,7 @@ int main()
         }
     };
 
-    Solver porousMediumEquationSolver(u_initial, -1, 1, 400, 0.25, 80000);
+    Solver1D porousMediumEquationSolver(u_initial, -1, 1, 400, 0.25, 80000);
     porousMediumEquationSolver.setScheme(porousMediumExplicitEulerPeriodic);
     porousMediumEquationSolver.solve();
     porousMediumEquationSolver.exportSolution("test.json", 10);

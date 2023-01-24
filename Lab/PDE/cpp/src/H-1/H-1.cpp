@@ -15,7 +15,7 @@ int main()
         return -10 * (x - 1) * (x + 1);
     };
 
-    Solver biharmonicEquationSolver(u_initial, -1, 1, 20, 10, 1000000);
+    Solver1D biharmonicEquationSolver(u_initial, -1, 1, 20, 10, 1000000);
     biharmonicEquationSolver.setScheme(biharmonicEvolveExplicitEulerPeriodic);
     biharmonicEquationSolver.solve();
     biharmonicEquationSolver.exportSolution("test.json", 10);
