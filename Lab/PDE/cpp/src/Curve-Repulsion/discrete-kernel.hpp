@@ -14,6 +14,7 @@ class DiscreteKernel
 
         /* Discretized Energy */
         double energy(Curve C);
+        double energyDifferential(Curve C, Vector3D v, int index);
 
 
 

@@ -27,6 +27,7 @@ int main()
     Curve c(veclist);
 
     double energy = dk.energy(c);
+    double energydiff = dk.energyDifferential(c, Vector3D(0.1, 0, 0), 1);
 
     return 0;
 }
