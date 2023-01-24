@@ -6,7 +6,7 @@
 #include <iostream>
 #include <matplot/matplot.h>
 
-#define LAMBDA 0.1
+#define LAMBDA 0.01
 
 static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, DiscreteKernel& dk);
 
@@ -21,10 +21,10 @@ int main()
      * x4(5.5, -6.5, 0)
      * */
 
-    Vector3D x1(2.5, 3, 2);
-    Vector3D x2(-3.5, 3.5, -2);
-    Vector3D x3(-3.2, -3.25, 1.8);
-    Vector3D x4(5.5, -6.5, 0);
+    Vector3D x1(13.2, -16.4, 11.12);
+    Vector3D x2(10.18, 9.09, 0);
+    Vector3D x3(16.53, -25.6, -6.01);
+    Vector3D x4(-5.91, -21.32, 0);
 
     std::vector<Vector3D> veclist { x1, x2, x3, x4 };
 
@@ -73,8 +73,8 @@ int main()
         c = d;
         std::cout << t << ": " << dk.energy(c) << std::endl;
         matplot::plot3(x, y, z);
-        matplot::xrange({-3, 3});
-        matplot::yrange({-3, 3});
+        //matplot::xrange({-30, 30});
+        //matplot::yrange({-30, 30});
         matplot::show();
     }
 
