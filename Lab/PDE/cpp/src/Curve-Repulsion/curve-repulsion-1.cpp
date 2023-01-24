@@ -22,9 +22,11 @@ int main()
     Vector3D x3(-3.2, -3.25, 1.8);
     Vector3D x4(5.5, -6.5, 0);
 
-    std::vector<Vector3D> veclist = { Vector3D(2,3,0),Vector3D(1,0,2)} ;
+    std::vector<Vector3D> veclist { x1, x2, x3, x4 };
 
     Curve c(veclist);
+
+    double energy = dk.energy(c);
 
     return 0;
 }
