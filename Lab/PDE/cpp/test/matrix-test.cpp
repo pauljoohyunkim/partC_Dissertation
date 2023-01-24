@@ -21,6 +21,9 @@ int main()
     Vector3D v(1);
 
     auto Bv = matvecmul3D(B, v);
+    auto Bv3 = Bv * 3;
+
+    auto B3 = B * 3.0;
 
     for (auto i = 0; i < 3; i++)
     {

@@ -24,6 +24,7 @@ class Matrix
         Matrix operator + (Matrix &M);
         Matrix operator - (Matrix &M);
         Matrix operator * (Matrix &M);
+        Matrix operator * (double lambda);
         std::vector<double>& operator [](unsigned int i);
 
     protected:
@@ -42,6 +43,7 @@ class Vector: public Matrix
         /* Operator */
         Vector operator + (Vector &v);
         Vector operator - (Vector &v);
+        Vector operator * (double lambda);
         /* Fetch values instead of std::vector */
         double& operator [] (unsigned int i);
         /* Scalar Product */
@@ -59,6 +61,7 @@ class Vector3D: public Vector
         /* Operator */
         Vector3D operator + (Vector3D &v);
         Vector3D operator - (Vector3D &v);
+        Vector3D operator * (double lambda);
         Vector3D operator ^ (Vector3D& v);
 };
 

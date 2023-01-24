@@ -109,6 +109,20 @@ Matrix Matrix::operator * (Matrix &M)
     return matrix;
 }
 
+Matrix Matrix::operator * (double lambda)
+{
+    Matrix M(this->dimensions.first, this->dimensions.second, 0);
+    for (unsigned int i = 0; i < M.getNRows(); i++)
+    {
+        for (unsigned int j = 0; j < M.getNColumns(); j++)
+        {
+            M.rawMatrix[i][j] = (this->rawMatrix[i][j]) * lambda;
+        }
+    }
+
+    return M;
+}
+
 std::vector<double>& Matrix::operator [](unsigned int i)
 {
     return this->rawMatrix[i];
@@ -146,6 +160,18 @@ Vector Vector::operator - (Vector &v)
     for (unsigned int mi = 0; mi < vector.getNRows(); mi++)
     {
         vector.rawMatrix[mi][0] = this->rawMatrix[mi][0] - v.rawMatrix[mi][0];
+    }
+
+    return vector;
+}
+
+Vector Vector::operator * (double lambda)
+{
+    auto length = this->dimensions.first;
+    Vector vector(length);
+    for (unsigned int i = 0; i < length; i++)
+    {
+        vector[i] = this->rawMatrix[i][0] * lambda;
     }
 
     return vector;
@@ -210,6 +236,11 @@ Vector3D Vector3D::operator - (Vector3D &v)
     }
 
     return vector;
+}
+
+Vector3D Vector3D::operator * (double lambda)
+{
+    return Vector3D(this->rawMatrix[0][0] * lambda, this->rawMatrix[1][0] * lambda, this->rawMatrix[2][0] * lambda);
 }
 
 Vector3D Vector3D::operator ^ (Vector3D &v)
