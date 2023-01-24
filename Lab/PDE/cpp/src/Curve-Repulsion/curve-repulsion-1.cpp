@@ -55,7 +55,7 @@ int main()
 
 
     /* Gradient Descent */
-    for (auto t = 0; t < 4500; t++)
+    for (auto t = 0; t < 400; t++)
     {
         for (auto i = 0; i < J; i++)
         {
@@ -75,7 +75,8 @@ int main()
         matplot::plot3(x, y, z);
         //matplot::xrange({-30, 30});
         //matplot::yrange({-30, 30});
-        matplot::show();
+
+        matplot::save(std::to_string(t) + ".png");
     }
 
     return 0;
