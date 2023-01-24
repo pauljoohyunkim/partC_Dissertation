@@ -2,6 +2,7 @@
 #define DISCRETE_KERNEL_HPP
 
 #include "../math-objects.hpp"
+#include "../geometric-objects.hpp"
 #include <functional>
 
 class DiscreteKernel
@@ -11,11 +12,19 @@ class DiscreteKernel
         /* For kernel function k_{ij}, arguments are x_i, x_{i+1}, x_j, x_{j+1}, T_{i}, and the Discrete Kernel object itself */
         DiscreteKernel(double aAlpha, double aBeta, std::function<double(Vector3D&, Vector3D&, Vector3D&, Vector3D&, Vector3D&, DiscreteKernel&)> aKernelFunction);
 
+        /* Discretized Energy */
+        double energy(Curve C);
+
+
+
+        /* k_{i,j} */
         std::function<double(Vector3D&, Vector3D&, Vector3D&, Vector3D&, Vector3D&, DiscreteKernel&)> kernelFunction;
+        /* k_\beta^\alpha (Actual) */
         std::function<double(Vector3D&, Vector3D&, Vector3D&)> kernelalphabeta;
+
     private:
-        double alpha {};
-        double beta {};
+        double alpha { 2 };
+        double beta { 4 };
 };
 
 

@@ -1,6 +1,7 @@
 #include "discrete-kernel.hpp"
 #include <functional>
 #include <cmath>
+#include <cstdlib>
 
 /* Discrete Kernel Constructor */
 DiscreteKernel::DiscreteKernel(double aAlpha, double aBeta, std::function<double(Vector3D&, Vector3D&, Vector3D&, Vector3D&, Vector3D&, DiscreteKernel&)> aKernelFunction)
@@ -16,4 +17,34 @@ DiscreteKernel::DiscreteKernel(double aAlpha, double aBeta, std::function<double
         double denominator = pow(l2norm(pmq), beta);
         return numerator / denominator;
     };
+}
+
+/* Discretized Energy */
+double DiscreteKernel::energy(Curve C)
+{
+    double e { 0 };
+    auto J = (int) C.getNPoints();
+
+    for (int i = 0; i < J; i++)
+    {
+        for (int j = 0; j < J && abs(i - j) > 1; j++)
+        {
+            /* Components of E
+             * p = x_i
+             * q = x_j
+             * pI = x_{i+1} - x_i
+             * lI = |pI|
+             * TI = pI / lI ("Tangent")
+             * */
+            auto p = C[i];
+            auto q = C[j];
+            auto pI = C[i+1] - p;
+            auto lI = l2norm(pI);
+            auto TI = pI * (1 / lI);
+            e += kernelFunction(p, C[i+1], q, C[j+1], TI, *this);
+        }
+    }
+
+    return e;
+
 }
