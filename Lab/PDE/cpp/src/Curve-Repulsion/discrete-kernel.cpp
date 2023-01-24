@@ -42,8 +42,10 @@ double DiscreteKernel::energy(Curve C)
                 auto q = C[j];
                 auto pI = C[i+1] - p;
                 auto lI = l2norm(pI);
+                auto qJ = C[j+1] - q;
+                auto lJ = l2norm(qJ);
                 auto TI = pI * (1 / lI);
-                e += kernelFunction(p, C[i+1], q, C[j+1], TI, *this);
+                e += kernelFunction(p, C[i + 1], q, C[j + 1], TI, *this) * lI * lJ;
             }
         }
     }
