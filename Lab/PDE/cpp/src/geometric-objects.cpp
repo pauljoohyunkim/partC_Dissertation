@@ -6,6 +6,10 @@
 Curve::Curve(unsigned int aJ)
 {
     points.reserve(J);
+    for (unsigned int i = 0; i < aJ; i++)
+    {
+        points.push_back(Vector3D(0,0,0));
+    }
     J = aJ;
 }
 
