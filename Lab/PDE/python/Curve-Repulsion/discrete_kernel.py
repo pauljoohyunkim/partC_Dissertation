@@ -4,8 +4,8 @@ import discrete
 # p, q, T are all array
 def kernelalphabeta(p, q, T, alpha=2, beta=4):
     pmq = p - q
-    numerator = discrete.discretelPNorm(np.cross(T, pmq)) ** alpha
-    denominator = discrete.discretelPNorm(pmq) ** beta
+    numerator = discrete.discretelPNorm(np.cross(T, pmq), 1) ** alpha
+    denominator = discrete.discretelPNorm(pmq, 1) ** beta
     return numerator / denominator
 
 # Pass a list of points.
@@ -16,13 +16,13 @@ def energy(points):
     for i in range(J):
         for j in range(J):
             if abs(i - j) > 1 and abs(i - j + J) > 1 and abs(i - j - J) > 1:
-                xi = points[i]
-                xipm = points[i+1]
-                xj = points[j]
-                xjpm = points[j+1]
+                xi = points[i % J]
+                xipm = points[(i+1) % J]
+                xj = points[j % J]
+                xjpm = points[(j+1) % J]
                 xI = xipm - xi
-                lI = discrete.discretelPNorm(xI)
+                lI = discrete.discretelPNorm(xI, 1)
                 TI = xI / lI
-                e += (kernelalphabeta(xi, xj, TI) + kernelalphabeta(xi, xjpm, TI) + kernelalphabeta(xipm, xj, TI) + kernelalphabeta(xipm, xjpm, TI)) * 0.25 * lI * discrete.discretelPNorm(xjpm-xj)
+                e += (kernelalphabeta(xi, xj, TI) + kernelalphabeta(xi, xjpm, TI) + kernelalphabeta(xipm, xj, TI) + kernelalphabeta(xipm, xjpm, TI)) * 0.25 * lI * discrete.discretelPNorm(xjpm-xj, 1)
 
     return e
