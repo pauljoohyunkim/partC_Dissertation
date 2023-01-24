@@ -93,7 +93,9 @@ Also denote the edge from $x_i$ to $x_{i+1}$ as $I_i$ (as opposed to the previou
 
 The \textbf{discretized energy} $E$ can be expressed as:
 \begin{align}
-    E &= \sum_{i = 1}^{J} \sum_{\substack{j = 1 \\ |j-i| > 1}} k_{i,j} \norm{x_{i+1} - x_i} \, \norm{x_{j+1} - x_j} \\
+    E &= \sum_{i = 1}^{J} \sum_{\substack{j = 1 \\ |j-i| > 1}} k_{i,j} \norm{x_{i+1} - x_i} \, \norm{x_{j+1} - x_j} 
+    \label{equ: Discretized Energy}
+    \\
     k_{i,j} &= \frac{1}{4} \left( 
         k_{\beta}^{\alpha} \left( x_i, x_j, T_i \right)
         + k_{\beta}^{\alpha} \left( x_i, x_{j+1}, T_i \right)
@@ -187,6 +189,10 @@ One could now write an explicit Euler scheme based on (\ref{equ: Discrete L2 Gra
     \frac{X_{i,1}^{m+1} - X_{i,1}^{m}}{\Delta t} &=  - \frac{E\left( X_1^{m}, \cdots, X_i^m + \Delta x e_x, \cdots, X_J^m \right) - E\left( X_1^{m}, \cdots, X_J^m \right)}{\Delta x}
     \label{equ: Discrete L2 Gradient Flow x Explicit Scheme}
 \end{align}
+where $\Delta t$ and $\Delta x$ are small parameters.
+
+Note that in the case that we use (\ref{equ: Discretized Energy}),
+the computation work for RHS can be greatly reduced.
 
 \section{Constraint}
 There is a risk that the curve might keep expanding in order to minimize the energy.
