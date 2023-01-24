@@ -4,6 +4,9 @@
 #include "curve-repulsion-1.hpp"
 #include <vector>
 #include <iostream>
+#include <matplot/matplot.h>
+
+#define LAMBDA 0.1
 
 static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, DiscreteKernel& dk);
 
@@ -33,17 +36,46 @@ int main()
 
     Curve d(c.getNPoints());
 
+
+    /* For plotting */
+    std::vector<double> x {} ;
+    std::vector<double> y {} ;
+    std::vector<double> z {} ;
+    x.reserve(J + 1);
+    y.reserve(J + 1);
+    z.reserve(J + 1);
+    for (auto i = 0; i < J + 1; i++)
+    {
+        x.push_back(0);
+        y.push_back(0);
+        z.push_back(0);
+    }
+
+    
+
+
     /* Gradient Descent */
     for (auto t = 0; t < 4500; t++)
     {
         for (auto i = 0; i < J; i++)
         {
-            d[i][0] = c[i][0] - dk.energyDifferential(c, Vector3D(0.1, 0, 0), i) - c[i][0];
-            d[i][1] = c[i][1] - dk.energyDifferential(c, Vector3D(0, 0.1, 0), i) - c[i][1];
-            d[i][2] = c[i][2] - dk.energyDifferential(c, Vector3D(0, 0, 0.1), i) - c[i][2];
+            d[i][0] = c[i][0] - dk.energyDifferential(c, Vector3D(0.1, 0, 0), i) - LAMBDA * c[i][0];
+            d[i][1] = c[i][1] - dk.energyDifferential(c, Vector3D(0, 0.1, 0), i) - LAMBDA * c[i][1];
+            d[i][2] = c[i][2] - dk.energyDifferential(c, Vector3D(0, 0, 0.1), i) - LAMBDA * c[i][2];
+            x[i] = d[i][0];
+            y[i] = d[i][1];
+            z[i] = d[i][2];
         }
+        x[J] = d[J][0];
+        y[J] = d[J][1];
+        z[J] = d[J][2];
+
         c = d;
         std::cout << t << ": " << dk.energy(c) << std::endl;
+        matplot::plot3(x, y, z);
+        matplot::xrange({-3, 3});
+        matplot::yrange({-3, 3});
+        matplot::show();
     }
 
     return 0;
