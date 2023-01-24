@@ -1,1 +1,4 @@
 VSEPR Theory
+
+Instead of difference method on the set of points on a curve,
+can Fourier coefficient representation of curves be used?
