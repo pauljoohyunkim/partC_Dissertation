@@ -53,3 +53,13 @@ double DiscreteKernel::energy(Curve C)
     return e;
 
 }
+
+
+double DiscreteKernel::energyDifferential(Curve C, Vector3D v, int index)
+{
+    auto energyC = energy(C);
+    /* Deforming */
+    C[index] = C[index] + v;
+
+    return energy(C) - energyC;
+}
