@@ -27,21 +27,24 @@ double DiscreteKernel::energy(Curve C)
 
     for (int i = 0; i < J; i++)
     {
-        for (int j = 0; j < J && abs(i - j) > 1; j++)
+        for (int j = 0; j < J ; j++)
         {
-            /* Components of E
-             * p = x_i
-             * q = x_j
-             * pI = x_{i+1} - x_i
-             * lI = |pI|
-             * TI = pI / lI ("Tangent")
-             * */
-            auto p = C[i];
-            auto q = C[j];
-            auto pI = C[i+1] - p;
-            auto lI = l2norm(pI);
-            auto TI = pI * (1 / lI);
-            e += kernelFunction(p, C[i+1], q, C[j+1], TI, *this);
+            if (abs(i - j) > 1 && abs(i - j + J) > 1 && abs(i - j - J) > 1)
+            {
+                /* Components of E
+                 * p = x_i
+                 * q = x_j
+                 * pI = x_{i+1} - x_i
+                 * lI = |pI|
+                 * TI = pI / lI ("Tangent")
+                 * */
+                auto p = C[i];
+                auto q = C[j];
+                auto pI = C[i+1] - p;
+                auto lI = l2norm(pI);
+                auto TI = pI * (1 / lI);
+                e += kernelFunction(p, C[i+1], q, C[j+1], TI, *this);
+            }
         }
     }
 
