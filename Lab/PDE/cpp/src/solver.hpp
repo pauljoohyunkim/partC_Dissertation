@@ -4,6 +4,8 @@
 #include <functional>
 #include <iostream>
 #include <vector>
+#include "math-objects.hpp"
+#include "geometric-objects.hpp"
 
 #define DOUBLE_PRECISION 15
 
@@ -48,6 +50,29 @@ class Solver1D
 
         /* Free for u */
         void free();
+};
+
+class SolverCurveRepulsion
+{
+    public:
+        /* SolverCurveRepulsion class Constructor */
+        /* For kernel function k_{ij}, arguments are x_i, x_{i+1}, x_j, x_{j+1}, T_{i}, and the Discrete Kernel object itself */
+        SolverCurveRepulsion(double aAlpha, double aBeta, std::function<double(Vector3D&, Vector3D&, Vector3D&, Vector3D&, Vector3D&, SolverCurveRepulsion&)> aKernelFunction);
+
+        /* Discretized Energy */
+        double energy(Curve C);
+        double energyDifferential(Curve C, Vector3D v, int index);
+
+
+
+        /* k_{i,j} */
+        std::function<double(Vector3D&, Vector3D&, Vector3D&, Vector3D&, Vector3D&, SolverCurveRepulsion&)> kernelFunction;
+        /* k_\beta^\alpha (Actual) */
+        std::function<double(Vector3D&, Vector3D&, Vector3D&)> kernelalphabeta;
+
+    private:
+        double alpha { 2 };
+        double beta { 4 };
 };
 
 #endif  // solver.hpp
