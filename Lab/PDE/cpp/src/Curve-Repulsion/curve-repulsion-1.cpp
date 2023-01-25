@@ -7,6 +7,9 @@
 #include <matplot/matplot.h>
 
 #define LAMBDA 0.01
+#define DELTAX 0.01
+#define DELTAT 0.01
+#define M 10000
 
 static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, DiscreteKernel& dk);
 
@@ -55,13 +58,13 @@ int main()
 
 
     /* Gradient Descent */
-    for (auto t = 0; t < 400; t++)
+    for (auto t = 0; t < M; t++)
     {
         for (auto i = 0; i < J; i++)
         {
-            d[i][0] = c[i][0] - dk.energyDifferential(c, Vector3D(0.1, 0, 0), i) - LAMBDA * c[i][0];
-            d[i][1] = c[i][1] - dk.energyDifferential(c, Vector3D(0, 0.1, 0), i) - LAMBDA * c[i][1];
-            d[i][2] = c[i][2] - dk.energyDifferential(c, Vector3D(0, 0, 0.1), i) - LAMBDA * c[i][2];
+            d[i][0] = c[i][0] - dk.energyDifferential(c, Vector3D(DELTAX, 0, 0), i) / DELTAX * DELTAT - DELTAT * LAMBDA * (2 * c[i][0] - c[i + 1][0] - c[i - 1][0]);
+            d[i][1] = c[i][1] - dk.energyDifferential(c, Vector3D(0, DELTAX, 0), i) / DELTAX * DELTAT - DELTAT * LAMBDA * (2 * c[i][1] - c[i + 1][1] - c[i - 1][1]);
+            d[i][2] = c[i][2] - dk.energyDifferential(c, Vector3D(0, 0, DELTAX), i) / DELTAX * DELTAT - DELTAT * LAMBDA * (2 * c[i][2] - c[i + 1][2] - c[i - 1][2]);
             x[i] = d[i][0];
             y[i] = d[i][1];
             z[i] = d[i][2];
@@ -75,8 +78,13 @@ int main()
         matplot::plot3(x, y, z);
         //matplot::xrange({-30, 30});
         //matplot::yrange({-30, 30});
+        //matplot::show();
 
-        matplot::save(std::to_string(t) + ".png");
+        //matplot::save(std::to_string(t) + ".png");
+        if (t == M-2)
+        {
+            matplot::show();
+        }
     }
 
     return 0;

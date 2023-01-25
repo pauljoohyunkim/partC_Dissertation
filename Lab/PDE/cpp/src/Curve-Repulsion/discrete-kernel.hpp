@@ -5,6 +5,8 @@
 #include "../geometric-objects.hpp"
 #include <functional>
 
+#define LAMBDA 0.01
+
 class DiscreteKernel
 {
     public:
