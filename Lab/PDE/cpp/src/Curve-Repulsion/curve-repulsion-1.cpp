@@ -12,6 +12,7 @@
 #define AZIMUTHAL_SPEED 0.5
 #define ELEVATION 3
 #define M 10000
+#define PLOT_FREQUENCY 10
 
 static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, DiscreteKernel& dk);
 
@@ -77,18 +78,21 @@ int main()
 
         c = d;
         std::cout << t << ": " << dk.energy(c) << std::endl;
-        auto curvePlot = matplot::plot3(x, y, z);
-        curvePlot->line_width(5);
-        matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
-        //matplot::xrange({-30, 30});
-        //matplot::yrange({-30, 30});
-        //matplot::show();
-
-        //matplot::save(std::to_string(t) + ".png");
-        if (t == M-2)
+        if (t % PLOT_FREQUENCY == 0)
         {
-            matplot::show();
+            auto curvePlot = matplot::plot3(x, y, z);
+            curvePlot->line_width(5);
+            matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
+            //matplot::xrange({-30, 30});
+            //matplot::yrange({-30, 30});
+            //matplot::show();
+
+            //matplot::save(std::to_string(t) + ".png");
         }
+        //if (t == M-2)
+        //{
+        //    matplot::show();
+        //}
     }
 
     return 0;
