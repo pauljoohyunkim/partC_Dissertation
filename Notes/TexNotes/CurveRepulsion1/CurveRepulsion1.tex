@@ -208,6 +208,16 @@ which the gradient flow equation turns into
 \end{equation}
 where $\lambda$ is a parameter which one could experiment with.
 
+However, should this scheme be too expensive, alternatively one may attempt
+\begin{equation}
+    F = E + \lambda \sum_i |x_i|^2
+\end{equation}
+which the gradient flow equation turns into
+\begin{equation}
+    \dot{x}_i = - \frac{\partial F}{\partial x_i} =  - \frac{\partial E}{\partial x_i} - \lambda x_i
+\end{equation}
+
+
 Seems to parallel Lagrange constant in the method of Langrange multipliers.
 \section{Appendix}
 \subsection{Index of Regular-Polygonness}
