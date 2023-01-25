@@ -27,12 +27,24 @@ int main()
      * x4(5.5, -6.5, 0)
      * */
 
-    Vector3D x1(13.2, -16.4, 11.12);
-    Vector3D x2(10.18, 9.09, 0);
-    Vector3D x3(16.53, -25.6, -6.01);
-    Vector3D x4(-5.91, -21.32, 0);
+    /* Example 1 */
+    //Vector3D x1(13.2, -16.4, 11.12);
+    //Vector3D x2(10.18, 9.09, 0);
+    //Vector3D x3(16.53, -25.6, -6.01);
+    //Vector3D x4(-5.91, -21.32, 0);
+    //std::vector<Vector3D> veclist { x1, x2, x3, x4 };
 
-    std::vector<Vector3D> veclist { x1, x2, x3, x4 };
+    /* Example 2 */
+    Vector3D x1(-2.75, 2.97, 0);
+    Vector3D x2(-0.6, -2.38, 2);
+    Vector3D x3(3.38, -3.62, -1.55);
+    Vector3D x4(3.1, 2.23, 0);
+    Vector3D x5(0.74, 3.36, 3.24);
+    Vector3D x6(-6.71, 1.73, 4);
+    Vector3D x7(1.75, -6.61, -2.28);
+    Vector3D x8(2.6, 3.21, 5.24);
+    Vector3D x9(-4.7, 6.23, 4.38);
+    std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6, x7, x8, x9 };
 
     Curve c(veclist);
     auto J = c.getNPoints();
@@ -77,9 +89,9 @@ int main()
         z[J] = d[J][2];
 
         c = d;
-        std::cout << t << ": " << dk.energy(c) << std::endl;
-        if (t % PLOT_FREQUENCY == 0)
-        {
+        //std::cout << t << ": " << dk.energy(c) << std::endl;
+        //if (t % PLOT_FREQUENCY == 0)
+        //{
             auto curvePlot = matplot::plot3(x, y, z);
             curvePlot->line_width(5);
             matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
@@ -88,7 +100,7 @@ int main()
             //matplot::show();
 
             //matplot::save(std::to_string(t) + ".png");
-        }
+        //}
         //if (t == M-2)
         //{
         //    matplot::show();
