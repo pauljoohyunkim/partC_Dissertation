@@ -75,7 +75,8 @@ int main()
 
         c = d;
         std::cout << t << ": " << dk.energy(c) << std::endl;
-        matplot::plot3(x, y, z);
+        auto curvePlot = matplot::plot3(x, y, z);
+        curvePlot->line_width(5);
         //matplot::xrange({-30, 30});
         //matplot::yrange({-30, 30});
         //matplot::show();
