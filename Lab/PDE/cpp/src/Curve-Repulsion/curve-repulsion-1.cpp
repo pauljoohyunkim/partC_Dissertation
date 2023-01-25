@@ -35,15 +35,15 @@ int main()
     //std::vector<Vector3D> veclist { x1, x2, x3, x4 };
 
     /* Example 2 */
-    Vector3D x1(-2.75, 2.97, 0);
-    Vector3D x2(-0.6, -2.38, 2);
-    Vector3D x3(3.38, -3.62, -1.55);
-    Vector3D x4(3.1, 2.23, 0);
-    Vector3D x5(0.74, 3.36, 3.24);
-    Vector3D x6(-6.71, 1.73, 4);
-    Vector3D x7(1.75, -6.61, -2.28);
-    Vector3D x8(2.6, 3.21, 5.24);
-    Vector3D x9(-4.7, 6.23, 4.38);
+    Vector3D x1{ -2.75, 2.97, 0 };
+    Vector3D x2{ -0.6, -2.38, 2 };
+    Vector3D x3{ 3.38, -3.62, -1.55 };
+    Vector3D x4{ 3.1, 2.23, 0 };
+    Vector3D x5{ 0.74, 3.36, 3.24 };
+    Vector3D x6{ -6.71, 1.73, 4 };
+    Vector3D x7{ 1.75, -6.61, -2.28 };
+    Vector3D x8{ 2.6, 3.21, 5.24 };
+    Vector3D x9{ -4.7, 6.23, 4.38 };
     std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6, x7, x8, x9 };
 
     Curve c(veclist);
@@ -97,9 +97,9 @@ int main()
             matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
             //matplot::xrange({-30, 30});
             //matplot::yrange({-30, 30});
-            //matplot::show();
+            matplot::show();
 
-            //matplot::save(std::to_string(t) + ".png");
+            //matplot::save("/tmp/img/" + std::to_string(t) + ".png");
         //}
         //if (t == M-2)
         //{
