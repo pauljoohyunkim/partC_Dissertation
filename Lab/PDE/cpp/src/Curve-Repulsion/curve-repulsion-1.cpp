@@ -1,6 +1,6 @@
 #include "../math-objects.hpp"
 #include "../geometric-objects.hpp"
-#include "discrete-kernel.hpp"
+#include "../solver.hpp"
 #include "curve-repulsion-1.hpp"
 #include <vector>
 #include <iostream>
@@ -17,11 +17,11 @@
 
 #define PI 3.14159265
 
-static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, DiscreteKernel& dk);
+static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, SolverCurveRepulsion& dk);
 
 int main()
 {
-    DiscreteKernel dk = DiscreteKernel(2, 4, kernel1);
+    SolverCurveRepulsion dk = SolverCurveRepulsion(2, 4, kernel1);
 
     /* Points on the curve (or rather... polygon)
      * x1(2.5, 3, 2)
@@ -118,7 +118,7 @@ int main()
             matplot::yrange({-5, 5});
             //matplot::show();
 
-            //matplot::save("/tmp/img/" + std::to_string(t) + ".png");
+            matplot::save(std::to_string(t) + ".png");
         }
         //if (t == M-2)
         //{
@@ -132,7 +132,7 @@ int main()
 /* Based on "Trapezoid rule":
  * Takes average based on four points
  * */
-static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, DiscreteKernel& dk)
+static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, SolverCurveRepulsion& dk)
 {
     double kij { 0 };  
 
