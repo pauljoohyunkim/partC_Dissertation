@@ -87,17 +87,17 @@ void cuCurve::flushFromDevice()
     cudaMemcpy(&z[0], dev_z, J * sizeof(double), cudaMemcpyDeviceToHost);
 }
 
-__device__ double cuCurve::getX(int i)
+__device__ double& cuCurve::getX(int i)
 {
     return dev_x[((i % (int) J) + J) % J];
 }
 
-__device__ double cuCurve::getY(int i)
+__device__ double& cuCurve::getY(int i)
 {
     return dev_y[((i % (int) J) + J) % J];
 }
 
-__device__ double cuCurve::getZ(int i)
+__device__ double& cuCurve::getZ(int i)
 {
     return dev_z[((i % (int) J) + J) % J];
 }

@@ -22,9 +22,9 @@ class cuCurve
         /* Flush progress to x, y, z from GPU */
         void flushFromDevice();
         /* CUDA Functions */
-        __device__ double getX(int i);
-        __device__ double getY(int i);
-        __device__ double getZ(int i);
+        __device__ double& getX(int i);
+        __device__ double& getY(int i);
+        __device__ double& getZ(int i);
     private:
         std::vector<double> x;
         std::vector<double> y;
