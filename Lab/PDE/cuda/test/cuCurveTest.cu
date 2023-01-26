@@ -10,9 +10,9 @@ int main()
     cuCurve C(x, y, z);
     C.cudafy();
 
-    std::cout << C.getValFromDevice(0, 0) << std::endl;
-    std::cout << C.getValFromDevice(1, 0) << std::endl;
-    std::cout << C.getValFromDevice(2, 0) << std::endl;
+    std::cout << C.getValFromDevice(0, -1) << std::endl;
+    std::cout << C.getValFromDevice(1, -1) << std::endl;
+    std::cout << C.getValFromDevice(2, -1) << std::endl;
     std::cout << C.getValFromDevice(0, 1) << std::endl;
     std::cout << C.getValFromDevice(1, 1) << std::endl;
     std::cout << C.getValFromDevice(2, 1) << std::endl;

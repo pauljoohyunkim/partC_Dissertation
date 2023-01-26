@@ -106,6 +106,7 @@ __device__ double& cuCurve::getZ(int i)
 double cuCurve::getValFromDevice(int coordnum, int i)
 {
     double val;
+    i = ((i % (int) J) + J) % J;
     switch (coordnum)
     {
         /* X */
