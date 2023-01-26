@@ -11,6 +11,7 @@
 //        double beta { 4 };
 //};
 
-__device__ void cross (double x1, double y1, double z1, double x2, double y2, double z2, double &x3, double &y3, double &z3);
+__device__ void cross(double x1, double y1, double z1, double x2, double y2, double z2, double &x3, double &y3, double &z3);
+__device__ double l2norm3D(double x1, double x2, double x3);
 
 #endif  // solver.hpp

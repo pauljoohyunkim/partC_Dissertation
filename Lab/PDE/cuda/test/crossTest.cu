@@ -11,6 +11,15 @@ __global__ static void crossAll(double *dev_x1, double *dev_y1, double *dev_z1, 
    }
 }
 
+__global__ static void normAll(double *dev_x, double *dev_y, double *dev_z, double *dev_normv)
+{
+    int tid = blockIdx.x;
+    if (tid < N)
+    {
+        dev_normv[tid] = l2norm3D(dev_x[tid], dev_y[tid], dev_z[tid]);
+    }
+}
+
 int main()
 {
     double x1[N];
@@ -36,8 +45,9 @@ int main()
     double xv[N];
     double yv[N];
     double zv[N];
+    double normsv[N];
 
-    double *dev_x1, *dev_y1, *dev_z1, *dev_x2, *dev_y2, *dev_z2, *dev_xv, *dev_yv, *dev_zv;
+    double *dev_x1, *dev_y1, *dev_z1, *dev_x2, *dev_y2, *dev_z2, *dev_xv, *dev_yv, *dev_zv, *dev_normv;
 
     /* Malloc on GPU */
     cudaMalloc((void**)&dev_x1, N * sizeof(double));
@@ -49,6 +59,7 @@ int main()
     cudaMalloc((void**)&dev_xv, N * sizeof(double));
     cudaMalloc((void**)&dev_yv, N * sizeof(double));
     cudaMalloc((void**)&dev_zv, N * sizeof(double));
+    cudaMalloc((void**)&dev_normv, N * sizeof(double));
 
     /* Copy the x, y, z array */
     cudaMemcpy(dev_x1, x1, N * sizeof(double), cudaMemcpyHostToDevice);
@@ -61,10 +72,14 @@ int main()
     /* Compute Cross Product for all */
     crossAll<<<N, 1>>>(dev_x1, dev_y1, dev_z1, dev_x2, dev_y2, dev_z2, dev_xv, dev_yv, dev_zv);
 
+    /* Compute norm of the resultant cross products */
+    normAll<<<N, 1>>>(dev_xv, dev_yv, dev_zv, dev_normv);
+
     /* Copy results to the result vector */
     cudaMemcpy(xv, dev_xv, N * sizeof(double), cudaMemcpyDeviceToHost);
     cudaMemcpy(yv, dev_yv, N * sizeof(double), cudaMemcpyDeviceToHost);
     cudaMemcpy(zv, dev_zv, N * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(normsv, dev_normv, N * sizeof(double), cudaMemcpyDeviceToHost);
 
     cudaFree(dev_x1);
     cudaFree(dev_y1);
@@ -75,6 +90,7 @@ int main()
     cudaFree(dev_xv);
     cudaFree(dev_yv);
     cudaFree(dev_zv);
+    cudaFree(dev_normv);
 
     return 0;
 }
