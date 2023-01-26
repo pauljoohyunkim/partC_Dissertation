@@ -1,6 +1,30 @@
 #include "solver.hpp"
 //#include "geometric-objects.hpp"
 
+SolverCurveRepulsion::SolverCurveRepulsion(double aAlpha, double aBeta)
+{
+    alpha = aAlpha;
+    beta = aBeta;
+}
+
+__device__ double kernelalphabeta(double px, double py, double pz, double qx, double qy, double qz, double Tx, double Ty, double Tz, double aAlpha, double aBeta)
+{
+    double pmqx = px - qx;
+    double pmqy = py - qy;
+    double pmqz = pz - qz;
+    double numx;
+    double numy;
+    double numz;
+
+    /* T x (p-q) */
+    cross(px, py, pz, qx, qy, qz, numx, numy, numz);
+    double numerator = pow(l2norm3D(numx, numy, numz), aAlpha);
+    double denominator = pow(l2norm3D(pmqx, pmqy, pmqz), aBeta);
+
+    return numerator / denominator;
+}
+
+
 __device__ void cross(double x1, double y1, double z1, double x2, double y2, double z2, double &x3, double &y3, double &z3)
 {
     x3 = y1 * z2 - y2 * z1;
@@ -16,5 +40,4 @@ __device__ double l2norm3D(double x1, double x2, double x3)
     norm += x3 * x3;
 
     return sqrt(norm);
-
 }
