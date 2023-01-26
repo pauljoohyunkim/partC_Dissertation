@@ -101,3 +101,29 @@ __device__ double& cuCurve::getZ(int i)
 {
     return dev_z[((i % (int) J) + J) % J];
 }
+
+/* coordnum = 0, 1, 2 for X, Y, Z respectively */
+double cuCurve::getValFromDevice(int coordnum, int i)
+{
+    double val;
+    switch (coordnum)
+    {
+        /* X */
+        case 0:
+            cudaMemcpy(&val, &dev_x[i], sizeof(double), cudaMemcpyDeviceToHost);
+            break;
+        /* Y */
+        case 1:
+            cudaMemcpy(&val, &dev_y[i], sizeof(double), cudaMemcpyDeviceToHost);
+            break;
+        /* Z */
+        case 2:
+            cudaMemcpy(&val, &dev_z[i], sizeof(double), cudaMemcpyDeviceToHost);
+            break;
+        default:
+            throw std::runtime_error("Coordnum out of bound.");
+            break;
+    }
+
+    return val;
+}

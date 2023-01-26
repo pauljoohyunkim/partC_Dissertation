@@ -1,5 +1,6 @@
 #include "../src/geometric-objects.hpp"
 #include <vector>
+#include <iostream>
 
 int main()
 {
@@ -8,6 +9,13 @@ int main()
     std::vector<double> z = { -1, -2, 3, -4, 5, 0.6 };
     cuCurve C(x, y, z);
     C.cudafy();
+
+    std::cout << C.getValFromDevice(0, 0) << std::endl;
+    std::cout << C.getValFromDevice(1, 0) << std::endl;
+    std::cout << C.getValFromDevice(2, 0) << std::endl;
+    std::cout << C.getValFromDevice(0, 1) << std::endl;
+    std::cout << C.getValFromDevice(1, 1) << std::endl;
+    std::cout << C.getValFromDevice(2, 1) << std::endl;
 
     return 0;
 }
