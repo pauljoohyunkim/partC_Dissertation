@@ -28,7 +28,7 @@ class cuCurve
 
         /* Non-cuda functions, but requires cudafy to have been called. */
         double getValFromDevice(int coordnum, int i);
-    private:
+    protected:
         std::vector<double> x;
         std::vector<double> y;
         std::vector<double> z;

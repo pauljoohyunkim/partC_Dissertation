@@ -1,5 +1,60 @@
+#include <iostream>
+#include "geometric-objects.hpp"
 #include "solver.hpp"
-//#include "geometric-objects.hpp"
+
+/* Constructor for cuRepulsiveCurve */ 
+cuRepulsiveCurve::cuRepulsiveCurve(unsigned int aJ): cuCurve(aJ){}
+
+
+cuRepulsiveCurve::cuRepulsiveCurve(std::vector<double> &aX, std::vector<double> &aY, std::vector<double> &aZ): cuCurve(aX, aY, aZ){}
+
+/* Deconstructor */
+cuRepulsiveCurve::~cuRepulsiveCurve()
+{
+    if (dev_x_allocated)
+    {
+        cudaFree(dev_x);
+    }
+    if (dev_y_allocated)
+    {
+        cudaFree(dev_y);
+    }
+    if (dev_z_allocated)
+    {
+        cudaFree(dev_z);
+    }
+    if (dev_energyMatrix_allocated)
+    {
+        cudaFree(dev_energyMatrix);
+    }
+
+    std::cout << "cuRepulsiveCurve Deallocated" << std::endl;
+}
+
+/* Call this function before doing GPU stuff */
+void cuRepulsiveCurve::cudafy()
+{
+    /* Allocate memory and copy data */
+    cudaMalloc((void**)&dev_x, J * sizeof(double));
+    dev_x_allocated = true;
+    cudaMalloc((void**)&dev_y, J * sizeof(double));
+    dev_y_allocated = true;
+    cudaMalloc((void**)&dev_z, J * sizeof(double));
+    dev_z_allocated = true;
+    cudaMalloc((void**)&dev_energyMatrix, (J * J) * sizeof(double*));
+    dev_energyMatrix_allocated = true;
+
+    cudaMemcpy(dev_x, &x[0], J * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_y, &y[0], J * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_z, &z[0], J * sizeof(double), cudaMemcpyHostToDevice);
+
+    std::cout << "cuRepulsiveCurve Allocated" << std::endl;
+}
+
+__device__ double cuRepulsiveCurve::energy()
+{
+    
+}
 
 __device__ double kernelalphabeta(double px, double py, double pz, double qx, double qy, double qz, double Tx, double Ty, double Tz, double alpha, double beta)
 {
