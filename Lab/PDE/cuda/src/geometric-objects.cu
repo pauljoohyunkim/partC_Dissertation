@@ -1,4 +1,5 @@
 #include "geometric-objects.hpp"
+#include <iostream>
 
 /* Constructor for cuCurve */ 
 cuCurve::cuCurve(unsigned int aJ)
@@ -27,4 +28,56 @@ cuCurve::cuCurve(std::vector<double> &aX, std::vector<double> &aY, std::vector<d
         y.push_back(aY[i]);
         z.push_back(aZ[i]);
     }
+}
+
+/* Deconstructor */
+cuCurve::~cuCurve()
+{
+    if(dev_x_allocated)
+    {
+        cudaFree(dev_x);
+    }
+    if(dev_y_allocated)
+    {
+        cudaFree(dev_y);
+    }
+    if(dev_z_allocated)
+    {
+        cudaFree(dev_z);
+    }
+
+    std::cout << "cuCurve Deallocated" << std::endl;
+}
+
+/* Call this function before doing GPU stuff */
+void cuCurve::cudafy()
+{
+    /* Allocate memory and copy data */
+    cudaMalloc((void**)&dev_x, J * sizeof(double));
+    dev_x_allocated = true;
+    cudaMalloc((void**)&dev_y, J * sizeof(double));
+    dev_y_allocated = true;
+    cudaMalloc((void**)&dev_z, J * sizeof(double));
+    dev_z_allocated = true;
+
+    cudaMemcpy(dev_x, &x[0], J * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_y, &y[0], J * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_z, &z[0], J * sizeof(double), cudaMemcpyHostToDevice);
+
+    std::cout << "cuCurve Allocated" << std::endl;
+}
+
+__device__ double cuCurve::getX(int i)
+{
+    return dev_x[((i % (int) J) + J) % J];
+}
+
+__device__ double cuCurve::getY(int i)
+{
+    return dev_y[((i % (int) J) + J) % J];
+}
+
+__device__ double cuCurve::getZ(int i)
+{
+    return dev_z[((i % (int) J) + J) % J];
 }
