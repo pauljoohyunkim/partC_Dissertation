@@ -1,5 +1,6 @@
 #include "geometric-objects.hpp"
 #include <iostream>
+#include <exception>
 
 /* Constructor for cuCurve */ 
 cuCurve::cuCurve(unsigned int aJ)
@@ -65,6 +66,25 @@ void cuCurve::cudafy()
     cudaMemcpy(dev_z, &z[0], J * sizeof(double), cudaMemcpyHostToDevice);
 
     std::cout << "cuCurve Allocated" << std::endl;
+}
+
+void cuCurve::flushFromDevice()
+{
+    if (~dev_x_allocated)
+    {
+        throw std::runtime_error("dev_x not allocated");
+    }
+    if (~dev_y_allocated)
+    {
+        throw std::runtime_error("dev_y not allocated");
+    }
+    if (~dev_z_allocated)
+    {
+        throw std::runtime_error("dev_z not allocated");
+    }
+    cudaMemcpy(&x[0], dev_x, J * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&y[0], dev_y, J * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&z[0], dev_z, J * sizeof(double), cudaMemcpyDeviceToHost);
 }
 
 __device__ double cuCurve::getX(int i)

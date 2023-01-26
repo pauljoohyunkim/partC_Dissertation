@@ -15,17 +15,13 @@ class cuCurve
 
         /* Variables */
         unsigned int J;
-        double* dev_x {};
-        double* dev_y {};
-        double* dev_z {};
-        bool dev_x_allocated { false };
-        bool dev_y_allocated { false };
-        bool dev_z_allocated { false };
 
-        /* CUDA Functions */
         /* In order to use device functions, one needs to turn the array into CUDA array by
          * invoking cudafy in the beginning */
         void cudafy();
+        /* Flush progress to x, y, z from GPU */
+        void flushFromDevice();
+        /* CUDA Functions */
         __device__ double getX(int i);
         __device__ double getY(int i);
         __device__ double getZ(int i);
@@ -33,6 +29,12 @@ class cuCurve
         std::vector<double> x;
         std::vector<double> y;
         std::vector<double> z;
+        double* dev_x {};
+        double* dev_y {};
+        double* dev_z {};
+        bool dev_x_allocated { false };
+        bool dev_y_allocated { false };
+        bool dev_z_allocated { false };
 };
 
 
