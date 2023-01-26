@@ -1,13 +1,7 @@
 #include "solver.hpp"
 //#include "geometric-objects.hpp"
 
-SolverCurveRepulsion::SolverCurveRepulsion(double aAlpha, double aBeta)
-{
-    alpha = aAlpha;
-    beta = aBeta;
-}
-
-__device__ double kernelalphabeta(double px, double py, double pz, double qx, double qy, double qz, double Tx, double Ty, double Tz, double aAlpha, double aBeta)
+__device__ double kernelalphabeta(double px, double py, double pz, double qx, double qy, double qz, double Tx, double Ty, double Tz, double alpha, double beta)
 {
     double pmqx = px - qx;
     double pmqy = py - qy;
@@ -18,8 +12,8 @@ __device__ double kernelalphabeta(double px, double py, double pz, double qx, do
 
     /* T x (p-q) */
     cross(px, py, pz, qx, qy, qz, numx, numy, numz);
-    double numerator = pow(l2norm3D(numx, numy, numz), aAlpha);
-    double denominator = pow(l2norm3D(pmqx, pmqy, pmqz), aBeta);
+    double numerator = pow(l2norm3D(numx, numy, numz), alpha);
+    double denominator = pow(l2norm3D(pmqx, pmqy, pmqz), beta);
 
     return numerator / denominator;
 }
