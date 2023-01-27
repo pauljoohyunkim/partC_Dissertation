@@ -83,18 +83,37 @@ void cuRepulsiveCurve::flushFromDevice()
 
 }
 
-__global__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, unsigned int J)
+__global__ void repulsiveCurveGradientFlow(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, double J)
 {
-    int i = blockIdx.x;
-    int ip1 = (i + 1) % J;
-    int j = blockIdx.y;
-    int jp1 = (j + 1) % J;
-    if (i < (int) J && j < (int) J)
+    fillEnergyMatrixDifferential(dev_x, dev_y, dev_z, 0, 0.1, 0.0, 0.0, dev_energyMatrix, J);
+}
+
+// Test Function
+__global__ void repulsiveCurveEnergy(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, double J)
+{
+    fillEnergyMatrix(dev_x, dev_y, dev_z, dev_energyMatrix, J);
+}
+
+__device__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, unsigned int J)
+{
+    //int i = blockIdx.x;
+    //int ip1 = (i + 1) % J;
+    //int j = blockIdx.y;
+    //int jp1 = (j + 1) % J;
+    //if (i < (int) J && j < (int) J)
+    //{
+    printf("fillEnergyMatrix() called.\n");
+    for (int i = 0; i < J; i++)
     {
+        for (int j = 0; j < J; j++)
+        {
+
         int flattenPos = i + J * j;
 
         if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
         {
+            int ip1 = (i + 1) % J;
+            int jp1 = (j + 1) % J;
             /* x_i, x_j */
             double xix = dev_x[i];
             double xiy = dev_y[i];
@@ -127,6 +146,129 @@ __global__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, do
         else
         {
             dev_energyMatrix[flattenPos] = 0;
+        }
+        }
+    }
+    //}
+}
+
+__device__ void fillEnergyMatrixDifferential(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, double* dev_energyMatrix, unsigned int J)
+{
+    /* 2-Pass:
+     On the first pass, it perturbs the curve a bit temporarily and computes the energy.
+     On the second pass, it restores the original curve, then computes the energy, subtracting off kernel points*/
+
+    printf("fillEnergyMatrixDifferential() called.\n");
+
+    index = ((index % (int) J) + J) % J;
+
+    double save_x = dev_x[index];
+    double save_y = dev_y[index];
+    double save_z = dev_z[index];
+
+
+    /* Perturbation */
+    dev_x[index] += diffx;
+    dev_y[index] += diffy;
+    dev_z[index] += diffz;
+
+    /* Energy of perturbed curve */
+    for (int i = 0; i < J; i++)
+    {
+        for (int j = 0; j < J; j++)
+        {
+
+            int flattenPos = i + J * j;
+
+            if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
+            {
+                int ip1 = (i + 1) % J;
+                int jp1 = (j + 1) % J;
+                /* x_i, x_j */
+                double xix = dev_x[i];
+                double xiy = dev_y[i];
+                double xiz = dev_z[i];
+                double xjx = dev_x[j];
+                double xjy = dev_y[j];
+                double xjz = dev_z[j];
+
+                /* xI, xJ */
+                double xIx = dev_x[ip1] - xix;
+                double xIy = dev_y[ip1] - xiy;
+                double xIz = dev_z[ip1] - xiz;
+                double xJx = dev_x[jp1] - xjx;
+                double xJy = dev_y[jp1] - xjy;
+                double xJz = dev_z[jp1] - xjz;
+
+                /* lI, lJ */
+                double lI = l2norm3D(xIx, xIy, xIz);
+                double lJ = l2norm3D(xJx, xJy, xJz);
+
+                /* TI = pI / lI */
+                double TIx = xIx / lI;
+                double TIy = xIy / lI;
+                double TIz = xIz / lI;
+
+                dev_energyMatrix[flattenPos] = kernelFunction(xix, xiy, xiz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
+                        xjx, xjy, xjz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz) * lI * lJ;
+                printf("i: %d, j: %d, energyLocal = %f\n", i, j, dev_energyMatrix[flattenPos]);
+            }
+            else
+            {
+                dev_energyMatrix[flattenPos] = 0;
+            }
+        }
+    }
+
+    /* Restore Curve */
+    dev_x[index] = save_x;
+    dev_y[index] = save_y;
+    dev_z[index] = save_z;
+    /* Energy of original curve subtracted off */
+    for (int i = 0; i < J; i++)
+    {
+        for (int j = 0; j < J; j++)
+        {
+
+            int flattenPos = i + J * j;
+
+            if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
+            {
+                int ip1 = (i + 1) % J;
+                int jp1 = (j + 1) % J;
+                /* x_i, x_j */
+                double xix = dev_x[i];
+                double xiy = dev_y[i];
+                double xiz = dev_z[i];
+                double xjx = dev_x[j];
+                double xjy = dev_y[j];
+                double xjz = dev_z[j];
+
+                /* xI, xJ */
+                double xIx = dev_x[ip1] - xix;
+                double xIy = dev_y[ip1] - xiy;
+                double xIz = dev_z[ip1] - xiz;
+                double xJx = dev_x[jp1] - xjx;
+                double xJy = dev_y[jp1] - xjy;
+                double xJz = dev_z[jp1] - xjz;
+
+                /* lI, lJ */
+                double lI = l2norm3D(xIx, xIy, xIz);
+                double lJ = l2norm3D(xJx, xJy, xJz);
+
+                /* TI = pI / lI */
+                double TIx = xIx / lI;
+                double TIy = xIy / lI;
+                double TIz = xIz / lI;
+
+                dev_energyMatrix[flattenPos] -= kernelFunction(xix, xiy, xiz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
+                        xjx, xjy, xjz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz) * lI * lJ;
+                printf("i: %d, j: %d, energyLocalDifferential = %f\n", i, j, dev_energyMatrix[flattenPos]);
+            }
+            else
+            {
+                dev_energyMatrix[flattenPos] = 0;
+            }
         }
     }
     

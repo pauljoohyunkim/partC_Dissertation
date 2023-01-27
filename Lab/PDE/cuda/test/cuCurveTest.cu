@@ -11,8 +11,10 @@ int main()
     cuRepulsiveCurve C(x, y, z);
     C.cudafy();
 
-    dim3 grid(C.J, C.J);
-    fillEnergyMatrix<<<grid, 1>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrix, C.J);
+    repulsiveCurveEnergy<<<1, 1>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrix, C.J);
+    C.flushFromDevice();
+    
+    repulsiveCurveGradientFlow<<<1, 1>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrix, C.J);
     C.flushFromDevice();
 
     return 0;
