@@ -94,6 +94,17 @@ __global__ void repulsiveCurveEnergy(double* dev_x, double* dev_y, double* dev_z
     fillEnergyMatrix(dev_x, dev_y, dev_z, dev_energyMatrix, J);
 }
 
+__device__ double sumArray(double* arr, unsigned int length)
+{
+    double sum = 0;
+    for (unsigned int i = 0; i < length; i++)
+    {
+        sum += arr[i];
+    }
+
+    return sum;
+}
+
 __device__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, unsigned int J)
 {
     //int i = blockIdx.x;

@@ -12,3 +12,6 @@ set_target_properties(cuCurveTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 add_executable(crossTest crossTest.cu ../src/solver.cu ../src/geometric-objects.cu)
 set_target_properties(crossTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 #target_link_libraries(crossTest Solver)
+
+add_executable(sumArrayTest sumArrayTest.cu ../src/solver.cu ../src/geometric-objects.cu)
+set_target_properties(sumArrayTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
