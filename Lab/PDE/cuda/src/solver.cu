@@ -89,41 +89,44 @@ __global__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, do
     int ip1 = (i + 1) % J;
     int j = blockIdx.y;
     int jp1 = (j + 1) % J;
-    int flattenPos = i + J * j;
-
-    if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
+    if (i < (int) J && j < (int) J)
     {
-        /* p, q */
-        double pix = dev_x[i];
-        double piy = dev_y[i];
-        double piz = dev_z[i];
-        double qix = dev_x[j];
-        double qiy = dev_y[j];
-        double qiz = dev_z[j];
+        int flattenPos = i + J * j;
 
-        /* pI, qJ */
-        double pIx = dev_x[ip1] - pix;
-        double pIy = dev_y[ip1] - piy;
-        double pIz = dev_z[ip1] - piz;
-        double qIx = dev_x[jp1] - qix;
-        double qIy = dev_y[jp1] - qiy;
-        double qIz = dev_z[jp1] - qiz;
+        if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
+        {
+            /* p, q */
+            double pix = dev_x[i];
+            double piy = dev_y[i];
+            double piz = dev_z[i];
+            double qix = dev_x[j];
+            double qiy = dev_y[j];
+            double qiz = dev_z[j];
 
-        /* lI, lJ */
-        double lI = l2norm3D(pIx, pIy, pIz);
-        double lJ = l2norm3D(qIx, qIy, qIz);
+            /* pI, qJ */
+            double pIx = dev_x[ip1] - pix;
+            double pIy = dev_y[ip1] - piy;
+            double pIz = dev_z[ip1] - piz;
+            double qIx = dev_x[jp1] - qix;
+            double qIy = dev_y[jp1] - qiy;
+            double qIz = dev_z[jp1] - qiz;
 
-        /* TI = pI / lI */
-        double TIx = pIx / lI;
-        double TIy = pIy / lI;
-        double TIz = pIz / lI;
+            /* lI, lJ */
+            double lI = l2norm3D(pIx, pIy, pIz);
+            double lJ = l2norm3D(qIx, qIy, qIz);
 
-        dev_energyMatrix[flattenPos] = kernelFunction(pix, piy, piz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
-                qix, qiy, qiz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz);
-    }
-    else
-    {
-        dev_energyMatrix[flattenPos] = 0;
+            /* TI = pI / lI */
+            double TIx = pIx / lI;
+            double TIy = pIy / lI;
+            double TIz = pIz / lI;
+
+            dev_energyMatrix[flattenPos] = kernelFunction(pix, piy, piz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
+                    qix, qiy, qiz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz);
+        }
+        else
+        {
+            dev_energyMatrix[flattenPos] = 0;
+        }
     }
     
 }
