@@ -17,20 +17,27 @@ class cuRepulsiveCurve: public cuCurve
         /* Deconstructor */
         ~cuRepulsiveCurve();
 
-        __device__ double energy();
+        double* dev_energyMatrix {};
 
         /* In order to use device functions, one needs to turn the array into CUDA array by
          * invoking cudafy in the beginning */
         void cudafy();
+        /* Flush progress to x, y, z from GPU */
+        void flushFromDevice();
 
     protected:
-        double* dev_energyMatrix {};
         bool dev_energyMatrix_allocated { false };
+        std::vector<double> energyMatrixFlattened { };
 
 };
 
+__global__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, unsigned int J);
+
 /* Pass coordinates of p, q, T */
 __device__ double kernelalphabeta(double px, double py, double pz, double qx, double qy, double qz, double Tx, double Ty, double Tz, double aAlpha, double aBeta);
+
+/* Pass xi, x_{i+1}, x_j, x_{j+1}, Ti */
+__device__ double kernelFunction(double xix, double xiy, double xiz, double xipx, double xipy, double xipz, double xjx, double xjy, double xjz, double xjpx, double xjpy, double xjpz, double Tix, double Tiy, double Tiz);
 
 /* Pass a curve */
 __device__ void cross(double x1, double y1, double z1, double x2, double y2, double z2, double &x3, double &y3, double &z3);

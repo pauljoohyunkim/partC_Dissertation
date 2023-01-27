@@ -3,10 +3,17 @@
 #include "solver.hpp"
 
 /* Constructor for cuRepulsiveCurve */ 
-cuRepulsiveCurve::cuRepulsiveCurve(unsigned int aJ): cuCurve(aJ){}
+cuRepulsiveCurve::cuRepulsiveCurve(unsigned int aJ): cuCurve(aJ)
+{
+    energyMatrixFlattened.resize(aJ * aJ);
+}
 
 
-cuRepulsiveCurve::cuRepulsiveCurve(std::vector<double> &aX, std::vector<double> &aY, std::vector<double> &aZ): cuCurve(aX, aY, aZ){}
+cuRepulsiveCurve::cuRepulsiveCurve(std::vector<double> &aX, std::vector<double> &aY, std::vector<double> &aZ): cuCurve(aX, aY, aZ)
+{
+    double aJ = aX.size();
+    energyMatrixFlattened.resize(aJ * aJ);
+}
 
 /* Deconstructor */
 cuRepulsiveCurve::~cuRepulsiveCurve()
@@ -51,8 +58,73 @@ void cuRepulsiveCurve::cudafy()
     std::cout << "cuRepulsiveCurve Allocated" << std::endl;
 }
 
-__device__ double cuRepulsiveCurve::energy()
+void cuRepulsiveCurve::flushFromDevice()
 {
+    if (!dev_x_allocated)
+    {
+        throw std::runtime_error("cuRepulsiveCurve::flushFromDevice: dev_x not allocated");
+    }
+    if (!dev_y_allocated)
+    {
+        throw std::runtime_error("cuRepulsiveCurve::flushFromDevice: dev_y not allocated");
+    }
+    if (!dev_z_allocated)
+    {
+        throw std::runtime_error("cuRepulsiveCurve::flushFromDevice: dev_z not allocated");
+    }
+    if (!dev_energyMatrix_allocated)
+    {
+        throw std::runtime_error("cuRepulsiveCurve::flushFromDevice: dev_energyMatrix not allocated");
+    }
+    cudaMemcpy(&x[0], dev_x, J * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&y[0], dev_y, J * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&z[0], dev_z, J * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&energyMatrixFlattened[0], dev_energyMatrix, J * J * sizeof(double), cudaMemcpyDeviceToHost);
+
+}
+
+__global__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, unsigned int J)
+{
+    int i = blockIdx.x;
+    int ip1 = (i + 1) % J;
+    int j = blockIdx.y;
+    int jp1 = (j + 1) % J;
+    int flattenPos = i + J * j;
+
+    if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
+    {
+        /* p, q */
+        double pix = dev_x[i];
+        double piy = dev_y[i];
+        double piz = dev_z[i];
+        double qix = dev_x[j];
+        double qiy = dev_y[j];
+        double qiz = dev_z[j];
+
+        /* pI, qJ */
+        double pIx = dev_x[ip1] - pix;
+        double pIy = dev_y[ip1] - piy;
+        double pIz = dev_z[ip1] - piz;
+        double qIx = dev_x[jp1] - qix;
+        double qIy = dev_y[jp1] - qiy;
+        double qIz = dev_z[jp1] - qiz;
+
+        /* lI, lJ */
+        double lI = l2norm3D(pIx, pIy, pIz);
+        double lJ = l2norm3D(qIx, qIy, qIz);
+
+        /* TI = pI / lI */
+        double TIx = pIx / lI;
+        double TIy = pIy / lI;
+        double TIz = pIz / lI;
+
+        dev_energyMatrix[flattenPos] = kernelFunction(pix, piy, piz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
+                qix, qiy, qiz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz);
+    }
+    else
+    {
+        dev_energyMatrix[flattenPos] = 0;
+    }
     
 }
 
@@ -73,6 +145,18 @@ __device__ double kernelalphabeta(double px, double py, double pz, double qx, do
     return numerator / denominator;
 }
 
+
+__device__ double kernelFunction(double xix, double xiy, double xiz, double xipx, double xipy, double xipz, double xjx, double xjy, double xjz, double xjpx, double xjpy, double xjpz, double Tix, double Tiy, double Tiz)
+{
+    double kij { 0 };
+
+    kij += kernelalphabeta(xix, xiy, xiz, xjx, xjy, xjz, Tix, Tiy, Tiz, ALPHA, BETA);
+    kij += kernelalphabeta(xix, xiy, xiz, xjpx, xjpy, xjpz, Tix, Tiy, Tiz, ALPHA, BETA);
+    kij += kernelalphabeta(xipx, xipy, xipz, xjx, xjy, xjz, Tix, Tiy, Tiz, ALPHA, BETA);
+    kij += kernelalphabeta(xipx, xipy, xipz, xjpx, xjpy, xjpz, Tix, Tiy, Tiz, ALPHA, BETA);
+
+    return kij / 4;
+}
 
 __device__ void cross(double x1, double y1, double z1, double x2, double y2, double z2, double &x3, double &y3, double &z3)
 {

@@ -25,6 +25,9 @@ class cuCurve
         __device__ double& getX(int i);
         __device__ double& getY(int i);
         __device__ double& getZ(int i);
+        double* dev_x {};
+        double* dev_y {};
+        double* dev_z {};
 
         /* Non-cuda functions, but requires cudafy to have been called. */
         double getValFromDevice(int coordnum, int i);
@@ -32,9 +35,6 @@ class cuCurve
         std::vector<double> x;
         std::vector<double> y;
         std::vector<double> z;
-        double* dev_x {};
-        double* dev_y {};
-        double* dev_z {};
         bool dev_x_allocated { false };
         bool dev_y_allocated { false };
         bool dev_z_allocated { false };

@@ -11,12 +11,8 @@ int main()
     cuRepulsiveCurve C(x, y, z);
     C.cudafy();
 
-    std::cout << C.getValFromDevice(0, -1) << std::endl;
-    std::cout << C.getValFromDevice(1, -1) << std::endl;
-    std::cout << C.getValFromDevice(2, -1) << std::endl;
-    std::cout << C.getValFromDevice(0, 1) << std::endl;
-    std::cout << C.getValFromDevice(1, 1) << std::endl;
-    std::cout << C.getValFromDevice(2, 1) << std::endl;
+    fillEnergyMatrix<<<C.J, C.J>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrix, C.J);
+    C.flushFromDevice();
 
     return 0;
 }

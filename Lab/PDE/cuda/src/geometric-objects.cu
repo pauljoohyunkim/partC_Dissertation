@@ -70,17 +70,17 @@ void cuCurve::cudafy()
 
 void cuCurve::flushFromDevice()
 {
-    if (~dev_x_allocated)
+    if (!dev_x_allocated)
     {
-        throw std::runtime_error("dev_x not allocated");
+        throw std::runtime_error("cuCurve::flushFromDevice(): dev_x not allocated");
     }
-    if (~dev_y_allocated)
+    if (!dev_y_allocated)
     {
-        throw std::runtime_error("dev_y not allocated");
+        throw std::runtime_error("cuCurve::flushFromDevice(): dev_y not allocated");
     }
-    if (~dev_z_allocated)
+    if (!dev_z_allocated)
     {
-        throw std::runtime_error("dev_z not allocated");
+        throw std::runtime_error("cuCurve::flushFromDevice(): dev_z not allocated");
     }
     cudaMemcpy(&x[0], dev_x, J * sizeof(double), cudaMemcpyDeviceToHost);
     cudaMemcpy(&y[0], dev_y, J * sizeof(double), cudaMemcpyDeviceToHost);
