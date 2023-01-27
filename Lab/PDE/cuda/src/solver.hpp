@@ -31,6 +31,7 @@ class cuRepulsiveCurve: public cuCurve
 
 };
 
+/* This function is used to fill energyMatrix; a matrix of summand for the tangent point energy. */
 __global__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, unsigned int J);
 
 /* Pass coordinates of p, q, T */
