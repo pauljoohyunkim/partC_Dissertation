@@ -27,5 +27,13 @@ if __name__ == "__main__":
 
     c = [x1, x2, x3, x4, x5, x6]
 
-    print(discrete_kernel.energy(c))
+    discretekernelenergyOrigin = discrete_kernel.energy(c)
+
+    d = [np.array([1.1, 0, -1]), x2, x3, x4, x5, x6]
+
+    discretekernelenergyPerturbed = discrete_kernel.energy(d)
+
+    print(discretekernelenergyOrigin)
+    print(discretekernelenergyPerturbed)
+    print(discretekernelenergyPerturbed - discretekernelenergyOrigin)
 
