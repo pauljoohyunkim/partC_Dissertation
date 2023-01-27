@@ -48,22 +48,29 @@ int main()
     //Vector3D x8{ 2.6, 3.21, 5.24 };
     //Vector3D x9{ -4.7, 6.23, 4.38 };
     //std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6, x7, x8, x9 };
+    //
 
+    Vector3D x1 {1,0,-1};
+    Vector3D x2 {2,2,-2};
+    Vector3D x3 {3,4,3};
+    Vector3D x4 {4,6,-4};
+    Vector3D x5 {5,8,5};
+    Vector3D x6 {6,-1,0.6};
     /* Example 3: Helix + Semicircle */
-    const int resolution = 16;
-    std::vector<Vector3D> veclist {};
-    for (auto i = 0; i < resolution; i++)
-    {
-        double theta = 4 * PI * (double) i / resolution;
-        Vector3D p(cos(theta), sin(theta), theta / (2 * PI));
-        veclist.push_back(p);
-    }
-    for (auto i = 1; i < resolution; i++)
-    {
-        double theta = PI * (double) i / resolution;
-        Vector3D p(1, 2 * sin(theta), 1 + cos(theta));
-        veclist.push_back(p);
-    }
+    //const int resolution = 16;
+    std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6 };
+    //for (auto i = 0; i < resolution; i++)
+    //{
+    //    double theta = 4 * PI * (double) i / resolution;
+    //    Vector3D p(cos(theta), sin(theta), theta / (2 * PI));
+    //    veclist.push_back(p);
+    //}
+    //for (auto i = 1; i < resolution; i++)
+    //{
+    //    double theta = PI * (double) i / resolution;
+    //    Vector3D p(1, 2 * sin(theta), 1 + cos(theta));
+    //    veclist.push_back(p);
+    //}
 
     Curve c(veclist);
     auto J = c.getNPoints();
@@ -118,7 +125,7 @@ int main()
             matplot::yrange({-5, 5});
             //matplot::show();
 
-            matplot::save(std::to_string(t) + ".png");
+            //matplot::save(std::to_string(t) + ".png");
         }
         //if (t == M-2)
         //{
