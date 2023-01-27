@@ -122,6 +122,7 @@ __global__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, do
 
             dev_energyMatrix[flattenPos] = kernelFunction(pix, piy, piz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
                     qix, qiy, qiz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz);
+            printf("i: %d, j: %d, energyLocal = %f\n", i, j, dev_energyMatrix[flattenPos]);
         }
         else
         {

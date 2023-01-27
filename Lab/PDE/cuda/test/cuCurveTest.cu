@@ -11,7 +11,8 @@ int main()
     cuRepulsiveCurve C(x, y, z);
     C.cudafy();
 
-    fillEnergyMatrix<<<C.J, C.J>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrix, C.J);
+    dim3 grid(C.J, C.J);
+    fillEnergyMatrix<<<grid, 1>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrix, C.J);
     C.flushFromDevice();
 
     return 0;
