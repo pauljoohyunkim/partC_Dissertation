@@ -95,33 +95,33 @@ __global__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, do
 
         if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
         {
-            /* p, q */
-            double pix = dev_x[i];
-            double piy = dev_y[i];
-            double piz = dev_z[i];
-            double qix = dev_x[j];
-            double qiy = dev_y[j];
-            double qiz = dev_z[j];
+            /* x_i, x_j */
+            double xix = dev_x[i];
+            double xiy = dev_y[i];
+            double xiz = dev_z[i];
+            double xjx = dev_x[j];
+            double xjy = dev_y[j];
+            double xjz = dev_z[j];
 
-            /* pI, qJ */
-            double pIx = dev_x[ip1] - pix;
-            double pIy = dev_y[ip1] - piy;
-            double pIz = dev_z[ip1] - piz;
-            double qIx = dev_x[jp1] - qix;
-            double qIy = dev_y[jp1] - qiy;
-            double qIz = dev_z[jp1] - qiz;
+            /* xI, xJ */
+            double xIx = dev_x[ip1] - xix;
+            double xIy = dev_y[ip1] - xiy;
+            double xIz = dev_z[ip1] - xiz;
+            double xJx = dev_x[jp1] - xjx;
+            double xJy = dev_y[jp1] - xjy;
+            double xJz = dev_z[jp1] - xjz;
 
             /* lI, lJ */
-            double lI = l2norm3D(pIx, pIy, pIz);
-            double lJ = l2norm3D(qIx, qIy, qIz);
+            double lI = l2norm3D(xIx, xIy, xIz);
+            double lJ = l2norm3D(xJx, xJy, xJz);
 
             /* TI = pI / lI */
-            double TIx = pIx / lI;
-            double TIy = pIy / lI;
-            double TIz = pIz / lI;
+            double TIx = xIx / lI;
+            double TIy = xIy / lI;
+            double TIz = xIz / lI;
 
-            dev_energyMatrix[flattenPos] = kernelFunction(pix, piy, piz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
-                    qix, qiy, qiz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz);
+            dev_energyMatrix[flattenPos] = kernelFunction(xix, xiy, xiz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
+                    xjx, xjy, xjz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz) * lI * lJ;
             printf("i: %d, j: %d, energyLocal = %f\n", i, j, dev_energyMatrix[flattenPos]);
         }
         else
@@ -142,7 +142,7 @@ __device__ double kernelalphabeta(double px, double py, double pz, double qx, do
     double numz;
 
     /* T x (p-q) */
-    cross(px, py, pz, qx, qy, qz, numx, numy, numz);
+    cross(Tx, Ty, Tz, pmqx, pmqy, pmqz, numx, numy, numz);
     double numerator = pow(l2norm3D(numx, numy, numz), alpha);
     double denominator = pow(l2norm3D(pmqx, pmqy, pmqz), beta);
 
