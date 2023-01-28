@@ -31,10 +31,11 @@ class cuCurve
 
         /* Non-cuda functions, but requires cudafy to have been called. */
         double getValFromDevice(int coordnum, int i);
-    protected:
+
         std::vector<double> x;
         std::vector<double> y;
         std::vector<double> z;
+    protected:
         bool dev_x_allocated { false };
         bool dev_y_allocated { false };
         bool dev_z_allocated { false };

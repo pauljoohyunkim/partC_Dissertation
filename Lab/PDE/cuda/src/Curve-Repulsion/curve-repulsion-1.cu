@@ -2,11 +2,16 @@
 #include "../solver.hpp"
 #include "../geometric-objects.hpp"
 #include <cmath>
+#include <matplot/matplot.h>
 
-#define DELTA_X 0.1
-#define DELTA_T 0.05
-#define LAMBDA 0.1
+#define DELTA_X 0.01
+#define DELTA_T 0.005
+#define LAMBDA 0.01
 #define M 10000
+
+#define PLOT_FREQUENCY 2
+#define AZIMUTHAL_SPEED 0.5
+#define ELEVATION 3
 
 #define PI 3.14159265358979
 
@@ -45,10 +50,20 @@ int main()
     dim3 grid(C.J, 3);
 
     /* Gradient Flow */
-
-    repulsiveCurveDifferential<<<grid, 1>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrixFlattened, C.J);
-    repulsiveCurveGradientFlow<<<grid, 1>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrixFlattened, C.J);
-    C.flushFromDevice();
+    for (auto t = 0; t < M; t++)
+    {
+        repulsiveCurveDifferential<<<grid, 1>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrixFlattened, C.J);
+        repulsiveCurveGradientFlow<<<grid, 1>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrixFlattened, C.J);
+        C.flushFromDevice();
+        if (t % PLOT_FREQUENCY == 0)
+        {
+            auto curvePlot = matplot::plot3(C.x, C.y, C.z);
+            curvePlot->line_width(5);
+            matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
+            matplot::xrange({-5, 5});
+            matplot::yrange({-5, 5});
+        }
+    }
 
     return 0;
 }

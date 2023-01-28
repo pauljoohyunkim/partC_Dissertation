@@ -7,5 +7,5 @@ add_library(Solver STATIC src/solver.cu src/geometric-objects.cu)
 
 add_executable(curve-repulsion-1 src/Curve-Repulsion/curve-repulsion-1.cu src/solver.cu src/geometric-objects.cu)
 set_target_properties(curve-repulsion-1 PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
-#target_link_libraries(curve-repulsion-1 GeometricObjects Solver)
+target_link_libraries(curve-repulsion-1 matplot)
 
