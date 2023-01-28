@@ -32,6 +32,7 @@ if __name__ == "__main__":
         ax.set_xlim(-2, 2)
         ax.set_ylim(-2, 2)
         ax.set_zlim(-2, 2)
+        ax.set_title("Evolution")
         return line,
 
     def update(t):
@@ -40,13 +41,10 @@ if __name__ == "__main__":
             ypoints[i] = ydata[t][i]
             zpoints[i] = zdata[t][i]
         line.set_data_3d(xpoints, ypoints, zpoints)
-        ax.set_title(str(t))
+        ax.set_title(f"Progress: {t} / {M} ({'%.2f'%(t/M * 100)}%)")
         return line,
 
-    ani = FuncAnimation(fig, update, frames=range(J), init_func=init, blit=True)
+    ani = FuncAnimation(fig, update, frames=range(M), init_func=init, blit=False)
 
     plt.show()
-    #update(10)
-    
-    pass
 
