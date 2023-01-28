@@ -299,7 +299,138 @@ __device__ double cuDifferential(double* dev_x, double* dev_y, double* dev_z, in
 
 __device__ void cuDifferential(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, unsigned int J, double* pVar)
 {
-    *pVar = cuDifferential(dev_x, dev_y, dev_z, index, diffx, diffy, diffz, J);
+    /* 2-Pass:
+     On the first pass, it perturbs the curve a bit temporarily and computes the energy.
+     On the second pass, it restores the original curve, then computes the energy, subtracting off kernel points*/
+
+    *pVar = 0;
+
+    printf("fillEnergyMatrixDifferential() called: index=%d, diffx=%f, diffy=%f, diffz=%f\n", index, diffx, diffy, diffz);
+
+    index = ((index % (int) J) + J) % J;
+
+    /* Energy of perturbed curve */
+    for (int i = 0; i < J; i++)
+    {
+        for (int j = 0; j < J; j++)
+        {
+            if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
+            {
+                int ip1 = (i + 1) % J;
+                int jp1 = (j + 1) % J;
+                /* x_i, x_j */
+                double xix = dev_x[i];
+                double xiy = dev_y[i];
+                double xiz = dev_z[i];
+                double xjx = dev_x[j];
+                double xjy = dev_y[j];
+                double xjz = dev_z[j];
+                /* Perturbation */
+                if (i == index)
+                {
+                    xix += diffx;
+                    xiy += diffy;
+                    xiz += diffz;
+                }
+                if (j == index)
+                {
+                    xjx += diffx;
+                    xjy += diffy;
+                    xjz += diffz;
+                }
+
+                /* x_{i+1}, x_{j+1} */
+                double xipx = dev_x[ip1];
+                double xipy = dev_y[ip1];
+                double xipz = dev_z[ip1];
+                double xjpx = dev_x[jp1];
+                double xjpy = dev_y[jp1];
+                double xjpz = dev_z[jp1];
+                
+                /* Perturbation */
+                if (ip1 == index)
+                {
+                    xipx += diffx;
+                    xipy += diffy;
+                    xipz += diffz;
+                }
+                if (jp1 == index)
+                {
+                    xjpx += diffx;
+                    xjpy += diffy;
+                    xjpz += diffz;
+                }
+
+                /* xI, xJ */
+                double xIx = xipx - xix;
+                double xIy = xipy - xiy;
+                double xIz = xipz - xiz;
+                double xJx = xjpx - xjx;
+                double xJy = xjpy - xjy;
+                double xJz = xjpz - xjz;
+
+                /* lI, lJ */
+                double lI = l2norm3D(xIx, xIy, xIz);
+                double lJ = l2norm3D(xJx, xJy, xJz);
+
+                /* TI = pI / lI */
+                double TIx = xIx / lI;
+                double TIy = xIy / lI;
+                double TIz = xIz / lI;
+
+                *pVar += kernelFunction(xix, xiy, xiz, xipx, xipy, xipz,
+                        xjx, xjy, xjz, xjpx, xjpy, xjpz, TIx, TIy, TIz) * lI * lJ;
+            }
+        }
+    }
+
+    /* Energy of original curve subtracted off */
+    for (int i = 0; i < J; i++)
+    {
+        for (int j = 0; j < J; j++)
+        {
+            if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
+            {
+                int ip1 = (i + 1) % J;
+                int jp1 = (j + 1) % J;
+                /* x_i, x_j */
+                double xix = dev_x[i];
+                double xiy = dev_y[i];
+                double xiz = dev_z[i];
+                double xjx = dev_x[j];
+                double xjy = dev_y[j];
+                double xjz = dev_z[j];
+
+                /* x_{i+1}, x_{j+1} */
+                double xipx = dev_x[ip1];
+                double xipy = dev_y[ip1];
+                double xipz = dev_z[ip1];
+                double xjpx = dev_x[jp1];
+                double xjpy = dev_y[jp1];
+                double xjpz = dev_z[jp1];
+
+                /* xI, xJ */
+                double xIx = xipx - xix;
+                double xIy = xipy - xiy;
+                double xIz = xipz - xiz;
+                double xJx = xjpx - xjx;
+                double xJy = xjpy - xjy;
+                double xJz = xjpz - xjz;
+
+                /* lI, lJ */
+                double lI = l2norm3D(xIx, xIy, xIz);
+                double lJ = l2norm3D(xJx, xJy, xJz);
+
+                /* TI = pI / lI */
+                double TIx = xIx / lI;
+                double TIy = xIy / lI;
+                double TIz = xIz / lI;
+
+                *pVar -= kernelFunction(xix, xiy, xiz, xipx, xipy, xipz,
+                        xjx, xjy, xjz, xjpx, xjpy, xjpz, TIx, TIy, TIz) * lI * lJ;
+            }
+        }
+    }
 }
 
 __device__ double kernelalphabeta(double px, double py, double pz, double qx, double qy, double qz, double Tx, double Ty, double Tz, double alpha, double beta)
