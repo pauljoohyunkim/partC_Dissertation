@@ -17,22 +17,21 @@ class cuRepulsiveCurve: public cuCurve
         /* Deconstructor */
         ~cuRepulsiveCurve();
 
-        double* dev_energyMatrix {};
-
         /* In order to use device functions, one needs to turn the array into CUDA array by
          * invoking cudafy in the beginning */
         void cudafy();
         /* Flush progress to x, y, z from GPU */
         void flushFromDevice();
 
+        double* dev_energyMatrixFlattened;
+
     protected:
-        bool dev_energyMatrix_allocated { false };
         std::vector<double> energyMatrixFlattened { };
+        bool dev_energyMatrixFlattened_allocated { false };
 
 };
 
-__global__ void repulsiveCurveGradientFlow(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, double J);
-__global__ void repulsiveCurveEnergy(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, double J);
+__global__ void repulsiveCurveGradientFlow(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrixFlattened, double J);
 
 __device__ double sumArray(double* arr, unsigned int length);
 
@@ -41,7 +40,9 @@ __device__ double sumArray(double* arr, unsigned int length);
  * */
 __device__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, unsigned int J);
 
-__device__ void fillEnergyMatrixDifferential(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, double* dev_energyMatrix, unsigned int J);
+__device__ double cuDifferential(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, unsigned int J);
+__device__ void cuDifferential(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, unsigned int J, double* pVar);
+
 
 /* Pass coordinates of p, q, T */
 __device__ double kernelalphabeta(double px, double py, double pz, double qx, double qy, double qz, double Tx, double Ty, double Tz, double aAlpha, double aBeta);

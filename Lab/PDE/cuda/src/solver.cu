@@ -5,14 +5,14 @@
 /* Constructor for cuRepulsiveCurve */ 
 cuRepulsiveCurve::cuRepulsiveCurve(unsigned int aJ): cuCurve(aJ)
 {
-    energyMatrixFlattened.resize(aJ * aJ);
+    energyMatrixFlattened.resize(3 * aJ);
 }
 
 
 cuRepulsiveCurve::cuRepulsiveCurve(std::vector<double> &aX, std::vector<double> &aY, std::vector<double> &aZ): cuCurve(aX, aY, aZ)
 {
-    double aJ = aX.size();
-    energyMatrixFlattened.resize(aJ * aJ);
+    unsigned int aJ = aX.size();
+    energyMatrixFlattened.resize(3 * aJ);
 }
 
 /* Deconstructor */
@@ -21,18 +21,22 @@ cuRepulsiveCurve::~cuRepulsiveCurve()
     if (dev_x_allocated)
     {
         cudaFree(dev_x);
+        dev_x_allocated = false;
     }
     if (dev_y_allocated)
     {
         cudaFree(dev_y);
+        dev_y_allocated = false;
     }
     if (dev_z_allocated)
     {
         cudaFree(dev_z);
+        dev_z_allocated = false;
     }
-    if (dev_energyMatrix_allocated)
+    if (dev_energyMatrixFlattened_allocated)
     {
-        cudaFree(dev_energyMatrix);
+        cudaFree(dev_energyMatrixFlattened);
+        dev_energyMatrixFlattened_allocated = false;
     }
 
     std::cout << "cuRepulsiveCurve Deallocated" << std::endl;
@@ -41,16 +45,17 @@ cuRepulsiveCurve::~cuRepulsiveCurve()
 /* Call this function before doing GPU stuff */
 void cuRepulsiveCurve::cudafy()
 {
-    /* Allocate memory and copy data */
+    /* Allocate memory */
     cudaMalloc((void**)&dev_x, J * sizeof(double));
     dev_x_allocated = true;
     cudaMalloc((void**)&dev_y, J * sizeof(double));
     dev_y_allocated = true;
     cudaMalloc((void**)&dev_z, J * sizeof(double));
     dev_z_allocated = true;
-    cudaMalloc((void**)&dev_energyMatrix, (J * J) * sizeof(double*));
-    dev_energyMatrix_allocated = true;
+    cudaMalloc((void**)&dev_energyMatrixFlattened, 3 * J * sizeof(double));
+    dev_energyMatrixFlattened_allocated = true;
 
+    /* Copy curve points */
     cudaMemcpy(dev_x, &x[0], J * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(dev_y, &y[0], J * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(dev_z, &z[0], J * sizeof(double), cudaMemcpyHostToDevice);
@@ -72,26 +77,42 @@ void cuRepulsiveCurve::flushFromDevice()
     {
         throw std::runtime_error("cuRepulsiveCurve::flushFromDevice: dev_z not allocated");
     }
-    if (!dev_energyMatrix_allocated)
+    if (!dev_energyMatrixFlattened_allocated)
     {
-        throw std::runtime_error("cuRepulsiveCurve::flushFromDevice: dev_energyMatrix not allocated");
+        throw std::runtime_error("cuRepulsiveCurve::flushFromDevice: dev_energyMatrixFlattened not allocated");
     }
     cudaMemcpy(&x[0], dev_x, J * sizeof(double), cudaMemcpyDeviceToHost);
     cudaMemcpy(&y[0], dev_y, J * sizeof(double), cudaMemcpyDeviceToHost);
     cudaMemcpy(&z[0], dev_z, J * sizeof(double), cudaMemcpyDeviceToHost);
-    cudaMemcpy(&energyMatrixFlattened[0], dev_energyMatrix, J * J * sizeof(double), cudaMemcpyDeviceToHost);
-
+    cudaMemcpy(&energyMatrixFlattened[0], dev_energyMatrixFlattened, 3 * J * sizeof(double), cudaMemcpyDeviceToHost);
+    //cudaMemcpy(&energyMatrixFlattened[0], &dev_energyTensor_x[0], J * J * sizeof(double), cudaMemcpyDeviceToHost);
+    //cudaMemcpy(&energyMatrixFlattened[0], dev_energyMatrix, J * J * sizeof(double), cudaMemcpyDeviceToHost);
 }
 
-__global__ void repulsiveCurveGradientFlow(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, double J)
+__global__ void repulsiveCurveGradientFlow(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrixFlattened, double J)
 {
-    fillEnergyMatrixDifferential(dev_x, dev_y, dev_z, 0, 0.1, 0.0, 0.0, dev_energyMatrix, J);
-}
-
-// Test Function
-__global__ void repulsiveCurveEnergy(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrix, double J)
-{
-    fillEnergyMatrix(dev_x, dev_y, dev_z, dev_energyMatrix, J);
+    /* Point Index */
+    int i = blockIdx.x;
+    /* Coordinate Index j = 0, 1, 2 for x, y, z respectively */
+    int j = blockIdx.y;
+    printf("repulsiveCurveGradientFlow(.): (i,j)=(%d,%d)\n", i, j);
+    const double deltaX = 0.1;
+    if (i < J)
+    {
+        unsigned int flattenedPos = J * j + i;
+        if (j == 0)
+        {
+            dev_energyMatrixFlattened[flattenedPos] = cuDifferential(dev_x, dev_y, dev_z, i, deltaX, 0.0, 0.0, J);
+        }
+        if (j == 1)
+        {
+            dev_energyMatrixFlattened[flattenedPos] = cuDifferential(dev_x, dev_y, dev_z, i, 0.0, deltaX, 0.0, J);
+        }
+        if (j == 2)
+        {
+            dev_energyMatrixFlattened[flattenedPos] = cuDifferential(dev_x, dev_y, dev_z, i, 0.0, 0.0, deltaX, J);
+        }
+    }
 }
 
 __device__ double sumArray(double* arr, unsigned int length)
@@ -163,34 +184,23 @@ __device__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, do
     //}
 }
 
-__device__ void fillEnergyMatrixDifferential(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, double* dev_energyMatrix, unsigned int J)
+__device__ double cuDifferential(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, unsigned int J)
 {
     /* 2-Pass:
      On the first pass, it perturbs the curve a bit temporarily and computes the energy.
      On the second pass, it restores the original curve, then computes the energy, subtracting off kernel points*/
 
-    printf("fillEnergyMatrixDifferential() called.\n");
+    double differential { 0 };
+
+    printf("fillEnergyMatrixDifferential() called: index=%d, diffx=%f, diffy=%f, diffz=%f\n", index, diffx, diffy, diffz);
 
     index = ((index % (int) J) + J) % J;
-
-    double save_x = dev_x[index];
-    double save_y = dev_y[index];
-    double save_z = dev_z[index];
-
-
-    /* Perturbation */
-    dev_x[index] += diffx;
-    dev_y[index] += diffy;
-    dev_z[index] += diffz;
 
     /* Energy of perturbed curve */
     for (int i = 0; i < J; i++)
     {
         for (int j = 0; j < J; j++)
         {
-
-            int flattenPos = i + J * j;
-
             if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
             {
                 int ip1 = (i + 1) % J;
@@ -202,14 +212,49 @@ __device__ void fillEnergyMatrixDifferential(double* dev_x, double* dev_y, doubl
                 double xjx = dev_x[j];
                 double xjy = dev_y[j];
                 double xjz = dev_z[j];
+                /* Perturbation */
+                if (i == index)
+                {
+                    xix += diffx;
+                    xiy += diffy;
+                    xiz += diffz;
+                }
+                if (j == index)
+                {
+                    xjx += diffx;
+                    xjy += diffy;
+                    xjz += diffz;
+                }
+
+                /* x_{i+1}, x_{j+1} */
+                double xipx = dev_x[ip1];
+                double xipy = dev_y[ip1];
+                double xipz = dev_z[ip1];
+                double xjpx = dev_x[jp1];
+                double xjpy = dev_y[jp1];
+                double xjpz = dev_z[jp1];
+                
+                /* Perturbation */
+                if (ip1 == index)
+                {
+                    xipx += diffx;
+                    xipy += diffy;
+                    xipz += diffz;
+                }
+                if (jp1 == index)
+                {
+                    xjpx += diffx;
+                    xjpy += diffy;
+                    xjpz += diffz;
+                }
 
                 /* xI, xJ */
-                double xIx = dev_x[ip1] - xix;
-                double xIy = dev_y[ip1] - xiy;
-                double xIz = dev_z[ip1] - xiz;
-                double xJx = dev_x[jp1] - xjx;
-                double xJy = dev_y[jp1] - xjy;
-                double xJz = dev_z[jp1] - xjz;
+                double xIx = xipx - xix;
+                double xIy = xipy - xiy;
+                double xIz = xipz - xiz;
+                double xJx = xjpx - xjx;
+                double xJy = xjpy - xjy;
+                double xJz = xjpz - xjz;
 
                 /* lI, lJ */
                 double lI = l2norm3D(xIx, xIy, xIz);
@@ -220,29 +265,17 @@ __device__ void fillEnergyMatrixDifferential(double* dev_x, double* dev_y, doubl
                 double TIy = xIy / lI;
                 double TIz = xIz / lI;
 
-                dev_energyMatrix[flattenPos] = kernelFunction(xix, xiy, xiz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
-                        xjx, xjy, xjz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz) * lI * lJ;
-                printf("i: %d, j: %d, energyLocal = %f\n", i, j, dev_energyMatrix[flattenPos]);
-            }
-            else
-            {
-                dev_energyMatrix[flattenPos] = 0;
+                differential += kernelFunction(xix, xiy, xiz, xipx, xipy, xipz,
+                        xjx, xjy, xjz, xjpx, xjpy, xjpz, TIx, TIy, TIz) * lI * lJ;
             }
         }
     }
 
-    /* Restore Curve */
-    dev_x[index] = save_x;
-    dev_y[index] = save_y;
-    dev_z[index] = save_z;
     /* Energy of original curve subtracted off */
     for (int i = 0; i < J; i++)
     {
         for (int j = 0; j < J; j++)
         {
-
-            int flattenPos = i + J * j;
-
             if (abs(i - j) > 1 && abs(i - j + (int) J) > 1 && abs(i - j - (int) J) > 1)
             {
                 int ip1 = (i + 1) % J;
@@ -255,13 +288,21 @@ __device__ void fillEnergyMatrixDifferential(double* dev_x, double* dev_y, doubl
                 double xjy = dev_y[j];
                 double xjz = dev_z[j];
 
+                /* x_{i+1}, x_{j+1} */
+                double xipx = dev_x[ip1];
+                double xipy = dev_y[ip1];
+                double xipz = dev_z[ip1];
+                double xjpx = dev_x[jp1];
+                double xjpy = dev_y[jp1];
+                double xjpz = dev_z[jp1];
+
                 /* xI, xJ */
-                double xIx = dev_x[ip1] - xix;
-                double xIy = dev_y[ip1] - xiy;
-                double xIz = dev_z[ip1] - xiz;
-                double xJx = dev_x[jp1] - xjx;
-                double xJy = dev_y[jp1] - xjy;
-                double xJz = dev_z[jp1] - xjz;
+                double xIx = xipx - xix;
+                double xIy = xipy - xiy;
+                double xIz = xipz - xiz;
+                double xJx = xjpx - xjx;
+                double xJy = xjpy - xjy;
+                double xJz = xjpz - xjz;
 
                 /* lI, lJ */
                 double lI = l2norm3D(xIx, xIy, xIz);
@@ -272,17 +313,19 @@ __device__ void fillEnergyMatrixDifferential(double* dev_x, double* dev_y, doubl
                 double TIy = xIy / lI;
                 double TIz = xIz / lI;
 
-                dev_energyMatrix[flattenPos] -= kernelFunction(xix, xiy, xiz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
-                        xjx, xjy, xjz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz) * lI * lJ;
-                printf("i: %d, j: %d, energyLocalDifferential = %f\n", i, j, dev_energyMatrix[flattenPos]);
-            }
-            else
-            {
-                dev_energyMatrix[flattenPos] = 0;
+                differential -= kernelFunction(xix, xiy, xiz, xipx, xipy, xipz,
+                        xjx, xjy, xjz, xjpx, xjpy, xjpz, TIx, TIy, TIz) * lI * lJ;
             }
         }
     }
     
+    return differential;
+}
+
+
+__device__ void cuDifferential(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, unsigned int J, double* pVar)
+{
+    *pVar = cuDifferential(dev_x, dev_y, dev_z, index, diffx, diffy, diffz, J);
 }
 
 __device__ double kernelalphabeta(double px, double py, double pz, double qx, double qy, double qz, double Tx, double Ty, double Tz, double alpha, double beta)
