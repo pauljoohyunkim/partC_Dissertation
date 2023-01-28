@@ -31,8 +31,6 @@ class cuRepulsiveCurve: public cuCurve
 
 };
 
-__global__ void repulsiveCurveGradientFlow(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrixFlattened, double J);
-
 __device__ double sumArray(double* arr, unsigned int length);
 
 /* This function is used to fill energyMatrix; a matrix of summand for the tangent point energy.

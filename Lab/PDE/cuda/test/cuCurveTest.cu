@@ -13,8 +13,8 @@ int main()
 
     dim3 grid(C.J, 3);
     
-    repulsiveCurveGradientFlow<<<grid, 1>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrixFlattened , C.J);
-    C.flushFromDevice();
+    //repulsiveCurveGradientFlow<<<grid, 1>>>(C.dev_x, C.dev_y, C.dev_z, C.dev_energyMatrixFlattened , C.J);
+    //C.flushFromDevice();
 
     return 0;
 }

@@ -89,32 +89,6 @@ void cuRepulsiveCurve::flushFromDevice()
     //cudaMemcpy(&energyMatrixFlattened[0], dev_energyMatrix, J * J * sizeof(double), cudaMemcpyDeviceToHost);
 }
 
-__global__ void repulsiveCurveGradientFlow(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrixFlattened, double J)
-{
-    /* Point Index */
-    int i = blockIdx.x;
-    /* Coordinate Index j = 0, 1, 2 for x, y, z respectively */
-    int j = blockIdx.y;
-    printf("repulsiveCurveGradientFlow(.): (i,j)=(%d,%d)\n", i, j);
-    const double deltaX = 0.1;
-    if (i < J)
-    {
-        unsigned int flattenedPos = J * j + i;
-        if (j == 0)
-        {
-            dev_energyMatrixFlattened[flattenedPos] = cuDifferential(dev_x, dev_y, dev_z, i, deltaX, 0.0, 0.0, J);
-        }
-        if (j == 1)
-        {
-            dev_energyMatrixFlattened[flattenedPos] = cuDifferential(dev_x, dev_y, dev_z, i, 0.0, deltaX, 0.0, J);
-        }
-        if (j == 2)
-        {
-            dev_energyMatrixFlattened[flattenedPos] = cuDifferential(dev_x, dev_y, dev_z, i, 0.0, 0.0, deltaX, J);
-        }
-    }
-}
-
 __device__ double sumArray(double* arr, unsigned int length)
 {
     double sum = 0;
