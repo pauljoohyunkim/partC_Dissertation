@@ -15,3 +15,6 @@ set_target_properties(crossTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 
 add_executable(sumArrayTest sumArrayTest.cu ../src/solver.cu ../src/geometric-objects.cu)
 set_target_properties(sumArrayTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+
+add_executable(jsonExportTest jsonExportTest.cu ../src/export.cu)
+set_target_properties(sumArrayTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)

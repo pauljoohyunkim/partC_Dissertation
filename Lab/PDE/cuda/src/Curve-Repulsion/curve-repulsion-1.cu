@@ -1,13 +1,15 @@
 #include "curve-repulsion-1.hpp"
 #include "../solver.hpp"
 #include "../geometric-objects.hpp"
+#include "../export.hpp"
 #include <cmath>
 #include <matplot/matplot.h>
+#include <fstream>
 
 #define DELTA_X 0.005
 #define DELTA_T 0.0001
 #define LAMBDA 1
-#define M 10000
+#define M 1000
 
 #define PLOT_FREQUENCY 10
 #define AZIMUTHAL_SPEED 0.5
@@ -21,33 +23,57 @@ __global__ static void repulsiveCurveGradientFlow(double* dev_x, double* dev_y, 
 int main()
 {
     /* Generate curve */
+
+    /* Example 1: */
     //std::vector<double> x = { 1, 2, 3, 4, 5, 6 };
     //std::vector<double> y = { 0, 2, 4, 6, 8, -1 };
     //std::vector<double> z = { -1, -2, 3, -4, 5, 0.6 };
     std::vector<double> x {};
     std::vector<double> y {};
     std::vector<double> z {};
-    const int resolution = 16;
-    for (auto i = 0; i < resolution; i++)
+
+    /* Example 2: Helix and Semicircle */
+    
+    //const int resolution = 16;
+    //for (auto i = 0; i < resolution; i++)
+    //{
+    //    double theta = 4 * PI * (double) i / resolution;
+    //    x.push_back(cos(theta));
+    //    y.push_back(sin(theta));
+    //    z.push_back(theta / (2 * PI));
+    //}
+    //for (auto i = 1; i < resolution; i++)
+    //{
+    //    double theta = PI * (double) i / resolution;
+    //    x.push_back(1);
+    //    y.push_back(2 * sin(theta));
+    //    z.push_back(1 + cos(theta));
+    //}
+
+    /* Example 3: Just a circle */
+    const int resolution { 32 };
+    for (auto i = 0; i < 32; i++)
     {
-        double theta = 4 * PI * (double) i / resolution;
+        double theta = 2 * PI * (double) i / resolution;
         x.push_back(cos(theta));
         y.push_back(sin(theta));
-        z.push_back(theta / (2 * PI));
+        z.push_back(0);
     }
-    for (auto i = 1; i < resolution; i++)
-    {
-        double theta = PI * (double) i / resolution;
-        x.push_back(1);
-        y.push_back(2 * sin(theta));
-        z.push_back(1 + cos(theta));
-    }
+
     cuRepulsiveCurve C(x, y, z);
     C.cudafy();
 
 
     /* Parallel Pool */
     dim3 grid(C.J, 3);
+
+    /* Export to json */
+    std::ofstream jsonX("x.json");
+    std::ofstream jsonY("y.json");
+    std::ofstream jsonZ("z.json");
+    jsonX << "[";
+    jsonY << "[";
+    jsonZ << "[";
 
     /* Gradient Flow */
     for (auto t = 0; t < M; t++)
@@ -57,14 +83,33 @@ int main()
         C.flushFromDevice();
         if (t % PLOT_FREQUENCY == 0)
         {
-            auto curvePlot = matplot::plot3(C.x, C.y, C.z);
-            curvePlot->line_width(5);
-            matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
-            matplot::xrange({-5, 5});
-            matplot::yrange({-5, 5});
-            std::cout << "Progress: " << t << "/" << M << "(" << t / M * 100 << "%)" << std::endl;
+            std::cout << "Progress: " << t << "/" << M << "(" << (float) t / M * 100 << "%)" << std::endl;
+            /* Export to json */
+            if (t != 0)
+            {
+                jsonX << ",\n";
+                jsonY << ",\n";
+                jsonZ << ",\n";
+            }
+            vectorParse(jsonX, C.x, C.J);
+            vectorParse(jsonY, C.y, C.J);
+            vectorParse(jsonZ, C.z, C.J);
+
+
+            /* Plotting */
+            //auto curvePlot = matplot::plot3(C.x, C.y, C.z);
+            //curvePlot->line_width(5);
+            //matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
+            //matplot::xrange({-5, 5});
+            //matplot::yrange({-5, 5});
         }
     }
+    jsonX << "]";
+    jsonY << "]";
+    jsonZ << "]";
+    jsonX.close();
+    jsonY.close();
+    jsonZ.close();
 
     return 0;
 }
