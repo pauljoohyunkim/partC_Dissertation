@@ -1,24 +1,27 @@
 #include "../math-objects.hpp"
 #include "../geometric-objects.hpp"
-#include "discrete-kernel.hpp"
+#include "../solver.hpp"
 #include "curve-repulsion-1.hpp"
 #include <vector>
 #include <iostream>
+#include <cmath>
 #include <matplot/matplot.h>
 
 #define LAMBDA 0.01
 #define DELTAX 0.01
-#define DELTAT 0.01
+#define DELTAT 0.005
 #define AZIMUTHAL_SPEED 0.5
 #define ELEVATION 3
 #define M 10000
-#define PLOT_FREQUENCY 10
+#define PLOT_FREQUENCY 2
 
-static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, DiscreteKernel& dk);
+#define PI 3.14159265
+
+static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, SolverCurveRepulsion& dk);
 
 int main()
 {
-    DiscreteKernel dk = DiscreteKernel(2, 4, kernel1);
+    SolverCurveRepulsion dk = SolverCurveRepulsion(2, 4, kernel1);
 
     /* Points on the curve (or rather... polygon)
      * x1(2.5, 3, 2)
@@ -35,16 +38,39 @@ int main()
     //std::vector<Vector3D> veclist { x1, x2, x3, x4 };
 
     /* Example 2 */
-    Vector3D x1{ -2.75, 2.97, 0 };
-    Vector3D x2{ -0.6, -2.38, 2 };
-    Vector3D x3{ 3.38, -3.62, -1.55 };
-    Vector3D x4{ 3.1, 2.23, 0 };
-    Vector3D x5{ 0.74, 3.36, 3.24 };
-    Vector3D x6{ -6.71, 1.73, 4 };
-    Vector3D x7{ 1.75, -6.61, -2.28 };
-    Vector3D x8{ 2.6, 3.21, 5.24 };
-    Vector3D x9{ -4.7, 6.23, 4.38 };
-    std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6, x7, x8, x9 };
+    //Vector3D x1{ -2.75, 2.97, 0 };
+    //Vector3D x2{ -0.6, -2.38, 2 };
+    //Vector3D x3{ 3.38, -3.62, -1.55 };
+    //Vector3D x4{ 3.1, 2.23, 0 };
+    //Vector3D x5{ 0.74, 3.36, 3.24 };
+    //Vector3D x6{ -6.71, 1.73, 4 };
+    //Vector3D x7{ 1.75, -6.61, -2.28 };
+    //Vector3D x8{ 2.6, 3.21, 5.24 };
+    //Vector3D x9{ -4.7, 6.23, 4.38 };
+    //std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6, x7, x8, x9 };
+    //
+
+    Vector3D x1 {1,0,-1};
+    Vector3D x2 {2,2,-2};
+    Vector3D x3 {3,4,3};
+    Vector3D x4 {4,6,-4};
+    Vector3D x5 {5,8,5};
+    Vector3D x6 {6,-1,0.6};
+    /* Example 3: Helix + Semicircle */
+    //const int resolution = 16;
+    std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6 };
+    //for (auto i = 0; i < resolution; i++)
+    //{
+    //    double theta = 4 * PI * (double) i / resolution;
+    //    Vector3D p(cos(theta), sin(theta), theta / (2 * PI));
+    //    veclist.push_back(p);
+    //}
+    //for (auto i = 1; i < resolution; i++)
+    //{
+    //    double theta = PI * (double) i / resolution;
+    //    Vector3D p(1, 2 * sin(theta), 1 + cos(theta));
+    //    veclist.push_back(p);
+    //}
 
     Curve c(veclist);
     auto J = c.getNPoints();
@@ -89,18 +115,18 @@ int main()
         z[J] = d[J][2];
 
         c = d;
-        //std::cout << t << ": " << dk.energy(c) << std::endl;
-        //if (t % PLOT_FREQUENCY == 0)
-        //{
+        std::cout << t << ": " << dk.energy(c) << std::endl;
+        if (t % PLOT_FREQUENCY == 0)
+        {
             auto curvePlot = matplot::plot3(x, y, z);
             curvePlot->line_width(5);
             matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
-            //matplot::xrange({-30, 30});
-            //matplot::yrange({-30, 30});
-            matplot::show();
+            matplot::xrange({-5, 5});
+            matplot::yrange({-5, 5});
+            //matplot::show();
 
-            //matplot::save("/tmp/img/" + std::to_string(t) + ".png");
-        //}
+            //matplot::save(std::to_string(t) + ".png");
+        }
         //if (t == M-2)
         //{
         //    matplot::show();
@@ -113,7 +139,7 @@ int main()
 /* Based on "Trapezoid rule":
  * Takes average based on four points
  * */
-static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, DiscreteKernel& dk)
+static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, SolverCurveRepulsion& dk)
 {
     double kij { 0 };  
 
