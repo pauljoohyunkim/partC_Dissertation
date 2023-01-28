@@ -1,13 +1,15 @@
 #include "curve-repulsion-1.hpp"
 #include "../solver.hpp"
 #include "../geometric-objects.hpp"
+#include "../export.hpp"
 #include <cmath>
 #include <matplot/matplot.h>
+#include <fstream>
 
 #define DELTA_X 0.005
 #define DELTA_T 0.0001
 #define LAMBDA 1
-#define M 10000
+#define M 1000
 
 #define PLOT_FREQUENCY 10
 #define AZIMUTHAL_SPEED 0.5
@@ -49,6 +51,14 @@ int main()
     /* Parallel Pool */
     dim3 grid(C.J, 3);
 
+    /* Export to json */
+    std::ofstream jsonX("x.json");
+    std::ofstream jsonY("y.json");
+    std::ofstream jsonZ("z.json");
+    jsonX << "[";
+    jsonY << "[";
+    jsonZ << "[";
+
     /* Gradient Flow */
     for (auto t = 0; t < M; t++)
     {
@@ -57,14 +67,33 @@ int main()
         C.flushFromDevice();
         if (t % PLOT_FREQUENCY == 0)
         {
-            auto curvePlot = matplot::plot3(C.x, C.y, C.z);
-            curvePlot->line_width(5);
-            matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
-            matplot::xrange({-5, 5});
-            matplot::yrange({-5, 5});
-            std::cout << "Progress: " << t << "/" << M << "(" << t / M * 100 << "%)" << std::endl;
+            std::cout << "Progress: " << t << "/" << M << "(" << (float) t / M * 100 << "%)" << std::endl;
+            /* Export to json */
+            if (t != 0)
+            {
+                jsonX << ",\n";
+                jsonY << ",\n";
+                jsonZ << ",\n";
+            }
+            vectorParse(jsonX, C.x, C.J);
+            vectorParse(jsonY, C.y, C.J);
+            vectorParse(jsonZ, C.z, C.J);
+
+
+            /* Plotting */
+            //auto curvePlot = matplot::plot3(C.x, C.y, C.z);
+            //curvePlot->line_width(5);
+            //matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
+            //matplot::xrange({-5, 5});
+            //matplot::yrange({-5, 5});
         }
     }
+    jsonX << "]";
+    jsonY << "]";
+    jsonZ << "]";
+    jsonX.close();
+    jsonY.close();
+    jsonZ.close();
 
     return 0;
 }
