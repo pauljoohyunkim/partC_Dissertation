@@ -108,7 +108,7 @@ __device__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, do
     //int jp1 = (j + 1) % J;
     //if (i < (int) J && j < (int) J)
     //{
-    printf("fillEnergyMatrix() called.\n");
+    //printf("fillEnergyMatrix() called.\n");
     for (int i = 0; i < J; i++)
     {
         for (int j = 0; j < J; j++)
@@ -147,7 +147,7 @@ __device__ void fillEnergyMatrix(double* dev_x, double* dev_y, double* dev_z, do
 
             dev_energyMatrix[flattenPos] = kernelFunction(xix, xiy, xiz, dev_x[ip1], dev_y[ip1], dev_z[ip1],
                     xjx, xjy, xjz, dev_x[jp1], dev_y[jp1], dev_z[jp1], TIx, TIy, TIz) * lI * lJ;
-            printf("i: %d, j: %d, energyLocal = %f\n", i, j, dev_energyMatrix[flattenPos]);
+            //printf("i: %d, j: %d, energyLocal = %f\n", i, j, dev_energyMatrix[flattenPos]);
         }
         else
         {
@@ -166,7 +166,7 @@ __device__ double cuDifferential(double* dev_x, double* dev_y, double* dev_z, in
 
     double differential { 0 };
 
-    printf("fillEnergyMatrixDifferential() called: index=%d, diffx=%f, diffy=%f, diffz=%f\n", index, diffx, diffy, diffz);
+    //printf("fillEnergyMatrixDifferential() called: index=%d, diffx=%f, diffy=%f, diffz=%f\n", index, diffx, diffy, diffz);
 
     index = ((index % (int) J) + J) % J;
 
@@ -305,7 +305,7 @@ __device__ void cuDifferential(double* dev_x, double* dev_y, double* dev_z, int 
 
     *pVar = 0;
 
-    printf("fillEnergyMatrixDifferential() called: index=%d, diffx=%f, diffy=%f, diffz=%f\n", index, diffx, diffy, diffz);
+    //nprintf("fillEnergyMatrixDifferential() called: index=%d, diffx=%f, diffy=%f, diffz=%f\n", index, diffx, diffy, diffz);
 
     index = ((index % (int) J) + J) % J;
 

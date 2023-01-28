@@ -4,12 +4,12 @@
 #include <cmath>
 #include <matplot/matplot.h>
 
-#define DELTA_X 0.01
-#define DELTA_T 0.005
-#define LAMBDA 0.01
+#define DELTA_X 0.005
+#define DELTA_T 0.0001
+#define LAMBDA 1
 #define M 10000
 
-#define PLOT_FREQUENCY 2
+#define PLOT_FREQUENCY 10
 #define AZIMUTHAL_SPEED 0.5
 #define ELEVATION 3
 
@@ -62,6 +62,7 @@ int main()
             matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
             matplot::xrange({-5, 5});
             matplot::yrange({-5, 5});
+            std::cout << "Progress: " << t << "/" << M << "(" << t / M * 100 << "%)" << std::endl;
         }
     }
 
