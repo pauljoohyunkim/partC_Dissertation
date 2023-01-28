@@ -1,11 +1,11 @@
 import numpy as np
 import json
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+from matplotlib.animation import FuncAnimation, FFMpegWriter
 import sys
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
+    if len(sys.argv) < 4:
         print("Usage: json_to_3D_anim.py [path to x.json] [... to y.json] [... to z.json]")
         sys.exit(1)
 
@@ -45,6 +45,12 @@ if __name__ == "__main__":
         return line,
 
     ani = FuncAnimation(fig, update, frames=range(M), init_func=init, blit=False)
+    
+    if len(sys.argv) == 5:
+        print("Writing video as " + sys.argv[4])
+        videoWriter = FFMpegWriter(fps=60)
+        ani.save(sys.argv[4], writer=videoWriter)
+        print("Done!")
 
     plt.show()
 
