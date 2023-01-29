@@ -186,12 +186,13 @@ For an explicit definition of functional derivatives, see link in the footnote.
 \subsection{Explicit Euler Scheme}
 One could now write an explicit Euler scheme based on (\ref{equ: Discrete L2 Gradient Flow x}) $\sim$ (\ref{equ: Discrete L2 Gradient Flow z})
 \begin{align}
-    \frac{X_{i,1}^{m+1} - X_{i,1}^{m}}{\Delta t} &=  - \frac{E\left( X_1^{m}, \cdots, X_i^m + \Delta x e_x, \cdots, X_J^m \right) - E\left( X_1^{m}, \cdots, X_J^m \right)}{\Delta x}
+    \frac{X_{i,1}^{m+1} - X_{i,1}^{m}}{\Delta t} &=  - \frac{E\left( X_1^{m}, \cdots, X_i^m + \Delta x e_x, \cdots, X_J^m \right) - E\left( X_1^{m}, \cdots, X_i^m - \Delta x e_x, \cdots, X_J^m \right)}{2 \Delta x}
     \label{equ: Discrete L2 Gradient Flow x Explicit Scheme}
 \end{align}
 where $\Delta t$ and $\Delta x$ are small parameters.
 
 Note that in the case that we use (\ref{equ: Discretized Energy}),
+by computing the explicit form of the differential of the energy,
 the computation work for RHS can be greatly reduced.
 
 \section{Constraint}
