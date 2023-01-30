@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\newcommand{\inner}[2]{\langle #1, #2 \rangle}
+\newcommand{\dx}{\, \text{d} x}
+\newcommand{\dy}{\, \text{d} y}
+
+\title{Functional Analysis: Gradient}
+\author{Paul Kim}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Gradient on $\mathbb{R}^n$}
+For $f:\mathbb{R}^n \rightarrow \mathbb{R}$, we may define the gradient $\nabla f$ as:
+\begin{definition}
+    $\nabla f \eqqcolon v$ such that
+    \begin{equation}
+        \frac{\partial}{\partial \epsilon} f\left( x + \epsilon y \right) |_{\epsilon = 0} = \inner{v}{y}_{\mathbb{R}^n}
+    \end{equation}
+\end{definition}
+
+\section{Gradient on $L^2$}
+Similarly, for $E: L^2 \rightarrow \mathbb{R}$ (a functional), we define the gradient $\nabla E$ as:
+\begin{definition}
+    $\nabla E$ such that
+    \begin{equation}
+        \frac{\partial}{\partial \epsilon} E\left[ f + \epsilon g \right] | _{\epsilon = 0} = \inner{\nabla E}{g}_{L^2}
+    \end{equation}
+\end{definition}
+
+\subsection{Dirichlet Energy}
+For Dirichlet energy defined by $E(f) = \int_{\mathbb{R}} |\nabla f|^2 \dx$,
+\begin{equation}
+    \frac{\partial}{\partial \epsilon} E\left( f + \epsilon g \right) |_{\epsilon = 0} = \int_{\mathbb{R}} \frac{\delta E}{\delta f} g
+\end{equation}
+
+\subsection{Tangent Point Energy}
+For our tangent point energy defined by $E(\gamma) = \int_{M^2} \left( \cdot \right) \dx_{\gamma} \dy_{\gamma}$
+\begin{equation}
+    \frac{\partial}{\partial \epsilon} E(\gamma + \epsilon \delta) |_{\epsilon = 0} = \int_{M^2} \frac{\delta E}{\delta \gamma} \delta
+\end{equation}
+
+
+\end{document}
+
+
