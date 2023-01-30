@@ -3,13 +3,12 @@
 #include "../geometric-objects.hpp"
 #include "../export.hpp"
 #include <cmath>
-#include <matplot/matplot.h>
 #include <fstream>
 
-#define DELTA_X 0.005
-#define DELTA_T 0.0001
+#define DELTA_X 0.0005
+#define DELTA_T 0.00001
 #define LAMBDA 1
-#define M 1000
+#define M 1000000
 
 #define PLOT_FREQUENCY 10
 #define AZIMUTHAL_SPEED 0.5
@@ -34,7 +33,7 @@ int main()
 
     /* Example 2: Helix and Semicircle */
     
-    //const int resolution = 16;
+    //const int resolution { 30 };
     //for (auto i = 0; i < resolution; i++)
     //{
     //    double theta = 4 * PI * (double) i / resolution;
@@ -51,13 +50,23 @@ int main()
     //}
 
     /* Example 3: Just a circle */
-    const int resolution { 32 };
-    for (auto i = 0; i < 32; i++)
+    //const int resolution { 32 };
+    //for (auto i = 0; i < 32; i++)
+    //{
+    //    double theta = 2 * PI * (double) i / resolution;
+    //    x.push_back(cos(theta));
+    //    y.push_back(sin(theta));
+    //    z.push_back(0);
+    //}
+
+    /* Example 4: Curve defined by three fourier series */
+    const int resolution { 80 };
+    for (auto i = 0; i < resolution; i++)
     {
         double theta = 2 * PI * (double) i / resolution;
-        x.push_back(cos(theta));
-        y.push_back(sin(theta));
-        z.push_back(0);
+        x.push_back(cos(theta) + 3 * cos(2 * theta) - cos(3 * theta) - 0.7 * cos(4 * theta));
+        y.push_back(sin(theta) + 0.2 * cos(2 * theta) + 2 * sin(3 * theta) + 0.2 * cos(4 * theta));
+        z.push_back(cos(theta) + 2 * cos(2 * theta) + 4 * cos(3 * theta) - 2.2 * cos(4 * theta));
     }
 
     cuRepulsiveCurve C(x, y, z);
