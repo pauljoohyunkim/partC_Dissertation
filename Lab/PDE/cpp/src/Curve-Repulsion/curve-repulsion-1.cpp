@@ -1,11 +1,11 @@
 #include "../math-objects.hpp"
 #include "../geometric-objects.hpp"
 #include "../solver.hpp"
+#include "../export.hpp"
 #include "curve-repulsion-1.hpp"
 #include <vector>
 #include <iostream>
 #include <cmath>
-#include <matplot/matplot.h>
 
 #define LAMBDA 0.01
 #define DELTAX 0.01
@@ -50,15 +50,15 @@ int main()
     //std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6, x7, x8, x9 };
     //
 
-    Vector3D x1 {1,0,-1};
-    Vector3D x2 {2,2,-2};
-    Vector3D x3 {3,4,3};
-    Vector3D x4 {4,6,-4};
-    Vector3D x5 {5,8,5};
-    Vector3D x6 {6,-1,0.6};
+    //Vector3D x1 {1,0,-1};
+    //Vector3D x2 {2,2,-2};
+    //Vector3D x3 {3,4,3};
+    //Vector3D x4 {4,6,-4};
+    //Vector3D x5 {5,8,5};
+    //Vector3D x6 {6,-1,0.6};
     /* Example 3: Helix + Semicircle */
     //const int resolution = 16;
-    std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6 };
+    //std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6 };
     //for (auto i = 0; i < resolution; i++)
     //{
     //    double theta = 4 * PI * (double) i / resolution;
@@ -72,6 +72,15 @@ int main()
     //    veclist.push_back(p);
     //}
 
+    /* Example 3: Helix + Semicircle */
+    const int resolution = 15;
+    std::vector<Vector3D> veclist { };
+    for (auto i = 0; i < resolution; i++)
+    {
+        double theta = 2 * PI * (double) i / resolution;
+        Vector3D p(cos(theta), sin(theta), 0);
+        veclist.push_back(p);
+    }
     Curve c(veclist);
     auto J = c.getNPoints();
 
@@ -95,6 +104,13 @@ int main()
         z.push_back(0);
     }
 
+    /* Export to json */
+    std::ofstream jsonX("x.json");
+    std::ofstream jsonY("y.json");
+    std::ofstream jsonZ("z.json");
+    jsonX << "[";
+    jsonY << "[";
+    jsonZ << "[";
     
 
 
@@ -118,20 +134,24 @@ int main()
         std::cout << t << ": " << dk.energy(c) << std::endl;
         if (t % PLOT_FREQUENCY == 0)
         {
-            auto curvePlot = matplot::plot3(x, y, z);
-            curvePlot->line_width(5);
-            matplot::view(AZIMUTHAL_SPEED * t, ELEVATION);
-            matplot::xrange({-5, 5});
-            matplot::yrange({-5, 5});
-            //matplot::show();
-
-            //matplot::save(std::to_string(t) + ".png");
+            if (t != 0)
+            {
+                jsonX << ",\n";
+                jsonY << ",\n";
+                jsonZ << ",\n";
+            }
+            vectorParse(jsonX, x, J);
+            vectorParse(jsonY, y, J);
+            vectorParse(jsonZ, z, J);
         }
-        //if (t == M-2)
-        //{
-        //    matplot::show();
-        //}
     }
+
+    jsonX << "]";
+    jsonY << "]";
+    jsonZ << "]";
+    jsonX.close();
+    jsonY.close();
+    jsonZ.close();
 
     return 0;
 }
