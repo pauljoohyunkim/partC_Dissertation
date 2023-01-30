@@ -84,8 +84,8 @@ int main()
     Curve c(veclist);
     auto J = c.getNPoints();
 
-    double energy = dk.energy(c);
-    double energydiff = dk.energyDifferential(c, Vector3D(0.1, 0, 0), 1);
+    //double energy = dk.energy(c);
+    //double energydiff = dk.energyDifferential(c, Vector3D(0.1, 0, 0), 1);
 
     Curve d(c.getNPoints());
 
@@ -119,9 +119,9 @@ int main()
     {
         for (auto i = 0; i < J; i++)
         {
-            d[i][0] = c[i][0] - dk.energyDifferential(c, Vector3D(DELTAX, 0, 0), i) / DELTAX * DELTAT - DELTAT * LAMBDA * (2 * c[i][0] - c[i + 1][0] - c[i - 1][0]);
-            d[i][1] = c[i][1] - dk.energyDifferential(c, Vector3D(0, DELTAX, 0), i) / DELTAX * DELTAT - DELTAT * LAMBDA * (2 * c[i][1] - c[i + 1][1] - c[i - 1][1]);
-            d[i][2] = c[i][2] - dk.energyDifferential(c, Vector3D(0, 0, DELTAX), i) / DELTAX * DELTAT - DELTAT * LAMBDA * (2 * c[i][2] - c[i + 1][2] - c[i - 1][2]);
+            d[i][0] = c[i][0] - dk.energyDifferential(c, Vector3D(DELTAX, 0, 0), i) / DELTAX * DELTAT - DELTAT * LAMBDA * c[i][0];
+            d[i][1] = c[i][1] - dk.energyDifferential(c, Vector3D(0, DELTAX, 0), i) / DELTAX * DELTAT - DELTAT * LAMBDA * c[i][1];
+            d[i][2] = c[i][2] - dk.energyDifferential(c, Vector3D(0, 0, DELTAX), i) / DELTAX * DELTAT - DELTAT * LAMBDA * c[i][2];
             x[i] = d[i][0];
             y[i] = d[i][1];
             z[i] = d[i][2];
@@ -131,7 +131,7 @@ int main()
         z[J] = d[J][2];
 
         c = d;
-        std::cout << t << ": " << dk.energy(c) << std::endl;
+        std::cout << "Progress: " << t << "/" << M << " (" << (float) t / M * 100 << "%)" << std::endl;
         if (t % PLOT_FREQUENCY == 0)
         {
             if (t != 0)

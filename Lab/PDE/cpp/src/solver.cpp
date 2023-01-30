@@ -183,12 +183,14 @@ double SolverCurveRepulsion::energy(Curve C)
 }
 
 
-/* E(X + [0...v...0]) - E(X) */
+/* ( E(X + [0...v...0]) - E(X - [0...v...0]) ) / 2 */
 double SolverCurveRepulsion::energyDifferential(Curve C, Vector3D v, int i)
 {
-    auto energyC = energy(C);
     /* Deforming */
     C[i] = C[i] + v;
+    double energyCp = energy(C);
+    C[i] = C[i] - v - v;
+    double energyCn = energy(C);
 
-    return energy(C) - energyC;
+    return (energyCp - energyCn) * 0.5;
 }
