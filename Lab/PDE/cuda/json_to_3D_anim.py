@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, FFMpegWriter
 import sys
 
+FPS=60
+
 if __name__ == "__main__":
     if len(sys.argv) < 4:
         print("Usage: json_to_3D_anim.py [path to x.json] [... to y.json] [... to z.json]")
@@ -24,7 +26,7 @@ if __name__ == "__main__":
     # Plotting
     fig = plt.figure()
     ax = plt.subplot(projection="3d")
-    line, = ax.plot([],[],[], "ro")
+    line, = ax.plot([],[],[], "b")
     xpoints = np.zeros(J, dtype=float)
     ypoints = np.zeros(J, dtype=float)
     zpoints = np.zeros(J, dtype=float)
@@ -41,14 +43,17 @@ if __name__ == "__main__":
             ypoints[i] = ydata[t][i]
             zpoints[i] = zdata[t][i]
         line.set_data_3d(xpoints, ypoints, zpoints)
-        ax.set_title(f"Progress: {t} / {M} ({'%.2f'%(t/M * 100)}%)")
+        progressString = f"Progress: {t} / {M} ({'%.2f'%(t/M * 100)}%)"
+        ax.set_title(progressString)
+        if(t % 10 == 0):
+            print(progressString)
         return line,
 
     ani = FuncAnimation(fig, update, frames=range(M), init_func=init, blit=False)
     
     if len(sys.argv) == 5:
         print("Writing video as " + sys.argv[4])
-        videoWriter = FFMpegWriter(fps=60)
+        videoWriter = FFMpegWriter(fps=FPS)
         ani.save(sys.argv[4], writer=videoWriter)
         print("Done!")
 
