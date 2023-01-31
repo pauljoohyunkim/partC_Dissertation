@@ -162,11 +162,10 @@ __device__ double cuDifferential(double* dev_x, double* dev_y, double* dev_z, in
 {
     /* 2-Pass:
      On the first pass, it perturbs the curve a bit temporarily and computes the energy.
-     On the second pass, it restores the original curve, then computes the energy, subtracting off kernel points*/
+     On the second pass, it perturbs the curve in the opposite direction, then computes the energy, subtracting off kernel points
+     then it divides by 2.*/
 
     double differential { 0 };
-
-    //printf("fillEnergyMatrixDifferential() called: index=%d, diffx=%f, diffy=%f, diffz=%f\n", index, diffx, diffy, diffz);
 
     index = ((index % (int) J) + J) % J;
 
@@ -245,7 +244,7 @@ __device__ double cuDifferential(double* dev_x, double* dev_y, double* dev_z, in
         }
     }
 
-    /* Energy of original curve subtracted off */
+    /* Energy of curve perturbed in the opposite direction subtracted off */
     for (int i = 0; i < J; i++)
     {
         for (int j = 0; j < J; j++)
@@ -261,6 +260,19 @@ __device__ double cuDifferential(double* dev_x, double* dev_y, double* dev_z, in
                 double xjx = dev_x[j];
                 double xjy = dev_y[j];
                 double xjz = dev_z[j];
+                /* Perturbation */
+                if (i == index)
+                {
+                    xix -= diffx;
+                    xiy -= diffy;
+                    xiz -= diffz;
+                }
+                if (j == index)
+                {
+                    xjx -= diffx;
+                    xjy -= diffy;
+                    xjz -= diffz;
+                }
 
                 /* x_{i+1}, x_{j+1} */
                 double xipx = dev_x[ip1];
@@ -269,6 +281,19 @@ __device__ double cuDifferential(double* dev_x, double* dev_y, double* dev_z, in
                 double xjpx = dev_x[jp1];
                 double xjpy = dev_y[jp1];
                 double xjpz = dev_z[jp1];
+                /* Perturbation */
+                if (ip1 == index)
+                {
+                    xipx -= diffx;
+                    xipy -= diffy;
+                    xipz -= diffz;
+                }
+                if (jp1 == index)
+                {
+                    xjpx -= diffx;
+                    xjpy -= diffy;
+                    xjpz -= diffz;
+                }
 
                 /* xI, xJ */
                 double xIx = xipx - xix;
@@ -293,7 +318,7 @@ __device__ double cuDifferential(double* dev_x, double* dev_y, double* dev_z, in
         }
     }
     
-    return differential;
+    return differential / 2;
 }
 
 
@@ -301,11 +326,10 @@ __device__ void cuDifferential(double* dev_x, double* dev_y, double* dev_z, int 
 {
     /* 2-Pass:
      On the first pass, it perturbs the curve a bit temporarily and computes the energy.
-     On the second pass, it restores the original curve, then computes the energy, subtracting off kernel points*/
+     On the second pass, it perturbs the curve in the opposite direction, then computes the energy, subtracting off kernel points
+     then it divides by 2.*/
 
     *pVar = 0;
-
-    //nprintf("fillEnergyMatrixDifferential() called: index=%d, diffx=%f, diffy=%f, diffz=%f\n", index, diffx, diffy, diffz);
 
     index = ((index % (int) J) + J) % J;
 
@@ -384,7 +408,7 @@ __device__ void cuDifferential(double* dev_x, double* dev_y, double* dev_z, int 
         }
     }
 
-    /* Energy of original curve subtracted off */
+    /* Energy of curve perturbed in the opposite direction subtracted off */
     for (int i = 0; i < J; i++)
     {
         for (int j = 0; j < J; j++)
@@ -400,6 +424,19 @@ __device__ void cuDifferential(double* dev_x, double* dev_y, double* dev_z, int 
                 double xjx = dev_x[j];
                 double xjy = dev_y[j];
                 double xjz = dev_z[j];
+                /* Perturbation */
+                if (i == index)
+                {
+                    xix -= diffx;
+                    xiy -= diffy;
+                    xiz -= diffz;
+                }
+                if (j == index)
+                {
+                    xjx -= diffx;
+                    xjy -= diffy;
+                    xjz -= diffz;
+                }
 
                 /* x_{i+1}, x_{j+1} */
                 double xipx = dev_x[ip1];
@@ -408,6 +445,19 @@ __device__ void cuDifferential(double* dev_x, double* dev_y, double* dev_z, int 
                 double xjpx = dev_x[jp1];
                 double xjpy = dev_y[jp1];
                 double xjpz = dev_z[jp1];
+                /* Perturbation */
+                if (ip1 == index)
+                {
+                    xipx -= diffx;
+                    xipy -= diffy;
+                    xipz -= diffz;
+                }
+                if (jp1 == index)
+                {
+                    xjpx -= diffx;
+                    xjpy -= diffy;
+                    xjpz -= diffz;
+                }
 
                 /* xI, xJ */
                 double xIx = xipx - xix;
@@ -431,6 +481,7 @@ __device__ void cuDifferential(double* dev_x, double* dev_y, double* dev_z, int 
             }
         }
     }
+    *pVar = (*pVar) / 2;
 }
 
 __device__ double kernelalphabeta(double px, double py, double pz, double qx, double qy, double qz, double Tx, double Ty, double Tz, double alpha, double beta)
