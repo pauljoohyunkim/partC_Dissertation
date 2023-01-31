@@ -244,6 +244,36 @@ To measure how ``regular-polygonlike'' a curve is, one may define the following 
     minimized when all the edge lengths are equal and all the angles are equal.
 \end{definition}
 
+\subsection{Explicit Form of Derivative of Discrete Energy}
+Given (\ref{equ: Discretized Energy}), instead of approximating the differential by central scheme,
+it is possible to compute the exact differential.
+Recall the definition.
+\begin{align}
+    E &= \sum_{i = 1}^{J} \sum_{\substack{j = 1 \\ |j-i| > 1}} k_{i,j} \norm{x_{i+1} - x_i} \, \norm{x_{j+1} - x_j} 
+    \\
+    k_{i,j} &= \frac{1}{4} \left( 
+        k_{\beta}^{\alpha} \left( x_i, x_j, T_i \right)
+        + k_{\beta}^{\alpha} \left( x_i, x_{j+1}, T_i \right)
+        + k_{\beta}^{\alpha} \left( x_{i+1}, x_j, T_i \right)
+        + k_{\beta}^{\alpha} \left( x_{i+1}, x_{j+1}, T_i \right)
+    \right)
+\end{align}
+Fix $k$. Indices\footnote{NOTE: CYCLIC} of terms in $E$ involving $x_k$ can be enumerated:
+\begin{itemize}
+    \item $(k,1)$, $\cdots$, $(k, k-2)$, $(k, k+2)$, $\cdots$, $(k,J)$
+    \item $(k-1,1)$, $\cdots$, $(k-1, k-3)$, $(k-1, k+1)$, $\cdots$, $(k-1,J)$
+    \item $(1,k)$, $\cdots$, $(k-2, k)$, $(k+2, k)$, $\cdots$, $(J,k)$
+    \item $(1,k-1)$, $\cdots$, $(k-3, k-1)$, $(k-1, k-1)$, $\cdots$, $(J,k-1)$
+\end{itemize}
+
+First note that 
+\begin{align}
+    \frac{\partial}{\partial x_{k,n}} \norm{x_k - x_{k+1}} &= \frac{x_{k,n} - x_{k+1,n}}{\norm{x_k - x_{k+1}}^2}
+    \label{equ: Norm Differential 1} \\
+    \frac{\partial}{\partial x_k} &= \frac{x_k - x_{k+1}}{\norm{x_k - x_{k+1}}^2}
+    \label{equ: Norm Differential 2}
+\end{align}
+where (\ref{equ: Norm Differential 2}) is simply a vector version of(\ref{equ: Norm Differential 1})
 \end{document}
 
 
