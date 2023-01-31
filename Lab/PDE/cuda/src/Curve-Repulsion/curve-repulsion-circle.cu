@@ -1,4 +1,3 @@
-#include "curve-repulsion-1.hpp"
 #include "../solver.hpp"
 #include "../geometric-objects.hpp"
 #include "../export.hpp"
