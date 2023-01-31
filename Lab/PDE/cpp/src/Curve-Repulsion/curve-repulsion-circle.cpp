@@ -2,7 +2,6 @@
 #include "../geometric-objects.hpp"
 #include "../solver.hpp"
 #include "../export.hpp"
-#include "curve-repulsion-1.hpp"
 #include <vector>
 #include <iostream>
 #include <cmath>
@@ -72,7 +71,7 @@ int main()
     //    veclist.push_back(p);
     //}
 
-    /* Example 3: Helix + Semicircle */
+    /* Example 3: Just a circle */
     const int resolution = 15;
     std::vector<Vector3D> veclist { };
     for (auto i = 0; i < resolution; i++)
