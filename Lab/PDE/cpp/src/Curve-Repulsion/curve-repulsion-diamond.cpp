@@ -37,10 +37,10 @@ int main()
     //std::vector<Vector3D> veclist { x1, x2, x3, x4 };
 
     /* Example 2 */
-    Vector3D x1{ -2.75, 2.97, 0 };
-    Vector3D x2{ -0.6, -2.38, 2 };
-    Vector3D x3{ 3.38, -3.62, -1.55 };
-    Vector3D x4{ 3.1, 2.23, 0 };
+    Vector3D x1{ 1, 0, 0 };
+    Vector3D x2{ 0, 1, 0 };
+    Vector3D x3{ -1, 0, 0 };
+    Vector3D x4{ 0, -1, 0 };
     //Vector3D x5{ 0.74, 3.36, 3.24 };
     //Vector3D x6{ -6.71, 1.73, 4 };
     //Vector3D x7{ 1.75, -6.61, -2.28 };
