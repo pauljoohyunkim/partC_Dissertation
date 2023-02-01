@@ -23,6 +23,13 @@ def energy(points):
                 xI = xipm - xi
                 lI = discrete.discretelPNorm(xI, 1)
                 TI = xI / lI
-                e += (kernelalphabeta(xi, xj, TI) + kernelalphabeta(xi, xjpm, TI) + kernelalphabeta(xipm, xj, TI) + kernelalphabeta(xipm, xjpm, TI)) * 0.25 * lI * discrete.discretelPNorm(xjpm-xj, 1)
+                kernelAB = 0
+                kernelAB += kernelalphabeta(xi, xj, TI) 
+                kernelAB += kernelalphabeta(xi, xjpm, TI) 
+                kernelAB += kernelalphabeta(xipm, xj, TI) 
+                kernelAB += kernelalphabeta(xipm, xjpm, TI)
+                kernelAB *= 0.25 * lI * discrete.discretelPNorm(xjpm-xj, 1)
+                e += kernelAB
+                print(f"{i}, {j}: kernelAB: {kernelAB}")
 
     return e
