@@ -4,6 +4,7 @@
 #include "../export.hpp"
 #include <vector>
 #include <iostream>
+#include <iomanip>
 #include <cmath>
 
 #define LAMBDA 0.01
@@ -12,7 +13,7 @@
 #define AZIMUTHAL_SPEED 0.5
 #define ELEVATION 3
 #define M 10000
-#define PLOT_FREQUENCY 2
+#define PLOT_FREQUENCY 10
 
 #define PI 3.14159265
 
@@ -107,9 +108,11 @@ int main()
     std::ofstream jsonX("x.json");
     std::ofstream jsonY("y.json");
     std::ofstream jsonZ("z.json");
+    std::ofstream jsonEnergy("energy.json");
     jsonX << "[";
     jsonY << "[";
     jsonZ << "[";
+    jsonEnergy << "[";
     
 
 
@@ -130,7 +133,6 @@ int main()
         z[J] = d[J][2];
 
         c = d;
-        std::cout << "Progress: " << t << "/" << M << " (" << (float) t / M * 100 << "%)" << std::endl;
         if (t % PLOT_FREQUENCY == 0)
         {
             if (t != 0)
@@ -138,19 +140,26 @@ int main()
                 jsonX << ",\n";
                 jsonY << ",\n";
                 jsonZ << ",\n";
+                jsonEnergy << ",\n";
             }
+            std::cout << "Progress: " << t << "/" << M << " (" << (float) t / M * 100 << "%)" << std::endl;
+            double energy_of_curve = dk.energy(c);
+            std::cout << "Energy: " << std::setprecision(15) << energy_of_curve << std::endl;
             vectorParse(jsonX, x, J);
             vectorParse(jsonY, y, J);
             vectorParse(jsonZ, z, J);
+            jsonEnergy << energy_of_curve;
         }
     }
 
     jsonX << "]";
     jsonY << "]";
     jsonZ << "]";
+    jsonEnergy << "]";
     jsonX.close();
     jsonY.close();
     jsonZ.close();
+    jsonEnergy.close();
 
     return 0;
 }
