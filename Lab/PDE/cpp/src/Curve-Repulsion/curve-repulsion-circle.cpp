@@ -143,8 +143,8 @@ int main()
                 jsonEnergy << ",\n";
             }
             std::cout << "Progress: " << t << "/" << M << " (" << (float) t / M * 100 << "%)" << std::endl;
-            //double energy_of_curve = dk.energy(c);
-            //std::cout << "Energy: " << std::setprecision(15) << energy_of_curve << std::endl;
+            double energy_of_curve = dk.energy(c);
+            std::cout << "Energy: " << std::setprecision(15) << energy_of_curve << std::endl;
             vectorParse(jsonX, x, J);
             vectorParse(jsonY, y, J);
             vectorParse(jsonZ, z, J);
