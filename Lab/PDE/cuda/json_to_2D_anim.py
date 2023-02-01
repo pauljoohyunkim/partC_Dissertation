@@ -23,7 +23,7 @@ if __name__ == "__main__":
     # Plotting
     fig = plt.figure()
     ax = plt.subplot()
-    line, = ax.plot([],[],[], "b")
+    line, = ax.plot([],[],"bo")
     xpoints = np.zeros(J, dtype=float)
     ypoints = np.zeros(J, dtype=float)
     def init():
@@ -36,7 +36,7 @@ if __name__ == "__main__":
         for i in range(J):
             xpoints[i] = xdata[t][i]
             ypoints[i] = ydata[t][i]
-        line.set_data_3d(xpoints, ypoints, zpoints)
+        line.set_data(xpoints, ypoints)
         progressString = f"Progress: {t} / {M} ({'%.2f'%(t/M * 100)}%)"
         ax.set_title(progressString)
         if(t % 10 == 0):
@@ -45,10 +45,10 @@ if __name__ == "__main__":
 
     ani = FuncAnimation(fig, update, frames=range(M), init_func=init, blit=False)
     
-    if len(sys.argv) == 5:
-        print("Writing video as " + sys.argv[4])
+    if len(sys.argv) == 4:
+        print("Writing video as " + sys.argv[3])
         videoWriter = FFMpegWriter(fps=FPS)
-        ani.save(sys.argv[4], writer=videoWriter)
+        ani.save(sys.argv[3], writer=videoWriter)
         print("Done!")
 
     plt.show()
