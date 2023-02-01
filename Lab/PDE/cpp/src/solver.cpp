@@ -173,7 +173,8 @@ double SolverCurveRepulsion::energy(Curve C)
                 auto qJ = C[j+1] - q;
                 auto lJ = l2norm(qJ);
                 auto TI = pI * (1 / lI);
-                e += kernelFunction(p, C[i + 1], q, C[j + 1], TI, *this) * lI * lJ;
+                auto kernelPart = kernelFunction(p, C[i + 1], q, C[j + 1], TI, *this) * lI * lJ;
+                e += kernelPart;
             }
         }
     }

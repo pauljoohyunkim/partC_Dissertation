@@ -19,7 +19,9 @@ int main()
     Curve c(veclist);
     auto J = c.getNPoints();
 
-    std::cout << std::setprecision(15) << dk.energy(c) << std::endl;
+    auto enrgy = dk.energy(c);
+
+    std::cout << std::setprecision(15) << enrgy << std::endl;
     
 }
 
