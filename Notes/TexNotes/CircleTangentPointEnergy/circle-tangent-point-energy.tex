@@ -1,0 +1,53 @@
+%        File: circle-tangent-point-energy.tex
+%     Created: Fri Feb 03 01:00 PM 2023 G
+% Last Change: Fri Feb 03 01:00 PM 2023 G
+%
+\documentclass[a4paper]{article}
+
+\usepackage[]{amsmath}
+\usepackage{mathtools}
+
+\newcommand{\dx}{\, \text{d} x}
+\newcommand{\dy}{\, \text{d} y}
+\newcommand{\ds}{\, \text{d} s}
+\newcommand{\dt}{\, \text{d} \theta}
+\newcommand{\dphi}{\, \text{d} \varphi}
+\newcommand{\rb}{\mathbf{r}}
+
+\title{Tangent-Point Energy of a Circle}
+\author{Paul Kim}
+
+\begin{document}
+\maketitle
+Given the tangent point energy from Yu, Crane, Schumacher with $\alpha = 2$, $\beta = 4$
+(might be identical to the one to Buck, Orloff version)
+\begin{equation}
+    \mathcal{E}_{4}^2 \left( \gamma \right) \coloneqq \iint_{M^2} k_{4}^2 \left( \gamma (x), \gamma (y), T(x) \right) \dx_{\gamma} \dy_{\gamma}
+    \label{equ: Energy}
+\end{equation}
+where tangent-point kernel is defined as
+\begin{equation}
+    k_{4}^2 (p, q, T) \coloneqq \frac{|T \wedge \left( p - q \right)|^2}{|p-q|^\beta}
+\end{equation}
+one could show that the tangent-point energy of a circle to be $\pi^2$.
+
+Consider parameterizing a circle at the origin with radius $a$ as:
+\begin{align}
+    \rb_1 &= a \left( \cos \theta, \sin \theta, 0 \right) ^ T \\
+    \rb_2 &= a \left( \cos \varphi, \sin \varphi, 0 \right) ^ T
+\end{align}
+Note we may express $T$ as $T\left( \theta \right) = \left( - \sin \theta, \cos \theta, 0 \right) ^ T$
+
+Then, the tangent point energy is:
+\begin{align}
+    \iint_{S^1 \times S^1} \frac{|T \wedge \left( \rb_1 - \rb_2 \right)|^2}{|\rb_1 - \rb_2|^4} \ds_1 \ds_2
+    &= \int_{\theta = 0}^{2 \pi} \int_{\varphi = 0}^{2 \pi} \frac{|T|^2 |\rb_1 - \rb_2|^2 - \left( T \cdot \left( \rb_1 - \rb_2 \right) \right)^2}{|\rb_1 - \rb_2|^4} a \dt a \dphi \\
+    &= \int_{\theta = 0}^{2 \pi} \int_{\varphi = 0}^{2 \pi} \frac{4 a^2 \sin^2 \frac{\theta - \varphi}{2}}{4 a^4 \left( -1 + \cos \left( \theta - \varphi \right) \right)^2} a \dt a \dphi \\
+    &= \int_{\theta = 0}^{2 \pi} \int_{\varphi = 0}^{2 \pi} \frac{\sin^2 \frac{\theta - \varphi}{2}}{\left( -1 + \cos \left( \theta - \varphi \right) \right)^2} \dt \dphi \\
+    &= \pi^2
+\end{align}
+
+Note that this is scale invariant.
+\end{document}
+
+
