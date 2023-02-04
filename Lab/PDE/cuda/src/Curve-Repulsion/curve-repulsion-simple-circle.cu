@@ -4,16 +4,14 @@
 #include <cmath>
 #include <fstream>
 
-#define DELTA_X 0.005
-#define DELTA_T 0.0001
-#define LAMBDA 1
-#define M 100000
+#define DELTA_X 0.1
+#define DELTA_T 0.005
+#define LAMBDA 0.0001
+#define M 10000
 
 #define PLOT_FREQUENCY 10
 #define AZIMUTHAL_SPEED 0.5
 #define ELEVATION 3
-
-#define PI 3.14159265358979
 
 __global__ static void repulsiveCurveDifferential(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrixFlattened, double J);
 __global__ static void repulsiveCurveGradientFlow(double* dev_x, double* dev_y, double* dev_z, double* dev_energyMatrixFlattened, double J);
@@ -22,37 +20,15 @@ int main()
 {
     /* Generate curve */
 
-    /* Example 1: */
-    //std::vector<double> x = { 1, 2, 3, 4, 5, 6 };
-    //std::vector<double> y = { 0, 2, 4, 6, 8, -1 };
-    //std::vector<double> z = { -1, -2, 3, -4, 5, 0.6 };
     std::vector<double> x {};
     std::vector<double> y {};
     std::vector<double> z {};
 
-    /* Example 2: Helix and Semicircle */
-    
-    //const int resolution { 25 };
-    //for (auto i = 0; i < resolution; i++)
-    //{
-    //    double theta = 4 * PI * (double) i / resolution;
-    //    x.push_back(cos(theta));
-    //    y.push_back(sin(theta));
-    //    z.push_back(theta / (2 * PI));
-    //}
-    //for (auto i = 1; i < resolution; i++)
-    //{
-    //    double theta = PI * (double) i / resolution;
-    //    x.push_back(1);
-    //    y.push_back(2 * sin(theta));
-    //    z.push_back(1 + cos(theta));
-    //}
-
     /* Example 3: Just a circle */
-    const int resolution { 32 };
-    for (auto i = 0; i < 32; i++)
+    const int resolution { 10 };
+    for (auto i = 0; i < resolution; i++)
     {
-        double theta = 2 * PI * (double) i / resolution;
+        double theta = 2 * M_PI * (double) i / resolution;
         x.push_back(cos(theta));
         y.push_back(sin(theta));
         z.push_back(0);
