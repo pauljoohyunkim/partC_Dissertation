@@ -55,7 +55,7 @@ To address the issue of non-symmetricness, a simple modification can be done:
     \end{equation}
     where
     \begin{equation}
-        k_{i,j}^{\alpha} = \frac{1}{4} \left( \frac{1}{|x_i - x_j|} + \frac{1}{|x_{i} - x_{j+1}|} + \frac{1}{|x_{i+1} - x_{j}|} + \frac{1}{|x_{i+1} - x_{j+1}|} \right)
+        k_{i,j}^{\alpha} = \frac{1}{4} \left( \frac{1}{|x_i - x_j|^{\alpha}} + \frac{1}{|x_{i} - x_{j+1}|^{\alpha}} + \frac{1}{|x_{i+1} - x_{j}|^{\alpha}} + \frac{1}{|x_{i+1} - x_{j+1}|^{\alpha}} \right)
     \end{equation}
     and $\alpha > 0$.
     Note that the indexing must be done cyclically, so $|i-j| > 1$ is modulo $J$.
