@@ -9,6 +9,7 @@ set(FOURIER_BIN "curve-repulsion-fourier")
 set(CIRCLE_BIN "curve-repulsion-circle")
 set(SIMPLE_CIRCLE_BIN "curve-repulsion-simple-circle")
 set(SIMPLE_FOURIER_BIN "curve-repulsion-simple-fourier")
+set(SIMPLE_2_CIRCLE_BIN "curve-repulsion-simple-2-circle")
 
 add_executable(${FOURIER_BIN} src/Curve-Repulsion/${FOURIER_BIN}.cu src/solver.cu src/geometric-objects.cu src/export.cu)
 set_target_properties(${FOURIER_BIN} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
@@ -16,6 +17,8 @@ add_executable(${CIRCLE_BIN} src/Curve-Repulsion/${CIRCLE_BIN}.cu src/solver.cu 
 set_target_properties(${CIRCLE_BIN} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 add_executable(${SIMPLE_CIRCLE_BIN} src/Curve-Repulsion/${SIMPLE_CIRCLE_BIN}.cu src/solver.cu src/geometric-objects.cu src/export.cu)
 set_target_properties(${SIMPLE_CIRCLE_BIN} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+add_executable(${SIMPLE_2_CIRCLE_BIN} src/Curve-Repulsion/${SIMPLE_2_CIRCLE_BIN}.cu src/solver.cu src/geometric-objects.cu src/export.cu)
+set_target_properties(${SIMPLE_2_CIRCLE_BIN} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 add_executable(${SIMPLE_FOURIER_BIN} src/Curve-Repulsion/${SIMPLE_FOURIER_BIN}.cu src/solver.cu src/geometric-objects.cu src/export.cu)
 set_target_properties(${SIMPLE_FOURIER_BIN} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 
