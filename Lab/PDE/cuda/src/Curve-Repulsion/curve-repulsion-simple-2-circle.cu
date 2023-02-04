@@ -6,10 +6,10 @@
 
 #define DELTA_X 0.1
 #define DELTA_T 0.005
-#define LAMBDA 0.1
-#define M 10000
+#define LAMBDA 0.0001
+#define M 1000
 
-#define PLOT_FREQUENCY 10
+#define PLOT_FREQUENCY 1
 #define AZIMUTHAL_SPEED 0.5
 #define ELEVATION 3
 
@@ -25,7 +25,7 @@ int main()
     std::vector<double> z {};
 
     /* Example 3: Just a circle */
-    const int resolution { 40 };
+    const int resolution { 32 };
     for (auto i = 0; i < resolution; i++)
     {
         double theta = 2 * M_PI * (double) i / resolution;
