@@ -534,6 +534,13 @@ __device__ double cuDifferentialSimple(double* dev_x, double* dev_y, double* dev
                 double xjy = dev_y[j];
                 double xjz = dev_z[j];
 
+                double xipx = dev_x[ip1];
+                double xipy = dev_y[ip1];
+                double xipz = dev_z[ip1];
+                double xjpx = dev_x[jp1];
+                double xjpy = dev_y[jp1];
+                double xjpz = dev_z[jp1];
+
                 /* Perturbation */
                 if (i == index)
                 {
@@ -547,20 +554,32 @@ __device__ double cuDifferentialSimple(double* dev_x, double* dev_y, double* dev
                     xjy += diffy;
                     xjz += diffz;
                 }
+                if (ip1 == index)
+                {
+                    xipx += diffx;
+                    xipy += diffy;
+                    xipz += diffz;
+                }
+                if (jp1 == index)
+                {
+                    xjpx += diffx;
+                    xjpy += diffy;
+                    xjpz += diffz;
+                }
 
                 /* xI, xJ */
-                double xIx = dev_x[ip1] - xix;
-                double xIy = dev_y[ip1] - xiy;
-                double xIz = dev_z[ip1] - xiz;
-                double xJx = dev_x[jp1] - xjx;
-                double xJy = dev_y[jp1] - xjy;
-                double xJz = dev_z[jp1] - xjz;
+                double xIx = xipx - xix;
+                double xIy = xipy - xiy;
+                double xIz = xipz - xiz;
+                double xJx = xjpx - xjx;
+                double xJy = xjpy - xjy;
+                double xJz = xjpz - xjz;
 
                 /* lI, lJ */
                 double lI = l2norm3D(xIx, xIy, xIz);
                 double lJ = l2norm3D(xJx, xJy, xJz);
 
-                de += lI * lJ / l2norm3D(xIx - xJx , xIy - xJy, xIz - xJz);
+                de += lI * lJ / l2norm3D(xix - xjx , xiy - xjy, xiz - xjz);
             }
         }
     }
@@ -581,6 +600,12 @@ __device__ double cuDifferentialSimple(double* dev_x, double* dev_y, double* dev
                 double xjx = dev_x[j];
                 double xjy = dev_y[j];
                 double xjz = dev_z[j];
+                double xipx = dev_x[ip1];
+                double xipy = dev_y[ip1];
+                double xipz = dev_z[ip1];
+                double xjpx = dev_x[jp1];
+                double xjpy = dev_y[jp1];
+                double xjpz = dev_z[jp1];
 
                 /* Perturbation */
                 if (i == index)
@@ -595,20 +620,32 @@ __device__ double cuDifferentialSimple(double* dev_x, double* dev_y, double* dev
                     xjy -= diffy;
                     xjz -= diffz;
                 }
+                if (ip1 == index)
+                {
+                    xipx -= diffx;
+                    xipy -= diffy;
+                    xipz -= diffz;
+                }
+                if (jp1 == index)
+                {
+                    xjpx -= diffx;
+                    xjpy -= diffy;
+                    xjpz -= diffz;
+                }
 
                 /* xI, xJ */
-                double xIx = dev_x[ip1] - xix;
-                double xIy = dev_y[ip1] - xiy;
-                double xIz = dev_z[ip1] - xiz;
-                double xJx = dev_x[jp1] - xjx;
-                double xJy = dev_y[jp1] - xjy;
-                double xJz = dev_z[jp1] - xjz;
+                double xIx = xipx - xix;
+                double xIy = xipy - xiy;
+                double xIz = xipz - xiz;
+                double xJx = xjpx - xjx;
+                double xJy = xjpy - xjy;
+                double xJz = xjpz - xjz;
 
                 /* lI, lJ */
                 double lI = l2norm3D(xIx, xIy, xIz);
                 double lJ = l2norm3D(xJx, xJy, xJz);
 
-                de -= lI * lJ / l2norm3D(xIx - xJx , xIy - xJy, xIz - xJz);
+                de -= lI * lJ / l2norm3D(xix - xjx , xiy - xjy, xiz - xjz);
             }
         }
     }
