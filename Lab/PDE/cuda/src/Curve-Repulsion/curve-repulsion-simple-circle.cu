@@ -2,7 +2,6 @@
 #include "../geometric-objects.hpp"
 #include "../export.hpp"
 #include <cmath>
-#include <matplot/matplot.h>
 #include <fstream>
 
 #define DELTA_X 0.005
