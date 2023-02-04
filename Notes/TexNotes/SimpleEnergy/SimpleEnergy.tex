@@ -6,8 +6,12 @@
 
 \usepackage[]{amsmath}
 \usepackage{mathtools}
+\usepackage{amsthm}
 
 \newcommand{\dgamma}{\, \text{d}\gamma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
 
 \title{Simple Energy}
 \author{Paul Kim}
@@ -29,12 +33,33 @@ For $\alpha \geq 1$, this energy is ill-defined in an analytic framework.
 However, in a discrete scheme inspired by this, there is a natural way to make this well-defined.
 
 \section{Discrete Simple Energy}
-Given a closed, non-intersection polygonal curve $\Gamma \coloneqq \left( x_0, x_1, \cdots, x_{J-1} \right)$
-($x_0 = x_J$)
-define \textbf{discrete simple energy} as:
-\begin{equation}
-    E^{\alpha}\left( \Gamma \right) = \sum_{i=0}^{J-1} \sum_{j \neq i} \frac{1}{|x_i -x_j|^{\alpha}} |x_i - x_{i+1}| |x_j - x_{j+1}|
-\end{equation}
+\begin{definition}
+    Given a closed, non-intersection polygonal curve $\Gamma \coloneqq \left( x_0, x_1, \cdots, x_{J-1} \right)$
+    ($x_0 = x_J$)
+    define \textbf{discrete simple energy of first kind} as:
+    \begin{equation}
+        E_{1}^{\alpha}\left( \Gamma \right) = \sum_{i=0}^{J-1} \sum_{j \neq i} \frac{1}{|x_i -x_j|^{\alpha}} |x_i - x_{i+1}| |x_j - x_{j+1}|
+    \end{equation}
+    where $\alpha > 0$.
+\end{definition}
+
+This is the simplest energy to compute, but it may not be symmetric.
+
+To address the issue of non-symmetricness, a simple modification can be done:
+\begin{definition}
+    Given a closed, non-intersection polygonal curve $\Gamma \coloneqq \left( x_0, x_1, \cdots, x_{J-1} \right)$
+    ($x_0 = x_J$)
+    define \textbf{discrete simple energy of second kind} as:
+    \begin{equation}
+        E_{2}^{\alpha}\left( \Gamma \right) = \sum_{i=0}^{J-1} \sum_{|i - j| > 1} k_{i,j}^{\alpha} |x_i - x_{i+1}| |x_j - x_{j+1}|
+    \end{equation}
+    where
+    \begin{equation}
+        k_{i,j}^{\alpha} = \frac{1}{4} \left( \frac{1}{|x_i - x_j|} + \frac{1}{|x_{i} - x_{j+1}|} + \frac{1}{|x_{i+1} - x_{j}|} + \frac{1}{|x_{i+1} - x_{j+1}|} \right)
+    \end{equation}
+    and $\alpha > 0$.
+    Note that the indexing must be done cyclically, so $|i-j| > 1$ is modulo $J$.
+\end{definition}
 
 \end{document}
 
