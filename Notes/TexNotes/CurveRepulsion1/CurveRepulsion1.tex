@@ -199,6 +199,7 @@ the computation work for RHS can be greatly reduced.
 There is a risk that the curve might keep expanding in order to minimize the energy.
 
 To mitigate that, we put an additional ``penalty'' for the length to the energy.
+\subsection{Length Constraint I}
 In the case of discrete energy, we modify $E$ to $F$ by:
 \begin{equation}
     F = E + \lambda \sum_i \frac{|x_{i+1} - x_i|^2}{2}
@@ -209,7 +210,18 @@ which the gradient flow equation turns into
 \end{equation}
 where $\lambda$ is a parameter which one could experiment with.
 
-However, should this scheme be too expensive, alternatively one may attempt
+\subsection{Length Constraint II}
+In the case that the points show ``clustering behavior'', one could attempt to penalize it by the following energy.
+\begin{equation}
+    F = E + \sum_i \frac{\lambda_i \left( l_i - |x_i - x_{i+1}| \right)^2}{2}
+\end{equation}
+where $\lambda_i$ are positive ``strengths'' of the constraints and $l_i$ are prescribed lengths.
+
+Note that $\lambda_i$ might have to be substantially large.
+
+
+\subsection{Length + Center Constraint}
+Alternatively one may attempt
 \begin{equation}
     F = E + \lambda \sum_i |x_i|^2
 \end{equation}
@@ -217,6 +229,7 @@ which the gradient flow equation turns into
 \begin{equation}
     \dot{x}_i = - \frac{\partial F}{\partial x_i} =  - \frac{\partial E}{\partial x_i} - \lambda x_i
 \end{equation}
+
 
 
 Seems to parallel Lagrange constant in the method of Langrange multipliers.
