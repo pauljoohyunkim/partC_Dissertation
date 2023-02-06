@@ -91,10 +91,12 @@ $x_1, x_2, \cdots, x_J$ (and $x_{J+1} \coloneqq x_1$).
 
 Also denote the edge from $x_i$ to $x_{i+1}$ as $I_i$ (as opposed to the previous section).
 
-The \textbf{discretized energy} $E$ can be expressed as:
+\subsection{Discretized Energy}
+There are a few choices for discretized energy.
+The \textbf{4-point quadrature discretized energy} $E$ can be expressed as:
 \begin{align}
     E &= \sum_{i = 1}^{J} \sum_{\substack{j = 1 \\ |j-i| > 1}} k_{i,j} \norm{x_{i+1} - x_i} \, \norm{x_{j+1} - x_j} 
-    \label{equ: Discretized Energy}
+    \label{equ: 4-point Discretized Energy}
     \\
     k_{i,j} &= \frac{1}{4} \left( 
         k_{\beta}^{\alpha} \left( x_i, x_j, T_i \right)
@@ -107,8 +109,20 @@ The \textbf{discretized energy} $E$ can be expressed as:
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.6]{kernel-2x2.png}
-    \caption{Kernel $k_{i,j}$ computation}
+    \caption{Kernel $k_{i,j}$ for 4-point quadrature discretized energy computation}
 \end{figure}
+
+A potential problem is that it loses the sense of an ``edge''.
+
+Alternatively, \textbf{1-point quadrature discretized energy} $E$ can be expressed as:
+\begin{align}
+    E &= \sum_{i = 1}^{J} \sum_{\substack{j = 1 \\ |j-i| > 1}} k_{i,j} \norm{x_{i+1} - x_i} \, \norm{x_{j+1} - x_j} 
+    \label{equ: 1-point Discretized Energy}
+    \\
+    k_{i,j} &= k_{\beta}^{\alpha} \left( x_{i_m}, x_{j_m}, T_i \right)
+\end{align}
+where $x_{i_m}$ and $x_{j_m}$ are the points that have the minimal distance out of the four corners.
+
 
 Recall the definition of differential, gradient, and gradient flow.
 \begin{definition}[Differential]
@@ -191,7 +205,7 @@ One could now write an explicit Euler scheme based on (\ref{equ: Discrete L2 Gra
 \end{align}
 where $\Delta t$ and $\Delta x$ are small parameters.
 
-Note that in the case that we use (\ref{equ: Discretized Energy}),
+Note that in the case that we use (\ref{equ: 4-point Discretized Energy}),
 by computing the explicit form of the differential of the energy,
 the computation work for RHS can be greatly reduced.
 
@@ -258,7 +272,7 @@ To measure how ``regular-polygonlike'' a curve is, one may define the following 
 \end{definition}
 
 \subsection{Explicit Form of Derivative of Discrete Energy}
-Given (\ref{equ: Discretized Energy}), instead of approximating the differential by central scheme,
+Given (\ref{equ: 4-point Discretized Energy}), instead of approximating the differential by central scheme,
 it is possible to compute the exact differential.
 Recall the definition.
 \begin{align}
