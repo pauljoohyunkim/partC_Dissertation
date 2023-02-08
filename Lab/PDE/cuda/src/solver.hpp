@@ -48,6 +48,9 @@ __device__ double kernelalphabeta(double px, double py, double pz, double qx, do
 /* Pass xi, x_{i+1}, x_j, x_{j+1}, Ti */
 __device__ double kernelFunction(double xix, double xiy, double xiz, double xipx, double xipy, double xipz, double xjx, double xjy, double xjz, double xjpx, double xjpy, double xjpz, double Tix, double Tiy, double Tiz);
 
+/* Tangent point energy, but based on minimal points only */
+__device__ void cuDifferentialTangentMinimal(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, unsigned int J, double* pVar);
+
 /* Simple Energy Differential */
 __device__ double cuDifferentialSimple(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, unsigned int J, double* pVar);
 
@@ -55,8 +58,9 @@ __device__ double cuDifferentialSimple(double* dev_x, double* dev_y, double* dev
 __device__ void cuDifferentialSimpleCentral(double* dev_x, double* dev_y, double* dev_z, int index, double diffx, double diffy, double diffz, unsigned int J, double* pVar);
 __device__ double kernelFunctionSimpleCentral(double xix, double xiy, double xiz, double xipx, double xipy, double xipz, double xjx, double xjy, double xjz, double xjpx, double xjpy, double xjpz, double alpha = 1);
 
-/* Pass a curve */
 __device__ void cross(double x1, double y1, double z1, double x2, double y2, double z2, double &x3, double &y3, double &z3);
+
+__device__ double dot(double x1, double y1, double z1, double x2, double y2, double z2);
 
 __device__ double l2norm3D(double x1, double x2, double x3);
 
