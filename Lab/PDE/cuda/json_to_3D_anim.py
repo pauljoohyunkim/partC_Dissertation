@@ -5,6 +5,7 @@ from matplotlib.animation import FuncAnimation, FFMpegWriter
 import sys
 
 FPS=60
+FRAMESKIP=10
 
 if __name__ == "__main__":
     if len(sys.argv) < 4:
@@ -47,9 +48,11 @@ if __name__ == "__main__":
         ax.set_title(progressString)
         if(t % 10 == 0):
             print(progressString)
+        ax.azim = t / 100
+        ax.elev = 20
         return line,
 
-    ani = FuncAnimation(fig, update, frames=range(M), init_func=init, blit=False)
+    ani = FuncAnimation(fig, update, frames=range(0,M,FRAMESKIP), init_func=init, blit=False)
     
     if len(sys.argv) == 5:
         print("Writing video as " + sys.argv[4])
