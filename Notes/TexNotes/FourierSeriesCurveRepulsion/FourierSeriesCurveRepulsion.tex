@@ -120,10 +120,19 @@ The idea is now to consider this a standard optimiation problem:
 \end{equation}
 which can be attempted by standard techniques such as SDM, bArmijo linesearch, etc.
 
+\subsection{Pro}
 An inherent benefit of this formulation is that there are more various robust methods that can be used for optimizing a function rather than a functional.
 Also one could use much less memory for computation as Fourier series expansion of the closed curve captures it to a very low error with only a few coefficients, whereas in the reduction-of-functional problem, one must store coordinates on the curve at a fine mesh.
 
 One could even go further at using less memory by considering a quaternion version of Fourier theory to capture the curve with less variable, but it does not change the order of complexity.
+
+\subsection{Con}
+A drawback with this method is that the interpolation (at the preprocessing stage) is arbitrary in the sense that an ordered set of points in $\mathbb{R}^3$ can be placed (in order) in any spacing.
+In an interval domain, a potential choice would be placing the ``output values'' on Chebyshev points or Legendre points, but even this is a bit arbitrary.
+Should this become a problem, one could partially resolve this problem by spline interpolation, then taking Fourier series of that spline.
+
+Another drawback is that this is inherently a method for closed curves, not all curves. For a nonclosed curve with two openings, one could map them to \underline{point at infinity}, treating it like a closed curve (in this case, Fourier transform might be more appropriate than Fourier series).
+
 
 \subsection{Complexity}
 For a general approximation of $\mathcal{E}\left( \gamma_J \right)$,
@@ -133,5 +142,4 @@ For a general approximation of $\mathcal{E}\left( \gamma_J \right)$,
 \end{itemize}
 
 \end{document}
-
 
