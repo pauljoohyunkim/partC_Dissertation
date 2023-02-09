@@ -120,7 +120,12 @@ The idea is now to consider this a standard optimiation problem:
 \end{equation}
 which can be attempted by standard techniques such as SDM, bArmijo linesearch, etc.
 
-%\subsection{Complexity}
+\subsection{Complexity}
+For a general approximation of $\mathcal{E}\left( \gamma_J \right)$,
+\begin{itemize}
+    \item Evaluation of the energy functional $\mathcal{E} \left( \gamma_J \right)$ takes $O\left( J \log J \right)$ operations via FFT and possibly Clenshaw-Curtis quadrature.
+    \item Other operations might be of lower order? 
+\end{itemize}
 
 \end{document}
 
