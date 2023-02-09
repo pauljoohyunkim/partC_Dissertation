@@ -38,7 +38,7 @@ where the coefficients $\left\{ a_n \right\}, \left\{ b_n \right\}, \left\{ c_n 
     b_n &= \frac{1}{\pi} \int_{0}^{2\pi} f(x) \sin {\left( nx \right)} \dx &\in \mathbb{R} \\
     c_n &= \frac{1}{2 \pi} \int_{0}^{2\pi} f(x) e^{-inx} \dx &\in \mathbb{C}
 \end{align}
-Fourier convergence theorem states that the rate of convergence is $O\left( \frac{1}{n^{p+1}} \right)$ where $f$ has the first jump discontinuity in the $p$\textsubscript{th} derivative.\footnote{Lecture note}
+Fourier convergence theorem states that the rate of convergence is $O\left( \frac{1}{n^{p+1}} \right)$ where $f$ has the first jump discontinuity in the $p$\textsuperscript{th} derivative.\footnote{Lecture note}
 
 \subsection{Multidimensional Extension}
 For a vector valued function of dimension $N$ (which we will take $N=3$ for our case), we have Fourier series representation in each of the coordinates.
@@ -79,6 +79,13 @@ For $\mathbf{f}:\mathbb{R} \rightarrow \mathbb{R}^N$, we write its Fourier serie
     \end{pmatrix}
     e^{-inx}
 \end{align}
+where the coefficients $\left\{ a_{i,n} \right\}, \left\{ b_{i,n} \right\}, \left\{ c_{i,n} \right\}$ are given by
+\begin{align}
+    a_{i,n} &= \frac{1}{\pi} \int_{0}^{2\pi} f_i (x) \cos {\left( nx \right)} \dx \\
+    b_{i,n} &= \frac{1}{\pi} \int_{0}^{2\pi} f_i (x) \sin {\left( nx \right)} \dx \\
+    c_{i,n} &= \frac{1}{2\pi} \int_{0}^{2\pi} f_i (x) e^{-inx} \dx
+\end{align}
+for $i=1, 2, \cdots, N$
 
 
 \end{document}

@@ -7,12 +7,12 @@
 #include <cmath>
 
 #define LAMBDA 0.01
-#define DELTAX 0.01
-#define DELTAT 0.005
+#define DELTAX 0.05
+#define DELTAT 0.01
 #define AZIMUTHAL_SPEED 0.5
 #define ELEVATION 3
 #define M 10000
-#define PLOT_FREQUENCY 2
+#define PLOT_FREQUENCY 1
 
 #define PI 3.14159265
 
@@ -22,69 +22,15 @@ int main()
 {
     SolverCurveRepulsion dk = SolverCurveRepulsion(2, 4, kernel1);
 
-    /* Points on the curve (or rather... polygon)
-     * x1(2.5, 3, 2)
-     * x2(-3.5, 3.5, -2)
-     * x3(-3.2, -3.25, 1.8)
-     * x4(5.5, -6.5, 0)
-     * */
-
-    /* Example 1 */
-    //Vector3D x1(13.2, -16.4, 11.12);
-    //Vector3D x2(10.18, 9.09, 0);
-    //Vector3D x3(16.53, -25.6, -6.01);
-    //Vector3D x4(-5.91, -21.32, 0);
-    //std::vector<Vector3D> veclist { x1, x2, x3, x4 };
-
-    /* Example 2 */
-    Vector3D x1{ 1, 0, 0 };
-    Vector3D x2{ 0, 1, 0 };
-    Vector3D x3{ -1, 0, 0 };
-    Vector3D x4{ 0, -1, 0 };
-    //Vector3D x5{ 0.74, 3.36, 3.24 };
-    //Vector3D x6{ -6.71, 1.73, 4 };
-    //Vector3D x7{ 1.75, -6.61, -2.28 };
-    //Vector3D x8{ 2.6, 3.21, 5.24 };
-    //Vector3D x9{ -4.7, 6.23, 4.38 };
+    /* Diamond */
+    Vector3D x1{ 1.0, 0, 0 };
+    Vector3D x2{ 0, 1.0, 0 };
+    Vector3D x3{ -1.0, 0, 0 };
+    Vector3D x4{ 0, -1.0, 0 };
     std::vector<Vector3D> veclist { x1, x2, x3, x4 };
-    //
 
-    //Vector3D x1 {1,0,-1};
-    //Vector3D x2 {2,2,-2};
-    //Vector3D x3 {3,4,3};
-    //Vector3D x4 {4,6,-4};
-    //Vector3D x5 {5,8,5};
-    //Vector3D x6 {6,-1,0.6};
-    /* Example 3: Helix + Semicircle */
-    //const int resolution = 16;
-    //std::vector<Vector3D> veclist { x1, x2, x3, x4, x5, x6 };
-    //for (auto i = 0; i < resolution; i++)
-    //{
-    //    double theta = 4 * PI * (double) i / resolution;
-    //    Vector3D p(cos(theta), sin(theta), theta / (2 * PI));
-    //    veclist.push_back(p);
-    //}
-    //for (auto i = 1; i < resolution; i++)
-    //{
-    //    double theta = PI * (double) i / resolution;
-    //    Vector3D p(1, 2 * sin(theta), 1 + cos(theta));
-    //    veclist.push_back(p);
-    //}
-
-    /* Example 3: Just a circle */
-    //const int resolution = 15;
-    //std::vector<Vector3D> veclist { };
-    //for (auto i = 0; i < resolution; i++)
-    //{
-    //    double theta = 2 * PI * (double) i / resolution;
-    //    Vector3D p(cos(theta), sin(theta), 0);
-    //    veclist.push_back(p);
-    //}
     Curve c(veclist);
     auto J = c.getNPoints();
-
-    //double energy = dk.energy(c);
-    //double energydiff = dk.energyDifferential(c, Vector3D(0.1, 0, 0), 1);
 
     Curve d(c.getNPoints());
 

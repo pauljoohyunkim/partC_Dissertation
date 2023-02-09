@@ -26,14 +26,14 @@ if __name__ == "__main__":
     # Plotting
     fig = plt.figure()
     ax = plt.subplot(projection="3d")
-    line, = ax.plot([],[],[], "b")
+    line, = ax.plot([],[],[], "bo")
     xpoints = np.zeros(J, dtype=float)
     ypoints = np.zeros(J, dtype=float)
     zpoints = np.zeros(J, dtype=float)
     def init():
-        ax.set_xlim(-2, 2)
-        ax.set_ylim(-2, 2)
-        ax.set_zlim(-2, 2)
+        ax.set_xlim(-0.5, 0.5)
+        ax.set_ylim(-0.5, 0.5)
+        ax.set_zlim(-0.5, 0.5)
         ax.set_title("Evolution")
         return line,
 
