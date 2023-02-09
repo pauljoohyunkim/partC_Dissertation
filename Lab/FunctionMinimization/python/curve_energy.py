@@ -54,3 +54,20 @@ def simpleCurveEnergy2(curve):
             integral += contribution * np.linalg.norm(curve[i] - curve[i+1]) * np.linalg.norm(curve[j] - curve[j+1])
     
     return integral
+
+# xa is numpy array of a_n in Fourier Series
+# Similarly for others
+# It is expected that all arrays passed have the same shape
+# resolution is the number of points of the curve.
+def curveFromFourierCoefficients(xa, xb, ya, yb, za, zb, resolution=10):
+    J = len(xa) - 1
+
+    def fourierFromCoefficient(an, bn):
+        return lambda x : an[0]/2 + sum([np.cos(x)*an[i] + np.sin(x)*bn[i] for i in range(1, J)])
+    
+    fx = fourierFromCoefficient(xa, xb)
+    fy = fourierFromCoefficient(ya, yb)
+    fz = fourierFromCoefficient(za, zb)
+
+    points = []
+    #for i in range(resolution):
