@@ -55,6 +55,12 @@ def simpleCurveEnergy2(curve, alpha=1):
     
     return integral
 
+def curveEnergyFromFourierCoefficients(xabyabzab, resolution=10):
+    global J
+    xa, xb, ya, yb, za, zb = np.split(xabyabzab, 6)
+    return simpleCurveEnergy2(curveEnergyFromFourierCoefficients(xa, xb, ya, yb, za, zb, resolution=resolution))
+
+
 # xa is numpy array of a_n in Fourier Series
 # Similarly for others
 # It is expected that all arrays passed have the same shape
@@ -64,7 +70,7 @@ def curveFromFourierCoefficients(xa, xb, ya, yb, za, zb, resolution=10):
     J = len(xa) - 1
 
     def fourierFromCoefficient(an, bn):
-        return lambda x : an[0]/2 + sum([np.cos(x)*an[i] + np.sin(x)*bn[i] for i in range(1, J)])
+        return lambda x : an[0]/2 + sum([np.cos(x)*an[i] + np.sin(x)*bn[i] for i in range(1, J + 1)])
     
     fx = fourierFromCoefficient(xa, xb)
     fy = fourierFromCoefficient(ya, yb)
@@ -80,3 +86,25 @@ def curveFromFourierCoefficients(xa, xb, ya, yb, za, zb, resolution=10):
         ]))
     
     return Curve(points, True)
+
+# Pass in a concatenation of xa, xb, ya, yb, za, zb, along with the value J
+def simpleCurveEnergy2Gradient(xabyabzab, perturbation=0.001):
+    global J
+    gradient = np.zeros(len(xabyabzab))
+    coefficientsCopy = deepcopy(xabyabzab)      # Non-destructive
+    for i in range(len(coefficientsCopy)):
+        temp = coefficientsCopy[i]             # temp variable holds the value of the component before perturbation.
+        coefficientsCopy[i] += perturbation     # Positively perturb
+        xa, xb, ya, yb, za, zb = np.split(coefficientsCopy, 6)
+        curvePerturbed = curveFromFourierCoefficients(xa, xb, ya, yb, za, zb)
+        energyP = simpleCurveEnergy2(curvePerturbed)
+        coefficientsCopy[i] = temp
+        coefficientsCopy[i] -= perturbation
+        curvePerturbed = curveFromFourierCoefficients(xa, xb, ya, yb, za, zb)
+        energyN = simpleCurveEnergy2(curvePerturbed)
+        gradient[i] = (energyP - energyN) / (2 * perturbation)
+        coefficientsCopy[i] = temp
+    return gradient
+        
+
+        
