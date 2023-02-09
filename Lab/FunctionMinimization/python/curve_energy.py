@@ -59,6 +59,7 @@ def simpleCurveEnergy2(curve):
 # Similarly for others
 # It is expected that all arrays passed have the same shape
 # resolution is the number of points of the curve.
+# Note that the index-0 item of *b lists are ignored
 def curveFromFourierCoefficients(xa, xb, ya, yb, za, zb, resolution=10):
     J = len(xa) - 1
 
@@ -70,4 +71,12 @@ def curveFromFourierCoefficients(xa, xb, ya, yb, za, zb, resolution=10):
     fz = fourierFromCoefficient(za, zb)
 
     points = []
-    #for i in range(resolution):
+    for i in range(resolution):
+        theta = 2 * np.pi * i / resolution
+        points.append(np.array([
+            fx(theta),
+            fy(theta),
+            fz(theta)
+        ]))
+    
+    return Curve(points, True)
