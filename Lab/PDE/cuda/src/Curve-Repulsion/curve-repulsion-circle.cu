@@ -49,7 +49,7 @@ int main()
     //}
 
     /* Example 3: Just a circle */
-    const int resolution { 32 };
+    const int resolution { 10 };
     for (auto i = 0; i < resolution; i++)
     {
         double theta = 2 * PI * (double) i / resolution;

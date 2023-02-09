@@ -12,10 +12,8 @@
 #define DELTAT 0.005
 #define AZIMUTHAL_SPEED 0.5
 #define ELEVATION 3
-#define M 10000
+#define M 4000
 #define PLOT_FREQUENCY 10
-
-#define PI 3.14159265
 
 static double kernel1(Vector3D& xi, Vector3D& xip1, Vector3D& xj, Vector3D& xjp1, Vector3D& Ti, SolverCurveRepulsion& dk);
 
@@ -73,11 +71,11 @@ int main()
     //}
 
     /* Example 3: Just a circle */
-    const int resolution = 15;
+    const int resolution = 8;
     std::vector<Vector3D> veclist { };
     for (auto i = 0; i < resolution; i++)
     {
-        double theta = 2 * PI * (double) i / resolution;
+        double theta = 2 * M_PI * ((double) i + 0) / resolution;
         Vector3D p(cos(theta), sin(theta), 0);
         veclist.push_back(p);
     }
@@ -108,11 +106,11 @@ int main()
     std::ofstream jsonX("x.json");
     std::ofstream jsonY("y.json");
     std::ofstream jsonZ("z.json");
-    std::ofstream jsonEnergy("energy.json");
+    //std::ofstream jsonEnergy("energy.json");
     jsonX << "[";
     jsonY << "[";
     jsonZ << "[";
-    jsonEnergy << "[";
+    //jsonEnergy << "[";
     
 
 
@@ -140,26 +138,26 @@ int main()
                 jsonX << ",\n";
                 jsonY << ",\n";
                 jsonZ << ",\n";
-                jsonEnergy << ",\n";
+                //jsonEnergy << ",\n";
             }
             std::cout << "Progress: " << t << "/" << M << " (" << (float) t / M * 100 << "%)" << std::endl;
-            double energy_of_curve = dk.energy(c);
-            std::cout << "Energy: " << std::setprecision(15) << energy_of_curve << std::endl;
+            //double energy_of_curve = dk.energy(c);
+            //std::cout << "Energy: " << std::setprecision(15) << energy_of_curve << std::endl;
             vectorParse(jsonX, x, J);
             vectorParse(jsonY, y, J);
             vectorParse(jsonZ, z, J);
-            jsonEnergy << energy_of_curve;
+            //jsonEnergy << energy_of_curve;
         }
     }
 
     jsonX << "]";
     jsonY << "]";
     jsonZ << "]";
-    jsonEnergy << "]";
+    //jsonEnergy << "]";
     jsonX.close();
     jsonY.close();
     jsonZ.close();
-    jsonEnergy.close();
+    //jsonEnergy.close();
 
     return 0;
 }
