@@ -38,7 +38,7 @@ class Curve:
 
 
 # Simple Curve Energy Version 2 (Averaged over 4 points)
-def simpleCurveEnergy2(curve):
+def simpleCurveEnergy2(curve, alpha=1):
     J = curve.J
 
     integral = 0
@@ -48,8 +48,8 @@ def simpleCurveEnergy2(curve):
             if abs(i - j) <= 1 or abs(i - j + J) <= 1 or abs(i - j - J) <= 1:
                 continue
 
-            contribution = 1 / np.linalg.norm(curve[i] - curve[j]) + 1 / np.linalg.norm(curve[i] - curve[j+1])
-            contribution += 1 / np.linalg.norm(curve[i+1] - curve[j]) + 1 / np.linalg.norm(curve[i+1] - curve[j+1])
+            contribution = 1 / np.linalg.norm(curve[i] - curve[j]) ** alpha + 1 / np.linalg.norm(curve[i] - curve[j+1]) ** alpha
+            contribution += 1 / np.linalg.norm(curve[i+1] - curve[j]) ** alpha + 1 / np.linalg.norm(curve[i+1] - curve[j+1]) ** alpha
             contribution /= 4
             integral += contribution * np.linalg.norm(curve[i] - curve[i+1]) * np.linalg.norm(curve[j] - curve[j+1])
     
