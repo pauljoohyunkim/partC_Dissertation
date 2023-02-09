@@ -1,0 +1,49 @@
+%        File: FourierSeriesCurveRepulsion.tex
+%     Created: Thu Feb 09 10:00 AM 2023 G
+% Last Change: Thu Feb 09 10:00 AM 2023 G
+%
+\documentclass[a4paper]{article}
+\usepackage[]{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\title{Gradient Flow to Continuous Optimization via Fourier Series}
+\author{Paul Kim}
+
+\newcommand{\dx}{\, \text{d} x}
+\newcommand{\dgamma}{\, \text{d} \gamma}
+\newcommand{\dgammabf}{\, \text{d} \boldsymbol{\gamma}}
+
+\begin{document}
+\maketitle
+
+We've been concerned about minimizing the energy functional of the form:
+\begin{equation}
+    \mathcal{E} (\boldsymbol{\gamma}) \coloneqq \int_{C_{\boldsymbol{\gamma}}} \int_{C_{\boldsymbol{\gamma}}} k\left( \boldsymbol{\gamma}_1, \boldsymbol{\gamma}_2 \right) \dgammabf_1 \dgammabf_2
+\end{equation}
+where $\boldsymbol{\gamma}: E \rightarrow \mathbb{R}^{3}$ is a parameterization function of a closed curve on the interval $E = [ 0, 2\pi )$ (without loss of generality).
+
+Note that we assume $\boldsymbol{\gamma}$ to be a periodic function of period $2 \pi$.
+
+\section{Multidimensional Fourier Series}
+\subsection{1D Fourier Series}
+Given a continuous 1D $2\pi$-periodic function $f: \mathbb{R} \rightarrow \mathbb{R}$ (where we only need to define $f$ on $[0, 2\pi)$), there exists a Fourier series representation:
+\begin{align}
+    f (x) &= \frac{a_0}{2} + \sum_{i = 1}^{\infty} \left( a_n \cos {\left( nx \right)} + b_n \sin {\left( nx \right)} \right) \\
+    &= \sum_{i=-\infty}^{\infty} c_n e^{i n x}
+\end{align}
+where the coefficients $\left\{ a_n \right\}, \left\{ b_n \right\}, \left\{ c_n \right\}$ are given by
+\begin{align}
+    a_n &= \frac{1}{\pi} \int_{0}^{2\pi} f(x) \cos {\left( nx \right)} \dx &\in \mathbb{R}\\
+    b_n &= \frac{1}{\pi} \int_{0}^{2\pi} f(x) \sin {\left( nx \right)} \dx &\in \mathbb{R} \\
+    c_n &= \frac{1}{2 \pi} \int_{0}^{2\pi} f(x) e^{-inx} \dx &\in \mathbb{C}
+\end{align}
+Fourier convergence theorem states that the rate of convergence is $O\left( \frac{1}{n^{p+1}} \right)$ where $f$ has the first jump discontinuity in the $p$\textsubscript{th} derivative.\footnote{Lecture note}
+
+%\subsection{Multidimensional Extension}
+
+
+
+\end{document}
+
+
