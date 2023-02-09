@@ -29,8 +29,8 @@ Note that we assume $\boldsymbol{\gamma}$ to be a periodic function of period $2
 \subsection{1D Fourier Series}
 Given a continuous 1D $2\pi$-periodic function $f: \mathbb{R} \rightarrow \mathbb{R}$ (where we only need to define $f$ on $[0, 2\pi)$), there exists a Fourier series representation:
 \begin{align}
-    f (x) &= \frac{a_0}{2} + \sum_{i = 1}^{\infty} \left( a_n \cos {\left( nx \right)} + b_n \sin {\left( nx \right)} \right) \\
-    &= \sum_{i=-\infty}^{\infty} c_n e^{i n x}
+    f (x) &= \frac{a_0}{2} + \sum_{n = 1}^{\infty} \left( a_n \cos {\left( nx \right)} + b_n \sin {\left( nx \right)} \right) \\
+    &= \sum_{n=-\infty}^{\infty} c_n e^{i n x}
 \end{align}
 where the coefficients $\left\{ a_n \right\}, \left\{ b_n \right\}, \left\{ c_n \right\}$ are given by
 \begin{align}
@@ -40,8 +40,45 @@ where the coefficients $\left\{ a_n \right\}, \left\{ b_n \right\}, \left\{ c_n 
 \end{align}
 Fourier convergence theorem states that the rate of convergence is $O\left( \frac{1}{n^{p+1}} \right)$ where $f$ has the first jump discontinuity in the $p$\textsubscript{th} derivative.\footnote{Lecture note}
 
-%\subsection{Multidimensional Extension}
+\subsection{Multidimensional Extension}
+For a vector valued function of dimension $N$ (which we will take $N=3$ for our case), we have Fourier series representation in each of the coordinates.
 
+For $\mathbf{f}:\mathbb{R} \rightarrow \mathbb{R}^N$, we write its Fourier series as:
+\begin{align}
+    \mathbf{f} (x) &= \frac{1}{2}
+    \begin{pmatrix}
+        a_{1,0} \\
+        a_{2,0} \\
+        \vdots \\
+        a_{N,0}
+    \end{pmatrix}
+    + \sum_{n=1}^\infty
+    \begin{pmatrix}
+        a_{1,n} & b_{1,n} \\
+        a_{2,n} & b_{2,n} \\
+        \vdots \\
+        a_{N,n} & b_{N,n}
+    \end{pmatrix}
+    \begin{pmatrix}
+        \cos {\left( nx \right)} \\
+        \sin {\left( nx \right)}
+    \end{pmatrix}
+    %\begin{pmatrix}
+    %    a_{1,n} \cos {\left( nx \right)} + b_{1,n} \sin {\left( nx \right)} \\
+    %    a_{2,n} \cos {\left( nx \right)} + b_{2,n} \sin {\left( nx \right)} \\
+    %    \vdots \\
+    %    a_{N,n} \cos {\left( nx \right)} + b_{N,n} \sin {\left( nx \right)} \\
+    %\end{pmatrix}
+    \\
+    &= \sum_{n=-\infty}^{\infty}
+    \begin{pmatrix}
+        c_{1,n} \\
+        c_{2,n} \\
+        \vdots \\
+        c_{N,n}
+    \end{pmatrix}
+    e^{-inx}
+\end{align}
 
 
 \end{document}
