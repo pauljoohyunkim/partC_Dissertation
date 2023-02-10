@@ -6,11 +6,16 @@
 \usepackage[]{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
 
 \title{Gradient Flow to Continuous Optimization via Fourier Series}
 \author{Paul Kim}
 
 \newcommand{\dx}{\, \text{d} x}
+\newcommand{\dt}{\, \text{d} t}
 \newcommand{\dgamma}{\, \text{d} \gamma}
 \newcommand{\dgammabf}{\, \text{d} \boldsymbol{\gamma}}
 \newcommand{\norm}[1]{||#1||}
@@ -90,7 +95,7 @@ where the coefficients $\left\{ a_{i,n} \right\}, \left\{ b_{i,n} \right\}, \lef
 \end{align}
 for $i=1, 2, \cdots, N$
 
-\section{Gradient Flow to Continuous Optimization}
+\section{Gradient Flow to Continuous Optimization I}
 For minimization of $\mathcal{E}$, the original approach is to use the gradient flow equation:
 \begin{equation}
     \frac{\partial \mathcal{E}}{\partial t} = - \grad_X {E}
@@ -141,5 +146,23 @@ For a general approximation of $\mathcal{E}\left( \gamma_J \right)$,
     \item Other operations might be of lower order? 
 \end{itemize}
 
+\section{Gradient Flow to Continuous Optimization II}
+Instead of taking Fourier transform in three different coordinates, one may attempt to use quaternions.
+
+First, note the definition of one-dimensional quaternion FT (qFT)\footnote{Bahri (2019)}
+\begin{definition}
+    \textbf{1-D QFT} of $g$ is given by
+    \begin{align}
+        \mathcal{F}_l \left( g \right) (\omega) \coloneqq \int_{\mathbb{R}} g(t) e^{-\mathbf{j} 2\pi \omega t} \dt
+    \end{align}
+\end{definition}
+with its inverse
+\begin{definition}
+    \textbf{Inverse 1-D QFT} corresponding to 1-D QFT is:
+    \begin{align}
+        g(t) &= \mathcal{F}_l^{-1} \left[ \mathcal{F}_l (g) \right] (t) \\
+        &= \int_{\mathbb{R}} \mathcal{F}_l (g) (\omega) e^{\mathbf{j} 2\pi \omega y}\,\text{d} \omega
+    \end{align}
+\end{definition}
 \end{document}
 
