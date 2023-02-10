@@ -134,7 +134,7 @@ Should this become a problem, one could partially resolve this problem by spline
 Another drawback is that this is inherently a method for closed curves, not all curves. For a nonclosed curve with two openings, one could map them to \underline{point at infinity}, treating it like a closed curve (in this case, Fourier transform might be more appropriate than Fourier series).
 
 
-\subsection{Complexity}
+\subsection{Complexity (Scribble)}
 For a general approximation of $\mathcal{E}\left( \gamma_J \right)$,
 \begin{itemize}
     \item Evaluation of the energy functional $\mathcal{E} \left( \gamma_J \right)$ takes $O\left( J \log J \right)$ operations via FFT and possibly Clenshaw-Curtis quadrature (or just a Newton-Cotes quadrature, as it is a cyclic domain, although since the problem is posed in terms of restriction to an interval, maybe Clenshaw-Curtis is still better?).
