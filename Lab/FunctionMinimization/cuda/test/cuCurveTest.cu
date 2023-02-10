@@ -20,6 +20,7 @@ int main()
     printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 3);
     printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 4);
     printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 5);
+    printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_cos_table[2 + 3 * 1]);
 
     return 0;
 }

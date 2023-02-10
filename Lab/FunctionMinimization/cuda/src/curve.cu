@@ -76,6 +76,8 @@ void FourierCurve::cudafy()
          t = 2pi/res * (res-1)   |
 
            But flattened.
+
+           Access cos(k * 2pi/res * i) = dev_cos_table[k + (J + 1) i]
          */
 
         /* Filling the table row by row */
