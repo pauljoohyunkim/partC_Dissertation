@@ -23,7 +23,7 @@ it is minimized when the points are colinear.
 
 Instead, it might be worth investigating the simplest of curve energies.
 
-\textbf{NOTE: The ``simple energy'' is not scale invariant, which results in the phenomenon of ``reduction to singularity'' when minimizing the energy}.
+\textbf{NOTE: The ``simple energy'' is not scale invariant $\alpha < 2$, which results in the phenomenon of ``reduction to singularity'' when minimizing the energy}.
 \section{Simple Energy}
 For a closed curve $C = \gamma(t)$ over $t \in M$, define \textbf{simple energy} as:
 \begin{equation}
@@ -33,6 +33,13 @@ where $\alpha > 0$.
 
 For $\alpha \geq 1$, this energy is ill-defined in an analytic framework.
 However, in a discrete scheme inspired by this, there is a natural way to make this well-defined.
+
+Note that this energy is scale-invariant if and only if $\alpha = 2$. This may be an important fact.
+When $\alpha < 2$, this energy scales as $k^{2-\alpha}$ where $k$ is a scale factor to a given curve (eg. $\Gamma = k \gamma$),
+meaning that the simple energy is minimized when the curve reduces to singularity (which is not relevant)
+On the other hand, if $\alpha > 2$, then by the same reason, energy reduces as the curve expands.
+
+For our purposes, if simple energy is to be used, \underline{$\alpha$ needs to be taken at least 2}.
 
 \section{Discrete Simple Energy}
 \begin{definition}
