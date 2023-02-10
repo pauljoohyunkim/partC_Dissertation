@@ -41,10 +41,11 @@ class FourierCurve
 
 /* Cross Product */
 __device__ void cross(double x1, double x2, double x3, double y1, double y2, double y3, double& z1, double& z2, double& z3);
-/* trig_table query */
+/* trig_table query
+ * dev_table is either dev_cos_table or dev_sin_table */
 __device__ double dev_trig_table_query(double* dev_table, unsigned int i, unsigned int k);
 /* Fill curve position vectors from coefficients */
-__device__ void fill_pos();
+__device__ void fill_pos(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution, unsigned int J);
 
 /* Primitive DEBUG functions */
 __global__ void printCoefficientsPartiallyDEBUG(double* device_float_value);

@@ -134,9 +134,26 @@ __device__ double dev_trig_table_query(double* dev_table, unsigned int i, unsign
     return dev_table[(J + 1) * i + k];
 }
 
-__device__ void fill_pos()
+__device__ void fill_pos(double* dev_x, double* dev_y, double* dev_z, double* dev_coefficients, double* dev_cos_table, double* dev_sin_table, unsigned int resolution, unsigned int J)
 {
-    
+    for (unsigned i = 0; i < resolution; i++)
+    {
+        dev_x[i] = 0;
+        dev_y[i] = 0;
+        dev_z[i] = 0;
+        for (unsigned k = 1; k <= J; k++)
+        {
+            dev_x[i] += dev_coefficients[k] * dev_trig_table_query(dev_cos_table, k, i, J);
+            dev_x[i] += dev_coefficients[k + (J + 1)] * dev_trig_table_query(dev_sin_table, k, i, J);
+            dev_y[i] += dev_coefficients[k + (J + 1) * 2] * dev_trig_table_query(dev_cos_table, k, i, J);
+            dev_y[i] += dev_coefficients[k + (J + 1) * 3] * dev_trig_table_query(dev_sin_table, k, i, J);
+            dev_z[i] += dev_coefficients[k + (J + 1) * 4] * dev_trig_table_query(dev_cos_table, k, i, J);
+            dev_z[i] += dev_coefficients[k + (J + 1) * 5] * dev_trig_table_query(dev_sin_table, k, i, J);
+        }
+        dev_x[i] += dev_coefficients[0] / 2;
+        dev_y[i] += dev_coefficients[(J + 1) * 2] / 2;
+        dev_z[i] += dev_coefficients[(J + 1) * 4] / 2;
+    }
 }
 
 __global__ void printCoefficientsPartiallyDEBUG(double* device_float_value)
