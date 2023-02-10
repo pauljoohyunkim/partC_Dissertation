@@ -18,6 +18,10 @@ FourierCurve::FourierCurve(std::vector<double>& axa, std::vector<double>& axb, s
 
     /* Up to j^th order term */
     J = axa.size() - 1;
+
+    std::cout << "Fourier curve constructed with" << std::endl;
+    std::cout << "J: " << J << std::endl;
+    std::cout << "resolution: " << resolution << std::endl;
 }
 
 /* Destructor */
@@ -34,6 +38,8 @@ FourierCurve::~FourierCurve()
         cudaFree(dev_sin_table);
         std::cout << "dev_trig_val_table deallocated" << std::endl;
     }
+
+    std::cout << "Fourier curve destroyed!" << std::endl;
 }
 
 /* Load onto GPU */
