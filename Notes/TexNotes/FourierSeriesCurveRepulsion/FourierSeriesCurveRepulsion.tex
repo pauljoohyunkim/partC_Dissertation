@@ -134,6 +134,8 @@ One could even go further at using less memory by considering a quaternion versi
 \subsection{Con}
 A drawback with this method is that the interpolation (at the preprocessing stage) is arbitrary in the sense that an ordered set of points in $\mathbb{R}^3$ can be placed (in order) in any spacing.
 In an interval domain, a potential choice would be placing the ``output values'' on Chebyshev points or Legendre points, but even this is a bit arbitrary.
+In practice, however, it is likely that one ``scans'' a curve at a roughly the same interval, so one could use DFT.
+
 Should this become a problem, one could partially resolve this problem by spline interpolation, then taking Fourier series of that spline.
 
 Another drawback is that this is inherently a method for closed curves, not all curves. For a nonclosed curve with two openings at infinity, one could map them to \underline{point at infinity}, treating it like a closed curve (in this case, Fourier transform might be more appropriate than Fourier series). On the other hand, if it is a finite curve, then one could na\"ively attempt Fourier analysis on discontinuous function.
