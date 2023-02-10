@@ -13,6 +13,9 @@ class FourierCurve
         /* Load data onto GPU VRAM */
         void cudafy();
 
+        /* Pull data from GPU VRAM to host */
+        void cudaFlush();
+
         
         unsigned int J { 0 };
         std::vector<double> xa;
@@ -22,6 +25,9 @@ class FourierCurve
         std::vector<double> za;
         std::vector<double> zb;
         unsigned int resolution { DEFAULT_RESOLUTION };
+        std::vector<double> x;
+        std::vector<double> y;
+        std::vector<double> z;
 
         /* Pointer to memory on GPU */
         /* dev_coefficients is a concatenation of xa, xb, ya, yb, za, zb */
@@ -45,11 +51,12 @@ __device__ void cross(double x1, double x2, double x3, double y1, double y2, dou
  * dev_table is either dev_cos_table or dev_sin_table */
 __device__ double dev_trig_table_query(double* dev_table, unsigned int i, unsigned int k);
 /* Fill curve position vectors from coefficients */
-__device__ void fill_pos(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution, unsigned int J);
+__device__ void fill_pos(double* dev_x, double* dev_y, double* dev_z, double* dev_coefficients, double* dev_cos_table, double* dev_sin_table, unsigned int resolution, unsigned int J);
 
 /* Primitive DEBUG functions */
 __global__ void printCoefficientsPartiallyDEBUG(double* device_float_value);
 __global__ void crossDEBUG(double x1, double x2, double x3, double y1, double y2, double y3);
 __global__ void queryDEBUG(double* dev_table, int i, int k, unsigned int J);
+__global__ void fillDEBUG(double* dev_x, double* dev_y, double* dev_z, double* dev_coefficients, double* dev_cos_table, double* dev_sin_table, unsigned int resolution, unsigned int J);
 
 #endif
