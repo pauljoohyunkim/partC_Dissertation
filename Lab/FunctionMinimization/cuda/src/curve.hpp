@@ -28,13 +28,20 @@ class FourierCurve
         double* dev_coefficients;
         double* dev_cos_table;
         double* dev_sin_table;
+        double* dev_x;
+        double* dev_y;
+        double* dev_z;
 
     private:
         bool dev_coefficient_allocated { false };
         bool dev_trig_val_table_allocated { false };
+        bool dev_curve_points_allocated { false };
 };
+
+__device__ void cross(double x1, double x2, double x3, double y1, double y2, double y3, double& z1, double& z2, double& z3);
 
 /* Primitive DEBUG functions */
 __global__ void printCoefficientsPartiallyDEBUG(double* device_float_value);
+__global__ void crossDEBUG(double x1, double x2, double x3, double y1, double y2, double y3);
 
 #endif

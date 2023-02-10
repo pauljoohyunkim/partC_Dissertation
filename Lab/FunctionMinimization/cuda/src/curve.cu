@@ -31,12 +31,22 @@ FourierCurve::~FourierCurve()
     {
         cudaFree(dev_coefficients);
         std::cout << "dev_coefficients deallocated" << std::endl;
+        dev_coefficient_allocated = false;
     }
     if (dev_trig_val_table_allocated)
     {
         cudaFree(dev_cos_table);
         cudaFree(dev_sin_table);
         std::cout << "dev_trig_val_table deallocated" << std::endl;
+        dev_trig_val_table_allocated = false;
+    }
+    if (dev_curve_points_allocated)
+    {
+        cudaFree(dev_x);
+        cudaFree(dev_y);
+        cudaFree(dev_z);
+        std::cout << "dev_curve_points deallocated" << std::endl;
+        dev_curve_points_allocated = false;
     }
 
     std::cout << "Fourier curve destroyed!" << std::endl;
@@ -99,9 +109,35 @@ void FourierCurve::cudafy()
 
         dev_trig_val_table_allocated = true;
     }
+
+    /* Allocate scratch pad for x, y, z */
+    if (!dev_curve_points_allocated)
+    {
+        cudaMalloc((void**) &dev_x, sizeof(double) * resolution);
+        cudaMalloc((void**) &dev_y, sizeof(double) * resolution);
+        cudaMalloc((void**) &dev_z, sizeof(double) * resolution);
+
+        dev_curve_points_allocated = true;
+    }
+}
+
+__device__ void cross(double x1, double x2, double x3, double y1, double y2, double y3, double& z1, double& z2, double& z3)
+{
+    z1 = x2 * y3 - x3 * y2;
+    z2 = x3 * y1 - x1 * y3;
+    z3 = x1 * y2 - x2 * y1;
 }
 
 __global__ void printCoefficientsPartiallyDEBUG(double* device_float_value)
 {
     printf("%f\n", *device_float_value);
+}
+
+__global__ void crossDEBUG(double x1, double x2, double x3, double y1, double y2, double y3)
+{
+    double z1, z2, z3;
+    cross(x1, x2, x3, y1, y2, y3, z1, z2, z3);
+    printf("%f\n", z1);
+    printf("%f\n", z2);
+    printf("%f\n", z3);
 }
