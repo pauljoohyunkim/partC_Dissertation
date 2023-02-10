@@ -12,6 +12,7 @@ class FourierCurve
 
         /* Load data onto GPU VRAM */
         void cudafy();
+
         
         unsigned int J { 0 };
         std::vector<double> xa;
@@ -38,10 +39,16 @@ class FourierCurve
         bool dev_curve_points_allocated { false };
 };
 
+/* Cross Product */
 __device__ void cross(double x1, double x2, double x3, double y1, double y2, double y3, double& z1, double& z2, double& z3);
+/* trig_table query */
+__device__ double dev_trig_table_query(double* dev_table, unsigned int i, unsigned int k);
+/* Fill curve position vectors from coefficients */
+__device__ void fill_pos();
 
 /* Primitive DEBUG functions */
 __global__ void printCoefficientsPartiallyDEBUG(double* device_float_value);
 __global__ void crossDEBUG(double x1, double x2, double x3, double y1, double y2, double y3);
+__global__ void queryDEBUG(double* dev_table, int i, int k, unsigned int J);
 
 #endif

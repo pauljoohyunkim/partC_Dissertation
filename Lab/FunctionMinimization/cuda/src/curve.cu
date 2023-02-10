@@ -128,6 +128,17 @@ __device__ void cross(double x1, double x2, double x3, double y1, double y2, dou
     z3 = x1 * y2 - x2 * y1;
 }
 
+//Access cos(k * 2pi/res * i) = dev_cos_table[k + (J + 1) i]
+__device__ double dev_trig_table_query(double* dev_table, unsigned int i, unsigned int k, unsigned int J)
+{
+    return dev_table[(J + 1) * i + k];
+}
+
+__device__ void fill_pos()
+{
+    
+}
+
 __global__ void printCoefficientsPartiallyDEBUG(double* device_float_value)
 {
     printf("%f\n", *device_float_value);
@@ -140,4 +151,9 @@ __global__ void crossDEBUG(double x1, double x2, double x3, double y1, double y2
     printf("%f\n", z1);
     printf("%f\n", z2);
     printf("%f\n", z3);
+}
+
+__global__ void queryDEBUG(double* dev_table, int i, int k, unsigned int J)
+{
+    printf("%f\n", dev_trig_table_query(dev_table, i, k, J));
 }
