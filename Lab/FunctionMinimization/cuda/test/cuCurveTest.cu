@@ -14,7 +14,12 @@ int main()
 
     curve.cudafy();
 
-    printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_coefficients, 17);
+    printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 0);
+    printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 1);
+    printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 2);
+    printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 3);
+    printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 4);
+    printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 5);
 
     return 0;
 }
