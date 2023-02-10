@@ -136,7 +136,7 @@ A drawback with this method is that the interpolation (at the preprocessing stag
 In an interval domain, a potential choice would be placing the ``output values'' on Chebyshev points or Legendre points, but even this is a bit arbitrary.
 Should this become a problem, one could partially resolve this problem by spline interpolation, then taking Fourier series of that spline.
 
-Another drawback is that this is inherently a method for closed curves, not all curves. For a nonclosed curve with two openings, one could map them to \underline{point at infinity}, treating it like a closed curve (in this case, Fourier transform might be more appropriate than Fourier series).
+Another drawback is that this is inherently a method for closed curves, not all curves. For a nonclosed curve with two openings at infinity, one could map them to \underline{point at infinity}, treating it like a closed curve (in this case, Fourier transform might be more appropriate than Fourier series). On the other hand, if it is a finite curve, then one could na\"ively attempt Fourier analysis on discontinuous function.
 
 
 \subsection{Complexity (Scribble)}
