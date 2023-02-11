@@ -16,5 +16,10 @@ int main()
 
     fillDifferentialMatrix(curve, 0.1);
 
+    gradientDescent<<<6 * (curve.J + 1), 1>>>(curve.dev_coefficients, curve.dev_differential_coefficients, 0.1, curve.J);
+
+    curve.cudaFlush();
+
+
     return 0;
 }

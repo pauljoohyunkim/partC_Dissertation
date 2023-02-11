@@ -16,4 +16,6 @@ __global__ void sumEnergyMatrix(double* dev_energy_matrix, unsigned int resoluti
 
 void fillDifferentialMatrix(FourierCurve& curve, double perturbation);
 
+__global__ void gradientDescent(double* dev_coefficients, double* dev_differential_coefficients, double stepsize, unsigned int J);
+
 #endif

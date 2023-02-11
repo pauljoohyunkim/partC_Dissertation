@@ -178,12 +178,7 @@ void FourierCurve::cudaFlush()
     cudaMemcpy(&z[0], dev_z, sizeof(double) * resolution, cudaMemcpyDeviceToHost);
 
     /* Coefficient values */
-    cudaMemcpy(&xa[0], dev_coefficients, sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
-    cudaMemcpy(&xb[0], dev_coefficients + (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
-    cudaMemcpy(&ya[0], dev_coefficients + 2 * (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
-    cudaMemcpy(&yb[0], dev_coefficients + 3 * (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
-    cudaMemcpy(&za[0], dev_coefficients + 4 * (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
-    cudaMemcpy(&zb[0], dev_coefficients + 5 * (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&xa[0], dev_coefficients, sizeof(double) * 6 * (J + 1), cudaMemcpyDeviceToHost);
 
     /* Differential */
     cudaMemcpy(&coeff_differential[0], dev_differential_coefficients, sizeof(double) * 6 * (J + 1), cudaMemcpyDeviceToHost);

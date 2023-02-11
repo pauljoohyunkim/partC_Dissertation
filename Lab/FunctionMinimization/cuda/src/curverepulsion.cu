@@ -141,6 +141,17 @@ void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
     }
 }
 
+/* Pass in 6 (J + 1) */
+__global__ void gradientDescent(double* dev_coefficients, double* dev_differential_coefficients, double stepsize, unsigned int J)
+{
+    int i = blockIdx.x;
+    if (i < 6 * ((int) J + 1))
+    {
+        dev_coefficients[i] -= stepsize * dev_differential_coefficients[i];
+    }
+    
+}
+
 
 //__global__ void energyDEBUG(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution)
 //{
