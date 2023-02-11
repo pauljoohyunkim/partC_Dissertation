@@ -18,12 +18,12 @@ class FourierCurve
 
         
         unsigned int J { 0 };
-        std::vector<double> xa;
-        std::vector<double> xb;
-        std::vector<double> ya;
-        std::vector<double> yb;
-        std::vector<double> za;
-        std::vector<double> zb;
+        double* xa;
+        double* xb;
+        double* ya;
+        double* yb;
+        double* za;
+        double* zb;
         std::vector<double> coeff_differential;
         unsigned int resolution { DEFAULT_RESOLUTION };
         std::vector<double> x;

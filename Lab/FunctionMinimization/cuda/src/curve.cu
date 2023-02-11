@@ -1,23 +1,30 @@
 #include "curve.hpp"
 #include <vector>
 #include <iostream>
+#include <cstdlib>
 
 /* Constructor */
 FourierCurve::FourierCurve(std::vector<double>& axa, std::vector<double>& axb, std::vector<double>& aya, std::vector<double>& ayb, std::vector<double>& aza, std::vector<double>& azb, unsigned int aresolution)
 {
-    /* Pass initial coefficient list. */
-    xa = axa;
-    xb = axb;
-    ya = aya;
-    yb = ayb;
-    za = aza;
-    zb = azb;
-
     /* Set resolution of which will be used for computation. Higher resolution means more accurate result but lower performance. */
     resolution = aresolution;
 
     /* Up to j^th order term */
     J = axa.size() - 1;
+
+    /* Pass initial coefficient list. */
+    xa = new double [6 * (J + 1)];
+    xb = xa + 1 * (J + 1);
+    ya = xa + 2 * (J + 1);
+    yb = xa + 3 * (J + 1);
+    za = xa + 4 * (J + 1);
+    zb = xa + 5 * (J + 1);
+    std::copy(axa.begin(), axa.end(), xa);
+    std::copy(axb.begin(), axb.end(), xb);
+    std::copy(aya.begin(), aya.end(), ya);
+    std::copy(ayb.begin(), ayb.end(), yb);
+    std::copy(aza.begin(), aza.end(), za);
+    std::copy(azb.begin(), azb.end(), zb);
 
     /* Set host memory for curve points */
     x.resize(resolution, 0);
@@ -38,6 +45,8 @@ FourierCurve::FourierCurve(std::vector<double>& axa, std::vector<double>& axb, s
 /* Destructor */
 FourierCurve::~FourierCurve()
 {
+    delete [] xa;
+
     if (dev_coefficient_allocated)
     {
         cudaFree(dev_coefficients);
