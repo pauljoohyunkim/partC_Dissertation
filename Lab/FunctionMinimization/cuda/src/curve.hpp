@@ -41,8 +41,6 @@ class FourierCurve
         double* dev_x;
         double* dev_y;
         double* dev_z;
-        /* dev_energy is one-double array */
-        double* dev_energy;
         double* dev_energy_matrix;
         
 

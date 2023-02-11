@@ -28,8 +28,8 @@ int main()
 
     dim3 grid(curve.resolution, curve.resolution);
     tangentPointEnergyMatrixFill<<<grid, 1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_energy_matrix, curve.resolution);
-    sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_energy);
-    printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_energy[0]);
+    sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_differential_coefficients);
+    printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[0]);
     cudaDeviceSynchronize();
 
     curve.cudaFlush();
