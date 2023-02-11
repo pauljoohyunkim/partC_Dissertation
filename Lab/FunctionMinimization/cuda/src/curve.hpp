@@ -24,6 +24,7 @@ class FourierCurve
         std::vector<double> yb;
         std::vector<double> za;
         std::vector<double> zb;
+        std::vector<double> coeff_differential;
         unsigned int resolution { DEFAULT_RESOLUTION };
         std::vector<double> x;
         std::vector<double> y;
@@ -33,6 +34,7 @@ class FourierCurve
         /* dev_coefficients is a concatenation of xa, xb, ya, yb, za, zb */
         /* dev_trig_val_table is a table of precomputed cosine and sine values. */
         double* dev_coefficients;
+        double* dev_differential_coefficients;
         double* dev_cos_table;
         double* dev_sin_table;
         double* dev_x;
@@ -41,6 +43,7 @@ class FourierCurve
 
     private:
         bool dev_coefficient_allocated { false };
+        bool dev_differential_coefficient_allocated { false };
         bool dev_trig_val_table_allocated { false };
         bool dev_curve_points_allocated { false };
 };

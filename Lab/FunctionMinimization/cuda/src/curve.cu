@@ -65,13 +65,6 @@ void FourierCurve::cudafy()
         /* Allocate VRAM */
         cudaMalloc((void**) &dev_coefficients, sizeof(double) * 6 * (J + 1));
 
-        /* Copy all the coefficients, concatenated. */
-        cudaMemcpy(dev_coefficients, &xa[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
-        cudaMemcpy(dev_coefficients + (J + 1), &xb[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
-        cudaMemcpy(dev_coefficients + 2 * (J + 1), &ya[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
-        cudaMemcpy(dev_coefficients + 3 * (J + 1), &yb[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
-        cudaMemcpy(dev_coefficients + 4 * (J + 1), &za[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
-        cudaMemcpy(dev_coefficients + 5 * (J + 1), &zb[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
         dev_coefficient_allocated = true;
     }
     if (!dev_trig_val_table_allocated)
@@ -124,6 +117,15 @@ void FourierCurve::cudafy()
 
         dev_curve_points_allocated = true;
     }
+
+    /* Copy all the coefficients, concatenated.
+     At every iteration of cudafy function, this is the only part that is run again. */
+    cudaMemcpy(dev_coefficients, &xa[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_coefficients + (J + 1), &xb[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_coefficients + 2 * (J + 1), &ya[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_coefficients + 3 * (J + 1), &yb[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_coefficients + 4 * (J + 1), &za[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_coefficients + 5 * (J + 1), &zb[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
 }
 
 void FourierCurve::cudaFlush()
@@ -140,6 +142,7 @@ void FourierCurve::cudaFlush()
     cudaMemcpy(&yb[0], dev_coefficients + 3 * (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
     cudaMemcpy(&za[0], dev_coefficients + 4 * (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
     cudaMemcpy(&zb[0], dev_coefficients + 5 * (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&coeff_differential[0], dev_coefficients, sizeof(double) * 6 * (J + 1), cudaMemcpyDeviceToHost);
 
     std::cout << "Flushed!" << std::endl;
 }
