@@ -101,6 +101,8 @@ __global__ static void centralDifference(double& energyplus, double& energyminus
     energyplus = energyplus / (2 * perturbation);
 }
 
+
+/* After this operation, first out of the two rows of curve.dev_differential_coefficients will be gradient of tangent point energy */
 void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
 {
     /* xa perturbation */
