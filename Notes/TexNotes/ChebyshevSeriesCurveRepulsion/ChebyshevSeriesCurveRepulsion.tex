@@ -1,0 +1,96 @@
+%        File: ChebyshevSeriesCurveRepulsion.tex
+%     Created: Sat Feb 11 02:00 PM 2023 G
+% Last Change: Sat Feb 11 02:00 PM 2023 G
+%
+\documentclass[a4paper]{article}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\newcommand{\dx}{\, \text{d} x}
+\newcommand{\dgamma}{\, \text{d} \gamma}
+\newcommand{\gammabf}{\boldsymbol{\gamma}}
+
+\title{Chebyshev Analogue of Fourier Series Curve Repulsion in a Finite Line Domain}
+\author{Paul Kim}
+\begin{document}
+\maketitle
+
+Recall the reduction of energy problem where the one attempts to reduce the energy functional of the form
+\begin{equation}
+    \mathcal{E} (\gammabf) \coloneqq \int_{C_\gamma} \int_{C_\gamma} k\left( \gammabf_1, \gammabf_2 \right) \dgamma_1 \dgamma_2
+\end{equation}
+where $\gammabf: E \rightarrow \mathbb{R}^3$ is a parameterized function of a finite (continuous) curve with ends at $\gammabf(-1)$ and $\gammabf(1)$ (here we take $E = \left[ -1,1 \right]$ without loss of generality).
+
+\section{Multidimensional Chebyshev Series}
+\subsection{1D Chebyshev Series}
+Given a Lipschitz continuous 1D $f:\left[ -1,1 \right] \rightarrow \mathbb{R}$, there exists a Chebyshev series representation:
+\begin{align}
+    f(x) &= \frac{a_0}{2} + \sum_{n = 1}^{\infty} a_n T_k(x)
+\end{align}
+where the coefficient $\left\{ a_n \right\}$ are given by
+\begin{equation}
+    a_n = \frac{2}{\pi} \int_{-1}^{1} \frac{f(x) T_n(x)}{\sqrt{1-x^2}}
+\end{equation}
+Chebyshev-analogous theorem of Fourier convergence theorem states that, for $f$ that has absolutely continuous derivative upto order $\nu - 1$ and $f^{(\nu)}$ has bounded variation, then the coefficients decay as $O\left( \frac{1}{n^{\nu + 1}} \right)$.
+
+\subsection{Multidimensional Extension}
+For a vector valued function of dimension $N$ (which we will take $N=3$ for our case), we have Chebyshev series representation in each of the coordinates.
+
+For $\mathbf{f}:\mathbb{R} \rightarrow \mathbb{R}^N$, we write its Chebyshev series as:
+\begin{align}
+    \mathbf{f} &= \frac{1}{2}
+    \begin{pmatrix}
+        a_{1,0} \\
+        a_{2,0} \\
+        \vdots \\
+        a_{N,0}
+    \end{pmatrix}
+    +
+    \sum_{n = 1}^{\infty} 
+    \begin{pmatrix}
+        a_{1,n} \\
+        a_{2,n} \\
+        \vdots \\
+        a_{N,n}
+    \end{pmatrix}
+    T_n(x)
+\end{align}
+where the coefficients $\left\{ a_{i,n} \right\}$ are given by
+\begin{equation}
+    a_{i,n} = \frac{2}{\pi} \int_{-1}^{1} \frac{f_i(x) T_n(x)}{\sqrt{1-x^2}}
+\end{equation}
+for $i = 1, 2, \cdots, N$
+
+\section{Gradient Flow to Continuous Optmization}
+As it was done in Fourier Series, consider expressing $\gammabf (t)$ as a 3D Chebyshev series.
+\begin{equation}
+    \gammabf(t) = \frac{\mathbf{a}_0}{2} + \sum_{n=1}^{\infty} \mathbf{a}_n T_n(x)
+\end{equation}
+
+Truncate to order $J$ term for approximation:
+\begin{equation}
+    \gammabf_J (t) = \frac{\mathbf{a}_0}{2} + \sum_{n=1}^{\infty} \mathbf{a}_n T_n(x)
+\end{equation}
+
+Then the reduction process of $\mathcal{E} \left( \gammabf \right)$ can be approximated by reduction process of $\mathcal{E} \left( \gammabf_J \right)$. Notice that we can consider $\mathcal{E} \left( \gammabf_J \right): \mathbb{R}^{3(J + 1)} \rightarrow \mathbb{R}$ where the parameters are the Chebyshev coefficients in 3D.
+Now we may consider the standard optimization problem:
+\begin{equation}
+    \min_{\left[ \mathbf{a}_0, \cdots, \mathbf{a}_J \right]} \mathcal{E} \left( \gammabf_J \right)
+\end{equation}
+
+Unlike Fourier series curve repulsion case, this time we have a lower-dimension optimization problem, which can be solved with higher performance.
+(This maybe due to less information needed to capture the notion of a line segment than a closed curve.)
+
+\section{Interpolation}
+Initial curve should be interpolated.
+The issue with a finite interval curve is that equispaced interpolation is considered a bad practice; it is known that the na\"ive interpolation using equispaced points is unstable.
+A natural choice here would be points interpolated at Chebyshev points.
+
+One now needs a fast algorithm to get coefficients fast.
+A possibility is to use barycentric interpolation formula, then exploit the fact that Chebyshev polynomials are orthogonal polynomials.
+
+\end{document}
+
+

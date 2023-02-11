@@ -27,7 +27,7 @@
 
 We've been concerned about minimizing the energy functional of the form:
 \begin{equation}
-    \mathcal{E} (\boldsymbol{\gamma}) \coloneqq \int_{C_{\boldsymbol{\gamma}}} \int_{C_{\boldsymbol{\gamma}}} k\left( \boldsymbol{\gamma}_1, \boldsymbol{\gamma}_2 \right) \dgammabf_1 \dgammabf_2
+    \mathcal{E} (\boldsymbol{\gamma}) \coloneqq \int_{C_{\boldsymbol{\gamma}}} \int_{C_{\boldsymbol{\gamma}}} k\left( \boldsymbol{\gamma}_1, \boldsymbol{\gamma}_2 \right) \dgamma_1 \dgamma_2
 \end{equation}
 where $\boldsymbol{\gamma}: E \rightarrow \mathbb{R}^{3}$ is a parameterization function of a closed curve on the interval $E = [ 0, 2\pi )$ (without loss of generality).
 
@@ -111,17 +111,17 @@ However, consider expressing $\boldsymbol{\gamma}(t)$ as a 3D Fourier series as:
     \boldsymbol{\gamma}(t) = \sum_{n=-\infty}^{\infty} \mathbf{c}_n e^{-int}
 \end{equation}
 
-One could approximate this to $J$ terms:
+One could approximate this to $J$-multiple frequency terms:
 \begin{equation}
-    \boldsymbol{\gamma}_N (t) = \sum_{n = -J}^{J} \mathbf{c}_n e^{-int}
+    \boldsymbol{\gamma}_J (t) = \sum_{n = -J}^{J} \mathbf{c}_n e^{-int}
 \end{equation}
 (Noting $\norm{\boldsymbol{\gamma} - \boldsymbol{\gamma}_J} = O\left( \frac{1}{J^{p+1}} \right)$)
 
 Then now the reduction process of $\mathcal{E}\left( \gamma \right)$ can be approximated by the reduction process of $\mathcal{E}\left( \gamma_J \right)$.
 It is paramount to note that $\mathcal{E} \left( \gamma_J \right): \mathbb{R}^{3\left( 2J + 1 \right)} = \mathbb{R}^{6J + 3} \rightarrow \mathbb{R}$ where the parameters are the Fourier coefficients in 3D.
-The idea is now to consider this a standard optimiation problem:
+The idea is now to consider this a standard optimization problem:
 \begin{equation}
-    \min_{\left[ \mathbf{c}_{-J}, \cdots, \mathbf{c}_{J} \right]} \mathcal{E} \left( \gamma_J \right)
+    \min_{\left[ \mathbf{c}_{-J}, \cdots, \mathbf{c}_{J} \right]} \mathcal{E} \left( \boldsymbol{\gamma}_J \right)
 \end{equation}
 which can be attempted by standard techniques such as SDM, bArmijo linesearch, etc.
 
@@ -138,7 +138,7 @@ In practice, however, it is likely that one ``scans'' a curve at a roughly the s
 
 Should this become a problem, one could partially resolve this problem by spline interpolation, then taking Fourier series of that spline.
 
-Another drawback is that this is inherently a method for closed curves, not all curves. For a nonclosed curve with two openings at infinity, one could map them to \underline{point at infinity}, treating it like a closed curve (in this case, Fourier transform might be more appropriate than Fourier series). On the other hand, if it is a finite curve, then one could na\"ively attempt Fourier analysis on discontinuous function.
+Another drawback is that this is inherently a method for closed curves, not all curves. For a nonclosed curve with two openings at infinity, one could map them to \underline{point at infinity}, treating it like a closed curve (in this case, Fourier transform might be more appropriate than Fourier series). On the other hand, if it is a finite curve, then one could na\"ively attempt Fourier analysis on discontinuous function. \textbf{[See ChebyshevSeriesCurveRepulsion.pdf]}.
 
 
 \subsection{Complexity (Scribble)}
