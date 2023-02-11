@@ -2,6 +2,8 @@
 #include "curve.hpp"
 #include <iostream>
 
+__global__ static void centralDifference(double& energyplus, double& energyminus, double perturbation);
+
 __device__ double kernelalphabeta(double px, double py, double pz, double qx, double qy, double qz, double Tx, double Ty, double Tz, double alpha, double beta)
 {
     double pmqx = px - qx;
@@ -93,10 +95,16 @@ __global__ void sumEnergyMatrix(double* dev_energy_matrix, unsigned int resoluti
     *dev_energy = energy;
 }
 
+__global__ static void centralDifference(double& energyplus, double& energyminus, double perturbation)
+{
+    energyplus = energyplus - energyminus;
+    energyplus = energyplus / (2 * perturbation);
+}
+
 void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
 {
     /* xa perturbation */
-    for (unsigned int coeffIndex = 0; coeffIndex < curve.J + 1; coeffIndex++)
+    for (unsigned int coeffIndex = 0; coeffIndex < 6 * (curve.J + 1); coeffIndex++)
     {
         double temp;
         temp = curve.xa[coeffIndex];
@@ -109,7 +117,6 @@ void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
         sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_differential_coefficients + coeffIndex);
         printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[coeffIndex]);
         cudaDeviceSynchronize();
-        curve.cudaFlush();
 
         curve.xa[coeffIndex] = temp;
 
@@ -121,9 +128,16 @@ void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
         sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_differential_coefficients + 6 * (curve.J + 1) + coeffIndex);
         printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[6 * (curve.J + 1) + coeffIndex]);
         cudaDeviceSynchronize();
-        curve.cudaFlush();
 
         curve.xa[coeffIndex] = temp;
+        curve.cudafy();
+
+        centralDifference<<<1,1>>>(curve.dev_differential_coefficients[coeffIndex], curve.dev_differential_coefficients[6 * (curve.J + 1) + coeffIndex], perturbation);
+
+        printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[coeffIndex]);
+        cudaDeviceSynchronize();
+
+        printf("Done\n");
     }
 }
 
