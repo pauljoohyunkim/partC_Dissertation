@@ -100,19 +100,30 @@ void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
     {
         double temp;
         temp = curve.xa[coeffIndex];
-        /* Perturbation */
+        /* Perturbation+ */
         curve.xa[coeffIndex] += perturbation;
         curve.cudafy();
         fill_pos_from_host<<<1,1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_coefficients, curve.dev_cos_table, curve.dev_sin_table, curve.resolution, curve.J);
         dim3 grid(curve.resolution, curve.resolution);
         tangentPointEnergyMatrixFill<<<grid, 1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_energy_matrix, curve.resolution);
-        sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_differential_coefficients);
-        printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[0]);
+        sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_differential_coefficients + coeffIndex);
+        printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[coeffIndex]);
         cudaDeviceSynchronize();
         curve.cudaFlush();
 
         curve.xa[coeffIndex] = temp;
 
+        /* Perturbation- */
+        curve.xa[coeffIndex] -= perturbation;
+        curve.cudafy();
+        fill_pos_from_host<<<1,1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_coefficients, curve.dev_cos_table, curve.dev_sin_table, curve.resolution, curve.J);
+        tangentPointEnergyMatrixFill<<<grid, 1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_energy_matrix, curve.resolution);
+        sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_differential_coefficients + 6 * (curve.J + 1) + coeffIndex);
+        printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[6 * (curve.J + 1) + coeffIndex]);
+        cudaDeviceSynchronize();
+        curve.cudaFlush();
+
+        curve.xa[coeffIndex] = temp;
     }
 }
 

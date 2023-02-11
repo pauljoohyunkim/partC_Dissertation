@@ -14,7 +14,7 @@ int main()
     FourierCurve curve(xa, xb, ya, yb, za, zb);
 
 
-    fillDifferentialMatrix(curve, 0);
+    fillDifferentialMatrix(curve, 0.1);
 
     return 0;
 }
