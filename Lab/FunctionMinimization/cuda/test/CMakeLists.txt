@@ -4,7 +4,7 @@ project(CurveRepulsionTest LANGUAGES CUDA CXX)
 
 add_library(fouriercurve STATIC ../src/curve.cu)
 
-add_executable(cuCurveTest cuCurveTest.cu ../src/curve.cu)
+add_executable(cuCurveTest cuCurveTest.cu ../src/curve.cu ../src/curverepulsion.cu)
 set_target_properties(cuCurveTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 
 add_executable(cuCrossTest cuCrossTest.cu ../src/curve.cu)

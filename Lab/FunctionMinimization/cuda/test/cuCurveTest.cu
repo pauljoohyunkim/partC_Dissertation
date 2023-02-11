@@ -1,4 +1,5 @@
 #include "../src/curve.hpp"
+#include "../src/curverepulsion.hpp"
 #include <vector>
 
 int main()
@@ -19,11 +20,13 @@ int main()
     //printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 2);
     //printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 3);
     //printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 4);
-    printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 5);
+    //printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 5);
     //printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_cos_table[2 + 3 * 1]);
-    queryDEBUG<<<1,1>>>(curve.dev_cos_table, 1, 2, curve.J);
+    //queryDEBUG<<<1,1>>>(curve.dev_cos_table, 1, 2, curve.J);
 
     fillDEBUG<<<1,1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_coefficients, curve.dev_cos_table, curve.dev_sin_table, curve.resolution, curve.J);
+
+    energyDEBUG<<<1,1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.resolution);
 
     curve.cudaFlush();
 
