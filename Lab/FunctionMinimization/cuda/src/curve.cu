@@ -59,6 +59,13 @@ FourierCurve::~FourierCurve()
         std::cout << "dev_curve_points deallocated" << std::endl;
         dev_curve_points_allocated = false;
     }
+    if (dev_energy_matrix_allocated)
+    {
+        cudaFree(dev_energy);
+        cudaFree(dev_energy_matrix);
+        std::cout << "dev_energy* deallocated" << std::endl;
+        dev_energy_matrix_allocated = false;
+    }
 
     std::cout << "Fourier curve destroyed!" << std::endl;
 }
@@ -127,6 +134,7 @@ void FourierCurve::cudafy()
     if (!dev_energy_matrix_allocated)
     {
         cudaMalloc((void**) &dev_energy_matrix, sizeof(double) * resolution * resolution);
+        cudaMalloc((void**) &dev_energy, sizeof(double));
 
         dev_energy_matrix_allocated = true;
     }

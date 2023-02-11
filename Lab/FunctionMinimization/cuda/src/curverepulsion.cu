@@ -81,6 +81,18 @@ __global__ void tangentPointEnergyMatrixFill(double* dev_x, double* dev_y, doubl
     }
 }
 
+/* Pass in 1 for parallel blocks */
+__global__ void sumEnergyMatrix(double* dev_energy_matrix, unsigned int resolution, double* dev_energy)
+{
+    double energy { 0 };
+    for (unsigned int i = 0; i < resolution * resolution; i++)
+    {
+        energy += dev_energy_matrix[i];
+    }
+
+    dev_energy[0] = energy;
+}
+
 //__global__ void energyDEBUG(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution)
 //{
 //    double energy = tangentPointEnergy(dev_x, dev_y, dev_z, resolution);

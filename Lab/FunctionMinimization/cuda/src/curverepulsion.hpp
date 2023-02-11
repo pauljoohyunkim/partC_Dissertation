@@ -10,6 +10,6 @@ __device__ double quadrature4PointSummand(double xix, double xiy, double xiz, do
 
 __global__ void tangentPointEnergyMatrixFill(double* dev_x, double* dev_y, double* dev_z, double* dev_energy_matrix, unsigned int resolution);
 
-__global__ void energyDEBUG(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution);
+__global__ void sumEnergyMatrix(double* dev_energy_matrix, unsigned int resolution, double* dev_energy);
 
 #endif
