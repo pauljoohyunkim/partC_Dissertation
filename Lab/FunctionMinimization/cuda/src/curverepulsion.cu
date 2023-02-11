@@ -117,7 +117,7 @@ void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
         dim3 grid(curve.resolution, curve.resolution);
         tangentPointEnergyMatrixFill<<<grid, 1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_energy_matrix, curve.resolution);
         sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_differential_coefficients + coeffIndex);
-        printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[coeffIndex]);
+        //printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[coeffIndex]);
         cudaDeviceSynchronize();
 
         curve.xa[coeffIndex] = temp;
@@ -128,7 +128,7 @@ void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
         fill_pos_from_host<<<1,1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_coefficients, curve.dev_cos_table, curve.dev_sin_table, curve.resolution, curve.J);
         tangentPointEnergyMatrixFill<<<grid, 1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_energy_matrix, curve.resolution);
         sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_differential_coefficients + 6 * (curve.J + 1) + coeffIndex);
-        printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[6 * (curve.J + 1) + coeffIndex]);
+        //printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[6 * (curve.J + 1) + coeffIndex]);
         cudaDeviceSynchronize();
 
         curve.xa[coeffIndex] = temp;
@@ -136,7 +136,7 @@ void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
 
         centralDifference<<<1,1>>>(curve.dev_differential_coefficients[coeffIndex], curve.dev_differential_coefficients[6 * (curve.J + 1) + coeffIndex], perturbation);
 
-        printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[coeffIndex]);
+        //printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[coeffIndex]);
         cudaDeviceSynchronize();
 
         printf("Done\n");
@@ -153,10 +153,3 @@ __global__ void gradientDescent(double* dev_coefficients, double* dev_differenti
     }
     
 }
-
-
-//__global__ void energyDEBUG(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution)
-//{
-//    double energy = tangentPointEnergy(dev_x, dev_y, dev_z, resolution);
-//    printf("Energy: %f\n", energy);
-//}
