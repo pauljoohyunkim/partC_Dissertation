@@ -43,12 +43,14 @@ __device__ double quadrature4PointSummand(double xix, double xiy, double xiz, do
     return res / 4 * xINorm * xJNorm;
 }
 
-__device__ double tangentPointEnergy(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution)
+/* Pass in resolution x resolution */
+__global__ void tangentPointEnergyMatrixFill(double* dev_x, double* dev_y, double* dev_z, double* dev_energy_matrix, unsigned int resolution)
 {
-    double energy { 0 };
-    for (int i = 0; i < (int) resolution; i++)
+    int i = blockIdx.x;
+    int j = blockIdx.y;
+    if (i < (int) resolution)
     {
-        for (int j = 0; j < (int) resolution; j++)
+        if (j < (int) resolution)
         {
             if (abs(i - j) > 1 && abs(i - j + (int) resolution) > 1 && abs(i - j - (int) resolution) > 1)
             {
@@ -72,17 +74,15 @@ __device__ double tangentPointEnergy(double* dev_x, double* dev_y, double* dev_z
                 double xjpy = dev_y[jp];
                 double xjpz = dev_z[jp];
 
-                energy += quadrature4PointSummand(xix, xiy, xiz, xipx, xipy, xipz,
+                dev_energy_matrix[resolution * i + j] = quadrature4PointSummand(xix, xiy, xiz, xipx, xipy, xipz,
                         xjx, xjy, xjz, xjpx, xjpy, xjpz);
             }
         }
     }
-
-    return energy;
 }
 
-__global__ void energyDEBUG(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution)
-{
-    double energy = tangentPointEnergy(dev_x, dev_y, dev_z, resolution);
-    printf("Energy: %f\n", energy);
-}
+//__global__ void energyDEBUG(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution)
+//{
+//    double energy = tangentPointEnergy(dev_x, dev_y, dev_z, resolution);
+//    printf("Energy: %f\n", energy);
+//}

@@ -8,7 +8,7 @@ __device__ double kernelalphabeta(double px, double py, double pz, double qx, do
 
 __device__ double quadrature4PointSummand(double xix, double xiy, double xiz, double xipx, double xipy, double xipz, double xjx, double xjy, double xjz, double xjpx, double xjpy, double xjpz);
 
-__device__ double tangentPointEnergy(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution);
+__global__ void tangentPointEnergyMatrixFill(double* dev_x, double* dev_y, double* dev_z, double* dev_energy_matrix, unsigned int resolution);
 
 __global__ void energyDEBUG(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution);
 

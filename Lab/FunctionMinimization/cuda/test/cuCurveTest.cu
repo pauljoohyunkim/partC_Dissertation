@@ -26,7 +26,8 @@ int main()
 
     fillDEBUG<<<1,1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_coefficients, curve.dev_cos_table, curve.dev_sin_table, curve.resolution, curve.J);
 
-    energyDEBUG<<<1,1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.resolution);
+    dim3 grid(curve.resolution, curve.resolution);
+    tangentPointEnergyMatrixFill<<<grid, 1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_energy_matrix, curve.resolution);
 
     curve.cudaFlush();
 

@@ -24,6 +24,12 @@ FourierCurve::FourierCurve(std::vector<double>& axa, std::vector<double>& axb, s
     y.resize(resolution, 0);
     z.resize(resolution, 0);
 
+    /* differential */
+    coeff_differential.resize(6 * (J + 1), 0);
+
+    /* energyMatrix (For DEBUG purposes) */
+    energyMatrix.resize(resolution * resolution, 0);
+
     std::cout << "Fourier curve constructed with" << std::endl;
     std::cout << "J: " << J << std::endl;
     std::cout << "resolution: " << resolution << std::endl;
@@ -118,6 +124,14 @@ void FourierCurve::cudafy()
         dev_curve_points_allocated = true;
     }
 
+    if (!dev_energy_matrix_allocated)
+    {
+        cudaMalloc((void**) &dev_energy_matrix, sizeof(double) * resolution * resolution);
+
+        dev_energy_matrix_allocated = true;
+    }
+                
+
     /* Copy all the coefficients, concatenated.
      At every iteration of cudafy function, this is the only part that is run again. */
     cudaMemcpy(dev_coefficients, &xa[0], sizeof(double) * (J + 1), cudaMemcpyHostToDevice);
@@ -142,7 +156,12 @@ void FourierCurve::cudaFlush()
     cudaMemcpy(&yb[0], dev_coefficients + 3 * (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
     cudaMemcpy(&za[0], dev_coefficients + 4 * (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
     cudaMemcpy(&zb[0], dev_coefficients + 5 * (J + 1), sizeof(double) * (J + 1), cudaMemcpyDeviceToHost);
-    cudaMemcpy(&coeff_differential[0], dev_coefficients, sizeof(double) * 6 * (J + 1), cudaMemcpyDeviceToHost);
+
+    /* Differential */
+    cudaMemcpy(&coeff_differential[0], dev_differential_coefficients, sizeof(double) * 6 * (J + 1), cudaMemcpyDeviceToHost);
+
+    /* EnergyMatrix */
+    cudaMemcpy(&energyMatrix[0], dev_energy_matrix, sizeof(double) * resolution * resolution, cudaMemcpyDeviceToHost);
 
     std::cout << "Flushed!" << std::endl;
 }

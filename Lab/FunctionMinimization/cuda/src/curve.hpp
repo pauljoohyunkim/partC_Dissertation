@@ -29,6 +29,7 @@ class FourierCurve
         std::vector<double> x;
         std::vector<double> y;
         std::vector<double> z;
+        std::vector<double> energyMatrix;
 
         /* Pointer to memory on GPU */
         /* dev_coefficients is a concatenation of xa, xb, ya, yb, za, zb */
@@ -40,12 +41,15 @@ class FourierCurve
         double* dev_x;
         double* dev_y;
         double* dev_z;
+        double* dev_energy_matrix;
+        
 
     private:
         bool dev_coefficient_allocated { false };
         bool dev_differential_coefficient_allocated { false };
         bool dev_trig_val_table_allocated { false };
         bool dev_curve_points_allocated { false };
+        bool dev_energy_matrix_allocated { false };
 };
 
 /* Cross Product */
