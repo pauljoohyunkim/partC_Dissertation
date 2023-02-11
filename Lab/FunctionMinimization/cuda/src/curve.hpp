@@ -64,6 +64,6 @@ __device__ void fill_pos(double* dev_x, double* dev_y, double* dev_z, double* de
 __global__ void printCoefficientsPartiallyDEBUG(double* device_float_value);
 __global__ void crossDEBUG(double x1, double x2, double x3, double y1, double y2, double y3);
 __global__ void queryDEBUG(double* dev_table, int i, int k, unsigned int J);
-__global__ void fillDEBUG(double* dev_x, double* dev_y, double* dev_z, double* dev_coefficients, double* dev_cos_table, double* dev_sin_table, unsigned int resolution, unsigned int J);
+__global__ void fill_pos_from_host(double* dev_x, double* dev_y, double* dev_z, double* dev_coefficients, double* dev_cos_table, double* dev_sin_table, unsigned int resolution, unsigned int J);
 
 #endif

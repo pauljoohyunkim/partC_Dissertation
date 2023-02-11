@@ -90,8 +90,32 @@ __global__ void sumEnergyMatrix(double* dev_energy_matrix, unsigned int resoluti
         energy += dev_energy_matrix[i];
     }
 
-    dev_energy[0] = energy;
+    *dev_energy = energy;
 }
+
+void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
+{
+    /* xa perturbation */
+    for (unsigned int coeffIndex = 0; coeffIndex < curve.J + 1; coeffIndex++)
+    {
+        double temp;
+        temp = curve.xa[coeffIndex];
+        /* Perturbation */
+        curve.xa[coeffIndex] += perturbation;
+        curve.cudafy();
+        fill_pos_from_host<<<1,1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_coefficients, curve.dev_cos_table, curve.dev_sin_table, curve.resolution, curve.J);
+        dim3 grid(curve.resolution, curve.resolution);
+        tangentPointEnergyMatrixFill<<<grid, 1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_energy_matrix, curve.resolution);
+        sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_differential_coefficients);
+        printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[0]);
+        cudaDeviceSynchronize();
+        curve.cudaFlush();
+
+        curve.xa[coeffIndex] = temp;
+
+    }
+}
+
 
 //__global__ void energyDEBUG(double* dev_x, double* dev_y, double* dev_z, unsigned int resolution)
 //{

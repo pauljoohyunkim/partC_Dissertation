@@ -236,7 +236,8 @@ __global__ void queryDEBUG(double* dev_table, int i, int k, unsigned int J)
     printf("%f\n", dev_trig_table_query(dev_table, i, k, J));
 }
 
-__global__ void fillDEBUG(double* dev_x, double* dev_y, double* dev_z, double* dev_coefficients, double* dev_cos_table, double* dev_sin_table, unsigned int resolution, unsigned int J)
+/* Pass 1 */
+__global__ void fill_pos_from_host(double* dev_x, double* dev_y, double* dev_z, double* dev_coefficients, double* dev_cos_table, double* dev_sin_table, unsigned int resolution, unsigned int J)
 {
     fill_pos(dev_x, dev_y, dev_z, dev_coefficients, dev_cos_table, dev_sin_table, resolution, J);
 }

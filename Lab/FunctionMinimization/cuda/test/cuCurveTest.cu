@@ -13,26 +13,8 @@ int main()
 
     FourierCurve curve(xa, xb, ya, yb, za, zb);
 
-    curve.cudafy();
 
-    //printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 0);
-    //printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 1);
-    //printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 2);
-    //printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 3);
-    //printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 4);
-    //printCoefficientsPartiallyDEBUG<<<1,1>>>(curve.dev_cos_table + 5);
-    //printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_cos_table[2 + 3 * 1]);
-    //queryDEBUG<<<1,1>>>(curve.dev_cos_table, 1, 2, curve.J);
-
-    fillDEBUG<<<1,1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_coefficients, curve.dev_cos_table, curve.dev_sin_table, curve.resolution, curve.J);
-
-    dim3 grid(curve.resolution, curve.resolution);
-    tangentPointEnergyMatrixFill<<<grid, 1>>>(curve.dev_x, curve.dev_y, curve.dev_z, curve.dev_energy_matrix, curve.resolution);
-    sumEnergyMatrix<<<1,1>>>(curve.dev_energy_matrix, curve.resolution, curve.dev_differential_coefficients);
-    printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[0]);
-    cudaDeviceSynchronize();
-
-    curve.cudaFlush();
+    fillDifferentialMatrix(curve, 0);
 
     return 0;
 }
