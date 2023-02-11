@@ -134,6 +134,17 @@ void FourierCurve::cudafy()
     if (!dev_energy_matrix_allocated)
     {
         cudaMalloc((void**) &dev_energy_matrix, sizeof(double) * resolution * resolution);
+        /* dev_differential_coefficients is in the form of
+
+
+            0   1   2   3   ...     6(J+1) - 1
+        + | 
+        - |
+
+        Index by dev_differential_coefficients[6(J+1) * i + j]
+        where i is 0 for plus and 1 for negative
+        j is the coefficient index.
+         */
         cudaMalloc((void**) &dev_differential_coefficients, sizeof(double) * 2 * 6 * (J + 1));
 
         dev_energy_matrix_allocated = true;
