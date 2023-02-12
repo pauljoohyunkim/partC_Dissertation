@@ -6,11 +6,16 @@
 \usepackage[]{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
 
 \title{Gradient Flow to Continuous Optimization via Fourier Series}
 \author{Paul Kim}
 
 \newcommand{\dx}{\, \text{d} x}
+\newcommand{\dt}{\, \text{d} t}
 \newcommand{\dgamma}{\, \text{d} \gamma}
 \newcommand{\dgammabf}{\, \text{d} \boldsymbol{\gamma}}
 \newcommand{\norm}[1]{||#1||}
@@ -22,7 +27,7 @@
 
 We've been concerned about minimizing the energy functional of the form:
 \begin{equation}
-    \mathcal{E} (\boldsymbol{\gamma}) \coloneqq \int_{C_{\boldsymbol{\gamma}}} \int_{C_{\boldsymbol{\gamma}}} k\left( \boldsymbol{\gamma}_1, \boldsymbol{\gamma}_2 \right) \dgammabf_1 \dgammabf_2
+    \mathcal{E} (\boldsymbol{\gamma}) \coloneqq \int_{C_{\boldsymbol{\gamma}}} \int_{C_{\boldsymbol{\gamma}}} k\left( \boldsymbol{\gamma}_1, \boldsymbol{\gamma}_2 \right) \dgamma_1 \dgamma_2
 \end{equation}
 where $\boldsymbol{\gamma}: E \rightarrow \mathbb{R}^{3}$ is a parameterization function of a closed curve on the interval $E = [ 0, 2\pi )$ (without loss of generality).
 
@@ -90,7 +95,7 @@ where the coefficients $\left\{ a_{i,n} \right\}, \left\{ b_{i,n} \right\}, \lef
 \end{align}
 for $i=1, 2, \cdots, N$
 
-\section{Gradient Flow to Continuous Optimization}
+\section{Gradient Flow to Continuous Optimization I}
 For minimization of $\mathcal{E}$, the original approach is to use the gradient flow equation:
 \begin{equation}
     \frac{\partial \mathcal{E}}{\partial t} = - \grad_X {E}
@@ -106,17 +111,17 @@ However, consider expressing $\boldsymbol{\gamma}(t)$ as a 3D Fourier series as:
     \boldsymbol{\gamma}(t) = \sum_{n=-\infty}^{\infty} \mathbf{c}_n e^{-int}
 \end{equation}
 
-One could approximate this to $J$ terms:
+One could approximate this to $J$-multiple frequency terms:
 \begin{equation}
-    \boldsymbol{\gamma}_N (t) = \sum_{n = -J}^{J} \mathbf{c}_n e^{-int}
+    \boldsymbol{\gamma}_J (t) = \sum_{n = -J}^{J} \mathbf{c}_n e^{-int}
 \end{equation}
 (Noting $\norm{\boldsymbol{\gamma} - \boldsymbol{\gamma}_J} = O\left( \frac{1}{J^{p+1}} \right)$)
 
 Then now the reduction process of $\mathcal{E}\left( \gamma \right)$ can be approximated by the reduction process of $\mathcal{E}\left( \gamma_J \right)$.
 It is paramount to note that $\mathcal{E} \left( \gamma_J \right): \mathbb{R}^{3\left( 2J + 1 \right)} = \mathbb{R}^{6J + 3} \rightarrow \mathbb{R}$ where the parameters are the Fourier coefficients in 3D.
-The idea is now to consider this a standard optimiation problem:
+The idea is now to consider this a standard optimization problem:
 \begin{equation}
-    \min_{\left[ \mathbf{c}_{-J}, \cdots, \mathbf{c}_{J} \right]} \mathcal{E} \left( \gamma_J \right)
+    \min_{\left[ \mathbf{c}_{-J}, \cdots, \mathbf{c}_{J} \right]} \mathcal{E} \left( \boldsymbol{\gamma}_J \right)
 \end{equation}
 which can be attempted by standard techniques such as SDM, bArmijo linesearch, etc.
 
@@ -129,17 +134,37 @@ One could even go further at using less memory by considering a quaternion versi
 \subsection{Con}
 A drawback with this method is that the interpolation (at the preprocessing stage) is arbitrary in the sense that an ordered set of points in $\mathbb{R}^3$ can be placed (in order) in any spacing.
 In an interval domain, a potential choice would be placing the ``output values'' on Chebyshev points or Legendre points, but even this is a bit arbitrary.
+In practice, however, it is likely that one ``scans'' a curve at a roughly the same interval, so one could use DFT.
+
 Should this become a problem, one could partially resolve this problem by spline interpolation, then taking Fourier series of that spline.
 
-Another drawback is that this is inherently a method for closed curves, not all curves. For a nonclosed curve with two openings, one could map them to \underline{point at infinity}, treating it like a closed curve (in this case, Fourier transform might be more appropriate than Fourier series).
+Another drawback is that this is inherently a method for closed curves, not all curves. For a nonclosed curve with two openings at infinity, one could map them to \underline{point at infinity}, treating it like a closed curve (in this case, Fourier transform might be more appropriate than Fourier series). On the other hand, if it is a finite curve, then one could na\"ively attempt Fourier analysis on discontinuous function. \textbf{[See ChebyshevSeriesCurveRepulsion.pdf]}.
 
 
-\subsection{Complexity}
+\subsection{Complexity (Scribble)}
 For a general approximation of $\mathcal{E}\left( \gamma_J \right)$,
 \begin{itemize}
     \item Evaluation of the energy functional $\mathcal{E} \left( \gamma_J \right)$ takes $O\left( J \log J \right)$ operations via FFT and possibly Clenshaw-Curtis quadrature (or just a Newton-Cotes quadrature, as it is a cyclic domain, although since the problem is posed in terms of restriction to an interval, maybe Clenshaw-Curtis is still better?).
     \item Other operations might be of lower order? 
 \end{itemize}
 
+\section{Gradient Flow to Continuous Optimization II}
+Instead of taking Fourier transform in three different coordinates, one may attempt to use quaternions.
+
+First, note the definition of one-dimensional quaternion FT (qFT)\footnote{Bahri (2019)}
+\begin{definition}
+    \textbf{1-D QFT} of $g$ is given by
+    \begin{align}
+        \mathcal{F}_l \left( g \right) (\omega) \coloneqq \int_{\mathbb{R}} g(t) e^{-\mathbf{j} 2\pi \omega t} \dt
+    \end{align}
+\end{definition}
+with its inverse
+\begin{definition}
+    \textbf{Inverse 1-D QFT} corresponding to 1-D QFT is:
+    \begin{align}
+        g(t) &= \mathcal{F}_l^{-1} \left[ \mathcal{F}_l (g) \right] (t) \\
+        &= \int_{\mathbb{R}} \mathcal{F}_l (g) (\omega) e^{\mathbf{j} 2\pi \omega y}\,\text{d} \omega
+    \end{align}
+\end{definition}
 \end{document}
 

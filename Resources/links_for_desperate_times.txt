@@ -3,3 +3,9 @@ https://math.stackexchange.com/questions/1687804/what-is-the-l2-gradient-flow
 
 # Discussion of L2 Gradient Flow
 https://math.stackexchange.com/questions/156236/gradient-flow-and-what-is-for-example-l2-gradient?noredirect=1&lq=1
+
+# Quaternion Fourier Transform on Real Numbers
+https://iopscience.iop.org/article/10.1088/1742-6596/1341/6/062004
+
+# Relation between DFT and Fourier Coefficient
+https://www.johndcook.com/blog/2021/03/20/fourier-series-fft/
