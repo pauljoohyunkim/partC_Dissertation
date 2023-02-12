@@ -2,7 +2,7 @@
 
 \begin{document}
 
-Shape optimisation is an important idea in engineering, use anywhere from aircraft designs to packaging ramen noodle.
+Shape optimisation is an important idea in engineering, relevant in anywhere from aircraft designs to packaging ramen noodle.
 One of the simplest and most fundamental shapes to consider is a curve.
 While curves are simple objects in theory, they prove to be quite difficult to analyse in practice with realistic physics.
 Even in absence of other objects, one must consider resiliance to bending, stretching, and especially, impenetrability against itself.
@@ -17,7 +17,7 @@ especially in a computer simulation.
 In this dissertation, we explore numerical methods to achieve this.
 
 The main idea is to \emph{assign energy that penalises ``physical entanglement''.}
-Given a parameterised curve $\gammabf:M \rightarrow \mathbb{R}^3$ ($M$ being the domain of the parameter),
+Given a parameterised curve $\gammabf:M \rightarrow \mathbb{R}^3$ ($M$ being the domain of the parameter, often an interval),
 one defines some \emph{curve energy} $\mathcal{E}$ of the form:
 \begin{equation}
     \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} k\left( \gammabf_x, \gammabf_y \right) \intd \gamma_x \intd \gamma_y
@@ -25,7 +25,8 @@ one defines some \emph{curve energy} $\mathcal{E}$ of the form:
 where $k\left( \gammabf_1, \gammabf_2 \right) \geq 0$ is the \emph{curve energy kernel} such that $k \rightarrow +\infty$ as $\abs{\gammabf_1 - \gammabf_2} \rightarrow 0^+$.
 
 A na\"ive choice of $k$ satisfying this condition is $k_S \left( \gammabf_1, \gammabf_2 \right) \coloneqq \frac{1}{\abs{\gammabf_1 - \gammabf_2}}$.
-However, it turns out that $k_S \sim O\left( \frac{1}{\abs{\gammabf_1 - \gammabf_2}} \right)$ as $\abs{\gammabf_1 - \gammabf_2} \rightarrow 0$ (consider neighbouring points), meaning the $\mathcal{E}$ diverges all continuous curves $\gammabf$ of nonzero measure.\footnote{This seemingly ill-defined energy, however, will be explored later.}
+However, it turns out that $k_S \sim O\left( \frac{1}{\abs{\gammabf_1 - \gammabf_2}} \right)$ as $\abs{\gammabf_1 - \gammabf_2} \rightarrow 0$ (consider neighbouring points), meaning the $\mathcal{E}$ diverges all continuous curves $\gammabf$ of nonzero measure.
+This seemingly ill-defined energy, however, may not be the end of story in terms of numerics, and will be explored later.
 
 A more analytically sensible choice of $k$ would be the tangent-point kernel introduced in a paper by Buck and Orloff\cite{BO1995} and later generalised by Yu, Schumacher, and Crane\cite{YSC2021}.
 
