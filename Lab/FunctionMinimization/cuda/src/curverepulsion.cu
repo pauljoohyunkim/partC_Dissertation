@@ -138,8 +138,6 @@ void fillDifferentialMatrix(FourierCurve& curve, double perturbation)
 
         //printCoefficientsPartiallyDEBUG<<<1,1>>>(&curve.dev_differential_coefficients[coeffIndex]);
         cudaDeviceSynchronize();
-
-        printf("Done\n");
     }
 }
 
