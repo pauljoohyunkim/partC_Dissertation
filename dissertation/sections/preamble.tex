@@ -1,0 +1,42 @@
+\documentclass[../dissertation.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Steepest Descent to Gradient Flow Equation}
+For minimising a differentiable function $f:E \subset \mathbb{R}^n \rightarrow \mathbb{R}$, there is a well-known method known as \textbf{steepest descent method} (SDM)\cite{doi:10.1137/1.9781611974997.ch8}.
+\begin{equation}
+    \xbf^{k+1} = \xbf^{k} - \alpha_k \nabla f \left( \xbf^{k} \right)
+    \label{equ: SDM}
+\end{equation}
+Starting from the initial input point $\xbf^{0}$, at each iteration, input points $\left\{ \xbf^{k} \right\}$ move in the direction of ``steepest'' decrease,
+with specified step size $\alpha_k > 0$,
+reducing the value at evaluation of $f$.
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[scale=0.6]{sections/preambleImgs/sdm}
+    \caption{SDM applied to $f(x,y) = -3 \cos x + \cos^2 y$ at different initial points.}
+    \label{fig: SDM}
+\end{figure}
+Note that in general, this method is not guaranteed to find the minimiser.
+On the other hand, convergence is guaranteed under certain assumptions, for example, convexity and $L$-smoothness with a certain choice of step size $\alpha_k$.
+
+Analogously, differential equation known describing the reduction process of a functional $F:\mathcal{F} \rightarrow \mathbb{R}$ (where $\mathcal{F}$ is some set of functions) can be motivated.
+Starting from (\ref{equ: SDM}), replacing $\xbf^{k}$ to $f_k$ and $\nabla f\left( \xbf^k \right)$ to $\grad_X F\left( f_k \right)$
+\begin{equation}
+    f_{k+1} = f_k - \alpha_k \grad_X F \left( f_k \right)
+    \label{equ: Gradient Flow Motivation}
+\end{equation}
+Now think of $f_k$ as ``snapshots'' at certain time $t = t_k$.
+Without loss of generality, let $\alpha_k \equiv 1$.\footnote{
+This is justified by taking a differrent time scale; essentially nondimensionalisation.}
+Dividing (\ref{equ: Gradient Flow Motivation}) by time step $\Delta t \coloneqq t_{k+1} - t_k$,
+and taking the limit as $\Delta t \rightarrow 0$,
+we acquire the \textbf{gradient flow equation}\cite{YSC2021}.
+\begin{equation}
+    \frac{\partial F}{\partial t} = - \grad_X F
+\end{equation}
+where index $k$ transforms to ``time'' variable $t$.
+
+Note that $\grad$ of a functional is not defined yet. This depends on the function space $X$ of interest.
+
+\end{document}
