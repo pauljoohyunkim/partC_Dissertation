@@ -3,18 +3,23 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 
-class Exporter
+#define DOUBLEPRECISION 15
+
+class JsonExporter
 {
     public:
-        Exporter(std::string afilename);
-        ~Exporter();
+        JsonExporter(std::string afilename);
+        ~JsonExporter();
         
         void operator << (std::string arg);
+        void operator << (std::vector<double>& vec);
 
     private:
         std::string filename { };
         std::ofstream outfile;
+        bool firstEntry { true };
 
 };
 
