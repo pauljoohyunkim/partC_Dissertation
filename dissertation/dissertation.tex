@@ -7,11 +7,13 @@
 \documentclass[a4paper, 12pt]{article}
 
 \title{Untangling Knots Through Curve Repulsion}
+\author{}
 
 \usepackage[backend=biber]{biblatex}
 \addbibresource{bibliography.bib}
-\usepackage{subfiles}               % BEST LOADED AT THE END OF PREAMBLE
 \usepackage[textheight=22.5cm, textwidth=15cm]{geometry}
+\usepackage[]{graphicx}
+\usepackage{subfiles}               % BEST LOADED AT THE END OF PREAMBLE
 \begin{document}
 
 % STRUCTURE
@@ -23,6 +25,7 @@
 % Part II: Fourier - Functional Reduction to Function Reduction
 % Bibliography
 
+\subfile{sections/cover}
 \section{Introduction}
 \subfile{sections/introduction}
 
@@ -32,7 +35,6 @@ Also this \cite{BO1995}
 
 Also ATAP \cite{Trefethen_2020}
 
-\section{Bibliography}
 \printbibliography
 \end{document}
 
