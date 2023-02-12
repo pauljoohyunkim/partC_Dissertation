@@ -1,5 +1,6 @@
 #include "../curve.hpp"
 #include "../curverepulsion.hpp"
+#include "../export.hpp"
 #include <vector>
 
 #define CURVE_RESOLUTION 30
@@ -31,12 +32,22 @@ int main()
     FourierCurve curve(xa, xb, ya, yb, za, zb, CURVE_RESOLUTION);
 
 
+    JsonExporter xExporter { "x.json" };
+    JsonExporter yExporter { "y.json" };
+    JsonExporter zExporter { "z.json" };
+    
 
     for (unsigned int t = 0; t < M; t++)
     {
         fillDifferentialMatrix(curve, PERTURBATION);
         gradientDescent<<<6 * (curve.J + 1), 1>>>(curve.dev_coefficients, curve.dev_differential_coefficients, STEPSIZE, curve.J);
         curve.cudaFlush();
+
+        xExporter << curve.x;
+        yExporter << curve.y;
+        zExporter << curve.z;
+
+        std::cout << "Progress: " << t << "/" << M << std::endl;
     }
 
     return 0;
