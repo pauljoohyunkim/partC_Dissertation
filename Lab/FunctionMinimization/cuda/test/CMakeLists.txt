@@ -9,3 +9,6 @@ set_target_properties(cuCurveTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 
 add_executable(cuCrossTest cuCrossTest.cu ../src/curve.cu)
 set_target_properties(cuCrossTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+
+add_executable(exportTest exportTest.cu ../src/export.cu)
+set_target_properties(exportTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
