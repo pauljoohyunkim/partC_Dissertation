@@ -1,3 +1,5 @@
+% arara: biber
+% arara: pdflatex: {options: "-file-line-error-style"}
 %        File: dissertation.tex
 %     Created: Thu Feb 02 01:00 AM 2023 G
 % Last Change: Thu Feb 02 01:00 AM 2023 G
@@ -9,6 +11,7 @@
 \usepackage[backend=biber]{biblatex}
 \addbibresource{bibliography.bib}
 \usepackage{subfiles}               % BEST LOADED AT THE END OF PREAMBLE
+\usepackage[textheight=22.5cm, textwidth=15cm]{geometry}
 \begin{document}
 
 % STRUCTURE
@@ -24,6 +27,8 @@
 \subfile{sections/introduction}
 
 Something \cite{YSC2021}
+
+Also this \cite{BO1995}
 
 \section{Bibliography}
 \printbibliography
