@@ -10,9 +10,18 @@
 
 \usepackage[backend=biber]{biblatex}
 \addbibresource{bibliography.bib}
+
+
 \usepackage[textheight=22.5cm, textwidth=15cm]{geometry}
 \usepackage[]{graphicx}
+\usepackage[]{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
 \usepackage{subfiles}               % BEST LOADED AT THE END OF PREAMBLE
+\newcommand{\xbf}{\mathbf{x}}
+\newcommand{\ubf}{\mathbf{u}}
+\newcommand{\inner}[1]{\langle #1 \rangle}
+\DeclareMathOperator{\grad}{grad}
 \begin{document}
 
 % STRUCTURE
@@ -27,14 +36,12 @@
 \subfile{sections/cover}
 \subfile{sections/abstract}
 \tableofcontents
+
 \part{Introduction}
 \subfile{sections/introduction}
 
-Something \cite{YSC2021}
-
-Also this \cite{BO1995}
-
-Also ATAP \cite{Trefethen_2020}
+\section{Preamble}
+\subfile{sections/preamble}
 
 \newpage
 \part{Curve Energy Reduction via Gradient Flow}
