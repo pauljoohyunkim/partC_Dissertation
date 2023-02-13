@@ -24,6 +24,11 @@
 \usepackage{amsthm}
 \theoremstyle{definition}
 \newtheorem*{definition}{Definition}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{plain}
+\newtheorem{lemma}[theorem]{Lemma}
+\renewcommand\qedsymbol{$\blacksquare$}
 \usepackage{mathtools}
 \usepackage{subfiles}               % BEST LOADED AT THE END OF PREAMBLE
 \newcommand{\xbf}{\mathbf{x}}
@@ -32,6 +37,7 @@
 \newcommand{\ubf}{\mathbf{u}}
 \newcommand{\Tbf}{\mathbf{T}}
 \newcommand{\gammabf}{\boldsymbol{\gamma}}
+\newcommand{\Gammabf}{\boldsymbol{\Gamma}}
 \newcommand{\inner}[1]{\langle #1 \rangle}
 \newcommand{\intd}{\, \text{d}}
 \DeclareMathOperator{\grad}{grad}
