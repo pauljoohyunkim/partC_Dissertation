@@ -16,3 +16,7 @@ end
 x = interpolateAtChebpts(xpts);
 y = interpolateAtChebpts(ypts);
 z = interpolateAtChebpts(zpts);
+
+%%
+% Energy Computation
+tangentPointEnergy(x, y, z, 8, 2, 4)
