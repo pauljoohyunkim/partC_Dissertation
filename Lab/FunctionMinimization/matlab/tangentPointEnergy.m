@@ -1,11 +1,12 @@
 function energy = tangentPointEnergy(x, y, z, resolution, alpha, beta)
 %TANGENTPOINTENERGY Computes the tangent point energy. (x,y,z are chebfuns)
     energy = 0;
-    t = linspace(-1, 1, resolution);
+    %t = linspace(-1, 1, resolution);
+    t = chebpts(resolution);
     xpoints = x(t);
     ypoints = y(t);
     zpoints = z(t);
-    for i = 2:resolution-1
+    parfor i = 2:resolution-1
         for j = 2:resolution-1
             if abs(i - j) > 1 && abs(i - j + resolution) > 1 && abs(i - j - resolution) > 1
                 xi = [xpoints(i); ypoints(i); zpoints(i)];
