@@ -21,10 +21,16 @@
 \usepackage{subcaption}
 \usepackage[]{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
 \usepackage{mathtools}
 \usepackage{subfiles}               % BEST LOADED AT THE END OF PREAMBLE
 \newcommand{\xbf}{\mathbf{x}}
+\newcommand{\pbf}{\mathbf{p}}
+\newcommand{\qbf}{\mathbf{q}}
 \newcommand{\ubf}{\mathbf{u}}
+\newcommand{\Tbf}{\mathbf{T}}
 \newcommand{\gammabf}{\boldsymbol{\gamma}}
 \newcommand{\inner}[1]{\langle #1 \rangle}
 \newcommand{\intd}{\, \text{d}}
@@ -51,6 +57,7 @@
 \newpage
 \part{Curve Energy Reduction via Gradient Flow}
 \subfile{sections/gradientFlow}
+\subfile{sections/tangentPointEnergy}
 
 \newpage
 \part{Functional Reduction to Function Reduction}

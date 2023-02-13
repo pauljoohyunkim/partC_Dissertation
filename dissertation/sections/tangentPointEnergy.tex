@@ -1,0 +1,24 @@
+\documentclass[../dissertation.tex]{subfiles}
+
+\begin{document}
+
+\section{Tangent-Point Energy}
+Given a curve $\gammabf:M \rightarrow \mathbb{R}^3$,
+a sensible choice of curve energy is the tangent-point energy\cite{YSC2021}.
+\begin{definition}
+    For a continuously differentiable parameterised curve $\gammabf:M \rightarrow \mathbb{R}^3$, define \textbf{tangent-point energy} as:
+    \begin{equation}
+        \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) \coloneqq \iint_{M^2} k_{\beta}^{\alpha} (\gammabf_x, \gammabf_y, \Tbf_x) \intd \gamma_x \intd \gamma_y 
+    \end{equation}
+    where $\Tbf_x \coloneqq \left. \frac{\intd \gammabf_x}{\intd t} \middle/ \abs{\frac{\intd \gammabf_x}{\intd t}} \right. $ is the unit tangent vector at $\gammabf_x$ along the curve,
+    and \textbf{tangent-point kernel} is given as:
+    \begin{equation}
+        k_{\beta}^{\alpha} \left( \pbf, \qbf, \Tbf \right) \coloneqq \frac{\abs{\Tbf \wedge \left( \pbf - \qbf \right)}^{\alpha}}{\abs{\pbf - \qbf}^{\beta}}
+    \end{equation}
+    $\alpha$ and $\beta$ are parameters one could choose, but for tangent-point energy to be well-defined,
+    one may choose them to satisfy $\alpha >1$ and $\beta \in \left[ \alpha+2, 2\alpha + 1 \right)$.
+
+    Note that choosing $\alpha = 2$ and $\beta = 4$ results in the original tangent-point energy by Buck and Orloff\cite{BO1995}. For the rest of the dissertation, unless specified, we use $\mathcal{E}_{4}^{2}$.
+\end{definition}
+
+\end{document}
