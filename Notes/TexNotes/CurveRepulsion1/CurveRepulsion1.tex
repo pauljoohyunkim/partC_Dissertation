@@ -283,9 +283,9 @@ Fix $k$. Indices\footnote{NOTE: CYCLIC} of terms in $E$ involving $x_k$ can be e
 
 First note that 
 \begin{align}
-    \frac{\partial}{\partial x_{k,n}} \norm{x_k - x_{k+1}} &= \frac{x_{k,n} - x_{k+1,n}}{\norm{x_k - x_{k+1}}}
+    \frac{\partial}{\partial x_{k,n}} \norm{x_k - x_{j}} &= \frac{x_{k,n} - x_{j,n}}{\norm{x_k - x_{j}}}
     \label{equ: Norm Differential 1} \\
-    \frac{\partial}{\partial x_k} \norm{x_k - x_{k+1}} &= \frac{x_k - x_{k+1}}{\norm{x_k - x_{k+1}}}
+    \frac{\partial}{\partial x_k} \norm{x_k - x_{j}} &= \frac{x_k - x_{j}}{\norm{x_k - x_{j}}}
     \label{equ: Norm Differential 2}
 \end{align}
 where (\ref{equ: Norm Differential 2}) is simply a vector version of (\ref{equ: Norm Differential 1})
@@ -294,7 +294,22 @@ Also note:
 \begin{align}
     k_{\beta}^{\alpha} \left( x_k, x_j, T_k \right) &= k_{\beta}^{\alpha} \left( x_k, x_j, \frac{x_{k+1} - x_{k}}{\norm{x_{k} - x_{k+1}}} \right)
     \\
-    &= \frac{\sqrt{\norm{x_{k+1} - x_k}^2 \norm{x_k - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2}^{\alpha} }{\norm{x_k - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}}
+    &= \frac{\sqrt{\norm{x_{k+1} - x_k}^2 \norm{x_k - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2}^{\alpha} }{\norm{x_k - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}} \\
+    &= \frac{\xi_{k,j}^{\alpha/2}}{\eta_{k,j}}
+\end{align}
+where $\xi_{k,j} \coloneqq \norm{x_{k+1} - x_k}^2 \norm{x_k - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2$ and $\eta_{k,j} = \norm{x_k -x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}$.
+
+So,
+\begin{equation}
+    \frac{\partial k_{\beta}^{\alpha} \left( x_k, x_j, T_k \right)}{\partial x_k} =
+\frac{1}{\eta_{k,j}^{2}} \left( \frac{\alpha}{2} \xi_{k,j}^{\alpha/2 - 1} \frac{\partial \xi_{k,j}}{\partial x_k} \eta_{k,j} - \xi_{k,j}^{\alpha/2} \frac{\partial \eta_{k,j}}{\partial x_k} \right)
+\end{equation}
+Now, we note:
+\begin{align}
+    \frac{\partial \xi_{k,j}}{\partial x_k} &= 2\left( x_k - x_{k+1} \right) \norm{x_k - x_j}^2 + 2 \norm{x_{k+1} - x_k}^2 (x_k - x_j) \nonumber \\
+    & -2 \left( \left( x_{k+1} - x_k \right) \cdot \left( x_k - x_j \right) \right) \left( x_j + x_{k+1} - 2 x_k \right) \\
+    \frac{\partial \eta_{k,j}}{\partial x_k} &= \beta \norm{x_k - x_j}^{\beta - 2} (x_k - x_j) \norm{x_k - x_{k+1}}^{\alpha} \\
+    &+ \norm{x_k - x_j}^{\beta} \alpha \norm{x_k - x_{k+1}}^{\alpha - 2} (x_k - x_{k+1})
 \end{align}
 \end{document}
 
