@@ -329,6 +329,18 @@ Note the following derivatives.
     \frac{\partial \eta_{k-1,j}}{\partial x_k} &= \norm{x_{k-1} - x_j}^{\beta} \alpha \norm{x_{k} - x_{k-1}}^{\alpha - 2} (x_{k} - x_{k-1})
 \end{align}
 
+\subsubsection{$(j, k)$}
+This time,
+\begin{align}
+    k_{\beta}^{\alpha} \left( x_j, x_k, T_j \right) &= k_{\beta}^{\alpha} \left( x_j, x_k, \frac{x_{j+1} - x_j}{\norm{x_{j+1} - x_j}}\right) \\
+    &= \frac{\sqrt{\norm{x_{j+1} - x_{j}}^2 \norm{x_{k} - x_j}^2- \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2}^{\alpha} }{\norm{x_{k} - x_j}^{\beta} \norm{x_j - x_{j+1}}^{\alpha}} \\
+    &= \frac{\xi_{j,k}^{\alpha / 2}}{\eta_{j,k}}
+\end{align}
+The relevant derivatives are:
+\begin{align}
+    \frac{\partial \xi_{j,k}}{\partial x_k} &= 2 \norm{x_{j+1} - x_j}^2 (x_k - x_j) - 2 \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k} - x_{j} \right) \right) \left( x_{j+1} - x_j \right) \\
+    \frac{\partial \eta_{j,k}}{\partial x_k} &= \norm{x_j - x_{j+1}}^{\alpha} \beta \norm{x_k - x_j}^{\beta - 2} \left( x_k - x_j \right)
+\end{align}
 \end{document}
 
 
