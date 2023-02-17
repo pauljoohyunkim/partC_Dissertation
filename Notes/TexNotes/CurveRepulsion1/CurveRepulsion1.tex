@@ -341,6 +341,15 @@ The relevant derivatives are:
     \frac{\partial \xi_{j,k}}{\partial x_k} &= 2 \norm{x_{j+1} - x_j}^2 (x_k - x_j) - 2 \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k} - x_{j} \right) \right) \left( x_{j+1} - x_j \right) \\
     \frac{\partial \eta_{j,k}}{\partial x_k} &= \norm{x_j - x_{j+1}}^{\alpha} \beta \norm{x_k - x_j}^{\beta - 2} \left( x_k - x_j \right)
 \end{align}
+\subsubsection{$(j, k-1)$}
+Finally,
+\begin{align}
+    k_{\beta}^{\alpha} \left( x_j, x_{k-1}, T_j \right) &= k_{\beta}^{\alpha} \left( x_j, x_{k-1}, \frac{x_{j+1} - x_j}{\norm{x_{j+1} - x_j}}\right) \\
+    &= \frac{\sqrt{\norm{x_{j+1} - x_{j}}^2 \norm{x_{k-1} - x_j}^2- \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k-1} - x_{j} \right) \right)^2}^{\alpha} }{\norm{x_{k-1} - x_j}^{\beta} \norm{x_j - x_{j+1}}^{\alpha}} \\
+    &= \frac{\xi_{j,k-1}^{\alpha / 2}}{\eta_{j,k-1}}
+\end{align}
+Thank God, both $\xi$ and $\eta$ derivative this time is zero.
+
 \end{document}
 
 
