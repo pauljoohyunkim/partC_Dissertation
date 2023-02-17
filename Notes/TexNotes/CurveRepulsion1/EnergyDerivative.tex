@@ -1,0 +1,85 @@
+%        File: EnergyDerivative.tex
+%     Created: Fri Feb 17 06:00 PM 2023 G
+% Last Change: Fri Feb 17 06:00 PM 2023 G
+%
+\documentclass[a4paper]{article}
+
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[]{amsmath}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\dx}{\,\text{d}x}
+\newcommand{\dy}{\,\text{d}y}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\inner}[1]{\langle \langle #1 \rangle \rangle}
+
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\Var}{Var}
+
+\begin{document}
+The \textbf{discretized energy} $E$ can be expressed as:
+\begin{align}
+    E &= \sum_{i = 1}^{J} \sum_{\substack{j = 1 \\ |j-i| > 1}} k_{i,j} \norm{x_{i+1} - x_i} \, \norm{x_{j+1} - x_j} 
+    \label{equ: Discretized Energy}
+    \\
+    k_{i,j} &= \frac{1}{4} \left( 
+        k_{\beta}^{\alpha} \left( x_i, x_j, T_i \right)
+        + k_{\beta}^{\alpha} \left( x_i, x_{j+1}, T_i \right)
+        + k_{\beta}^{\alpha} \left( x_{i+1}, x_j, T_i \right)
+        + k_{\beta}^{\alpha} \left( x_{i+1}, x_{j+1}, T_i \right)
+    \right)
+\end{align}
+where we index cyclically.
+
+For derivative with respect to $x_k$ (note that it is a vector), the only terms indexed by
+$(i,j)$ that involves $x_k$ are enumerated by the following indices:
+\begin{itemize}
+    \item $(k,1)$, $\cdots$, $(k, k-2)$, $(k, k+2)$, $\cdots$, $(k,J)$
+    \item $(k-1,1)$, $\cdots$, $(k-1, k-3)$, $(k-1, k+1)$, $\cdots$, $(k-1,J)$
+    \item $(1,k)$, $\cdots$, $(k-2, k)$, $(k+2, k)$, $\cdots$, $(J,k)$
+    \item $(1,k-1)$, $\cdots$, $(k-3, k-1)$, $(k-1, k-1)$, $\cdots$, $(J,k-1)$
+\end{itemize}
+
+We now attempt to construct derivative (in a ``modular fashion'').
+Write 
+\begin{align}
+    k_{\beta}^{\alpha} \left( x_k, x_j, T_k \right) &= k_{\beta}^{\alpha} \left( x_k, x_j, \frac{x_{k+1} - x_{k}}{\norm{x_{k} - x_{k+1}}} \right)
+    \\
+    &= \frac{\sqrt{\norm{x_{k+1} - x_k}^2 \norm{x_k - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2}^{\alpha} }{\norm{x_k - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}} \\
+    &= \frac{\xi_{k,j}^{\alpha/2}}{\eta_{k,j}}
+\end{align}
+where $\xi_{k,j} \coloneqq \norm{x_{k+1} - x_k}^2 \norm{x_k - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2$ and $\eta_{k,j} = \norm{x_k -x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}$.
+
+Then we may write the derivative for this ``kernel'' as:
+\begin{equation}
+    \frac{\partial k_{\beta}^{\alpha} \left( x_k, x_j, T_k \right)}{\partial x_k} =
+\frac{1}{\eta_{k,j}^{2}} \left( \frac{\alpha}{2} \xi_{k,j}^{\alpha/2 - 1} \frac{\partial \xi_{k,j}}{\partial x_k} \eta_{k,j} - \xi_{k,j}^{\alpha/2} \frac{\partial \eta_{k,j}}{\partial x_k} \right)
+\end{equation}
+
+Where the derivative for $\xi$ and $\eta$, are given by:
+\begin{align}
+    \frac{\partial \xi_{k,j}}{\partial x_k} &= 2\left( x_k - x_{k+1} \right) \norm{x_k - x_j}^2 + 2 \norm{x_{k+1} - x_k}^2 (x_k - x_j) \nonumber \\
+    & -2 \left( \left( x_{k+1} - x_k \right) \cdot \left( x_k - x_j \right) \right) \left( x_j + x_{k+1} - 2 x_k \right) \\
+    \frac{\partial \eta_{k,j}}{\partial x_k} &= \beta \norm{x_k - x_j}^{\beta - 2} (x_k - x_j) \norm{x_k - x_{k+1}}^{\alpha} \nonumber\\
+    &+ \norm{x_k - x_j}^{\beta} \alpha \norm{x_k - x_{k+1}}^{\alpha - 2} (x_k - x_{k+1}) \\
+    \frac{\partial \xi_{k-1,j}}{\partial x_k} &= 2 \norm{x_{k-1} - x_j}^2 (x_k - x_{k-1}) - 2 \left( \left( x_k - x_{k-1} \right) \cdot \left( x_{k-1} - x_j \right) \right) (x_{k-1} -x_j) \\
+    \frac{\partial \eta_{k-1,j}}{\partial x_k} &= \norm{x_{k-1} - x_j}^{\beta} \alpha \norm{x_{k} - x_{k-1}}^{\alpha - 2} (x_{k} - x_{k-1}) \\
+    \frac{\partial \xi_{j,k}}{\partial x_k} &= 2 \norm{x_{j+1} - x_j}^2 (x_k - x_j) - 2 \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k} - x_{j} \right) \right) \left( x_{j+1} - x_j \right) \\
+    \frac{\partial \eta_{j,k}}{\partial x_k} &= \norm{x_j - x_{j+1}}^{\alpha} \beta \norm{x_k - x_j}^{\beta - 2} \left( x_k - x_j \right) \\
+\end{align}
+and
+\begin{equation}
+    \frac{\partial \eta_{j, k-1}}{\partial x_k} = \frac{\partial \xi_{j,k-1}}{\partial x_k} = 0
+\end{equation}
+
+Now, the derivative of energy can be written as:
+\begin{equation}
+    \frac{\partial E}{\partial x_k} = \sum \left( \frac{\partial k_{i,j}}{\partial x_k} \norm{x_{i+1} - x_i} \norm{x_{j+1} - x_j} + k_{i,j} \frac{\partial}{\partial x_k} \left( \norm{x_{i+1} - x_{i}} \norm{x_{j+1} - x_j} \right) \right)
+\end{equation}
+where $\left( i,j \right)$ are as enumerated in the beginning.
+Note that due to the ``separation of $i$ and $j$'', one of the norms in the 
+$\frac{\partial}{\partial x_k} \left( \norm{x_{i+1} - x_{i}} \norm{x_{j+1} - x_j} \right)$ term is a constant.
+\end{document}
+
+
