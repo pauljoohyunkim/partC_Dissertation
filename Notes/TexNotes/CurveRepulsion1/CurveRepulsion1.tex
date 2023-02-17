@@ -234,28 +234,28 @@ which the gradient flow equation turns into
 
 Seems to parallel Lagrange constant in the method of Langrange multipliers.
 \section{Appendix}
-\subsection{Index of Regular-Polygonness}
-If a closed curve is topologically equivalent to a hoop, we expect the untangling process to approach a perfect circle.
-In a discrete scheme, we expect the curve to approach a regular polygon.
-
-To measure how ``regular-polygonlike'' a curve is, one may define the following function:
-\begin{definition}
-    \textbf{Regularity} $\mathcal{R}$ of a polygon $P$ with verticies at $\left( x_1, x_2, \cdots, x_J \right)$:
-    \begin{equation}
-        \mathcal{R} \coloneqq \Var \left( I \right) + \Var \left( \Theta \right)
-    \end{equation}
-    where
-    \begin{itemize}
-        \item $I$ is a tuple of edge lengths.
-        \item $\Theta$ is a tuple of inner angles.
-        \item $\Var (A)$ computes the variance of tuple $A$ by
-            \begin{equation}
-                \Var (A) \coloneqq \frac{1}{|A|} \sum_{j = 1}^{|A|} \left( \frac{1}{|A|} \sum_{i = 1}^{|A|} A_i - A_j \right)^2
-            \end{equation}
-    \end{itemize}
-    This quantity penalizes a polygon which has high ``variance'' in its edge lengths and its angles;
-    minimized when all the edge lengths are equal and all the angles are equal.
-\end{definition}
+%\subsection{Index of Regular-Polygonness}
+%If a closed curve is topologically equivalent to a hoop, we expect the untangling process to approach a perfect circle.
+%In a discrete scheme, we expect the curve to approach a regular polygon.
+%
+%To measure how ``regular-polygonlike'' a curve is, one may define the following function:
+%\begin{definition}
+%    \textbf{Regularity} $\mathcal{R}$ of a polygon $P$ with verticies at $\left( x_1, x_2, \cdots, x_J \right)$:
+%    \begin{equation}
+%        \mathcal{R} \coloneqq \Var \left( I \right) + \Var \left( \Theta \right)
+%    \end{equation}
+%    where
+%    \begin{itemize}
+%        \item $I$ is a tuple of edge lengths.
+%        \item $\Theta$ is a tuple of inner angles.
+%        \item $\Var (A)$ computes the variance of tuple $A$ by
+%            \begin{equation}
+%                \Var (A) \coloneqq \frac{1}{|A|} \sum_{j = 1}^{|A|} \left( \frac{1}{|A|} \sum_{i = 1}^{|A|} A_i - A_j \right)^2
+%            \end{equation}
+%    \end{itemize}
+%    This quantity penalizes a polygon which has high ``variance'' in its edge lengths and its angles;
+%    minimized when all the edge lengths are equal and all the angles are equal.
+%\end{definition}
 
 \subsection{Explicit Form of Derivative of Discrete Energy}
 Given (\ref{equ: Discretized Energy}), instead of approximating the differential by central scheme,
@@ -281,6 +281,7 @@ Fix $k$. Indices\footnote{NOTE: CYCLIC} of terms in $E$ involving $x_k$ can be e
     \item $(1,k-1)$, $\cdots$, $(k-3, k-1)$, $(k-1, k-1)$, $\cdots$, $(J,k-1)$
 \end{itemize}
 
+\subsubsection{$(k, j)$}
 First note that 
 \begin{align}
     \frac{\partial}{\partial x_{k,n}} \norm{x_k - x_{j}} &= \frac{x_{k,n} - x_{j,n}}{\norm{x_k - x_{j}}}
@@ -303,6 +304,7 @@ So,
 \begin{equation}
     \frac{\partial k_{\beta}^{\alpha} \left( x_k, x_j, T_k \right)}{\partial x_k} =
 \frac{1}{\eta_{k,j}^{2}} \left( \frac{\alpha}{2} \xi_{k,j}^{\alpha/2 - 1} \frac{\partial \xi_{k,j}}{\partial x_k} \eta_{k,j} - \xi_{k,j}^{\alpha/2} \frac{\partial \eta_{k,j}}{\partial x_k} \right)
+\label{equ: kj diff}
 \end{equation}
 Now, we note:
 \begin{align}
@@ -311,6 +313,22 @@ Now, we note:
     \frac{\partial \eta_{k,j}}{\partial x_k} &= \beta \norm{x_k - x_j}^{\beta - 2} (x_k - x_j) \norm{x_k - x_{k+1}}^{\alpha} \\
     &+ \norm{x_k - x_j}^{\beta} \alpha \norm{x_k - x_{k+1}}^{\alpha - 2} (x_k - x_{k+1})
 \end{align}
+
+\subsubsection{$(k-1, j)$}
+This time, the component of interest is:
+\begin{align}
+    k_{\beta}^{\alpha} \left( x_{k-1}, x_j, T_{k-1} \right) &= k_{\beta}^{\alpha} \left( x_{k-1}, x_j, \frac{x_k - x_{k-1}}{\norm{x_k - x_{k-1}}} \right) \\
+    &= \frac{\sqrt{\norm{x_{k} - x_{k-1}}^2 \norm{x_{k-1} - x_j}^2- \left( \left( x_{k} - x_{k-1} \right) \cdot \left( x_{k-1} - x_{j} \right) \right)^2}^{\alpha} }{\norm{x_{k-1} - x_j}^{\beta} \norm{x_k - x_{k-1}}^{\alpha}} \\
+    &= \frac{\xi_{k-1,j}^{\alpha/2}}{\eta_{k-1,j}}
+\end{align}
+Refer to (\ref{equ: kj diff}) for the derivative form.
+
+Note the following derivatives.
+\begin{align}
+    \frac{\partial \xi_{k-1,j}}{\partial x_k} &= 2 \norm{x_{k-1} - x_j}^2 (x_k - x_{k-1}) - 2 \left( \left( x_k - x_{k-1} \right) \cdot \left( x_{k-1} - x_j \right) \right) (x_{k-1} -x_j) \\
+    \frac{\partial \eta_{k-1,j}}{\partial x_k} &= \norm{x_{k-1} - x_j}^{\beta} \alpha \norm{x_{k} - x_{k-1}}^{\alpha - 2} (x_{k} - x_{k-1})
+\end{align}
+
 \end{document}
 
 
