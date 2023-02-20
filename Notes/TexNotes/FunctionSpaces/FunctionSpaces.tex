@@ -1,5 +1,6 @@
 \documentclass[a4paper]{article}
 
+\usepackage[]{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{amsthm}
@@ -10,6 +11,8 @@
 \newcommand{\inner}[2]{\langle #1, #2 \rangle}
 \newcommand{\dx}{\, \text{d} x}
 \newcommand{\dy}{\, \text{d} y}
+
+\DeclareMathOperator{\grad}{grad}
 
 \title{Functional Analysis: Gradient}
 \author{Paul Kim}
@@ -48,6 +51,36 @@ For our tangent point energy defined by $E(\gamma) = \int_{M^2} \left( \cdot \ri
     \frac{\partial}{\partial \epsilon} E(\gamma + \epsilon \delta) |_{\epsilon = 0} = \int_{M^2} \frac{\delta E}{\delta \gamma} \delta
 \end{equation}
 
+
+\section{Gradient on Integer Sobolev Spaces}
+For integer Sobolev spaces $H^k$, inner product is defined by $\inner{f}{g}_{H^k} = \sum_{i=0}^{k} \inner{D^i f}{D^i g}$.
+Write the $L^2$ gradient as $h$: $\frac{\partial}{\partial \epsilon} \mathcal{E} (f+\epsilon g) |_{\epsilon = 0} = \inner{h}{g}_{L^2} \eqqcolon \mathcal{D}$
+\subsection{Gradient on $H^1$}
+\begin{align}
+    \mathcal{D} &= \inner{\nabla^2 (\Delta^{-1})h}{g}_{L^2} \\
+    &= \inner{-\nabla \left( \Delta^{-1} \right)h }{\nabla g}_{L^2} \\
+    &= \inner{- \Delta^{-1} h}{g}_{H^1}
+\end{align}
+So, $\grad_{H^1} \mathcal{E} = -\nabla^{-1} h$
+
+\subsection{Gradient on $H^{-1}$}
+Note that $\inner{f}{g}_{H^{-1}} = \inner{\Delta^{-1} f}{\Delta^{-1} g}_{H^1} = \inner{\nabla \left( \Delta^{-1} f \right)}{\nabla \left( \Delta^{-1} g \right)}_{L^2}$
+Now note,
+\begin{align}
+    \mathcal{D} &= \inner{h}{g}_{L^2} \\
+    &= \inner{-\nabla h}{\nabla \left( \Delta^{-1} g \right)}_{L^2} \\
+    &\stackrel{f=-\Delta h}{=} \inner{-\Delta h}{g}_{H^{-1}}
+\end{align}
+So, $\grad_{H^{-1}} \mathcal{E} = -\Delta h$
+
+\subsection{Gradient on $H^2$}
+\begin{align}
+    \mathcal{D} &= \inner{h}{g}_{L^2} \\
+    &= \inner{\Delta^{-1} h}{\Delta g}_{L^2} \\
+    &= \inner{\Delta \left( \Delta^{-2} h \right)}{\Delta g}_{L^2} \\
+    &= \inner{\Delta^{-2} h}{g}_{H^2}
+\end{align}
+So, $\grad_{H^2} \mathcal{E} = \Delta^{-2} h$
 
 \end{document}
 
