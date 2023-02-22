@@ -93,6 +93,21 @@ Taking derivative of $\eta_{i,j,k}$ with respect to $x_k$,
     \frac{\partial \eta_{i,j,k}}{\partial x_k} &= \alpha \norm{x_i - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha - 2} \left( x_k - x_{k+1} \right)
 \end{align}
 
+\section{$(p,q,r) = (k-1, j, k-1)$}
+\begin{align}
+    \xi_{k-1,j,k-1} &= \norm{x_k - x_{k-1}}^2 \norm{x_{k-1} - x_j}^2- \left( \left( x_k - x_{k-1} \right) \cdot \left( x_{k-1} - x_{j} \right) \right)^2 \\
+    \eta_{k-1,j,k-1} &= \norm{x_{k-1} - x_j}^{\beta} \norm{x_{k-1} - x_k}^{\alpha}
+\end{align}
+Taking derivative of $\xi_{k-1, j, k-1}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \xi_{k-1, j, k-1}}{\partial x_k} &= 2 \norm{x_{k-1} - x_j}^2 \left( x_k - x_{k-1} \right) \\
+    &- 2 \left( x_k - x_{k-1} \right) \cdot \left( x_{k-1} - x_j \right) \left( x_{k-1} - x_j \right)
+\end{align}
+Taking derivative of $\eta_{k-1, j, k-1}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \eta_{k-1, j, k-1}}{\partial x_k} &= \alpha \norm{x_{k-1} - x_j}^{\beta} \norm{x_k - x_{k-1}}^{\alpha-2} \left( x_k - x_{k-1} \right)
+\end{align}
+
 \end{document}
 
 
