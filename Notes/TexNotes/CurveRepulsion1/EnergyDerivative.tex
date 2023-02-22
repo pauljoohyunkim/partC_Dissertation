@@ -124,19 +124,19 @@ Taking derivative of $\eta_{k, j, k-1}$ with respect to $x_k$,
     &+ \alpha \norm{x_k - x_j}^{\beta} \norm{x_k - x_{k-1}}^{\alpha - 2} \left( x_k - x_{k-1} \right)
 \end{align}
 
-\section{$(p,q,r) = (j, k, j)$}
+\section{$(p,q,r) = (i, k, j)$}
 \begin{align}
-    \xi_{j,k,j} &= \norm{x_{j+1} - x_{j}}^2 \norm{x_k - x_j}^2- \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2 \\
-    \eta_{j,k,j} &= \norm{x_k - x_j}^{\beta} \norm{x_{j} - x_{j+1}}^{\alpha}
+    \xi_{i,k,j} &= \norm{x_{j+1} - x_{j}}^2 \norm{x_k - x_i}^2- \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k} - x_{i} \right) \right)^2 \\
+    \eta_{i,k,j} &= \norm{x_k - x_i}^{\beta} \norm{x_{j} - x_{j+1}}^{\alpha}
 \end{align}
-Taking derivative of $\xi_{j,k,j}$ with respect to $x_k$,
+Taking derivative of $\xi_{i,k,j}$ with respect to $x_k$,
 \begin{align}
-    \frac{\partial \xi_{j,k,j}}{\partial x_k} &= 2 \norm{x_{j+1} - x_j}^2 \left( x_k - x_j \right) \\
-    &- 2 \left( x_{j+1} - x_j \right) \cdot \left( x_k - x_j \right) \left( x_{j+1} - x_j \right)
+    \frac{\partial \xi_{i,k,j}}{\partial x_k} &= 2 \norm{x_{j+1} - x_j}^2 \left( x_k - x_i \right) \\
+    &- 2 \left( x_{j+1} - x_j \right) \cdot \left( x_k - x_i \right) \left( x_{j+1} - x_j \right)
 \end{align}
-Taking derivative of $\eta_{j,k,j}$ with respect to $x_k$,
+Taking derivative of $\eta_{i,k,j}$ with respect to $x_k$,
 \begin{align}
-    \frac{\partial \eta_{j,k,j}}{\partial x_k} &= \beta \norm{x_j - x_{j+1}}^{\alpha} \norm{x_k - x_j}^{\beta - 2} \left( x_k - x_j \right)
+    \frac{\partial \eta_{i,k,j}}{\partial x_k} &= \beta \norm{x_j - x_{j+1}}^{\alpha} \norm{x_k - x_i}^{\beta - 2} \left( x_k - x_i \right)
 \end{align}
 
 \end{document}
