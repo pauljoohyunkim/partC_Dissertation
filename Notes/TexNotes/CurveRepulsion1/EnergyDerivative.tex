@@ -44,9 +44,9 @@ $(i,j)$ that involves $x_k$ are enumerated by the following indices:
 We now attempt to construct derivative (in a ``modular fashion'').
 Write 
 \begin{align}
-    k_{\beta}^{\alpha} \left( x_p, x_q, T_r \right) &= k_{\beta}^{\alpha} \left( x_p, x_q, \frac{x_{r+1} - x_{r}}{\norm{x_{r} - x_{r+1}}} \right)
+    k_{\beta}^{\alpha} \left( x_p, x_q, T_r \right) &= k_{\beta}^{\alpha} \left( x_p, x_q, \frac{x_{r+1} - x_{r}}{\norm{x_{r} - x_{r+1}}} \right) \nonumber
     \\
-    &= \frac{\sqrt{\norm{x_{r+1} - x_r}^2 \norm{x_p - x_q}^2- \left( \left( x_{r+1} - x_{r} \right) \cdot \left( x_{p} - x_{q} \right) \right)^2}^{\alpha} }{\norm{x_p - x_q}^{\beta} \norm{x_r - x_{r+1}}^{\alpha}} \\
+    &= \frac{\sqrt{\norm{x_{r+1} - x_r}^2 \norm{x_p - x_q}^2- \left( \left( x_{r+1} - x_{r} \right) \cdot \left( x_{p} - x_{q} \right) \right)^2}^{\alpha} }{\norm{x_p - x_q}^{\beta} \norm{x_r - x_{r+1}}^{\alpha}} \nonumber \\
     &= \frac{\xi_{p,q,r}^{\alpha/2}}{\eta_{p,q,r}}
 \end{align}
 where
@@ -78,6 +78,20 @@ Taking derivative of $\eta_{k,j,k}$ with respect to $x_k$,
     &+ \alpha \norm{x_k - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha - 2} \left( x_k - x_{k+1} \right)
 \end{align}
 
+\section{$(p,q,r) = (i, j, k)$ where $i \neq k$ or $i \neq k-1$}
+\begin{align}
+    \xi_{i,j,k} &= \norm{x_{k+1} - x_k}^2 \norm{x_i - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{i} - x_{j} \right) \right)^2 \\
+    \eta_{i,j,k} &= \norm{x_i - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}
+\end{align}
+Taking derivative of $\xi_{i,j,k}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \xi_{i,j,k}}{\partial x_k} &= 2 \norm{x_i - x_j}^2 \left( x_k - x_{k+1} \right) \\
+    &- 2 \left( x_{k+1} - x_k \right) \cdot \left( x_i - x_j \right) \left( x_j - x_i \right)
+\end{align}
+Taking derivative of $\eta_{i,j,k}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \eta_{i,j,k}}{\partial x_k} &= \alpha \norm{x_i - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha - 2} \left( x_k - x_{k+1} \right)
+\end{align}
 
 \end{document}
 
