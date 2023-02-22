@@ -61,6 +61,18 @@ Derivative with respect to $x_k$ can now be written as:
 \end{equation}
 where $p,q,r$ are omitted.
 
+\section{$(p,q,r) = (k, j, k)$}
+\begin{align}
+    \xi_{k,j,k} &= \norm{x_{k+1} - x_k}^2 \norm{x_k - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2 \\
+    \eta_{k,j,k} &= \norm{x_k - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}
+\end{align}
+Taking derivative of $\xi_{k,j,k}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \xi_{k,j,k}}{\partial x_k} &= 2\left( x_k - x_{k+1} \right) \norm{x_k - x_j}^2 \\
+    &+ 2 \norm{x_{k+1} - x_k}^2 \left( x_k - x_j \right) \\
+    &- 2 \left( x_{k+1} - x_k \right) \cdot \left( x_k - x_j \right) \left( x_j + x_{k+1} - 2 x_k \right)
+\end{align}
+
 \end{document}
 
 
