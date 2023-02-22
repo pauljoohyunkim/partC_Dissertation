@@ -72,6 +72,12 @@ Taking derivative of $\xi_{k,j,k}$ with respect to $x_k$,
     &+ 2 \norm{x_{k+1} - x_k}^2 \left( x_k - x_j \right) \\
     &- 2 \left( x_{k+1} - x_k \right) \cdot \left( x_k - x_j \right) \left( x_j + x_{k+1} - 2 x_k \right)
 \end{align}
+Taking derivative of $\eta_{k,j,k}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \eta_{k,j,k}}{\partial x_k} &= \beta \norm{x_k - x_j}^{\beta - 2} \norm{x_k - x_{k+1}}^{\alpha} \left( x_k - x_j \right)\\
+    &+ \alpha \norm{x_k - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha - 2} \left( x_k - x_{k+1} \right)
+\end{align}
+
 
 \end{document}
 
