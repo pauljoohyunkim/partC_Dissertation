@@ -38,48 +38,107 @@ $(i,j)$ that involves $x_k$ are enumerated by the following indices:
     \item $(k,1)$, $\cdots$, $(k, k-2)$, $(k, k+2)$, $\cdots$, $(k,J)$
     \item $(k-1,1)$, $\cdots$, $(k-1, k-3)$, $(k-1, k+1)$, $\cdots$, $(k-1,J)$
     \item $(1,k)$, $\cdots$, $(k-2, k)$, $(k+2, k)$, $\cdots$, $(J,k)$
-    \item $(1,k-1)$, $\cdots$, $(k-3, k-1)$, $(k-1, k-1)$, $\cdots$, $(J,k-1)$
+    \item $(1,k-1)$, $\cdots$, $(k-3, k-1)$, $(k+1, k-1)$, $\cdots$, $(J,k-1)$
 \end{itemize}
 
 We now attempt to construct derivative (in a ``modular fashion'').
 Write 
 \begin{align}
-    k_{\beta}^{\alpha} \left( x_k, x_j, T_k \right) &= k_{\beta}^{\alpha} \left( x_k, x_j, \frac{x_{k+1} - x_{k}}{\norm{x_{k} - x_{k+1}}} \right)
+    k_{\beta}^{\alpha} \left( x_p, x_q, T_r \right) &= k_{\beta}^{\alpha} \left( x_p, x_q, \frac{x_{r+1} - x_{r}}{\norm{x_{r} - x_{r+1}}} \right) \nonumber
     \\
-    &= \frac{\sqrt{\norm{x_{k+1} - x_k}^2 \norm{x_k - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2}^{\alpha} }{\norm{x_k - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}} \\
-    &= \frac{\xi_{k,j}^{\alpha/2}}{\eta_{k,j}}
+    &= \frac{\sqrt{\norm{x_{r+1} - x_r}^2 \norm{x_p - x_q}^2- \left( \left( x_{r+1} - x_{r} \right) \cdot \left( x_{p} - x_{q} \right) \right)^2}^{\alpha} }{\norm{x_p - x_q}^{\beta} \norm{x_r - x_{r+1}}^{\alpha}} \nonumber \\
+    &= \frac{\xi_{p,q,r}^{\alpha/2}}{\eta_{p,q,r}}
 \end{align}
-where $\xi_{k,j} \coloneqq \norm{x_{k+1} - x_k}^2 \norm{x_k - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2$ and $\eta_{k,j} = \norm{x_k -x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}$.
-
-Then we may write the derivative for this ``kernel'' as:
-\begin{equation}
-    \frac{\partial k_{\beta}^{\alpha} \left( x_k, x_j, T_k \right)}{\partial x_k} =
-\frac{1}{\eta_{k,j}^{2}} \left( \frac{\alpha}{2} \xi_{k,j}^{\alpha/2 - 1} \frac{\partial \xi_{k,j}}{\partial x_k} \eta_{k,j} - \xi_{k,j}^{\alpha/2} \frac{\partial \eta_{k,j}}{\partial x_k} \right)
-\end{equation}
-
-Where the derivative for $\xi$ and $\eta$, are given by:
+where
 \begin{align}
-    \frac{\partial \xi_{k,j}}{\partial x_k} &= 2\left( x_k - x_{k+1} \right) \norm{x_k - x_j}^2 + 2 \norm{x_{k+1} - x_k}^2 (x_k - x_j) \nonumber \\
-    & -2 \left( \left( x_{k+1} - x_k \right) \cdot \left( x_k - x_j \right) \right) \left( x_j + x_{k+1} - 2 x_k \right) \\
-    \frac{\partial \eta_{k,j}}{\partial x_k} &= \beta \norm{x_k - x_j}^{\beta - 2} (x_k - x_j) \norm{x_k - x_{k+1}}^{\alpha} \nonumber\\
-    &+ \norm{x_k - x_j}^{\beta} \alpha \norm{x_k - x_{k+1}}^{\alpha - 2} (x_k - x_{k+1}) \\
-    \frac{\partial \xi_{k-1,j}}{\partial x_k} &= 2 \norm{x_{k-1} - x_j}^2 (x_k - x_{k-1}) - 2 \left( \left( x_k - x_{k-1} \right) \cdot \left( x_{k-1} - x_j \right) \right) (x_{k-1} -x_j) \\
-    \frac{\partial \eta_{k-1,j}}{\partial x_k} &= \norm{x_{k-1} - x_j}^{\beta} \alpha \norm{x_{k} - x_{k-1}}^{\alpha - 2} (x_{k} - x_{k-1}) \\
-    \frac{\partial \xi_{j,k}}{\partial x_k} &= 2 \norm{x_{j+1} - x_j}^2 (x_k - x_j) - 2 \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k} - x_{j} \right) \right) \left( x_{j+1} - x_j \right) \\
-    \frac{\partial \eta_{j,k}}{\partial x_k} &= \norm{x_j - x_{j+1}}^{\alpha} \beta \norm{x_k - x_j}^{\beta - 2} \left( x_k - x_j \right) \\
+    \xi_{p,q,r} &= \norm{x_{r+1} - x_r}^2 \norm{x_p - x_q}^2- \left( \left( x_{r+1} - x_{r} \right) \cdot \left( x_{p} - x_{q} \right) \right)^2 \\
+    \eta_{p,q,r} &= \norm{x_p - x_q}^{\beta} \norm{x_r - x_{r+1}}^{\alpha}
 \end{align}
-and
-\begin{equation}
-    \frac{\partial \eta_{j, k-1}}{\partial x_k} = \frac{\partial \xi_{j,k-1}}{\partial x_k} = 0
-\end{equation}
 
-Now, the derivative of energy can be written as:
+Derivative with respect to $x_k$ can now be written as:
 \begin{equation}
-    \frac{\partial E}{\partial x_k} = \sum \left( \frac{\partial k_{i,j}}{\partial x_k} \norm{x_{i+1} - x_i} \norm{x_{j+1} - x_j} + k_{i,j} \frac{\partial}{\partial x_k} \left( \norm{x_{i+1} - x_{i}} \norm{x_{j+1} - x_j} \right) \right)
+    \frac{\partial}{\partial x_k} \left( \frac{\xi^{\alpha/2}}{\eta} \right) = \frac{1}{\eta^2} \left( \frac{\alpha}{2} \xi^{\alpha/2 - 1} \frac{\partial \xi}{\partial x_k} \eta - \xi^{\alpha/2} \frac{\partial \eta}{\partial x_k} \right)
 \end{equation}
-where $\left( i,j \right)$ are as enumerated in the beginning.
-Note that due to the ``separation of $i$ and $j$'', one of the norms in the 
-$\frac{\partial}{\partial x_k} \left( \norm{x_{i+1} - x_{i}} \norm{x_{j+1} - x_j} \right)$ term is a constant.
+where $p,q,r$ are omitted.
+
+\section{$(p,q,r) = (k, j, k)$}
+\begin{align}
+    \xi_{k,j,k} &= \norm{x_{k+1} - x_k}^2 \norm{x_k - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2 \\
+    \eta_{k,j,k} &= \norm{x_k - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}
+\end{align}
+Taking derivative of $\xi_{k,j,k}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \xi_{k,j,k}}{\partial x_k} &= 2\left( x_k - x_{k+1} \right) \norm{x_k - x_j}^2 \\
+    &+ 2 \norm{x_{k+1} - x_k}^2 \left( x_k - x_j \right) \\
+    &- 2 \left( x_{k+1} - x_k \right) \cdot \left( x_k - x_j \right) \left( x_j + x_{k+1} - 2 x_k \right)
+\end{align}
+Taking derivative of $\eta_{k,j,k}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \eta_{k,j,k}}{\partial x_k} &= \beta \norm{x_k - x_j}^{\beta - 2} \norm{x_k - x_{k+1}}^{\alpha} \left( x_k - x_j \right)\\
+    &+ \alpha \norm{x_k - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha - 2} \left( x_k - x_{k+1} \right)
+\end{align}
+
+\section{$(p,q,r) = (i, j, k)$ where $i \neq k$ or $i \neq k-1$}
+\begin{align}
+    \xi_{i,j,k} &= \norm{x_{k+1} - x_k}^2 \norm{x_i - x_j}^2- \left( \left( x_{k+1} - x_{k} \right) \cdot \left( x_{i} - x_{j} \right) \right)^2 \\
+    \eta_{i,j,k} &= \norm{x_i - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha}
+\end{align}
+Taking derivative of $\xi_{i,j,k}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \xi_{i,j,k}}{\partial x_k} &= 2 \norm{x_i - x_j}^2 \left( x_k - x_{k+1} \right) \\
+    &- 2 \left( x_{k+1} - x_k \right) \cdot \left( x_i - x_j \right) \left( x_j - x_i \right)
+\end{align}
+Taking derivative of $\eta_{i,j,k}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \eta_{i,j,k}}{\partial x_k} &= \alpha \norm{x_i - x_j}^{\beta} \norm{x_k - x_{k+1}}^{\alpha - 2} \left( x_k - x_{k+1} \right)
+\end{align}
+
+\section{$(p,q,r) = (k-1, j, k-1)$}
+\begin{align}
+    \xi_{k-1,j,k-1} &= \norm{x_k - x_{k-1}}^2 \norm{x_{k-1} - x_j}^2- \left( \left( x_k - x_{k-1} \right) \cdot \left( x_{k-1} - x_{j} \right) \right)^2 \\
+    \eta_{k-1,j,k-1} &= \norm{x_{k-1} - x_j}^{\beta} \norm{x_{k-1} - x_k}^{\alpha}
+\end{align}
+Taking derivative of $\xi_{k-1, j, k-1}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \xi_{k-1, j, k-1}}{\partial x_k} &= 2 \norm{x_{k-1} - x_j}^2 \left( x_k - x_{k-1} \right) \\
+    &- 2 \left( x_k - x_{k-1} \right) \cdot \left( x_{k-1} - x_j \right) \left( x_{k-1} - x_j \right)
+\end{align}
+Taking derivative of $\eta_{k-1, j, k-1}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \eta_{k-1, j, k-1}}{\partial x_k} &= \alpha \norm{x_{k-1} - x_j}^{\beta} \norm{x_k - x_{k-1}}^{\alpha-2} \left( x_k - x_{k-1} \right)
+\end{align}
+\section{$(p,q,r) = (k, j, k-1)$}
+\begin{align}
+    \xi_{k,j,k-1} &= \norm{x_{k} - x_{k-1}}^2 \norm{x_k - x_j}^2- \left( \left( x_{k} - x_{k-1} \right) \cdot \left( x_{k} - x_{j} \right) \right)^2 \\
+    \eta_{k,j,k-1} &= \norm{x_k - x_j}^{\beta} \norm{x_{k-1} - x_{k}}^{\alpha}
+\end{align}
+Taking derivative of $\xi_{k, j, k-1}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \xi_{k, j, k-1}}{\partial x_k} &= 2 \norm{x_k - x_j}^2 \left( x_k - x_{k-1} \right) \\
+    &+ 2 \norm{x_k - x_{k-1}}^2 \left( x_k - x_j \right) \\
+    &- 2 \left( x_k - x_{k-1} \right) \cdot \left( x_k - x_j \right) \left( 2 x_k - x_j - x_{k-1} \right)
+\end{align}
+Taking derivative of $\eta_{k, j, k-1}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \eta_{k, j, k-1}}{\partial x_k} &= \beta \norm{x_{k-1} - x_k}^{\alpha} \norm{x_k - x_j}^{\beta - 2} \left( x_k - x_j \right) \\
+    &+ \alpha \norm{x_k - x_j}^{\beta} \norm{x_k - x_{k-1}}^{\alpha - 2} \left( x_k - x_{k-1} \right)
+\end{align}
+
+\section{$(p,q,r) = (i, k, j)$}
+\begin{align}
+    \xi_{i,k,j} &= \norm{x_{j+1} - x_{j}}^2 \norm{x_k - x_i}^2- \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k} - x_{i} \right) \right)^2 \\
+    \eta_{i,k,j} &= \norm{x_k - x_i}^{\beta} \norm{x_{j} - x_{j+1}}^{\alpha}
+\end{align}
+Taking derivative of $\xi_{i,k,j}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \xi_{i,k,j}}{\partial x_k} &= 2 \norm{x_{j+1} - x_j}^2 \left( x_k - x_i \right) \\
+    &- 2 \left( x_{j+1} - x_j \right) \cdot \left( x_k - x_i \right) \left( x_{j+1} - x_j \right)
+\end{align}
+Taking derivative of $\eta_{i,k,j}$ with respect to $x_k$,
+\begin{align}
+    \frac{\partial \eta_{i,k,j}}{\partial x_k} &= \beta \norm{x_j - x_{j+1}}^{\alpha} \norm{x_k - x_i}^{\beta - 2} \left( x_k - x_i \right)
+\end{align}
+
 \end{document}
 
 
