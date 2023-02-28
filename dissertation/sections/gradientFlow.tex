@@ -21,7 +21,7 @@ reducing the value at evaluation of $f$.
     \hspace{1cm}
     \begin{subfigure}[b]{0.4\textwidth}
         \includegraphics[width=\textwidth]{sections/gradientFlowImgs/gf}
-        \caption{Solution to $L^2$ gradient flow equation with 1D energy functional $\mathcal{E} (f) \coloneqq \int_{-1}^1 \abs{\nabla f(x)} \intd x$, which penealises variation in function. Note that the solution converges to a function with no variation.}
+        \caption{Solution to $L^2$ gradient flow equation with 1D energy functional $\mathcal{E} (f) \coloneqq \int_{-1}^1 \abs{\nabla f(x)}^2 \intd x$, which penealises variation in function. Note that the solution converges to a function with no variation.}
         \label{fig: GF}
     \end{subfigure}
 \end{figure}
@@ -41,7 +41,7 @@ Dividing (\ref{equ: Gradient Flow Motivation}) by time step $\Delta t \coloneqq 
 and taking the limit as $\Delta t \rightarrow 0$,
 we acquire the \textbf{gradient flow equation}\cite{YSC2021}.
 \begin{equation}
-    \frac{\partial F}{\partial t} = - \grad_{\mathcal{X}} F
+    \frac{\partial f}{\partial t} = - \grad_{\mathcal{X}} F (f)
 \end{equation}
 where index $k$ transforms to ``time'' variable $t$.
 
