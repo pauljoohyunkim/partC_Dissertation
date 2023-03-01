@@ -1,13 +1,8 @@
 from curve import Curve
 from copy import deepcopy
+from tangentPointEnergy import kernelalphabeta
 import numpy as np
 
-# p, q, T are all array
-def kernelalphabeta(p, q, T, alpha=2, beta=4):
-    pmq = p - q
-    numerator = np.linalg.norm(np.cross(T, pmq)) ** alpha
-    denominator = np.linalg.norm(pmq) ** beta
-    return numerator / denominator
 
 def kij(curve, i, j, alpha=2, beta=4):
     TI = curve[i+1] - curve[i]
@@ -199,7 +194,7 @@ def dProductOfLengths(curve, p, q, k):
 # Derivative of Energy: Outputs a curve
 def dEnergy(curve, alpha, beta):
     J = len(curve)
-    res = Curve([np.array([0,0,0], dtype="float64") for i in range(J)])
+    res = Curve([np.array([0,0,0], dtype=curve[0].dtype) for i in range(J)])
 
     for k in range(J):
         # Generate indices that are relevant
