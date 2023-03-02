@@ -1,10 +1,31 @@
 \documentclass{beamer}
 \usetheme{Madrid}
 
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
 \usepackage[]{graphicx}
 \usepackage{libertinus}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage[backend=biber]{biblatex}
 \addbibresource{bibliography.bib}
+
+\newcommand{\gammabf}{\boldsymbol{\gamma}}
+\newcommand{\intd}{\, \text{d}}
+\newcommand{\norm}[1]{\lvert \lvert #1 \rvert \rvert}
 
 
 \title{Untangling Knots Through Curve Repulsion}
@@ -31,19 +52,121 @@
         \includegraphics[scale=0.25]{knot}
         \caption{Imagine your earphones getting tangled like this\ldots}
     \end{figure}
-
 \end{frame}
+
+
 \begin{frame}
     \frametitle{Aim}
     \begin{itemize}
-        \item Finding homotopy from a knot to an unknot.
+        \item<1-> Finding a ``homotopy'' from a knot to an unknot.
             \begin{figure}[h]
                 \centering
                 \includegraphics[scale=0.2]{knotsolving}
-                \caption{Unknotting while avoiding self intersections.\cite{YSC2021}}
+                \caption{Unknots of test knots.\cite{YSC2021}}
             \end{figure}
+        \item<2-> ``Avoiding self-intersection''
     \end{itemize}
+\end{frame}
 
+\begin{frame}
+    \frametitle{General Strategy}
+    \begin{enumerate}
+        \item<1-> Define curve energy; penalizing the closeness of points on a curve.
+            \begin{itemize}
+                \item Closeness of points on curve is a natural characteristic of a tangled curve.
+            \end{itemize}
+        \item<2-> Attempt to decrease the curve energy by continuously deforming the curve.
+            \begin{itemize}
+                \item We evolve the curve according to the gradient flow equation.
+                \item There is a freedom in choosing the ``gradient'' here.
+            \end{itemize}
+        \item<3-> We expect the stationary state to be the ``unknot''
+            \begin{itemize}
+                \item Or at least a simpler state\ldots
+            \end{itemize}
+    \end{enumerate}
+
+\end{frame}
+
+\section{Tangent-Point Energy}
+\begin{frame}
+    \frametitle{Defining Curve Energy}
+    \onslide<1->{
+        Given an (arc-length parameterised) curve $\gammabf:M \rightarrow \mathbb{R}^3$, we wish to assign energy of the form:
+        \begin{equation}
+            \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} k \left( \gammabf_x, \gammabf_y \right) \intd \gamma_x \intd \gamma_y
+        \end{equation}
+        such that
+        \begin{itemize}
+            \item $\mathcal{E}$ is high when two non-neighbouring points are close.
+        \end{itemize}
+    }
+    \onslide<2>{
+        A na\"ive choice is $k \left( \gammabf_x, \gammabf_y \right) \coloneqq \frac{1}{\norm{\gammabf_x - \gammabf_y}}$
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Pitfall of the ``Simple Energy''}
+        \begin{equation*}
+            \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} \frac{1}{\norm{\gammabf_x - \gammabf_y}} \intd \gamma_x \intd \gamma_y
+        \end{equation*}
+        \begin{figure}[h]
+            \centering
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{simple-0}
+            \end{subfigure}
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{simple-1}
+            \end{subfigure}
+        \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Pitfall of the ``Simple Energy''}
+        \begin{equation*}
+            \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} \frac{1}{\norm{\gammabf_x - \gammabf_y}} \intd \gamma_x \intd \gamma_y
+        \end{equation*}
+        \begin{figure}[h]
+            \centering
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{simple-2}
+            \end{subfigure}
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{simple-3}
+            \end{subfigure}
+        \end{figure}
+        \onslide<2->{
+            This energy is not well-defined for a lot of curves!
+        }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Buck-Orloff Tangent-Point Energy}
+    \begin{itemize}
+        \item From the simple energy, need a way to eliminate the contribution of the ``singularity''.
+    \end{itemize}
+    \begin{definition}[Buck-Orloff Tangent-Point Energy]<2->
+        For a smooth curve $\gammabf$, define
+        \begin{equation*}
+            \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} k_{4}^2 \left( \gammabf_x, \gammabf_y, \mathbf{T}_x \right) \intd \gamma_x \intd \gamma_y
+        \end{equation*}
+        where $\mathbf{T}_x$ is the unit tangent vector at $\gammabf_x$,
+        with the kernel defined as
+        \begin{equation*}
+            k_4^2 \left( \mathbf{p}, \mathbf{q}, \mathbf{T} \right) \coloneqq \frac{\norm{\mathbf{T} \wedge \left( \mathbf{p} - \mathbf{q} \right)}^{2}}{\norm{\mathbf{p} - \mathbf{q}}^{4}}
+        \end{equation*}
+        as \textbf{Buck-Orloff Tangent-Point Energy}.\cite{BO1995}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Intuition}
+    
 \end{frame}
 
 \begin{frame}
