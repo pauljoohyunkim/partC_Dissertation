@@ -1,4 +1,5 @@
 import numpy as np
+import curve
 
 # p, q, T are all array
 def kernelalphabeta(p, q, T, alpha=2, beta=4):
@@ -7,20 +8,29 @@ def kernelalphabeta(p, q, T, alpha=2, beta=4):
     denominator = np.linalg.norm(pmq) ** beta
     return numerator / denominator
 
-def thresholder(x, threshold=1e-10, enabled=False):
+def thresholder(x, threshold=1e-8, enabled=False):
     if enabled:
-        # Numpy array
-        if type(x) == np.ndarray:
-            if np.linalg.norm(x, 1) < threshold:
-                return np.array([0, 0, 0], dtype=x.dtype)
-            else:
-                return x
+        # Numpy array (Threshold each component)
+        if isinstance(x, np.ndarray):
+            length = len(x)
+            res = np.zeros(length, dtype=x.dtype)
+            for i in range(length):
+                if abs(x[i]) < threshold:
+                    res[i] = 0.0
+                else:
+                    res[i] = x[i]
+            return res
         # Float Value
-        else:
+        elif isinstance(x, float):
             if abs(x) < threshold:
                 return 0.0
             else:
                 return x
+        elif isinstance(x, curve.Curve):
+            J = len(x)
+            for i in range(J):
+                x[i] = thresholder(x[i], enabled=True)
+            return x
 
     # Turned off:
     else:
