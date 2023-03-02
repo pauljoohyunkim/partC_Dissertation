@@ -532,7 +532,9 @@
         Given a closed curve with discretised points $\xbf_0, \xbf_1, \cdots, \xbf_{J-1}$,
         define \textbf{discretised energy} $E$ as:
         \begin{equation*}
-            E \left( \Gammabf \right) \coloneqq \sum_{\substack{i, j \in \left\{ 0, 1, \cdots, J-1 \right\} \\ \dist_{\text{geodesic}} \left( \Gammabf(i), \Gammabf(j) \right) > 1}} k_{i,j} \norm{\xbf_{i+1} - \xbf_{i}} \, \norm{\xbf_{j+1} - \xbf_{j}}
+            E \left( \Gammabf \right) \coloneqq \sum_{\substack{i, j \in \left\{ 0, 1, \cdots, J-1 \right\} \\ \dist_{\text{geodesic}} \left( \Gammabf(i), \Gammabf(j) \right) > 1}} 
+            \frac{\norm{\mathbf{T}_x \wedge \left( \gammabf_x - \gammabf_y \right)}^{\alpha}}{\norm{\gammabf_x - \gammabf_y}^{\beta}}
+            \norm{\xbf_{i+1} - \xbf_{i}} \, \norm{\xbf_{j+1} - \xbf_{j}}
         \end{equation*}
         where the discretised kernel $k_{i,j}$ is given by:
         \begin{equation*}
@@ -543,6 +545,22 @@
             + k_{\beta}^{\alpha} \left( x_{i+1}, x_{j+1}, T_i \right) \right)
         \end{equation*}
     \end{definition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Numerical Scheme}
+    Original $L^2$ Gradient Flow Equation:
+    \begin{equation}
+        \frac{\partial \gammabf}{\partial t} = - \grad_{L^2} \mathcal{E}
+    \end{equation}
+    By forward difference, we arrived at an explicit Euler scheme:
+    \begin{equation*}
+        \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \underbrace{\frac{\partial E}{\partial \Gammabf}}_{\text{Gradient from perturbing each point in each direction}}
+    \end{equation*}
+    where we may further approximate the RHS by central difference scheme, for example:
+    \begin{equation*}
+        \frac{\partial E}{\partial \Gammabf_i} \approx \frac{E|_{\xbf_i += h} - E|_{\xbf -= h}}{2h} \left(= \frac{\partial E}{\partial \Gammabf_i} + O(h^2) \right)
+    \end{equation*}
 \end{frame}
 
 \begin{frame}
