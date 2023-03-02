@@ -1,6 +1,6 @@
 from curve import Curve
 from copy import deepcopy
-from tangentPointEnergy import kernelalphabeta
+from tangentPointEnergy import kernelalphabeta, thresholder
 import numpy as np
 
 
@@ -129,7 +129,7 @@ def ikj(curve, p, q, r, alpha=3, beta=6):
     return (xi, eta, dxi, deta)
 
 # Derivative of k_{\beta}^{\alpha}
-def dkalphabeta(curve, p, q, r, k, alpha=3, beta=6):
+def dkalphabeta(curve, p, q, r, k, alpha=3, beta=6, thresholder_enabled=True):
     J = len(curve)
     p = p % J
     q = q % J
@@ -156,6 +156,10 @@ def dkalphabeta(curve, p, q, r, k, alpha=3, beta=6):
         #print(f"k={k}: NOT DEFINED: {p}, {q}, {r}")
         return 0.0
     xi, eta, dxi, deta = xiEtaSorter(curve, p, q, r, alpha, beta)
+    xi = thresholder(xi, enabled=True)
+    eta = thresholder(eta, enabled=True)
+    dxi = thresholder(dxi, enabled=True)
+    deta = thresholder(deta, enabled=True)
 
     res = (alpha/2 * xi**(alpha/2 - 1) * dxi * eta - xi**(alpha/2) * deta) / (eta**2)
     return res
