@@ -15,6 +15,10 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{multicol}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
 \usepackage{mathtools}
 \usepackage[]{graphicx}
 \usepackage{libertinus}
@@ -73,7 +77,7 @@
     \begin{enumerate}
         \item<1-> Define curve energy; penalizing the closeness of points on a curve.
             \begin{itemize}
-                \item Closeness of points on curve is a natural characteristic of a tangled curve.
+                \item Extreme-closeness of points on curve is a natural characteristic of a tangled curve.
             \end{itemize}
         \item<2-> Attempt to decrease the curve energy by continuously deforming the curve.
             \begin{itemize}
@@ -98,7 +102,7 @@
         \end{equation}
         such that
         \begin{itemize}
-            \item $\mathcal{E}$ is high when two non-neighbouring points are close.
+            \item $\mathcal{E}$ is very high when two non-neighbouring points are very close.
         \end{itemize}
     }
     \onslide<2>{
@@ -166,8 +170,132 @@
 
 \begin{frame}
     \frametitle{Intuition}
-    
+    What is the intuition behind the kernel $k_4^2 \left( \mathbf{p}, \mathbf{q}, \mathbf{T} \right) \coloneqq \frac{\norm{\mathbf{T} \wedge \left( \mathbf{p} - \mathbf{q} \right)}^{2}}{\norm{\mathbf{p} - \mathbf{q}}^{4}}$?
+
+    \onslide<2->
+    {
+        \begin{figure}[h]
+            \centering
+            \begin{subfigure}[b]{0.48\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{straight}
+            \end{subfigure}
+            \begin{subfigure}[b]{0.48\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{0}
+            \end{subfigure}
+        \end{figure}
+    }
+
+    \begin{remark}<3->
+        Note that closer does not necessarily mean the kernel is larger.
+    \end{remark}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Intuition}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.5]{perturbed}
+        \caption{When two points are very close, the kernel converges to the curvature of the curve.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example: Buck-Orloff Tangent-Point Energy of a Circle}
+    \begin{example}
+        Suppose we wish to compute the Buck-Orloff tangent-point energy of a unit circle.
+        \onslide<2->
+        {
+            Parameterise unit circle as:
+            \begin{multicols}{2}
+            \begin{equation*}
+                \gammabf (t) = \left( \cos{t}, \sin{t}, 0 \right)
+            \end{equation*}
+            \columnbreak
+            \begin{figure}[h]
+                \centering
+                \includegraphics[scale=0.2]{unitcircle}
+            \end{figure}
+            \end{multicols}
+        }
+        \onslide<3->
+        {
+            Then write:
+            \begin{equation*}
+                \begin{cases}
+                    \gammabf_x \left( \theta \right) = \left( \cos{\theta}, \sin{\theta}, 0 \right) \\
+                    \gammabf_y \left( \phi \right) = \left( \cos{\phi}, \sin{\phi}, 0 \right) \\
+                    \mathbf{T}_x \left( \theta \right) = \left( -\sin{\theta}, \cos{\theta}, 0 \right)
+                \end{cases}
+            \end{equation*}
+        }
+    \end{example}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example: Buck-Orloff Tangent-Point Energy of a Circle}
+    \begin{example}[Cont.]
+            \begin{equation*}
+                \begin{cases}
+                    \gammabf_x \left( \theta \right) = \left( \cos{\theta}, \sin{\theta}, 0 \right) \\
+                    \gammabf_y \left( \phi \right) = \left( \cos{\phi}, \sin{\phi}, 0 \right) \\
+                    \mathbf{T}_x \left( \theta \right) = \left( -\sin{\theta}, \cos{\theta}, 0 \right)
+                \end{cases}
+            \end{equation*}
+            Substituting to Buck-Orloff Tangent-Point energy formula:
+        \begin{equation*}
+            \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} \frac{\norm{\mathbf{T}_x \wedge \left( \gammabf_x - \gammabf_y \right)}^{2}}{\norm{\gammabf_x - \gammabf_y}^{4}} \intd \gamma_x \intd \gamma_y
+        \end{equation*}
+        \onslide<2->
+        {
+            Using a few identities:
+            \begin{align*}
+                \mathcal{E} \left( \gammabf \right) &= \int_{\theta=0}^{2 \pi} \int_{\phi=0}^{2 \pi}
+                \frac{\norm{\mathbf{T}_x}^2 \norm{\gammabf_x - \gammabf_y}^2 - \left( \mathbf{T}_x \cdot \left( \gammabf_x -\gammabf_y \right) \right)^2}{\norm{\gammabf_x - \gammabf_y}^4} \intd \theta \intd \phi
+            \end{align*}
+        }
+    \end{example}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example: Buck-Orloff Tangent-Point Energy of a Circle}
+    \begin{example}[Cont.]
+        \begin{align}
+            \mathcal{E} \left( \gammabf \right) &= \int_{\theta=0}^{2 \pi} \int_{\phi=0}^{2 \pi}
+            \frac{\norm{\mathbf{T}_x}^2 \norm{\gammabf_x - \gammabf_y}^2 - \left( \mathbf{T}_x \cdot \left( \gammabf_x -\gammabf_y \right) \right)^2}{\norm{\gammabf_x - \gammabf_y}^4} \intd \theta \intd \phi \\
+            &= \int_{\theta=0}^{2 \pi} \int_{\phi=0}^{2 \pi}
+            \frac{\sin^2 \frac{\theta - \phi}{2}}{\left( -1 + \cos \left( \theta - \phi \right) \right)^2} \intd \theta \intd \phi \\
+            &= \int_{\theta=0}^{2 \pi} \int_{\phi=0}^{2 \pi}
+            \frac{\sin^2 \frac{\theta - \phi}{2}}{\sin^4 \frac{\theta - \phi}{2}} \intd \theta \intd \phi
+            \label{equ: 1 over r squared order}
+            \\
+            &= \pi^2
+        \end{align}
+    \end{example}
+    \begin{remark}<2->
+        Note that (\ref{equ: 1 over r squared order}) suggests the order at ``singularity'' is inverse-square.
+    \end{remark}
+\end{frame}
+
+\begin{frame}
+    \frametitle{General Tangent-Point Energy}
+    A more general form of tangent-point energy comes from Yu, Schumacher, and Crane \cite{YSC2021}:
+    \begin{definition}[Generalised Tangent-Point Energy]
+        \begin{equation*}
+            \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) \coloneqq
+            \iint_{M^2} \frac{\norm{\mathbf{T}_x \wedge \left( \gammabf_x - \gammabf_y \right)}^{\alpha}}{\norm{\gammabf_x - \gammabf_y}^{\beta}}
+            \intd \gamma_x \intd \gamma_y
+        \end{equation*}
+        where $\alpha > 1$ and $\beta \in \left[ \alpha+2, 2\alpha+1 \right)$
+    \end{definition}
+    \begin{remark}
+        When $\alpha = 2$ and $\beta = 4$, we are back to Buck-Orloff.
+    \end{remark}
+\end{frame}
+
+\section{Gradient Flow}
+
 
 \begin{frame}
     \frametitle{Bibliography}
