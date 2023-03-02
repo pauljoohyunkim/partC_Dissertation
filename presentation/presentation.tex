@@ -36,6 +36,7 @@
 \newcommand{\inner}[1]{\langle \langle #1 \rangle \rangle}
 
 \DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\laplace}{\Delta}
 
 \setlength{\columnseprule}{1pt}
 
@@ -350,25 +351,79 @@
     \frametitle{Gradient in Space of Function?}
 
     \begin{multicols}{2}
-        (Gradient of Function)
+        \onslide<1->
+        {
+            (Gradient of Function)
 
-        $\nabla f\left( \xbf \right)$ is such that
-        for all $\ybf \in \mathbb{R}^n$
-        \begin{equation*}
-            \left.\nabla f \left( \xbf \right) \cdot \ybf = \frac{\partial}{\partial \epsilon} f \left( \xbf + \epsilon \ybf \right)\right|_{\epsilon = 0}
-        \end{equation*}
+            $\nabla f\left( \xbf \right)$ is such that
+            for all $\ybf \in \mathbb{R}^n$
+            \begin{equation*}
+                \left.\nabla f \left( \xbf \right) \cdot \ybf = \frac{\partial}{\partial \epsilon} f \left( \xbf + \epsilon \ybf \right)\right|_{\epsilon = 0}
+                \end{equation*}
+            }
         \columnbreak
 
-        (Gradient of Functional)
+        \onslide<2->
+        {
+            (Gradient of Functional)
 
-        $\grad_X E \left( f \right)$ is such that
-        for all $g \in X$,
-        \begin{equation*}
-            \left.\inner{\grad_X E, g}_X = \frac{\partial}{\partial \epsilon} E \left( f + \epsilon g \right)\right|_{\epsilon = 0}
-        \end{equation*}
+            $\grad_X E \left( f \right)$ is such that
+            for all $g \in X$,
+            \begin{equation*}
+                \left.\inner{\grad_X E, g}_X = \frac{\partial}{\partial \epsilon} E \left( f + \epsilon g \right)\right|_{\epsilon = 0}
+                \end{equation*}
+            }
     \end{multicols}
-    
+    \onslide<2->
+    {
+        where $X$ is the inner product space of functions (eg. $L^2$, $H^1$)
+    }
+    \begin{remark}<3->
+        For $X=L^2$, $\left( \grad_X E\right) (f)$ is the first order variation from $f$ with respect to $\epsilon$.
+    \end{remark}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Example: Dirichlet Energy in 1D}
+    \begin{definition}[1D Dirichlet Energy]
+        For a differentiable function $f:\mathcal{I} \rightarrow \mathbb{R}$, define \textbf{1D Dirichlet energy}
+        \begin{equation*}
+            E_D \left( f \right) \coloneqq \int_{\mathcal{I}} \left| \nabla f(x) \right|^2 \intd x = \int_{\mathcal{I}} \left| f'(x) \right|^2 \intd x
+        \end{equation*}
+    \end{definition}
+    \begin{remark}<2->
+        Dirichlet energy is high for function $f$ that varies a lot, and minimised by any constant function.
+    \end{remark}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example: $L^2$ Gradient Flow of Dirichlet Energy}
+    Because Dirichlet energy is simple enough, we may explicitly write down $\grad_{X} E$ for a few inner product function spaces.
+    \begin{lemma}[$L^2$ Gradient of Dirichlet Energy]<2->
+        \begin{equation*}
+            \grad_{L^2} E_D (f) = - \laplace f
+        \end{equation*}
+        (for suitable boundary condition if finite interval)
+    \end{lemma}
+
+    \onslide<3->
+    {
+    Then the gradient flow equation for Dirichlet energy becomes:
+    \begin{equation}
+        \frac{\partial f}{\partial t} = \laplace f
+    \end{equation}
+}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.05]{gf}
+        \caption{Solution to $L^2$ Gradient Flow Equation for Dirichlet Energy (AKA Heat Equation)}
+    \end{figure}
+\end{frame}
+
+
 
 \begin{frame}
     \frametitle{Bibliography}
