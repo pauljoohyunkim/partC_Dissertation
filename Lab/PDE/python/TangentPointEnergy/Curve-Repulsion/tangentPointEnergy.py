@@ -8,7 +8,7 @@ def kernelalphabeta(p, q, T, alpha=2, beta=4):
     denominator = np.linalg.norm(pmq) ** beta
     return numerator / denominator
 
-def thresholder(x, threshold=1e-8, enabled=False):
+def thresholder(x, threshold=1e-10, enabled=False):
     if enabled:
         # Numpy array (Threshold each component)
         if isinstance(x, np.ndarray):
