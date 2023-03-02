@@ -302,49 +302,75 @@
 \end{frame}
 
 \section{Gradient Flow}
-\begin{frame}
-    \frametitle{Motivating Gradient Flow}
-    A simple method of minimising a (differentiable) function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ is the steepest descent \cite{doi:10.1137/1.9781611974997.ch8}
-    \begin{equation}
-        \xbf^{k+1} = \xbf^k - \alpha_k \nabla f \left( \xbf^k \right)
-    \end{equation}
-    where $\alpha^k > 0$.
-    \begin{figure}[h]
-        \centering
-        \includegraphics[scale=0.2]{sdm}
-        \caption{Steepest Descent}
-    \end{figure}
-    \onslide<2->
-    {
-        For motivation, take $\alpha^k = \alpha \equiv \const$
-    }
-\end{frame}
+%\begin{frame}
+%    \frametitle{Motivating Gradient Flow}
+%    A simple method of minimising a (differentiable) function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ is the steepest descent \cite{doi:10.1137/1.9781611974997.ch8}
+%    \begin{equation}
+%        \xbf^{k+1} = \xbf^k - \alpha_k \nabla f \left( \xbf^k \right)
+%    \end{equation}
+%    where $\alpha^k > 0$.
+%    \begin{figure}[h]
+%        \centering
+%        \includegraphics[scale=0.2]{sdm}
+%        \caption{Steepest Descent}
+%    \end{figure}
+%    \onslide<2->
+%    {
+%        For motivation, take $\alpha^k = \alpha \equiv \const$
+%    }
+%\end{frame}
+%
+%\begin{frame}
+%    \begin{equation*}
+%        \xbf^{k+1} = \xbf^k - \alpha_k \nabla f \left( \xbf^k \right)
+%    \end{equation*}
+%    In the case of functional $\mathcal{E}: X \rightarrow \mathbb{R}$, analogously write steepest descent step:
+%    \begin{equation*}
+%        f^{k+1} = f^k - \alpha \grad_X f
+%    \end{equation*}
+%    \onslide<2->
+%    {
+%        Rearranging and dividing by $\Delta t$
+%        \begin{equation*}
+%            \frac{1}{\Delta t} \left( f^{k+1} - f^k \right) = -\alpha \grad_X f
+%        \end{equation*}
+%    }
+%    \onslide<3->
+%    {
+%        Take limit as $\Delta t \rightarrow 0$, then scale time variable to nondimensionalise to get the gradient flow equation.
+%        \begin{definition}[Gradient Flow Equation]
+%            \begin{equation*}
+%                \frac{\partial f}{\partial t} = - \grad_X f
+%            \end{equation*}
+%        \end{definition}
+%        But what is $\grad_X f$?
+%    }
+%\end{frame}
 
 \begin{frame}
-    \begin{equation*}
-        \xbf^{k+1} = \xbf^k - \alpha_k \nabla f \left( \xbf^k \right)
-    \end{equation*}
-    In the case of functional $\mathcal{E}: X \rightarrow \mathbb{R}$, analogously write steepest descent step:
-    \begin{equation*}
-        f^{k+1} = f^k - \alpha \grad_X f
-    \end{equation*}
+    \frametitle{Motivating Gradient Flow}
+    For minimising a functional $\mathcal{E}(f)$, we wish to ``move'' $f$ in the direction that decreases $\mathcal{E}$.
     \onslide<2->
     {
-        Rearranging and dividing by $\Delta t$
-        \begin{equation*}
-            \frac{1}{\Delta t} \left( f^{k+1} - f^k \right) = -\alpha \grad_X f
-        \end{equation*}
-    }
-    \onslide<3->
-    {
-        Take limit as $\Delta t \rightarrow 0$, then scale time variable to nondimensionalise to get the gradient flow equation.
         \begin{definition}[Gradient Flow Equation]
-            \begin{equation*}
-                \frac{\partial f}{\partial t} = - \grad_X f
-            \end{equation*}
+            For functional $\mathcal{E} (f)$, the \textbf{gradient flow equation} is:
+            $\frac{\partial f}{\partial t} = - \grad_X \mathcal{E} \left( f \right)$
         \end{definition}
-        But what is $\grad_X f$?
     }
+    \begin{remark}<3->
+    cf) For minimising a function $f:\mathbb{R}^n \rightarrow \mathbb{R}$, one may consider
+    \begin{multicols}{2}
+        \begin{equation*}
+            \frac{\partial \xbf}{\partial t} = - \nabla f \left( \xbf \right)
+        \end{equation*}
+        \columnbreak
+        \begin{figure}[h]
+            \centering
+            \includegraphics[scale=0.23]{sdm}
+            \caption{Steepest Descent}
+        \end{figure}
+    \end{multicols}
+    \end{remark}
 \end{frame}
 
 \begin{frame}
@@ -421,6 +447,29 @@
         \includegraphics[scale=0.05]{gf}
         \caption{Solution to $L^2$ Gradient Flow Equation for Dirichlet Energy (AKA Heat Equation)}
     \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dirichlet Gradient Flow in Other Function Space}
+    \begin{definition}[Famous Inner Product Function Spaces]
+        \begin{itemize}
+            \item $L^p = \left\{ f \middle| \left( \int |f|^p \intd x \right)^{1/p} < \infty \right\}$
+                \begin{itemize}
+                    \item $\inner{f, g}_{L^2} = \int f g \intd x$
+                \end{itemize}
+            \item $p=2$ Sobolev Space $H^{k} = \left\{ f \middle| \sum_{i=0}^{k} \int \left| \mathcal{D}^{(i)} f \right|^2 \intd x < \infty \right\}$
+        \end{itemize}
+    \end{definition}
+
+    \begin{itemize}
+        \item $L^2$: $\frac{\partial f}{\partial t} = - \laplace f$
+        \item $H^1$: $\frac{\partial f}{\partial t} = -f$
+        \item $H^{-1}$: $\frac{\partial f}{\partial t} = - \laplace^2 f$
+            \begin{itemize}
+                \item $\inner{f, g}_{H^{-1}} = \inner{\laplace^{-1} f, \laplace^{-1} g}_{H^1}$
+            \end{itemize}
+        \item $H^2$: $\frac{\partial f}{\partial t} = \laplace^{-1} f$
+    \end{itemize}
 \end{frame}
 
 
