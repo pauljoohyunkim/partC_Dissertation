@@ -28,8 +28,16 @@
 \addbibresource{bibliography.bib}
 
 \newcommand{\gammabf}{\boldsymbol{\gamma}}
+\newcommand{\const}{\, \text{const.}}
+\newcommand{\xbf}{\mathbf{x}}
+\newcommand{\ybf}{\mathbf{y}}
 \newcommand{\intd}{\, \text{d}}
 \newcommand{\norm}[1]{\lvert \lvert #1 \rvert \rvert}
+\newcommand{\inner}[1]{\langle \langle #1 \rangle \rangle}
+
+\DeclareMathOperator{\grad}{grad}
+
+\setlength{\columnseprule}{1pt}
 
 
 \title{Untangling Knots Through Curve Repulsion}
@@ -152,7 +160,7 @@
 \begin{frame}
     \frametitle{Buck-Orloff Tangent-Point Energy}
     \begin{itemize}
-        \item From the simple energy, need a way to eliminate the contribution of the ``singularity''.
+        \item From the simple energy, need a way to suppress the infinite contribution of the ``singularity''.
     \end{itemize}
     \begin{definition}[Buck-Orloff Tangent-Point Energy]<2->
         For a smooth curve $\gammabf$, define
@@ -234,7 +242,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Example: Buck-Orloff Tangent-Point Energy of a Circle}
     \begin{example}[Cont.]
             \begin{equation*}
                 \begin{cases}
@@ -259,7 +266,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Example: Buck-Orloff Tangent-Point Energy of a Circle}
     \begin{example}[Cont.]
         \begin{align}
             \mathcal{E} \left( \gammabf \right) &= \int_{\theta=0}^{2 \pi} \int_{\phi=0}^{2 \pi}
@@ -295,7 +301,74 @@
 \end{frame}
 
 \section{Gradient Flow}
+\begin{frame}
+    \frametitle{Motivating Gradient Flow}
+    A simple method of minimising a (differentiable) function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ is the steepest descent \cite{doi:10.1137/1.9781611974997.ch8}
+    \begin{equation}
+        \xbf^{k+1} = \xbf^k - \alpha_k \nabla f \left( \xbf^k \right)
+    \end{equation}
+    where $\alpha^k > 0$.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.2]{sdm}
+        \caption{Steepest Descent}
+    \end{figure}
+    \onslide<2->
+    {
+        For motivation, take $\alpha^k = \alpha \equiv \const$
+    }
+\end{frame}
 
+\begin{frame}
+    \begin{equation*}
+        \xbf^{k+1} = \xbf^k - \alpha_k \nabla f \left( \xbf^k \right)
+    \end{equation*}
+    In the case of functional $\mathcal{E}: X \rightarrow \mathbb{R}$, analogously write steepest descent step:
+    \begin{equation*}
+        f^{k+1} = f^k - \alpha \grad_X f
+    \end{equation*}
+    \onslide<2->
+    {
+        Rearranging and dividing by $\Delta t$
+        \begin{equation*}
+            \frac{1}{\Delta t} \left( f^{k+1} - f^k \right) = -\alpha \grad_X f
+        \end{equation*}
+    }
+    \onslide<3->
+    {
+        Take limit as $\Delta t \rightarrow 0$, then scale time variable to nondimensionalise to get the gradient flow equation.
+        \begin{definition}[Gradient Flow Equation]
+            \begin{equation*}
+                \frac{\partial f}{\partial t} = - \grad_X f
+            \end{equation*}
+        \end{definition}
+        But what is $\grad_X f$?
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Gradient in Space of Function?}
+
+    \begin{multicols}{2}
+        (Gradient of Function)
+
+        $\nabla f\left( \xbf \right)$ is such that
+        for all $\ybf \in \mathbb{R}^n$
+        \begin{equation*}
+            \left.\nabla f \left( \xbf \right) \cdot \ybf = \frac{\partial}{\partial \epsilon} f \left( \xbf + \epsilon \ybf \right)\right|_{\epsilon = 0}
+        \end{equation*}
+        \columnbreak
+
+        (Gradient of Functional)
+
+        $\grad_X E \left( f \right)$ is such that
+        for all $g \in X$,
+        \begin{equation*}
+            \left.\inner{\grad_X E, g}_X = \frac{\partial}{\partial \epsilon} E \left( f + \epsilon g \right)\right|_{\epsilon = 0}
+        \end{equation*}
+    \end{multicols}
+    
+\end{frame}
 
 \begin{frame}
     \frametitle{Bibliography}
