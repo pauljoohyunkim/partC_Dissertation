@@ -28,6 +28,7 @@
 \addbibresource{bibliography.bib}
 
 \newcommand{\gammabf}{\boldsymbol{\gamma}}
+\newcommand{\Gammabf}{\boldsymbol{\Gamma}}
 \newcommand{\const}{\, \text{const.}}
 \newcommand{\xbf}{\mathbf{x}}
 \newcommand{\ybf}{\mathbf{y}}
@@ -36,6 +37,7 @@
 \newcommand{\inner}[1]{\langle \langle #1 \rangle \rangle}
 
 \DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\dist}{dist}
 \DeclareMathOperator{\laplace}{\Delta}
 
 \setlength{\columnseprule}{1pt}
@@ -367,7 +369,7 @@
         \begin{figure}[h]
             \centering
             \includegraphics[scale=0.23]{sdm}
-            \caption{Steepest Descent}
+            \caption{Steepest Descent \cite{doi:10.1137/1.9781611974997.ch8}}
         \end{figure}
     \end{multicols}
     \end{remark}
@@ -458,21 +460,94 @@
                     \item $\inner{f, g}_{L^2} = \int f g \intd x$
                 \end{itemize}
             \item $p=2$ Sobolev Space $H^{k} = \left\{ f \middle| \sum_{i=0}^{k} \int \left| \mathcal{D}^{(i)} f \right|^2 \intd x < \infty \right\}$
+                \begin{itemize}
+                    \item $\inner{f, g}_{H^k} = \sum_{i=0}^k \inner{\mathcal{D}^{(i)} f, \mathcal{D}^{(i)} g}_{L^2}$
+                    \item For our case, sufficient to take $\inner{f, g}_{H^k} = \inner{\mathcal{D}^{(k)} f, \mathcal{D}^{(k)} g}_{L^2}$
+                \end{itemize}
         \end{itemize}
     \end{definition}
 
-    \begin{itemize}
-        \item $L^2$: $\frac{\partial f}{\partial t} = - \laplace f$
-        \item $H^1$: $\frac{\partial f}{\partial t} = -f$
-        \item $H^{-1}$: $\frac{\partial f}{\partial t} = - \laplace^2 f$
-            \begin{itemize}
-                \item $\inner{f, g}_{H^{-1}} = \inner{\laplace^{-1} f, \laplace^{-1} g}_{H^1}$
-            \end{itemize}
-        \item $H^2$: $\frac{\partial f}{\partial t} = \laplace^{-1} f$
-    \end{itemize}
+    \onslide<2->
+    {
+        \begin{itemize}
+            \item $L^2 = H^0$: $\frac{\partial f}{\partial t} = - \laplace f$
+            \item $H^1$: $\frac{\partial f}{\partial t} = -f$
+            \item $H^{-1}$: $\frac{\partial f}{\partial t} = - \laplace^2 f$
+                \begin{itemize}
+                    \item $\inner{f, g}_{H^{-1}} = \inner{\laplace^{-1} f, \laplace^{-1} g}_{H^1}$
+                \end{itemize}
+            \item $H^2$: $\frac{\partial f}{\partial t} = \laplace^{-1} f$
+        \end{itemize}
+    }
 \end{frame}
 
+\section{Curve Repulsion}
+\begin{frame}
+    \frametitle{Gradient Flow on Tangent-Point Energy}
+    We now take the tangent-point energy and gradient flow together:
+    \begin{equation}
+        \frac{\partial \gammabf}{\partial t} = - \grad_{L^2} \mathcal{E}
+    \end{equation}
+    with $\left.\gammabf\right|_{t=0}$ is the tangled curve.
 
+        \begin{multicols}{2}
+            \onslide<2->
+            {
+                For numerical solution, one discretises the curve.
+            }
+            \onslide<3->
+            {
+                Enumerate each point as $\xbf_0, \xbf_1, \cdots, \xbf_{J-1}$, and write
+                $\Gammabf$ for the resulting polygonal curve.
+            }
+            \columnbreak
+            \onslide<2->
+            {
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[scale=0.4]{discretization}
+                    \caption{Discretised Curve}
+                \end{figure}
+            }
+        \end{multicols}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Subtlety}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.5]{discretization-only}
+        \caption{Tangent-point energy is not well-defined for polygonal curves.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Energy Discretisation}
+    Note the form of tangent-point energy:
+        \begin{equation}
+            \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) \coloneqq \iint_{M^2} k_{\beta}^{\alpha} \left( \gammabf_x, \gammabf_y, \mathbf{T}_x \right) \intd \gamma_x \intd \gamma_y
+        \end{equation}
+
+    \begin{definition}[Discretised Energy]<2->
+        Given a closed curve with discretised points $\xbf_0, \xbf_1, \cdots, \xbf_{J-1}$,
+        define \textbf{discretised energy} $E$ as:
+        \begin{equation*}
+            E \left( \Gammabf \right) \coloneqq \sum_{\substack{i, j \in \left\{ 0, 1, \cdots, J-1 \right\} \\ \dist_{\text{geodesic}} \left( \Gammabf(i), \Gammabf(j) \right) > 1}} k_{i,j} \norm{\xbf_{i+1} - \xbf_{i}} \, \norm{\xbf_{j+1} - \xbf_{j}}
+        \end{equation*}
+        where the discretised kernel $k_{i,j}$ is given by:
+        \begin{equation*}
+            \frac{1}{4} \left( 
+                k_{\beta}^{\alpha} \left( x_i, x_j, T_i \right)
+                + k_{\beta}^{\alpha} \left( x_i, x_{j+1}, T_i \right)
+                + k_{\beta}^{\alpha} \left( x_{i+1}, x_j, T_i \right)
+            + k_{\beta}^{\alpha} \left( x_{i+1}, x_{j+1}, T_i \right) \right)
+        \end{equation*}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Gradient Flow Demo}
+\end{frame}
 
 \begin{frame}
     \frametitle{Bibliography}
