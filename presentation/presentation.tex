@@ -212,64 +212,64 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Example: Buck-Orloff Tangent-Point Energy of a Circle}
-    \begin{example}
-        Suppose we wish to compute the Buck-Orloff tangent-point energy of a unit circle.
-        \onslide<2->
-        {
-            Parameterise unit circle as:
-            \begin{multicols}{2}
-            \begin{equation*}
-                \gammabf (t) = \left( \cos{t}, \sin{t}, 0 \right)
-            \end{equation*}
-            \columnbreak
-            \begin{figure}[h]
-                \centering
-                \includegraphics[scale=0.2]{unitcircle}
-            \end{figure}
-            \end{multicols}
-        }
-        \onslide<3->
-        {
-            Then write:
-            \begin{equation*}
-                \begin{cases}
-                    \gammabf_x \left( \theta \right) = \left( \cos{\theta}, \sin{\theta}, 0 \right) \\
-                    \gammabf_y \left( \phi \right) = \left( \cos{\phi}, \sin{\phi}, 0 \right) \\
-                    \mathbf{T}_x \left( \theta \right) = \left( -\sin{\theta}, \cos{\theta}, 0 \right)
-                \end{cases}
-            \end{equation*}
-        }
-    \end{example}
-\end{frame}
+%\begin{frame}
+%    \frametitle{Example: Buck-Orloff Tangent-Point Energy of a Circle}
+%    \begin{example}
+%        Suppose we wish to compute the Buck-Orloff tangent-point energy of a unit circle.
+%        \onslide<2->
+%        {
+%            Parameterise unit circle as:
+%            \begin{multicols}{2}
+%            \begin{equation*}
+%                \gammabf (t) = \left( \cos{t}, \sin{t}, 0 \right)
+%            \end{equation*}
+%            \columnbreak
+%            \begin{figure}[h]
+%                \centering
+%                \includegraphics[scale=0.2]{unitcircle}
+%            \end{figure}
+%            \end{multicols}
+%        }
+%        \onslide<3->
+%        {
+%            Then write:
+%            \begin{equation*}
+%                \begin{cases}
+%                    \gammabf_x \left( \theta \right) = \left( \cos{\theta}, \sin{\theta}, 0 \right) \\
+%                    \gammabf_y \left( \phi \right) = \left( \cos{\phi}, \sin{\phi}, 0 \right) \\
+%                    \mathbf{T}_x \left( \theta \right) = \left( -\sin{\theta}, \cos{\theta}, 0 \right)
+%                \end{cases}
+%            \end{equation*}
+%        }
+%    \end{example}
+%\end{frame}
+%
+%\begin{frame}
+%    \begin{example}[Cont.]
+%            \begin{equation*}
+%                \begin{cases}
+%                    \gammabf_x \left( \theta \right) = \left( \cos{\theta}, \sin{\theta}, 0 \right) \\
+%                    \gammabf_y \left( \phi \right) = \left( \cos{\phi}, \sin{\phi}, 0 \right) \\
+%                    \mathbf{T}_x \left( \theta \right) = \left( -\sin{\theta}, \cos{\theta}, 0 \right)
+%                \end{cases}
+%            \end{equation*}
+%            Substituting to Buck-Orloff Tangent-Point energy formula:
+%        \begin{equation*}
+%            \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} \frac{\norm{\mathbf{T}_x \wedge \left( \gammabf_x - \gammabf_y \right)}^{2}}{\norm{\gammabf_x - \gammabf_y}^{4}} \intd \gamma_x \intd \gamma_y
+%        \end{equation*}
+%        \onslide<2->
+%        {
+%            Using a few identities:
+%            \begin{align*}
+%                \mathcal{E} \left( \gammabf \right) &= \int_{\theta=0}^{2 \pi} \int_{\phi=0}^{2 \pi}
+%                \frac{\norm{\mathbf{T}_x}^2 \norm{\gammabf_x - \gammabf_y}^2 - \left( \mathbf{T}_x \cdot \left( \gammabf_x -\gammabf_y \right) \right)^2}{\norm{\gammabf_x - \gammabf_y}^4} \intd \theta \intd \phi
+%            \end{align*}
+%        }
+%    \end{example}
+%\end{frame}
 
 \begin{frame}
-    \begin{example}[Cont.]
-            \begin{equation*}
-                \begin{cases}
-                    \gammabf_x \left( \theta \right) = \left( \cos{\theta}, \sin{\theta}, 0 \right) \\
-                    \gammabf_y \left( \phi \right) = \left( \cos{\phi}, \sin{\phi}, 0 \right) \\
-                    \mathbf{T}_x \left( \theta \right) = \left( -\sin{\theta}, \cos{\theta}, 0 \right)
-                \end{cases}
-            \end{equation*}
-            Substituting to Buck-Orloff Tangent-Point energy formula:
-        \begin{equation*}
-            \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} \frac{\norm{\mathbf{T}_x \wedge \left( \gammabf_x - \gammabf_y \right)}^{2}}{\norm{\gammabf_x - \gammabf_y}^{4}} \intd \gamma_x \intd \gamma_y
-        \end{equation*}
-        \onslide<2->
-        {
-            Using a few identities:
-            \begin{align*}
-                \mathcal{E} \left( \gammabf \right) &= \int_{\theta=0}^{2 \pi} \int_{\phi=0}^{2 \pi}
-                \frac{\norm{\mathbf{T}_x}^2 \norm{\gammabf_x - \gammabf_y}^2 - \left( \mathbf{T}_x \cdot \left( \gammabf_x -\gammabf_y \right) \right)^2}{\norm{\gammabf_x - \gammabf_y}^4} \intd \theta \intd \phi
-            \end{align*}
-        }
-    \end{example}
-\end{frame}
-
-\begin{frame}
-    \begin{example}[Cont.]
+    \begin{example}[Unit Circle]
         \begin{align}
             \mathcal{E} \left( \gammabf \right) &= \int_{\theta=0}^{2 \pi} \int_{\phi=0}^{2 \pi}
             \frac{\norm{\mathbf{T}_x}^2 \norm{\gammabf_x - \gammabf_y}^2 - \left( \mathbf{T}_x \cdot \left( \gammabf_x -\gammabf_y \right) \right)^2}{\norm{\gammabf_x - \gammabf_y}^4} \intd \theta \intd \phi \\
@@ -533,7 +533,8 @@
         define \textbf{discretised energy} $E$ as:
         \begin{equation*}
             E \left( \Gammabf \right) \coloneqq \sum_{\substack{i, j \in \left\{ 0, 1, \cdots, J-1 \right\} \\ \dist_{\text{geodesic}} \left( \Gammabf(i), \Gammabf(j) \right) > 1}} 
-            \frac{\norm{\mathbf{T}_x \wedge \left( \gammabf_x - \gammabf_y \right)}^{\alpha}}{\norm{\gammabf_x - \gammabf_y}^{\beta}}
+            %\frac{\norm{\mathbf{T}_x \wedge \left( \gammabf_x - \gammabf_y \right)}^{\alpha}}{\norm{\gammabf_x - \gammabf_y}^{\beta}}
+            k_{i,j}
             \norm{\xbf_{i+1} - \xbf_{i}} \, \norm{\xbf_{j+1} - \xbf_{j}}
         \end{equation*}
         where the discretised kernel $k_{i,j}$ is given by:
@@ -551,15 +552,16 @@
     \frametitle{Numerical Scheme}
     Original $L^2$ Gradient Flow Equation:
     \begin{equation}
-        \frac{\partial \gammabf}{\partial t} = - \grad_{L^2} \mathcal{E}
+        \frac{\partial \gammabf}{\partial t} = - \grad_{L^2} \mathcal{E} - \underbrace{\mathcal{C}}_{\text{Constraint}}
     \end{equation}
     By forward difference, we arrived at an explicit Euler scheme:
     \begin{equation*}
         \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \underbrace{\frac{\partial E}{\partial \Gammabf}}_{\text{Gradient from perturbing each point in each direction}}
+        - \underbrace{\frac{\partial \mathcal{C}}{\partial \Gammabf}}_{\text{Deriven from Constraint}}
     \end{equation*}
     where we may further approximate the RHS by central difference scheme, for example:
     \begin{equation*}
-        \frac{\partial E}{\partial \Gammabf_i} \approx \frac{E|_{\xbf_i += h} - E|_{\xbf -= h}}{2h} \left(= \frac{\partial E}{\partial \Gammabf_i} + O(h^2) \right)
+        \frac{\partial E}{\partial \Gammabf_i} \approx \frac{E|_{\xbf_i += h} - E|_{\xbf -= h}}{2h} \left(= \frac{\partial E}{\partial \Gammabf_i} + O(h^2) \right) 
     \end{equation*}
 \end{frame}
 
