@@ -140,7 +140,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Pitfall of the ``Simple Energy''}
         \begin{equation*}
             \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} \frac{1}{\norm{\gammabf_x - \gammabf_y}} \intd \gamma_x \intd \gamma_y
         \end{equation*}
@@ -158,6 +157,21 @@
         \onslide<2->{
             This energy is not well-defined for a lot of curves!
         }
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[h]
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{simpleKHeatMap1.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{simpleKHeatMap2.png}
+        \end{subfigure}
+        \caption{Simple Kernel Heat Map}
+    \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -301,6 +315,36 @@
     \begin{remark}
         When $\alpha = 2$ and $\beta = 4$, we are back to Buck-Orloff.
     \end{remark}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[h]
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{kHeatMap1.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{kHeatMap2.png}
+        \end{subfigure}
+        \caption{Buck-Orloff Tangent-Point Kernel Heat Map}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[h]
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{kHeatMap3.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{kHeatMap4.png}
+        \end{subfigure}
+        \caption{$(2,4.5)$ Tangent-Point Kernel Heat Map}
+    \end{figure}
 \end{frame}
 
 \section{Gradient Flow}
