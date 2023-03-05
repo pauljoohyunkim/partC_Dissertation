@@ -12,7 +12,9 @@
 \newcommand{\ds}{\, \text{d} s}
 \newcommand{\dt}{\, \text{d} \theta}
 \newcommand{\dphi}{\, \text{d} \varphi}
+\newcommand{\Tb}{\mathbf{T}}
 \newcommand{\rb}{\mathbf{r}}
+\newcommand{\norm}[1]{\lvert \lvert #1 \rvert \rvert}
 
 \title{Tangent-Point Energy of a Circle}
 \author{Paul Kim}
@@ -50,6 +52,26 @@ Then, the tangent point energy is:
 \end{align}
 
 Note that this is scale invariant.
+
+
+\section{Kernel Behavior at Singularity}
+For $\rb = \left( x(s), y(s), z(s) \right)$ parameterized by arc-length, we may write $\Tb = \rb'$.
+Note that $\norm{\Tb} = 1$.
+
+By Taylor expansion:
+\begin{equation}
+    \rb (s + \epsilon) = \rb(s) + \epsilon \rb'(s) + \frac{1}{2} \epsilon^2 \rb''(s) + O \left( \epsilon^2 \right)
+\end{equation}
+
+Then near $\epsilon = 0$,
+\begin{align}
+    k_{\beta}^{\alpha} \left( \rb (s), \rb (s+\epsilon), \rb'(s) \right) &= \frac{\norm{\rb'(s) \wedge (\rb(s+\epsilon) - \rb(s))}^{\alpha}}{\norm{\rb(s+\epsilon) - \rb(s)}^{\beta}} \\
+    &= \frac{\norm{\rb'(s) \wedge \left( \epsilon \rb'(s) + \frac{1}{2} \epsilon^2 \rb''(s) + O \left( \epsilon^3 \right) \right)}^{\alpha}}{\norm{\epsilon \rb'(s) + O \left( \epsilon \right)}^{\beta}} \\
+    &= \epsilon^{2\alpha - \beta} \left( \frac{1}{2} \right)^{\alpha} \frac{\norm{\rb'(s) \wedge \rb''(s) + O\left( \epsilon \right)}^{\alpha}}{\norm{\rb'(s) + O \left( \epsilon \right)}^{\beta}} \\
+    &\sim \frac{\epsilon^{2\alpha - \beta}}{2^{\alpha}} \frac{\norm{\rb'(s) \wedge \rb''(s)}^{\alpha}}{\norm{\rb'(s)}^{\beta}} \\
+&= \frac{\epsilon^{2\alpha - \beta}}{2^{\alpha}} \frac{\norm{\rb'(s)}^{\alpha} \norm{\rb''(s)}^{\alpha}}{\norm{\rb'(s)}^{\beta}} \\
+    &= \frac{\epsilon^{2\alpha - \beta}}{2^{\alpha}} \norm{\rb''(s)}^{\alpha} = \frac{\epsilon^{2\alpha - \beta}}{2^{\alpha}} \kappa^{\alpha}
+\end{align}
 
 \end{document}
 
