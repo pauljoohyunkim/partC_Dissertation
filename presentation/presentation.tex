@@ -54,10 +54,10 @@
     \titlepage
 \end{frame}
 
-\begin{frame}
-    \frametitle{What the curious folks ponder about}
-    \tableofcontents
-\end{frame}
+%\begin{frame}
+%    \frametitle{What the curious folks ponder about}
+%    \tableofcontents
+%\end{frame}
 
 \section{Introduction}
 \begin{frame}
@@ -91,14 +91,14 @@
                 \item Extreme-closeness of points on curve is a natural characteristic of a tangled curve.
             \end{itemize}
         \item<2-> Attempt to decrease the curve energy by continuously deforming the curve.
-            \begin{itemize}
-                \item We evolve the curve according to the gradient flow equation.
-                \item There is a freedom in choosing the ``gradient'' here.
-            \end{itemize}
+            %\begin{itemize}
+            %    \item We evolve the curve according to the gradient flow equation.
+            %    \item There is a freedom in choosing the ``gradient'' here.
+            %\end{itemize}
         \item<3-> We expect the stationary state to be the ``unknot''
-            \begin{itemize}
-                \item Or at least a simpler state\ldots
-            \end{itemize}
+            %\begin{itemize}
+            %    \item Or at least a simpler state\ldots
+            %\end{itemize}
     \end{enumerate}
 
 \end{frame}
@@ -296,9 +296,21 @@
             &= \pi^2
         \end{align}
     \end{example}
-    \begin{remark}<2->
-        Note that (\ref{equ: 1 over r squared order}) suggests the order at ``singularity'' is inverse-square.
-    \end{remark}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[h]
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{kHeatMap1.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{kHeatMap2.png}
+        \end{subfigure}
+        \caption{Buck-Orloff Tangent-Point Kernel Heat Map}
+    \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -317,20 +329,6 @@
     \end{remark}
 \end{frame}
 
-\begin{frame}
-    \begin{figure}[h]
-        \centering
-        \begin{subfigure}[b]{0.45\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{kHeatMap1.png}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.45\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{kHeatMap2.png}
-        \end{subfigure}
-        \caption{Buck-Orloff Tangent-Point Kernel Heat Map}
-    \end{figure}
-\end{frame}
 
 \begin{frame}
     \begin{figure}[h]
@@ -396,14 +394,7 @@
 \begin{frame}
     \frametitle{Motivating Gradient Flow}
     For minimising a functional $\mathcal{E}(f)$, we wish to ``move'' $f$ in the direction that decreases $\mathcal{E}$.
-    \onslide<2->
-    {
-        \begin{definition}[Gradient Flow Equation]
-            For functional $\mathcal{E} (f)$, the \textbf{gradient flow equation} is:
-            $\frac{\partial f}{\partial t} = - \grad_X \mathcal{E} \left( f \right)$
-        \end{definition}
-    }
-    \begin{remark}<3->
+    \begin{remark}<2->
     cf) For minimising a function $f:\mathbb{R}^n \rightarrow \mathbb{R}$, one may consider
     \begin{multicols}{2}
         \begin{equation*}
@@ -417,43 +408,50 @@
         \end{figure}
     \end{multicols}
     \end{remark}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Gradient in Space of Function?}
-
-    \begin{multicols}{2}
-        \onslide<1->
-        {
-            (Gradient of Function)
-
-            $\nabla f\left( \xbf \right)$ is such that
-            for all $\ybf \in \mathbb{R}^n$
-            \begin{equation*}
-                \left.\nabla f \left( \xbf \right) \cdot \ybf = \frac{\partial}{\partial \epsilon} f \left( \xbf + \epsilon \ybf \right)\right|_{\epsilon = 0}
-                \end{equation*}
-            }
-        \columnbreak
-
-        \onslide<2->
-        {
-            (Gradient of Functional)
-
-            $\grad_X E \left( f \right)$ is such that
-            for all $g \in X$,
-            \begin{equation*}
-                \left.\inner{\grad_X E, g}_X = \frac{\partial}{\partial \epsilon} E \left( f + \epsilon g \right)\right|_{\epsilon = 0}
-                \end{equation*}
-            }
-    \end{multicols}
-    \onslide<2->
+    \onslide<3->
     {
-        where $X$ is the inner product space of functions (eg. $L^2$, $H^1$)
+        \begin{definition}[Gradient Flow Equation]
+            For functional $\mathcal{E} (f)$, the \textbf{gradient flow equation} is:
+            $\frac{\partial f}{\partial t} = - \grad_X \mathcal{E} \left( f \right)$
+        \end{definition}
     }
-    \begin{remark}<3->
-        For $X=L^2$, $\left( \grad_X E\right) (f)$ is the first order variation from $f$ with respect to $\epsilon$.
-    \end{remark}
 \end{frame}
+
+%\begin{frame}
+%    \frametitle{Gradient in Space of Function?}
+%
+%    \begin{multicols}{2}
+%        \onslide<1->
+%        {
+%            (Gradient of Function)
+%
+%            $\nabla f\left( \xbf \right)$ is such that
+%            for all $\ybf \in \mathbb{R}^n$
+%            \begin{equation*}
+%                \left.\nabla f \left( \xbf \right) \cdot \ybf = \frac{\partial}{\partial \epsilon} f \left( \xbf + \epsilon \ybf \right)\right|_{\epsilon = 0}
+%                \end{equation*}
+%            }
+%        \columnbreak
+%
+%        \onslide<2->
+%        {
+%            (Gradient of Functional)
+%
+%            $\grad_X E \left( f \right)$ is such that
+%            for all $g \in X$,
+%            \begin{equation*}
+%                \left.\inner{\grad_X E, g}_X = \frac{\partial}{\partial \epsilon} E \left( f + \epsilon g \right)\right|_{\epsilon = 0}
+%                \end{equation*}
+%            }
+%    \end{multicols}
+%    \onslide<2->
+%    {
+%        where $X$ is the inner product space of functions (eg. $L^2$, $H^1$)
+%    }
+%    \begin{remark}<3->
+%        For $X=L^2$, $\left( \grad_X E\right) (f)$ is the first order variation from $f$ with respect to $\epsilon$.
+%    \end{remark}
+%\end{frame}
 
 \begin{frame}
     \frametitle{Example: Dirichlet Energy in 1D}
@@ -495,42 +493,42 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Dirichlet Gradient Flow in Other Function Space}
-    \begin{definition}[Famous Inner Product Function Spaces]
-        \begin{itemize}
-            \item $L^p = \left\{ f \middle| \left( \int |f|^p \intd x \right)^{1/p} < \infty \right\}$
-                \begin{itemize}
-                    \item $\inner{f, g}_{L^2} = \int f g \intd x$
-                \end{itemize}
-            \item $p=2$ Sobolev Space $H^{k} = \left\{ f \middle| \sum_{i=0}^{k} \int \left| \mathcal{D}^{(i)} f \right|^2 \intd x < \infty \right\}$
-                \begin{itemize}
-                    \item $\inner{f, g}_{H^k} = \sum_{i=0}^k \inner{\mathcal{D}^{(i)} f, \mathcal{D}^{(i)} g}_{L^2}$
-                    \item For our case, sufficient to take $\inner{f, g}_{H^k} = \inner{\mathcal{D}^{(k)} f, \mathcal{D}^{(k)} g}_{L^2}$
-                \end{itemize}
-        \end{itemize}
-    \end{definition}
-
-    \onslide<2->
-    {
-        \begin{itemize}
-            \item $L^2 = H^0$: $\frac{\partial f}{\partial t} = - \laplace f$
-            \item $H^1$: $\frac{\partial f}{\partial t} = -f$
-            \item $H^{-1}$: $\frac{\partial f}{\partial t} = - \laplace^2 f$
-                \begin{itemize}
-                    \item $\inner{f, g}_{H^{-1}} = \inner{\laplace^{-1} f, \laplace^{-1} g}_{H^1}$
-                \end{itemize}
-            \item $H^2$: $\frac{\partial f}{\partial t} = \laplace^{-1} f$
-        \end{itemize}
-    }
-\end{frame}
+%\begin{frame}
+%    \frametitle{Dirichlet Gradient Flow in Other Function Space}
+%    \begin{definition}[Famous Inner Product Function Spaces]
+%        \begin{itemize}
+%            \item $L^p = \left\{ f \middle| \left( \int |f|^p \intd x \right)^{1/p} < \infty \right\}$
+%                \begin{itemize}
+%                    \item $\inner{f, g}_{L^2} = \int f g \intd x$
+%                \end{itemize}
+%            \item $p=2$ Sobolev Space $H^{k} = \left\{ f \middle| \sum_{i=0}^{k} \int \left| \mathcal{D}^{(i)} f \right|^2 \intd x < \infty \right\}$
+%                \begin{itemize}
+%                    \item $\inner{f, g}_{H^k} = \sum_{i=0}^k \inner{\mathcal{D}^{(i)} f, \mathcal{D}^{(i)} g}_{L^2}$
+%                    \item For our case, sufficient to take $\inner{f, g}_{H^k} = \inner{\mathcal{D}^{(k)} f, \mathcal{D}^{(k)} g}_{L^2}$
+%                \end{itemize}
+%        \end{itemize}
+%    \end{definition}
+%
+%    \onslide<2->
+%    {
+%        \begin{itemize}
+%            \item $L^2 = H^0$: $\frac{\partial f}{\partial t} = \laplace f$
+%            \item $H^1$: $\frac{\partial f}{\partial t} = -f$
+%            \item $H^{-1}$: $\frac{\partial f}{\partial t} = - \laplace^2 f$
+%                \begin{itemize}
+%                    \item $\inner{f, g}_{H^{-1}} = \inner{\laplace^{-1} f, \laplace^{-1} g}_{H^1}$
+%                \end{itemize}
+%            \item $H^2$: $\frac{\partial f}{\partial t} = \laplace^{-1} f$
+%        \end{itemize}
+%    }
+%\end{frame}
 
 \section{Curve Repulsion}
 \begin{frame}
     \frametitle{Gradient Flow on Tangent-Point Energy}
     We now take the tangent-point energy and gradient flow together:
     \begin{equation}
-        \frac{\partial \gammabf}{\partial t} = - \grad_{L^2} \mathcal{E}
+        \frac{\partial \gammabf}{\partial t} = - \grad_{L^2} \mathcal{E} - \underbrace{\frac{\partial \mathcal{C}}{\partial \gammabf}}_{\text{Constraint}}
     \end{equation}
     with $\left.\gammabf\right|_{t=0}$ is the tangled curve.
 
@@ -596,7 +594,7 @@
     \frametitle{Numerical Scheme}
     Original $L^2$ Gradient Flow Equation:
     \begin{equation}
-        \frac{\partial \gammabf}{\partial t} = - \grad_{L^2} \mathcal{E} - \underbrace{\mathcal{C}}_{\text{Constraint}}
+        \frac{\partial \gammabf}{\partial t} = - \grad_{L^2} \mathcal{E} - \underbrace{\frac{\partial \mathcal{C}}{\partial \gammabf}}_{\text{Constraint}}
     \end{equation}
     By forward difference, we arrived at an explicit Euler scheme:
     \begin{equation*}
