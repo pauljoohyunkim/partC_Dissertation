@@ -18,11 +18,30 @@ a sensible choice of curve energy is the tangent-point energy\cite{YSC2021}.
     $\alpha$ and $\beta$ are parameters one could choose, but for tangent-point energy to be well-defined,
     one may choose them to satisfy $\alpha >1$ and $\beta \in \left[ \alpha+2, 2\alpha + 1 \right)$.
 
-    Note that choosing $\alpha = 2$ and $\beta = 4$ results in the original tangent-point energy by Buck and Orloff\cite{BO1995}.
+    Note that choosing $\alpha = 2$ and $\beta = 4$ results in the scaled version of the original tangent-point energy by Buck and Orloff\cite{BO1995}.
 \end{definition}
+The geometric intuition of $k_{4}^2 (\gammabf_x, \gammabf_y, \Tbf_x)$ (kernel of ``Buck-Orloff tangent-point energy'') is that the kernel evaluates to $\frac{1}{4r^2}$ where $r$ is the radius of the smallest circle drawn that is tangent at $\gammabf_x$ and crosses through $\gammabf_y$
+as shown in Figure \ref{Fig: Intuition of Buck-Orloff}.
+
+
+\begin{figure}[tbp]
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{sections/tangentPointEnergyImgs/straight}
+    \end{subfigure}
+    \par \bigskip
+    \begin{subfigure}[b]{1\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{sections/tangentPointEnergyImgs/0}
+    \end{subfigure}
+    \caption{Intuition behind $k_{4}^{2}$}
+    \label{Fig: Intuition of Buck-Orloff}
+\end{figure}
 
 The choice of parameters $\alpha$ and $\beta$ changes the behaviour of the tangent-point energy as stated in the following lemma.
 \begin{lemma}
+    \label{lemma: Scale-Invariance}
     Tangent-point energy $\mathcal{E}_{\beta}^{\alpha}$ defined as (\ref{equ: Tangent-Point Energy}) is scale invariant with respect to the curve if and only if $\beta = \alpha + 2$.
     Moreover, if $\beta > \alpha + 2$, then $\mathcal{E}_{\beta}^{\alpha}$ scales inversely with the curve.
     \begin{proof}
@@ -43,7 +62,7 @@ The choice of parameters $\alpha$ and $\beta$ changes the behaviour of the tange
         \begin{equation}
             \mathcal{E}_{\beta}^{\alpha} \left( \Gammabf \right) = c^{\alpha - \beta + 2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
         \end{equation}
-        Hence, $\mathcal{E}_{\beta}^{\alpha}$ is scale invariant with respect to the curve if and only if $\alpha - \beta + 2 = 0$, and if $\beta > \alpha + 2$, $\mathcal{E}_{\beta}^{\alpha}$ scales at the rate of $O\left( \frac{1}{c^{\beta - \left( \alpha + 2 \right)}} \right)$ as $c \rightarrow \infty$.
+        Hence, $\mathcal{E}_{\beta}^{\alpha}$ is scale invariant with respect to the curve if and only if $\alpha - \beta + 2 = 0$, and if $\beta > \alpha + 2$, $\mathcal{E}_{\beta}^{\alpha}$ scales as $O\left( \frac{1}{c^{\beta - \left( \alpha + 2 \right)}} \right)$ as $c \rightarrow \infty$.
     \end{proof}
 \end{lemma}
 
@@ -55,6 +74,7 @@ The choice of parameters $\alpha$ and $\beta$ changes the behaviour of the tange
 
 One could also justify the condition on $\alpha$ and $\beta$ by the following lemma.
 \begin{lemma}
+    \label{lemma: Perturbation}
     Given $\alpha$ and $\beta$, the singularity of the kernel at a point and another point of which is arc-length $\epsilon > 0$ away from it is of order $O \left( \epsilon^{2\alpha - \beta} \right)$, that is, $k_{\beta}^{\alpha} \left( \gammabf(s), \gammabf(s+\epsilon), \Tbf(s) \right) = O \left( \epsilon^{2\alpha-\beta} \right)$ as $\epsilon \rightarrow 0$. Moreover, if $2\alpha = \beta$, then the kernel converges to $\left( \frac{\kappa}{2} \right)^{\alpha}$ as the two points get closer, where $\kappa$ is the curvature of the curve at the point.
     \begin{proof}
         For $\gammabf (s) = \left( x(s), y(s), z(s) \right)$ parameterised by arc-length, one recognises that the tangent vector at this point is $\Tbf = \gammabf'(s)$.
@@ -93,28 +113,42 @@ One could also justify the condition on $\alpha$ and $\beta$ by the following le
             \\
             &&\text{and } \norm{\gammabf''(s)} = \kappa
         \end{align*}
-        So with arc-length perturbation of $\epsilon$, the order of singularity of the kernel is $O \left( \epsilon^{2\alpha - \beta} \right)$. In particular, if $2\alpha - \beta = 0$, the kernel converges to $\left( \frac{\kappa}{2} \right)^{\alpha}$.
+        So with arc-length perturbation of $\epsilon$, the order of singularity of the kernel is $O \left( \epsilon^{2\alpha - \beta} \right)$. In particular, if $2\alpha - \beta = 0$, the kernel converges to $\left( \frac{\kappa}{2} \right)^{\alpha}$,
+        as demonstrated in Figure \ref{fig: Buck-Orloff Perturbed}.
     \end{proof}
 \end{lemma}
+
+From lemma \ref{lemma: Scale-Invariance} and lemma \ref{lemma: Perturbation}, the well-definedness condition of tangent-point energy immediately follows from arguing by considering integrability of functions with isolated poles of order lower than 1.
+(See Figure \ref{fig: Low-Order Pole})
 
 \begin{figure}[tbp]
     \centering
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[width=0.7\textwidth]{sections/tangentPointEnergyImgs/perturbed}
+        \includegraphics[width=0.8\textwidth]{sections/tangentPointEnergyImgs/perturbed}
         \caption{$k_{2\alpha}^{\alpha} \left( \gammabf(s), \gammabf(s+\epsilon), \gammabf'(s) \right)$ converges to $\left( \frac{\kappa}{2} \right)^{\alpha}$.}
         \label{fig: Buck-Orloff Perturbed}
     \end{subfigure}
     \par \bigskip
     \begin{subfigure}[b]{1\textwidth}
         \centering
-        \includegraphics[width=0.7\textwidth]{sections/tangentPointEnergyImgs/kHeatMap1}
+        \includegraphics[width=0.5\textwidth]{sections/tangentPointEnergyImgs/kHeatMap1}
         \caption{$k_{2\alpha}^{\alpha}$ heat map}
         \label{fig: Buck-Orloff Heat Map}
     \end{subfigure}
     \caption{Behaviours of $\beta = 2\alpha$ kernel}
 \end{figure}
 
+\begin{corollary}
+    If $\alpha > 1$ and $\beta \in \left[ \alpha + 2, 2\alpha + 1 \right)$, tangent-point energy $\mathcal{E}_{\beta}^{\alpha}$ is well-defined.
+\end{corollary}
+
+\begin{figure}[tpb]
+    \centering
+    \includegraphics[width=0.5\textwidth]{sections/tangentPointEnergyImgs/kHeatMap3}
+    \caption{Heat map of $k_{4.5}^{2}$: Even with singularities, because the order of singularities are less than 1, it is integrable, hence $\mathcal{E}_{4.5}^{2}$ is well-defined.}
+    \label{fig: Low-Order Pole}
+\end{figure}
 
 
 \end{document}
