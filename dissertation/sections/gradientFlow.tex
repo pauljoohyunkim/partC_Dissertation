@@ -23,12 +23,13 @@ reducing the value at evaluation of $f$.
         \caption{Solution to $L^2$ gradient flow equation with 1D energy functional $\mathcal{E} (f) \coloneqq \int_{-1}^1 \abs{\nabla f(x)}^2 \intd x$, which penealises variation in function. Note that the solution converges to a function with no variation.}
         \label{fig: GF}
     \end{subfigure}
+    \caption{Gradient flow can be understood as a continuous analogue of steepest descent.}
 \end{figure}
 Note that in general, this method is not guaranteed to find the minimiser as shown in Figure (\ref{fig: SDM}).
-On the other hand, convergence is guaranteed under certain assumptions, for example, convexity and $L$-smoothness\footnote{$\norm{\nabla f(x) - \nabla f(y)} \leq L \norm{x-y}$ for some constant $L > 0$}
+On the other hand, convergence is guaranteed under certain assumptions, for example, convexity and $L$-smoothness\footnote{$\norm{\nabla f(\xbf) - \nabla f(\ybf)} \leq L \norm{\xbf-\ybf}$ for some constant $L > 0$}
 with a certain choice of step size $\alpha_k$.
 
-Analogously, differential equation known describing the reduction process of a functional $F:\mathcal{F} \subset \mathcal{X} \rightarrow \mathbb{R}$ (where $\mathcal{X}$ is a function space) can be motivated.
+Analogously, differential equation known describing the reduction process of a functional $F:\mathcal{X} \rightarrow \mathbb{R}$ (where $\mathcal{X}$ is an inner product function space) can be motivated.
 Starting from (\ref{equ: SDM}), replacing $\xbf^{k}$ by $f_k$ and $\nabla f\left( \xbf^k \right)$ by $\grad_{\mathcal{X}} F\left( f_k \right)$
 \begin{equation}
     f_{k+1} = f_k - \alpha_k \grad_{\mathcal{X}} F \left( f_k \right)
@@ -46,6 +47,6 @@ we acquire the \textbf{gradient flow equation}\cite{YSC2021}.
 \end{equation}
 where index $k$ transforms to ``time'' variable $t$.
 
-Note that $\grad$ of a functional is not defined yet. This depends on the function space $\mathcal{X}$ (eg. $L^2$, $H^1$, \ldots) of interest.
+Note that $\grad$ of a functional is not defined yet. This depends on the inner product function space $\mathcal{X}$ (eg. $L^2$, $H^1$, \ldots) of interest.
 
 \end{document}
