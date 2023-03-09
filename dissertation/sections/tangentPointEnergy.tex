@@ -26,26 +26,64 @@ The choice of parameters $\alpha$ and $\beta$ changes the behaviour of the tange
 \begin{lemma}
     Tangent-point energy $\mathcal{E}_{\beta}^{\alpha}$ defined as (\ref{equ: Tangent-Point Energy}) is scale invariant with respect to the curve if and only if $\beta = \alpha + 2$.
     Moreover, if $\beta > \alpha + 2$, then $\mathcal{E}_{\beta}^{\alpha}$ scales inversely with the curve.
-\end{lemma}
-\begin{proof}
-    Take a parameterised curve $\gammabf:M \rightarrow \mathbb{R}^3$ and $\Gammabf \coloneqq c \gammabf$, a curve scaled by factor $c>0$ of $\gammabf$.
-    Note that the unit tangent vector is identical for $\gammabf$ and $\Gammabf$, that is, $\Tbf_x \coloneqq \left. \frac{\intd \gammabf_x}{\intd t} \middle/ \abs{\frac{\intd \gammabf_x}{\intd t}} \right. = \left. \frac{\intd \Gammabf_x}{\intd t} \middle/ \abs{\frac{\intd \Gammabf_x}{\intd t}} \right. $
+    \begin{proof}
+        Take a parameterised curve $\gammabf:M \rightarrow \mathbb{R}^3$ and $\Gammabf \coloneqq c \gammabf$, a curve scaled by factor $c>0$ of $\gammabf$.
+        Note that the unit tangent vector is identical for $\gammabf$ and $\Gammabf$, that is, $\Tbf_x \coloneqq \left. \frac{\intd \gammabf_x}{\intd t} \middle/ \abs{\frac{\intd \gammabf_x}{\intd t}} \right. = \left. \frac{\intd \Gammabf_x}{\intd t} \middle/ \abs{\frac{\intd \Gammabf_x}{\intd t}} \right. $
 
-    Then,
-    \begin{equation}
-        \frac{k_{\beta}^{\alpha} \left( \gammabf_x, \gammabf_y, \Tbf_x \right)}{k_{\beta}^{\alpha} \left( \Gammabf_x, \Gammabf_y, \Tbf_x \right)}
-        =
-        \frac{\abs{\gammabf_x - \gammabf_y}^{\alpha}}{\abs{\Gammabf_x - \Gammabf_y}^{\beta}} = c^{\beta - \alpha}
-    \end{equation}
-    Also note that
-    \begin{equation}
-        \intd \Gamma = c \intd \gamma
-    \end{equation}
-    So, we deduce from (\ref{equ: Tangent-Point Energy}),
-    \begin{equation}
-        \mathcal{E}_{\beta}^{\alpha} \left( \Gammabf \right) = c^{\alpha - \beta + 2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
-    \end{equation}
-    Hence, $\mathcal{E}_{\beta}^{\alpha}$ is scale invariant with respect to the curve if and only if $\alpha - \beta + 2 = 0$, and if $\beta > \alpha + 2$, $\mathcal{E}_{\beta}^{\alpha}$ scales at the rate of $O\left( \frac{1}{c^{\beta - \left( \alpha + 2 \right)}} \right)$ as $c \rightarrow \infty$.
-\end{proof}
+        Then,
+        \begin{equation}
+            \frac{k_{\beta}^{\alpha} \left( \gammabf_x, \gammabf_y, \Tbf_x \right)}{k_{\beta}^{\alpha} \left( \Gammabf_x, \Gammabf_y, \Tbf_x \right)}
+            =
+            \frac{\abs{\gammabf_x - \gammabf_y}^{\alpha}}{\abs{\Gammabf_x - \Gammabf_y}^{\beta}} = c^{\beta - \alpha}
+        \end{equation}
+        Also note that
+        \begin{equation}
+            \intd \Gamma = c \intd \gamma
+        \end{equation}
+        So, we deduce from (\ref{equ: Tangent-Point Energy}),
+        \begin{equation}
+            \mathcal{E}_{\beta}^{\alpha} \left( \Gammabf \right) = c^{\alpha - \beta + 2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
+        \end{equation}
+        Hence, $\mathcal{E}_{\beta}^{\alpha}$ is scale invariant with respect to the curve if and only if $\alpha - \beta + 2 = 0$, and if $\beta > \alpha + 2$, $\mathcal{E}_{\beta}^{\alpha}$ scales at the rate of $O\left( \frac{1}{c^{\beta - \left( \alpha + 2 \right)}} \right)$ as $c \rightarrow \infty$.
+    \end{proof}
+\end{lemma}
+
+\begin{remark}
+    If $\beta < \alpha + 2$, then the energy scales with the size of the curve,
+    meaning that the energy is trivially minimised by scaling down the curve to a singularity,
+    which is not desirable in our context.
+\end{remark}
+
+One could also justify the condition on $\alpha$ and $\beta$ by the following lemma.
+\begin{lemma}
+    Given $\alpha$ and $\beta$, the behaviour of the kernel at a point and its perturbation of order $O \left( \epsilon \right)$ is of order $O \left( \epsilon^{2\alpha - \beta} \right)$. Moreover, if $2\alpha = \beta$, then the kernel converges to $\left( \frac{\kappa}{2} \right)^{\alpha}$ as the two points get closer, where $\kappa$ is the curvature of the curve at the point.
+    \begin{proof}
+        For $\gammabf (s) = \left( x(s), y(s), z(s) \right)$ parameterised by arc-length, one recognises that the tangent vector at this point is $\Tbf = \gammabf'(s)$.
+        Note that $\norm{\Tbf} = 1$.
+
+        By Taylor expansion:
+        \begin{equation}
+            \gammabf \left( s + \epsilon \right) = \gammabf (s) + \epsilon \gammabf'(s) + \frac{1}{2} \epsilon^2 \gammabf''(s) + O \left( \epsilon^3 \right)
+        \end{equation}
+
+        Then around $\epsilon = 0$,
+        \begin{align}
+            k_{\beta}^{\alpha} \left( \gammabf(s), \gammabf(s + \epsilon), \gammabf'(s) \right) &= 
+            \frac{\norm{\gammabf'(s) \wedge \left( \gammabf(s+\epsilon) - \gammabf(s) \right)}^{\alpha}}{\norm{\gammabf(s+\epsilon) - \gammabf(s)}^{\beta}} \\
+            &= 
+            \frac{\norm{\gammabf'(s) \wedge \left( \epsilon \gammabf'(s) + \frac{1}{2} \epsilon^2 \gammabf''(s) + O\left( \epsilon^3 \right) \right)}^{\alpha}}{\norm{\epsilon \gammabf'(s) + O \left( \epsilon^2 \right)}^{\beta}} \\
+            &= 
+            \frac{\norm{\gammabf'(s) \wedge \left( \epsilon \gammabf'(s) + \frac{1}{2} \epsilon^2 \gammabf''(s) + O\left( \epsilon^3 \right) \right)}^{\alpha}}{\norm{\epsilon \gammabf'(s) + O \left( \epsilon^2 \right)}^{\beta}} \\
+            &=
+            \frac{\epsilon^{2\alpha - \beta}}{2^{\alpha}}
+            \frac{\norm{\gammabf'(s) \wedge \gammabf''(s) + O\left( \epsilon \right)}^{\alpha}}{\norm{\gammabf'(s) + O \left( \epsilon \right)}^{\beta}} \\
+            &= 
+            \frac{\epsilon^{2\alpha - \beta}}{2^{\alpha}}
+            \left( \frac{\norm{\gammabf'(s)}^{\alpha}\norm{\gammabf''(s)}^{\alpha}}{\norm{\gammabf'(s)}^{\beta}} + O \left( \epsilon \right) \right)
+        \end{align}
+    \end{proof}
+\end{lemma}
+
+
 
 \end{document}
