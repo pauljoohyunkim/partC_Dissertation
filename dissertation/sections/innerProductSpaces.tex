@@ -1,0 +1,35 @@
+\documentclass[../dissertation.tex]{subfiles}
+
+\begin{document}
+(For our purposes, we focus our attention to real domain.)
+Here are some of the notable inner product spaces.
+\subsection{$L^2$ Space}
+\begin{definition}[$L^2$ Space]
+    For interval $I \subset \mathbb{R}$,
+    $L^2$ space over is defined as
+    \begin{equation}
+        L^2 = \left\{ f:I \rightarrow \mathbb{R} \left.\middle|\right. \left( \int_{I} |f|^2 \intd \mu \right)^{1/2} < \infty \right\}
+    \end{equation}
+
+    $L^2$ inner product is defined as
+    \begin{equation}
+        \forall f,g \in L^2 \; \; \inner{f, g}_{L^2} = \int_I f g \intd \mu
+    \end{equation}
+\end{definition}
+
+\subsection{$H^k$ Space}
+To define Sobolev (inner product) spaces (denoted $H^k$ where $k \in \mathbb{N} \cup \left\{ 0 \right\}$)
+one must define weak derivative operator $D$:
+\begin{definition}[Weak Derivative]
+    For $u$ locally integrable on $I$, if there exists $w$ such that for all infinitely smooth $v:I \rightarrow \mathbb{R}$ with compact support,
+    \begin{equation}
+        \int_{I} w v \intd \mu = - \int_{I} u v' \intd \mu
+    \end{equation}
+    then $w$ is said to be \textbf{weak derivative} of $u$, and one writes $Du = w$.
+\end{definition}
+
+Weak derivative extends the definition of conventional derivative, and is equivalent to the conventional derivative for smooth functions.
+
+
+
+\end{document}

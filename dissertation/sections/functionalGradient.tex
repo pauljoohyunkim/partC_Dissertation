@@ -5,7 +5,7 @@ Gradient of a function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ characterises the
 that is,
 \begin{equation}
     \forall \xbf, \ybf \in \mathbb{R}^n \; \; \;
-    \nabla f \left( \xbf \right) \cdot \ybf = \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} f\left( \xbf + \epsilon \ybf \right) 
+    \nabla f \left( \xbf \right) \cdot \ybf = \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( f\left( \xbf + \epsilon \ybf \right) - f\left( \xbf \right)  \right) 
 \end{equation}
 While this is not a conventional definition of function gradient, it is an appropriate definition.
 
@@ -13,9 +13,11 @@ One could analogously construct the definition of gradient of a functional.
 \begin{definition}[Gradient of Functional]
     For a functional $F:\mathcal{X} \rightarrow \mathbb{R}$, define functional gradient $\grad_{\mathcal{X}} F (f)$ as:
     \begin{equation}
-        \inner{\grad_{\mathcal{X}} F (f), g}_{\mathcal{X}} = \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} F\left( f + \epsilon g \right)
+        \inner{\grad_{\mathcal{X}} F (f), g}_{\mathcal{X}} = \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( F\left( f + \epsilon g \right) - F\left( f \right) \right)
     \end{equation}
-    where $\mathcal{X}$ is an inner product space.
+    where $\inner{\cdot, \cdot}_{\mathcal{X}}$ is the inner product defined over the inner product function space $\mathcal{X}$.
 \end{definition}
+
+Common inner product spaces include $L^2$, $H^1$, \ldots
 
 \end{document}

@@ -18,6 +18,7 @@
 \usepackage{chngcntr}
 %\counterwithin{section}{part}
 %\renewcommand{\thepart}{\arabic{part}}
+\usepackage[toc,page]{appendix}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[]{amsmath}
@@ -77,8 +78,12 @@ In our case, \textbf{gradient flow equation} seems to be appropriate.
 \subfile{sections/tangentPointEnergy}
 
 \newpage
-\section{Functional Reduction to Function Reduction}
-\subfile{sections/FourierSeries}
+%\section{Functional Reduction to Function Reduction}
+%\subfile{sections/FourierSeries}
+\begin{appendices}
+    \section{Definition of Important Inner Product Spaces}
+    \subfile{sections/innerProductSpaces}
+\end{appendices}
 
 \printbibliography
 \end{document}
