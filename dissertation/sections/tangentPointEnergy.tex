@@ -19,7 +19,6 @@ a sensible choice of curve energy is the tangent-point energy\cite{YSC2021}.
     one may choose them to satisfy $\alpha >1$ and $\beta \in \left[ \alpha+2, 2\alpha + 1 \right)$.
 
     Note that choosing $\alpha = 2$ and $\beta = 4$ results in the original tangent-point energy by Buck and Orloff\cite{BO1995}.
-    %For the rest of the dissertation, unless specified, we use $\mathcal{E}_{4}^{2}$.
 \end{definition}
 
 The choice of parameters $\alpha$ and $\beta$ changes the behaviour of the tangent-point energy as stated in the following lemma.
@@ -56,10 +55,10 @@ The choice of parameters $\alpha$ and $\beta$ changes the behaviour of the tange
 
 One could also justify the condition on $\alpha$ and $\beta$ by the following lemma.
 \begin{lemma}
-    Given $\alpha$ and $\beta$, the behaviour of the kernel at a point and its perturbation of order $O \left( \epsilon \right)$ is of order $O \left( \epsilon^{2\alpha - \beta} \right)$. Moreover, if $2\alpha = \beta$, then the kernel converges to $\left( \frac{\kappa}{2} \right)^{\alpha}$ as the two points get closer, where $\kappa$ is the curvature of the curve at the point.
+    Given $\alpha$ and $\beta$, the singularity of the kernel at a point and another point of which is arc-length $\epsilon > 0$ away from it is of order $O \left( \epsilon^{2\alpha - \beta} \right)$, that is, $k_{\beta}^{\alpha} \left( \gammabf(s), \gammabf(s+\epsilon), \Tbf(s) \right) = O \left( \epsilon^{2\alpha-\beta} \right)$ as $\epsilon \rightarrow 0$. Moreover, if $2\alpha = \beta$, then the kernel converges to $\left( \frac{\kappa}{2} \right)^{\alpha}$ as the two points get closer, where $\kappa$ is the curvature of the curve at the point.
     \begin{proof}
         For $\gammabf (s) = \left( x(s), y(s), z(s) \right)$ parameterised by arc-length, one recognises that the tangent vector at this point is $\Tbf = \gammabf'(s)$.
-        Note that $\norm{\Tbf} = 1$.
+        Note that $\norm{\gammabf'(s)}=\norm{\Tbf} = 1$.
 
         By Taylor expansion:
         \begin{equation}
@@ -67,20 +66,34 @@ One could also justify the condition on $\alpha$ and $\beta$ by the following le
         \end{equation}
 
         Then around $\epsilon = 0$,
-        \begin{align}
-            k_{\beta}^{\alpha} \left( \gammabf(s), \gammabf(s + \epsilon), \gammabf'(s) \right) &= 
-            \frac{\norm{\gammabf'(s) \wedge \left( \gammabf(s+\epsilon) - \gammabf(s) \right)}^{\alpha}}{\norm{\gammabf(s+\epsilon) - \gammabf(s)}^{\beta}} \\
+        \begin{align*}
+            & k_{\beta}^{\alpha} \left( \gammabf(s), \gammabf(s + \epsilon), \gammabf'(s) \right)
+            \\
             &= 
-            \frac{\norm{\gammabf'(s) \wedge \left( \epsilon \gammabf'(s) + \frac{1}{2} \epsilon^2 \gammabf''(s) + O\left( \epsilon^3 \right) \right)}^{\alpha}}{\norm{\epsilon \gammabf'(s) + O \left( \epsilon^2 \right)}^{\beta}} \\
+            \frac{\norm{\gammabf'(s) \wedge \left( \gammabf(s+\epsilon) - \gammabf(s) \right)}^{\alpha}}{\norm{\gammabf(s+\epsilon) - \gammabf(s)}^{\beta}} \\
             &= 
             \frac{\norm{\gammabf'(s) \wedge \left( \epsilon \gammabf'(s) + \frac{1}{2} \epsilon^2 \gammabf''(s) + O\left( \epsilon^3 \right) \right)}^{\alpha}}{\norm{\epsilon \gammabf'(s) + O \left( \epsilon^2 \right)}^{\beta}} \\
             &=
             \frac{\epsilon^{2\alpha - \beta}}{2^{\alpha}}
-            \frac{\norm{\gammabf'(s) \wedge \gammabf''(s) + O\left( \epsilon \right)}^{\alpha}}{\norm{\gammabf'(s) + O \left( \epsilon \right)}^{\beta}} \\
+            \frac{\norm{\gammabf'(s) \wedge \gammabf''(s) + O\left( \epsilon \right)}^{\alpha}}{\norm{\gammabf'(s) + O \left( \epsilon \right)}^{\beta}}
+            &
+            \because \gammabf'(s) \wedge \gammabf'(s) = \zerobf
+            \\
             &= 
             \frac{\epsilon^{2\alpha - \beta}}{2^{\alpha}}
             \left( \frac{\norm{\gammabf'(s)}^{\alpha}\norm{\gammabf''(s)}^{\alpha}}{\norm{\gammabf'(s)}^{\beta}} + O \left( \epsilon \right) \right)
-        \end{align}
+            &
+            \because \gammabf'(s) \perp \gammabf''(s)
+            \\
+            &= 
+            \frac{\epsilon^{2\alpha - \beta}}{2^{\alpha}}
+            \left( \kappa^{\alpha} + O \left( \epsilon \right) \right)
+            &
+            \because \norm{\gammabf'(s)} = \norm{\Tbf}=1
+            \\
+            &&\text{and } \norm{\gammabf''(s)} = \kappa
+        \end{align*}
+        So with arc-length perturbation of $\epsilon$, the order of singularity of the kernel is $O \left( \epsilon^{2\alpha - \beta} \right)$. In particular, if $2\alpha - \beta = 0$, the kernel converges to $\left( \frac{\kappa}{2} \right)^{\alpha}$.
     \end{proof}
 \end{lemma}
 
