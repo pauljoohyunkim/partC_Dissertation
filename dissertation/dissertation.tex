@@ -16,8 +16,8 @@
 \usepackage[]{graphicx}
 \usepackage{lipsum}
 \usepackage{chngcntr}
-\counterwithin{section}{part}
-\renewcommand{\thepart}{\arabic{part}}
+%\counterwithin{section}{part}
+%\renewcommand{\thepart}{\arabic{part}}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[]{amsmath}
@@ -40,6 +40,7 @@
 \newcommand{\gammabf}{\boldsymbol{\gamma}}
 \newcommand{\Gammabf}{\boldsymbol{\Gamma}}
 \newcommand{\inner}[1]{\langle #1 \rangle}
+\newcommand{\norm}[1]{\lvert \lvert #1 \rvert \rvert}
 \newcommand{\intd}{\, \text{d}}
 \DeclareMathOperator{\grad}{grad}
 \DeclarePairedDelimiter{\abs}{\lvert}{\lvert}
@@ -58,16 +59,20 @@
 \subfile{sections/abstract}
 \tableofcontents
 
-\part{Introduction}
+\section{Introduction}
 \subfile{sections/introduction}
 
 \newpage
-\part{Curve Energy Reduction via Gradient Flow}
+\section{Curve Energy Reduction via Gradient Flow}
+Since we pose the problem as continuous reduction of some functional,
+we need an applicable framework which fits our intention.
+In our case, \textbf{gradient flow equation} seems to be appropriate.
+\subsection{Motivation of Gradient Flow Equation}
 \subfile{sections/gradientFlow}
 \subfile{sections/tangentPointEnergy}
 
 \newpage
-\part{Functional Reduction to Function Reduction}
+\section{Functional Reduction to Function Reduction}
 \subfile{sections/FourierSeries}
 
 \printbibliography

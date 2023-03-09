@@ -2,7 +2,6 @@
 
 \begin{document}
 
-\section{Steepest Descent to Gradient Flow Equation}
 For minimising a differentiable function $f:E \subset \mathbb{R}^n \rightarrow \mathbb{R}$, there is a well-known method known as \textbf{steepest descent method} (SDM)\cite{doi:10.1137/1.9781611974997.ch8}.
 \begin{equation}
     \xbf^{k+1} = \xbf^{k} - \alpha_k \nabla f \left( \xbf^{k} \right)
@@ -26,7 +25,8 @@ reducing the value at evaluation of $f$.
     \end{subfigure}
 \end{figure}
 Note that in general, this method is not guaranteed to find the minimiser as shown in Figure (\ref{fig: SDM}).
-On the other hand, convergence is guaranteed under certain assumptions, for example, convexity and $L$-smoothness with a certain choice of step size $\alpha_k$.
+On the other hand, convergence is guaranteed under certain assumptions, for example, convexity and $L$-smoothness\footnote{$\norm{\nabla f(x) - \nabla f(y)} \leq L \norm{x-y}$ for some constant $L > 0$}
+with a certain choice of step size $\alpha_k$.
 
 Analogously, differential equation known describing the reduction process of a functional $F:\mathcal{F} \subset \mathcal{X} \rightarrow \mathbb{R}$ (where $\mathcal{X}$ is a function space) can be motivated.
 Starting from (\ref{equ: SDM}), replacing $\xbf^{k}$ by $f_k$ and $\nabla f\left( \xbf^k \right)$ by $\grad_{\mathcal{X}} F\left( f_k \right)$
@@ -36,7 +36,8 @@ Starting from (\ref{equ: SDM}), replacing $\xbf^{k}$ by $f_k$ and $\nabla f\left
 \end{equation}
 Now think of $f_k$ as ``snapshots'' at certain time $t = t_k$.
 Without loss of generality, let $\alpha_k \equiv 1$.\footnote{
-This is justified by taking a differrent time scale; essentially nondimensionalisation.}
+This is justified by taking a differrent time scale; essentially nondimensionalisation.
+Also $\alpha_k \sim O (1)$ as $k \rightarrow \infty$ (eg. $\alpha = L^{-1}$ for $L$-smooth optimisation) is in fact a realistic choice.}
 Dividing (\ref{equ: Gradient Flow Motivation}) by time step $\Delta t \coloneqq t_{k+1} - t_k$,
 and taking the limit as $\Delta t \rightarrow 0$,
 we acquire the \textbf{gradient flow equation}\cite{YSC2021}.
