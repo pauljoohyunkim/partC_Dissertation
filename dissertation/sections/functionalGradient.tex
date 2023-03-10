@@ -5,19 +5,70 @@ Gradient of a function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ characterises the
 that is,
 \begin{equation}
     \forall \xbf, \ybf \in \mathbb{R}^n \; \; \;
-    \nabla f \left( \xbf \right) \cdot \ybf = \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( f\left( \xbf + \epsilon \ybf \right) - f\left( \xbf \right)  \right) 
+    \nabla f \left( \xbf \right) \cdot \ybf = \frac{\partial}{\partial \epsilon} f\left( \xbf + \epsilon \ybf \right)|_{\epsilon=0}
 \end{equation}
-While this is not a conventional definition of function gradient, it is an appropriate definition.
+While this is not a conventional definition of function gradient, it is still an equivalent definition.
 
 One could analogously construct the definition of gradient of a functional.
 \begin{definition}[Gradient of Functional]
     For a functional $F:\mathcal{X} \rightarrow \mathbb{R}$, define functional gradient $\grad_{\mathcal{X}} F (f)$ as:
     \begin{equation}
-        \inner{\grad_{\mathcal{X}} F (f), g}_{\mathcal{X}} = \lim_{\epsilon \rightarrow 0} \frac{1}{\epsilon} \left( F\left( f + \epsilon g \right) - F\left( f \right) \right)
+        \inner{\grad_{\mathcal{X}} F (f), g}_{\mathcal{X}} = \frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon = 0}
     \end{equation}
     where $\inner{\cdot, \cdot}_{\mathcal{X}}$ is the inner product defined over the inner product function space $\mathcal{X}$.
 \end{definition}
 
-Common inner product spaces include $L^2$, $H^1$, \ldots
+Common inner product spaces include $L^2$, $H^1$, which are defined in Appendix \ref{sct: Definitions of Important Inner Product Spaces}.
+
+\begin{remark}
+    By assuming time-independence of $f$ in the gradient flow equation (\ref{equ: Gradient Flow Equation}), we get a stationary state equation $\grad_{\mathcal{X}} F(f) = 0$,
+    which implies $\frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon=0} = 0$ for all $g \in \mathcal{X}$.
+    This shows that the stationary state of the gradient flow equation is precisely the solution to the Euler-Lagrange equation.
+\end{remark}
+
+\subsubsection{Gradient on Integer Sobolev Spaces}
+Given $L^2 = H^0$ gradient, one could express Sobolev gradients of other orders in terms of it.
+For functional $F$, write $h \coloneqq \grad_{L^2} F$ for gradient of $F$ in $L^2$, that is, by definition
+\begin{equation}
+    \frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon = 0} = \inner{h, g}_{L^2} \eqqcolon \mathcal{D}
+\end{equation}
+By integration by parts,
+\begin{align*}
+    \mathcal{D} &= \inner{\laplacian \laplacian^{-1} h, g}_{L^2} \\
+    &= \inner{-\nabla \laplacian^{-1} h, \nabla g}_{L^2} \\
+    &= \inner{-\laplacian^{-1} h, g}_{H^1}
+\end{align*}
+So one concludes that
+\begin{equation}
+    \grad_{H^1} F = -\laplacian^{-1} h
+    \label{equ: H1 Gradient}
+\end{equation}
+Similarly, one could acquire gradient in $H^2$ by
+\begin{align*}
+    \mathcal{D} &= \inner{\laplacian^{-1} h, \laplacian g}_{L^2} \\
+    &= \inner{\laplacian \left( \laplacian^{-2} h \right), \laplacian g}_{L^2} \\
+    &= \inner{\laplacian^{-2} h, g}_{H^2}
+\end{align*}
+Hence,
+\begin{equation}
+    \grad_{H^2} F = \laplacian^{-2} h
+    \label{equ: H2 Gradient}
+\end{equation}
+One could take it even further and define gradient in $H^{-1}$,
+\begin{align*}
+    \mathcal{D} &= \inner{h, \laplacian \laplacian^{-1} g}_{L^2} \\
+    &= \inner{-\nabla h, \nabla \left( \laplacian^{-1} g \right)}_{L^2} \\
+    &= \inner{-\laplacian h, g}_{H^{-1}}
+\end{align*}
+So,
+\begin{equation}
+    \grad_{H^{-1}} F = -\laplacian h
+    \label{equ: H-1 Gradient}
+\end{equation}
+\begin{remark}
+    From (\ref{equ: H1 Gradient}), (\ref{equ: H2 Gradient}), and (\ref{equ: H-1 Gradient}), one may deduce that
+    choosing the right Sobolev space for a functional may make the gradient flow equation much easier to solve.
+    For example, if $\grad_{L^2} F (f) = h = -\laplacian f$, instead of solving $L^2$ gradient flow equation $\frac{\partial}{\partial t} f = \laplacian f$, solving $H^1$ gradient flow equation $\frac{\partial}{\partial t}f = -f$ is much trivial.
+\end{remark}
 
 \end{document}
