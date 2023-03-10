@@ -9,12 +9,12 @@ Here are some of the notable inner product spaces.
     For interval $I \subset \mathbb{R}$,
     $L^2$ space over is defined as
     \begin{equation}
-        L^2 = \left\{ f:I \rightarrow \mathbb{R} \left.\middle|\right. \left( \int_{I} |f|^2 \intd \mu \right)^{1/2} < \infty \right\}
+        L^2 = \left\{ f:I \rightarrow \mathbb{R} \left.\middle|\right. \left( \int_{I} |f|^2 \intd x \right)^{1/2} < \infty \right\}
     \end{equation}
 
     $L^2$ inner product is defined as
     \begin{equation}
-        \forall f,g \in L^2 \; \; \inner{f, g}_{L^2} = \int_I f g \intd \mu
+        \forall f,g \in L^2 \; \; \inner{f, g}_{L^2} = \int_I f g \intd x
     \end{equation}
 \end{definition}
 
@@ -24,13 +24,30 @@ one must define weak derivative operator $D$:
 \begin{definition}[Weak Derivative]
     For $u$ locally integrable on $I$, if there exists $w$ such that for all infinitely smooth $v:I \rightarrow \mathbb{R}$ with compact support,
     \begin{equation}
-        \int_{I} w v \intd \mu = - \int_{I} u v' \intd \mu
+        \int_{I} w v \intd x = (-1)^{\alpha} \int_{I} u \frac{\intd^{\alpha} v}{\intd x^{\alpha}} \intd x
     \end{equation}
-    then $w$ is said to be \textbf{weak derivative} of $u$, and one writes $Du = w$.
+    then $w$ is said to be \textbf{weak derivative} of order $\alpha$ of $u$, and one writes $D^{\alpha}u = w$.
 \end{definition}
 
 Weak derivative extends the definition of conventional derivative, and is equivalent to the conventional derivative for smooth functions.
+With weak derivatives introduced, one may now define Sobolev inner product spaces.
+\begin{definition}[$H^k$ Space]
+    Sobolev inner product space of order $k \in \mathbb{N} \cup \left\{ 0 \right\}$ (denoted $H^k$) is defined as
+    \begin{equation}
+        H^k = \left\{ f \in L^2 \left.\middle|\right. D^{\alpha} f \in L^2, \alpha \leq k \right\}
+    \end{equation}
 
+    $H^k$ inner product is defined as:
+    \begin{equation}
+        \forall f,g \in H^{k} \; \; \inner{f, g}_{H^2} = \sum_{\alpha \leq k} \inner{D^\alpha f, D^\alpha g}_{L^2}
+    \end{equation}
+\end{definition}
+
+\begin{remark}
+    Note that $H^0 = L^2$ by definition.
+    One could say that Sobolev inner product spaces extend $L^2$ space.
+    It also turns out that $H^k$ are Hilbert spaces.
+\end{remark}
 
 
 \end{document}
