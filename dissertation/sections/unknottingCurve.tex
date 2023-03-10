@@ -1,0 +1,23 @@
+\documentclass[../dissertation.tex]{subfiles}
+\begin{document}
+Now that gradient flow equation and tangent-point energy are introduced,
+one can formalise the process of untangling a tangled curve:
+
+\begin{definition}[Curve Untangling Process]
+    Given a parameterised curve $\gammabf:M \times T \rightarrow \mathbb{R}^3$ over an interval $M$ and time domain $T$,
+    denote the following initial value problem as \textbf{curve untangling process}:
+    \begin{align}
+        \frac{\partial \gammabf}{\partial t} &= - \grad_{\mathcal{X}} \mathcal{E}_{\beta}^{\alpha} (\gammabf) - \grad_{\mathcal{X}} \mathcal{C} (\gammabf) \\
+        \gammabf(s;0) &= \gammabf_0 (s)
+    \end{align}
+    where 
+    \begin{itemize}
+        \item $\gammabf_0 (s)$ is the parameterisation of the initial (tangled) curve (prescribed at $t=0$)
+        \item $\mathcal{E}_{\beta}^{\alpha}$ is the tangent-point energy (See (\ref{equ: Tangent-Point Energy}))
+        \item $\mathcal{C}$ is additional constraint energy to control behaviour of curve untangling process.
+    \end{itemize}
+    
+\end{definition}
+
+
+\end{document}
