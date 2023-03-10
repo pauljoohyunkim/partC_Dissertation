@@ -1,6 +1,7 @@
 \documentclass[../dissertation.tex]{subfiles}
 
 \begin{document}
+In order to understand the gradient of a functional, it helps to recall the gradient of a function.
 Gradient of a function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ characterises the first-order variation in a certain direction,
 that is,
 \begin{equation}
@@ -13,7 +14,7 @@ One could analogously construct the definition of gradient of a functional.
 \begin{definition}[Gradient of Functional]
     For a functional $F:\mathcal{X} \rightarrow \mathbb{R}$, define functional gradient $\grad_{\mathcal{X}} F (f)$ as:
     \begin{equation}
-        \inner{\grad_{\mathcal{X}} F (f), g}_{\mathcal{X}} = \frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon = 0}
+        \forall f, g \in \mathcal{X} \; \; \inner{\grad_{\mathcal{X}} F (f), g}_{\mathcal{X}} = \frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon = 0}
     \end{equation}
     where $\inner{\cdot, \cdot}_{\mathcal{X}}$ is the inner product defined over the inner product function space $\mathcal{X}$.
 \end{definition}
@@ -27,15 +28,17 @@ Common inner product spaces include $L^2$, $H^1$, which are defined in Appendix 
 \end{remark}
 
 \subsubsection{Gradient on Integer Sobolev Spaces}
-Given $L^2 = H^0$ gradient, one could express Sobolev gradients of other orders in terms of it.
+Assume $\Omega$ is a boundary-free domain.
+Given $L^2(\Omega) = H^0(\Omega)$ gradient ($\Omega$ will be omitted in this section when unambiguous), one could express Sobolev gradients of other orders.
 For functional $F$, write $h \coloneqq \grad_{L^2} F$ for gradient of $F$ in $L^2$, that is, by definition
 \begin{equation}
     \frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon = 0} = \inner{h, g}_{L^2} \eqqcolon \mathcal{D}
 \end{equation}
-By integration by parts,
+By integration by parts (IBP) on boundary-free domain $\Omega$,
+\footnote{A more careful treatment of IBP is outlined in appendix \ref{sct: Integration By Parts}.}
 \begin{align*}
     \mathcal{D} &= \inner{\laplacian \laplacian^{-1} h, g}_{L^2} \\
-    &= \inner{-\nabla \laplacian^{-1} h, \nabla g}_{L^2} \\
+    &\stackrel{\text{IBP}}{=} \inner{-\nabla \laplacian^{-1} h, \nabla g}_{L^2} \\
     &= \inner{-\laplacian^{-1} h, g}_{H^1}
 \end{align*}
 So one concludes that
@@ -68,7 +71,11 @@ So,
 \begin{remark}
     From (\ref{equ: H1 Gradient}), (\ref{equ: H2 Gradient}), and (\ref{equ: H-1 Gradient}), one may deduce that
     choosing the right Sobolev space for a functional may make the gradient flow equation much easier to solve.
-    For example, if $\grad_{L^2} F (f) = h = -\laplacian f$, instead of solving $L^2$ gradient flow equation $\frac{\partial}{\partial t} f = \laplacian f$, solving $H^1$ gradient flow equation $\frac{\partial}{\partial t}f = -f$ is much trivial.
+    For example, given functional $F (f) \coloneqq \int_{\Omega} |\nabla f (x)|^2 \intd V$ over an open set $\Omega$,
+    $L^2$ gradient turns out to be $\grad_{L^2} F (f) = h = -\laplacian f$. 
+    Instead of solving $L^2$ gradient flow equation $\frac{\partial}{\partial t} f = \laplacian f$ (Refer to Figure \ref{fig: GF} for the case $\Omega = (-1, 1)$.),
+    solving $H^1$ gradient flow equation $\frac{\partial}{\partial t}f = -f$ is more trivial
+    as it practically collapses down to solving an ordinary differential equation.
 \end{remark}
 
 \end{document}
