@@ -55,6 +55,7 @@ For this, we pose the energy quadrature $E_{\beta}^{\alpha} \left( \Gammabf \rig
     \approx
     E_{\beta}^{\alpha} \left( \Gammabf^k \right) \coloneqq
     \sum_{i, j \in \left\{ 0, \cdots, N-1 \right\}} K_{\beta}^{\alpha} \left( i, j \right) \norm{e_i^k} \, \norm{e_j^k}
+    \label{equ: Energy Approximation Form}
 \end{equation}
 where
 $K_{\beta}^{\alpha}$ is an approximation of tangent-point kernel $k_{\beta}^{\alpha}$ (which is specified at (\ref{equ: Kernel 4-point})).
@@ -71,7 +72,8 @@ One way to resolve the issue is to ``ignore'' the adjacent edge contribution\cit
 The justification is that as we take a finer mesh ($N$ sufficiently large), the product of edge lengths ($\norm{e_i}\norm{e_j}$) should tend to zero sufficiently fast, resulting in approximation of the energy for the smooth curve, which did not have vertices resulting in local non-integrability in the first place.
 \begin{figure}[tbp]
     \centering
-    \begin{subfigure}[b]{0.8\textwidth}
+    \begin{subfigure}[b]{0.75\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/energyDiscretization1}
         \caption{For a chosen edge $e_i^k$, ignore the two adjacent edges $e_{i-1}^k$, $e_{i+1}^k$.
             In the limit as $N \rightarrow 0$, because the edge lengths tend to zero,
@@ -80,16 +82,18 @@ The justification is that as we take a finer mesh ($N$ sufficiently large), the 
         \label{fig: Energy discretization by ignoring adjacent edges}
     \end{subfigure}
     \par\bigskip
-    \begin{subfigure}[b]{0.8\textwidth}
+    \begin{subfigure}[b]{0.75\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/energyDiscretization2}
-        \caption{Tangent-point kernel is approximated by 4-point quadrature.}
+        %\caption{Tangent-point kernel is approximated by 4-point quadrature $K_\beta^\alpha (i, j)$ defined as (\ref{equ: Kernel 4-point}).}
+        \caption{Tangent-point kernel is approximated by 4-point quadrature defined as (\ref{equ: Kernel 4-point}).}
         \label{fig: Tangent-point kernel approximation}
     \end{subfigure}
     \caption{Quadrature for approximation of tangent-point energy.}
 \end{figure}
 
 It still remains to sensibly approximate the kernel $k_{\beta}^{\alpha} (\gammabf_x, \gammabf_y) \approx K_{\beta}^{\alpha} (i, j)$.
-One sensible approximation is to use the following 4-point quadrature\cite{YSC2021}:
+One sensible approximation is to use the following 4-point quadrature\cite{YSC2021} (See Figure \ref{fig: Tangent-point kernel approximation}):
 \begin{multline}
     K_{\beta}^{\alpha} (i, j) \coloneqq \frac{1}{4} \biggl( k_{\beta}^{\alpha} \left( \xbf_i^k, \xbf_j^k, \Tbf_i^k \right)
         + k_{\beta}^{\alpha} \left( \xbf_i^k, \xbf_{j+1}^k, \Tbf_i^k \right) \\
@@ -98,6 +102,14 @@ One sensible approximation is to use the following 4-point quadrature\cite{YSC20
     \biggr)
     \label{equ: Kernel 4-point}
 \end{multline}
+where $\Tbf_{i}^k \coloneqq \frac{\xbf_{i+1}^k - \xbf_i^k}{\norm{\xbf_{i+1}^k - \xbf_i^k}}$ approximates the tangent vector to the curve at $\gammabf_x$.
+
+Putting (\ref{equ: Energy Approximation Form}) and (\ref{equ: Kernel 4-point}) together,
+one can write the \textbf{tangent-point energy quadrature} as:
+\begin{equation}
+    E_{\beta}^{\alpha} \coloneqq \sum_{\substack{i, j \in \left\{ 0, \cdots, N-1 \right\} \\ |i - j| > 1}} K_{\beta}^{\alpha} (i,j) \norm{e_i^k} \, \norm{e_j^k}
+\end{equation}
+
 
 
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}

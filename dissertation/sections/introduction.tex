@@ -11,7 +11,7 @@ especially in a computer simulation.
 \begin{figure}[tpb]
     \centering
     \includegraphics[scale=0.3]{sections/introductionImgs/knot}
-    \caption{A complicated knot in $\mathbb{R}^3$}
+    \caption{A tangled curve in $\mathbb{R}^3$}
     \label{fig: Knot}
 \end{figure}
 In this dissertation, we explore numerical methods to achieve this.
@@ -26,7 +26,7 @@ where $k\left( \gammabf_1, \gammabf_2 \right) \geq 0$ is the \emph{curve energy 
 
 A na\"ive choice of $k$ satisfying this condition is $k_S \left( \gammabf_1, \gammabf_2 \right) \coloneqq \frac{1}{\abs{\gammabf_1 - \gammabf_2}}$.
 However, it turns out that $k_S \sim O\left( \frac{1}{\abs{\gammabf_1 - \gammabf_2}} \right)$ as $\abs{\gammabf_1 - \gammabf_2} \rightarrow 0$ (consider neighbouring points), meaning the $\mathcal{E}$ diverges all continuous curves $\gammabf$ of nonzero measure.
-This seemingly ill-defined energy, however, may not be the end of story in terms of numerics, and will be explored later.
+%This seemingly ill-defined energy, however, may not be the end of story in terms of numerics, and will be explored later.
 
 A more analytically sensible choice of $k$ would be the tangent-point kernel introduced in a paper by Buck and Orloff\cite{BO1995} and later generalised by Yu, Schumacher, and Crane\cite{YSC2021}.
 
