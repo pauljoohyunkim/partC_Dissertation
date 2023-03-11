@@ -24,7 +24,7 @@ one can formalise the process of untangling a tangled curve:
 \subsection{Discretisation for Numerical Computation}
 Solving (\ref{equ: Curve Untangling Process}), (\ref{equ: Initial Curve}) analytically is challenging.
 Rather, we aim to acquire a numerical solution.
-Assume for simplicity that the curve of interest is closed.\footnote{
+Assume for simplicity that the curve of interest is simple closed.\footnote{
     We may assume that the function definition of $\gammabf:M \rightarrow \mathbb{R}^3$ extends to $\gammabf: \mathbb{R} \rightarrow \mathbb{R}^3$ by periodicity.
 }
 
@@ -108,6 +108,7 @@ Putting (\ref{equ: Energy Approximation Form}) and (\ref{equ: Kernel 4-point}) t
 one can write the \textbf{tangent-point energy quadrature} as:
 \begin{equation}
     E_{\beta}^{\alpha} \coloneqq \sum_{\substack{i, j \in \left\{ 0, \cdots, N-1 \right\} \\ |i - j| > 1}} K_{\beta}^{\alpha} (i,j) \norm{e_i^k} \, \norm{e_j^k}
+    \label{equ: Tangent-Point Energy Quadrature}
 \end{equation}
 
 
