@@ -73,7 +73,8 @@ For this, we pose the energy quadrature $E_{\beta}^{\alpha} \left( \Gammabf \rig
     \label{equ: Energy Approximation Form}
 \end{equation}
 where
-$K_{\beta}^{\alpha}$ is an approximation of tangent-point kernel $k_{\beta}^{\alpha}$ (which is specified at (\ref{equ: Kernel 4-point})).
+$K_{\beta}^{\alpha}$ is an approximation of tangent-point kernel $k_{\beta}^{\alpha}$ (which is specified at (\ref{equ: Kernel 4-point})), 
+and $\norm{e_i^k}$ is the length of edge $e_i^k$, that is, $\norm{e_i^k} = \norm{\xbf_i^{k+1} - \xbf_i^k}$.
 Note that $\Gammabf^k$ is a polygonal curve, for which tangent-point energy (\ref{equ: Tangent-Point Energy}) is not well-defined due to locally non-integrable contributions from vertices:
 
 \begin{figure}[tbp]
@@ -139,5 +140,6 @@ where $\mathcal{D}_t$ is the finite difference operator over time step.
 For the simplest scheme, one could take the forward difference operator as $\mathcal{D}_t \Gammabf^k(i) \coloneqq \frac{\Gammabf^{k+1}(i) - \Gammabf^{k}(i)}{\Delta T}$.
 
 \subsection{$L^2$ Explicit Euler Scheme}
+
 
 \end{document}
