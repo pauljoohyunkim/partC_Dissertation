@@ -47,7 +47,7 @@ anaogous to $\gammabf = \gammabf(s)$ being a parameterised curve, which is a vec
 Finally, denote by $e_{i}^k$ for the (undirected) edge with vertex pair $\left( \xbf_i^k, \xbf_{i+1}^k \right)$.
 
 \subsubsection{Discretisation of Tangent-Point Energy}
-In order to make numerical progress, one must also be able to numerically compute the tangent-point energy.
+In order to acquire numerical solution, one must also be able to numerically compute the tangent-point energy.
 For this, we pose the energy quadrature $E_{\beta}^{\alpha} \left( \Gammabf \right)$ of the following form:
 \begin{equation}
     \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \left( \cdot, t \right) \right) \coloneqq
@@ -90,14 +90,14 @@ The justification is that as we take a finer mesh ($N$ sufficiently large), the 
 
 It still remains to sensibly approximate the kernel $k_{\beta}^{\alpha} (\gammabf_x, \gammabf_y) \approx K_{\beta}^{\alpha} (i, j)$.
 One sensible approximation is to use the following 4-point quadrature\cite{YSC2021}:
-\begin{equation}
-    K_{\beta}^{\alpha} (i, j) \coloneqq \frac{1}{4} \left( k_{\beta}^{\alpha} \left( \xbf_i^k, \xbf_j^k, \Tbf_i^k \right)
-        + k_{\beta}^{\alpha} \left( \xbf_i^k, \xbf_{j+1}^k, \Tbf_i^k \right)
+\begin{multline}
+    K_{\beta}^{\alpha} (i, j) \coloneqq \frac{1}{4} \biggl( k_{\beta}^{\alpha} \left( \xbf_i^k, \xbf_j^k, \Tbf_i^k \right)
+        + k_{\beta}^{\alpha} \left( \xbf_i^k, \xbf_{j+1}^k, \Tbf_i^k \right) \\
         + k_{\beta}^{\alpha} \left( \xbf_{i+1}^k, \xbf_j^k, \Tbf_i^k \right)
         + k_{\beta}^{\alpha} \left( \xbf_{i+1}^k, \xbf_{j+1}^k, \Tbf_i^k \right)
-    \right)
+    \biggr)
     \label{equ: Kernel 4-point}
-\end{equation}
+\end{multline}
 
 
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}
