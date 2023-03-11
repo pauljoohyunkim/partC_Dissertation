@@ -24,7 +24,9 @@ one can formalise the process of untangling a tangled curve:
 \subsection{Discretisation for Numerical Computation}
 Solving (\ref{equ: Curve Untangling Process}), (\ref{equ: Initial Curve}) analytically is challenging.
 Rather, we aim to acquire a numerical solution.
-Assume for simplicity that the curve of interest is closed.
+Assume for simplicity that the curve of interest is closed.\footnote{
+    We may assume that the function definition of $\gammabf:M \rightarrow \mathbb{R}^3$ extends to $\gammabf: \mathbb{R} \rightarrow \mathbb{R}^3$ by periodicity.
+}
 
 \subsubsection{Discretisation of Curve}
 We start by discretising the initial curve $\gammabf_0$ by taking $N$ points on a curve as shown in Figure \ref{fig: Discretization of Curve}.
@@ -76,6 +78,7 @@ Based on (\ref{equ: Curve Untangling Process}), one writes the following finite 
     \mathcal{D}_{t} \Gammabf^{k} = -\grad_{\mathcal{X}} E_{\beta}^{\alpha} (\Gammabf^k) - \grad_{\mathcal{X}} C \left( \Gammabf^k \right) \hspace{1cm} \text{for } k=0,1,\cdots
 \end{equation}
 where $\mathcal{D}_t$ is the finite difference operator over time step.
+For the simplest scheme, one could take the forward difference operator as $\mathcal{D}_t \Gammabf^k(i) \coloneqq \frac{\Gammabf^{k+1}(i) - \Gammabf^{k}(i)}{\Delta T}$.
 
 \subsection{$L^2$ Explicit Euler Scheme}
 
