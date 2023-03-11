@@ -61,7 +61,10 @@ One way to resolve the issue is to ``ignore'' the adjacent edge contribution in 
     \centering
     \begin{subfigure}[b]{0.8\textwidth}
         \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/energyDiscretization1}
-        \caption{For a chosen edge $e_i^k$, ignore the two adjacent edges $e_{i-1}^k$, $e_{i+1}^k$}
+        \caption{For a chosen edge $e_i^k$, ignore the two adjacent edges $e_{i-1}^k$, $e_{i+1}^k$.
+            In the limit as $N \rightarrow 0$, because the edge lengths tend to zero,
+            the discrepancy between the quadrature and the analytical value of the energy is expected to tend to zero.
+                }
         \label{fig: Energy discretization by ignoring adjacent edges}
     \end{subfigure}
     \par\bigskip
@@ -70,6 +73,7 @@ One way to resolve the issue is to ``ignore'' the adjacent edge contribution in 
         \caption{Tangent-point kernel is approximated by 4-point quadrature.}
         \label{fig: Tangent-point kernel approximation}
     \end{subfigure}
+    \caption{Quadrature for approximation of tangent-point energy.}
 \end{figure}
 
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}
