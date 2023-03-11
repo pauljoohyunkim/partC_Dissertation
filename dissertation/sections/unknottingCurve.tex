@@ -32,7 +32,7 @@ Assume for simplicity that the curve of interest is simple closed.\footnote{
 We start by discretising the initial curve $\gammabf_0$ by taking $N$ points on a curve as shown in Figure \ref{fig: Discretization of Curve}.
 Represent the initially discretised curve as $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right)$,
 and the discretised curve at time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right)$.
-Since we restrict our attention to a closed curve, it is convenient to extend the indexing rule by:
+Since we restrict our attention to a simple closed curve, it is convenient to extend the indexing rule by:
 \begin{equation}
     \xbf_{i}^k = \xbf_{r\left( i,N \right)}^k \hspace{1cm} \text{where } r\left( i,N \right) = \text{(remainder of } i \div N \text{)}
 \end{equation}
@@ -64,7 +64,7 @@ Note that $\Gammabf^k$ is a polygonal curve, for which tangent-point energy (\re
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.8\textwidth]{sections/discretizationImgs/discretization}
-    \caption{Discretisation of a closed curve by sampling the points along the curve.}
+    \caption{Discretisation of a simple closed curve by sampling the points along the curve.}
     \label{fig: Discretization of Curve}
 \end{figure}
 
@@ -110,7 +110,8 @@ one can write the \textbf{tangent-point energy quadrature} as:
     E_{\beta}^{\alpha} \coloneqq \sum_{\substack{i, j \in \left\{ 0, \cdots, N-1 \right\} \\ r \left( i-j,N \right) > 1}} K_{\beta}^{\alpha} (i,j) \norm{e_i^k} \, \norm{e_j^k}
     \label{equ: Tangent-Point Energy Quadrature}
 \end{equation}
-where $r\left( i-j,N \right)$ is the geodesic distance between $i$ and $j$ in modulo $N$.
+where $r\left( i-j,N \right)$ is the geodesic distance between $i$ and $j$ in modulo $N$,
+characterising the avoidance of adjacent edges on simple closed polygonal curve.
 
 
 
