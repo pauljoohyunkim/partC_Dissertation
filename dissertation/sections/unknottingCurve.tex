@@ -29,20 +29,45 @@ Assume for simplicity that the curve of interest is closed.
 \subsubsection{Discretisation of Curve}
 We start by discretising the initial curve $\gammabf_0$ by taking $N$ points on a curve as shown in Figure \ref{fig: Discretization of Curve}.
 Represent the initially discretised curve as $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right)$,
-and the discretised curve at time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right)$
-and assign a function definition $\Gammabf^k: \mathbb{Z} \rightarrow \left\{ \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right\}$ as:
+and the discretised curve at time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right)$.
+Since we restrict our attention to a closed curve, it is convenient to extend the indexing rule by:
 \begin{equation}
-    \Gammabf^k (i) = \xbf_{r\left( i, N \right)}^k \hspace{1cm} \text{where } r\left( i,N \right) = \text{(remainder of } i \div N \text{)}
+    \xbf_{i}^k = \xbf_{r\left( i,N \right)}^k \hspace{1cm} \text{where } r\left( i,N \right) = \text{(remainder of } i \div N \text{)}
 \end{equation}
+so that $\xbf_N^k = \xbf_{0}^k$, $\xbf_{N+1}^k = \xbf_{1}^k$, etc.
+
+Assign a function definition $\Gammabf^k: \mathbb{Z} \rightarrow \left\{ \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right\}$ as:
+\begin{equation}
+    \Gammabf^k (i) = \xbf_{r\left( i, N \right)}^k 
+\end{equation}
+anaogous to $\gammabf = \gammabf(s)$ being a parameterised curve, which is a vector-valued function.
+
+Finally, denote by $e_{i}^k$ for the (undirected) edge with vertex pair $\left( \xbf_i^k, \xbf_{i+1}^k \right)$.
 
 \subsubsection{Discretisation of Tangent-Point Energy}
-Note that $\Gammabf^k$ is a polygonal curve, for which tangent-point energy (\ref{equ: Tangent-Point Energy}) is not well-defined due to locally non-integrable contributions from vertices.
+Note that $\Gammabf^k$ is a polygonal curve, for which tangent-point energy (\ref{equ: Tangent-Point Energy}) is not well-defined due to locally non-integrable contributions from vertices:
 
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.8\textwidth]{sections/discretizationImgs/discretization}
     \caption{Discretisation of a closed curve by sampling the points along the curve.}
     \label{fig: Discretization of Curve}
+\end{figure}
+
+One way to resolve the issue is to ``ignore'' the adjacent edge contribution in the energy quadrature $E_{\beta}^{\alpha}$ as shown in Figure \ref{fig: Energy discretization by ignoring adjacent edges}.
+\begin{figure}[tbp]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/energyDiscretization1}
+        \caption{For a chosen edge $e_i^k$, ignore the two adjacent edges $e_{i-1}^k$, $e_{i+1}^k$}
+        \label{fig: Energy discretization by ignoring adjacent edges}
+    \end{subfigure}
+    \par\bigskip
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/energyDiscretization2}
+        \caption{Tangent-point kernel is approximated by 4-point quadrature.}
+        \label{fig: Tangent-point kernel approximation}
+    \end{subfigure}
 \end{figure}
 
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}
