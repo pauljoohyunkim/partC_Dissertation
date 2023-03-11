@@ -47,6 +47,17 @@ anaogous to $\gammabf = \gammabf(s)$ being a parameterised curve, which is a vec
 Finally, denote by $e_{i}^k$ for the (undirected) edge with vertex pair $\left( \xbf_i^k, \xbf_{i+1}^k \right)$.
 
 \subsubsection{Discretisation of Tangent-Point Energy}
+In order to make numerical progress, one must also be able to numerically compute the tangent-point energy.
+For this, we pose the energy quadrature $E_{\beta}^{\alpha} \left( \Gammabf \right)$ of the following form:
+\begin{equation}
+    \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \left( \cdot, t \right) \right) \coloneqq
+    \iint_{M^2} k_{\beta}^{\alpha} (\gammabf_x, \gammabf_y) \intd \gamma_x \intd \gamma_y
+    \approx
+    E_{\beta}^{\alpha} \left( \Gammabf^k \right) \coloneqq
+    \sum_{i, j \in \left\{ 0, \cdots, N-1 \right\}} K_{\beta}^{\alpha} \left( i, j \right) \norm{e_i^k} \, \norm{e_j^k}
+\end{equation}
+where
+$K_{\beta}^{\alpha}$ is an approximation of tangent-point kernel $k_{\beta}^{\alpha}$ (which is specified at (\ref{equ: Kernel 4-point})).
 Note that $\Gammabf^k$ is a polygonal curve, for which tangent-point energy (\ref{equ: Tangent-Point Energy}) is not well-defined due to locally non-integrable contributions from vertices:
 
 \begin{figure}[tbp]
@@ -56,7 +67,8 @@ Note that $\Gammabf^k$ is a polygonal curve, for which tangent-point energy (\re
     \label{fig: Discretization of Curve}
 \end{figure}
 
-One way to resolve the issue is to ``ignore'' the adjacent edge contribution in the energy quadrature $E_{\beta}^{\alpha}$ as shown in Figure \ref{fig: Energy discretization by ignoring adjacent edges}.
+One way to resolve the issue is to ``ignore'' the adjacent edge contribution\cite{YSC2021} in the energy quadrature $E_{\beta}^{\alpha}$ as shown in Figure \ref{fig: Energy discretization by ignoring adjacent edges}.
+The justification is that as we take a finer mesh ($N$ sufficiently large), the product of edge lengths ($\norm{e_i}\norm{e_j}$) should tend to zero sufficiently fast, resulting in approximation of the energy for the smooth curve, which did not have vertices resulting in local non-integrability in the first place.
 \begin{figure}[tbp]
     \centering
     \begin{subfigure}[b]{0.8\textwidth}
@@ -75,6 +87,18 @@ One way to resolve the issue is to ``ignore'' the adjacent edge contribution in 
     \end{subfigure}
     \caption{Quadrature for approximation of tangent-point energy.}
 \end{figure}
+
+It still remains to sensibly approximate the kernel $k_{\beta}^{\alpha} (\gammabf_x, \gammabf_y) \approx K_{\beta}^{\alpha} (i, j)$.
+One sensible approximation is to use the following 4-point quadrature\cite{YSC2021}:
+\begin{equation}
+    K_{\beta}^{\alpha} (i, j) \coloneqq \frac{1}{4} \left( k_{\beta}^{\alpha} \left( \xbf_i^k, \xbf_j^k, \Tbf_i^k \right)
+        + k_{\beta}^{\alpha} \left( \xbf_i^k, \xbf_{j+1}^k, \Tbf_i^k \right)
+        + k_{\beta}^{\alpha} \left( \xbf_{i+1}^k, \xbf_j^k, \Tbf_i^k \right)
+        + k_{\beta}^{\alpha} \left( \xbf_{i+1}^k, \xbf_{j+1}^k, \Tbf_i^k \right)
+    \right)
+    \label{equ: Kernel 4-point}
+\end{equation}
+
 
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}
 Based on (\ref{equ: Curve Untangling Process}), one writes the following finite difference scheme:
