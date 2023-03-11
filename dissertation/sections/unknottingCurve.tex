@@ -25,6 +25,8 @@ one can formalise the process of untangling a tangled curve:
 Solving (\ref{equ: Curve Untangling Process}), (\ref{equ: Initial Curve}) analytically is challenging.
 Rather, we aim to acquire a numerical solution.
 Assume for simplicity that the curve of interest is closed.
+
+\subsubsection{Discretisation of Curve}
 We start by discretising the initial curve $\gammabf_0$ by taking $N$ points on a curve as shown in Figure \ref{fig: Discretization of Curve}.
 Represent the initially discretised curve as $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right)$,
 and the discretised curve at time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right)$
@@ -32,6 +34,10 @@ and assign a function definition $\Gammabf^k: \mathbb{Z} \rightarrow \left\{ \xb
 \begin{equation}
     \Gammabf^k (i) = \xbf_{r\left( i, N \right)}^k \hspace{1cm} \text{where } r\left( i,N \right) = \text{(remainder of } i \div N \text{)}
 \end{equation}
+
+\subsubsection{Discretisation of Tangent-Point Energy}
+Note that $\Gammabf^k$ is a polygonal curve, for which tangent-point energy (\ref{equ: Tangent-Point Energy}) is not well-defined due to locally non-integrable contributions from vertices.
+
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.8\textwidth]{sections/discretizationImgs/discretization}
@@ -39,10 +45,13 @@ and assign a function definition $\Gammabf^k: \mathbb{Z} \rightarrow \left\{ \xb
     \label{fig: Discretization of Curve}
 \end{figure}
 
+\subsubsection{Finite Difference Scheme of Curve Untangling Process}
 Based on (\ref{equ: Curve Untangling Process}), one writes the following finite difference scheme:
 \begin{equation}
     \mathcal{D}_{t} \Gammabf^{k} = -\grad_{\mathcal{X}} E_{\beta}^{\alpha} (\Gammabf^k) - \grad_{\mathcal{X}} C \left( \Gammabf^k \right) \hspace{1cm} \text{for } k=0,1,\cdots
 \end{equation}
 where $\mathcal{D}_t$ is the finite difference operator over time step.
+
+\subsection{$L^2$ Explicit Euler Scheme}
 
 \end{document}
