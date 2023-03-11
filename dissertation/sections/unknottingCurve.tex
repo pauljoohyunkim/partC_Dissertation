@@ -21,17 +21,19 @@ one can formalise the process of untangling a tangled curve:
     \end{itemize}
 \end{definition}
 
-\section{Constraint Energy}
-From lemma \ref{lemma: Scale-Invariance}, in the case that $\beta > \alpha + 2$,
-one could trivially minimise tangent-point energy $\mathcal{E}_{\beta}^{\alpha}$ of the curve by scaling the curve to infinity.
-In order to avoid this phenomenon, or to change the behaviour of the flow, one may add additional energy which penalises unwanted behaviours.
-\begin{itemize}
-    \item Taking $\mathcal{C} \coloneqq \lambda \int_{M} \norm{\gammabf}^{p} \intd \gamma$ adds the motivation for the curve not to stray away from the origin.
-        \begin{itemize}
-            \item $\lambda > 0$ is the strength of the overall constraint.
-            \item $p > 0$ is the order of local strength, where higher $p$ would lead to harsher ``thresholding''.
-        \end{itemize}
-\end{itemize}
+%\subsection{Constraint Energy}
+%From lemma \ref{lemma: Scale-Invariance}, in the case that $\beta > \alpha + 2$,
+%one could trivially minimise tangent-point energy $\mathcal{E}_{\beta}^{\alpha}$ of the curve by scaling the curve to infinity.
+%In order to avoid this phenomenon, or to change the behaviour of the flow, one may add additional energy which penalises unwanted behaviours.
+%
+%Here are some examples of constraint one could take.
+%\begin{itemize}
+%    \item Taking $\mathcal{C} \coloneqq \lambda \int_{M} \norm{\gammabf}^{p} \intd \gamma$ adds the motivation for the curve not to stray away from the origin.
+%    \item Taking $\mathcal{C} \coloneqq \lambda \left( \int_M \intd \gamma - L \right)^p$ adds the motivation for the curve to stay close to some constant arc-length $L$.
+%\end{itemize}
+%For both cases,
+%$\lambda > 0$ is the strength of the overall constraint, and
+%$p > 0$ is the order of local strength, where higher $p$ would lead to harsher ``thresholding''.
 
 
 \subsection{Discretisation for Numerical Computation}
