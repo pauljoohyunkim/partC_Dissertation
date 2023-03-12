@@ -7,5 +7,14 @@ For curves in different homeomorphism class from $S^1$,
 one may make minor changes to (\ref{equ: Tangent-Point Energy Quadrature}) to get a sensible quadrature.
 
 \subsection{Curves Homeomorphic to a Line Segment}
+Given a curve $\gammabf$ homeomorphic to a line segment,
+one could take the following as its tangent-point energy quadrature for its discretisation $\Gammabf^k$:
+\begin{equation}
+    E_{\beta}^{\alpha} \left( \Gammabf^k \right) \coloneqq \sum_{\substack{i,j \in \left\{ 1, \cdots, N-2 \right\} \\ r\left( i-j,N \right) > 1}} K_{\beta}^{\alpha} (i,j) \norm{e_i} \, \norm{e_j}
+\end{equation}
+where the contribution from each end is neglected.
+
+\subsection{Curves Homeomorphic to Bus Network}
+For a curve $\gammabf$ that has ``branches'', one needs to take a care in at what points on the discretisation branching happens.
 
 \end{document}
