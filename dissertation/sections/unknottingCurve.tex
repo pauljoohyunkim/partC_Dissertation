@@ -222,7 +222,7 @@ If we \textit{use a difference scheme} to approximate $\Grad_{\ell^2} E_{\beta}^
 for every time step, one needs to be able to evaluate $E_{\beta}^\alpha$ for a given $\Gammabf^k \in \mathbb{R}^{3\times N}$.
 From (\ref{equ: Tangent-Point Energy Quadrature}),
 it takes $O \left( N^2 \right)$ evaluations of the kernel.
-Since the approximation for $\Grad_{L^2} E_\beta^\alpha$ requires evaluation of the energy for each point perturbed, for each time step, it takes $O \left( N^3 \right)$ evaluations of the kernel.
+Since the approximation for $\Grad_{L^2} E_\beta^\alpha$ requires evaluation of the energy for each point perturbed, it takes $O \left( N^3 \right)$ evaluations of the kernel for each time step. 
 
 On the other hand, this is where doing the hard work of implementing \textit{exact gradient computation} is beneficial,
 For exact gradient implementation as in appendix \ref{sct: Exact Gradient},
