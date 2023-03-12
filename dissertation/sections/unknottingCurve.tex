@@ -178,6 +178,11 @@ where one could explicitly write $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \righ
     E_4^2 \left( \Gammabf^k \right)
 \end{equation*}
 where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \times N$ tensor representation of $\Gammabf^k$.
+Note that $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also a tensor of the same shape as $\Gammabf^k$,
+so naturally, most arithmetics\footnote{Such as addition, subtraction, and scalar multiplication.} needed for (\ref{equ: L2 Explicit Euler}) is well-defined.
+\begin{remark}
+    $\Grad_{\ell^2}$ is in fact a linear operator with respect to its input, energy.
+\end{remark}
 
 One could use this exact form of $\Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right)$ as given in appendix \ref{sct: Exact Gradient}, but it could be considered cumbersome (even though there are benefits to implementing this).
 One could alternatively approximate $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ by central difference scheme, for example:
