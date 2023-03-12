@@ -45,8 +45,8 @@ Assume for simplicity that the curve of interest is simple closed.\footnote{
 
 \subsubsection{Discretisation of Curve}
 We start by discretising the initial curve $\gammabf_0$ by taking $N$ points on a curve as shown in Figure \ref{fig: Discretization of Curve}.
-Represent the initially discretised curve as $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right)$,
-and the discretised curve at time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right)$.
+Represent the initially discretised curve in the tensor form: $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right)$,
+and the discretised curve at subsequent time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right)$.
 Since we restrict our attention to a simple closed curve, it is convenient to extend the indexing rule by:
 \begin{equation}
     \xbf_{i}^k = \xbf_{r\left( i,N \right)}^k \hspace{1cm} \text{where } r\left( i,N \right) = \text{(remainder of } i \div N \text{)}
@@ -56,19 +56,19 @@ so that $\xbf_N^k = \xbf_{0}^k$, $\xbf_{N+1}^k = \xbf_{1}^k$, etc.
 Define (right) operator $[\cdot]:\mathbb{R}^{3 \times N} \rightarrow \mathbb{R}$ such that for tensor $T \in \mathbb{R}^{3 \times N}$,
 %$\Gammabf^k: \mathbb{Z} \rightarrow \left\{ \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right\}$ as:
 \begin{equation*}
-    T[i] = T \ebf_{r\left( i,N \right)}
+    T[i] \coloneqq T \ebf_{r\left( i,N \right)}
 \end{equation*}
 where $\ebf_i$ is the canonical vector with 1 as its only nontrivial $i$\textsuperscript{th} coordinate.
 With this operator, one could write
 \begin{equation}
-    \Gammabf^k [i] = \xbf_{r\left( i, N \right)}^k 
+    \Gammabf^k [i] = \xbf_{r\left( i, N \right)}^k = \xbf_i^k
 \end{equation}
 anaogous to $\gammabf = \gammabf(s)$ being a parameterised curve, which is a vector-valued function.
 
 Finally, denote by $e_{i}^k$ for the (undirected) edge with vertex pair $\left( \xbf_i^k, \xbf_{i+1}^k \right)$.
 
 \begin{remark}
-    $\Gammabf^k$ is a tensor of type $\left( 3, N \right)$.
+    $\Gammabf^k$ is a tensor in $\mathbb{R}^{3 \times N}$.
 \end{remark}
 
 \subsubsection{Discretisation of Tangent-Point Energy}
@@ -119,7 +119,7 @@ The justification is that as we take a finer mesh ($N$ sufficiently large), the 
 \end{figure}
 
 It still remains to sensibly approximate the kernel $k_{\beta}^{\alpha} (\gammabf_x, \gammabf_y) \approx K_{\beta}^{\alpha} (i, j)$.
-One sensible approximation is to use the following 4-point quadrature\cite{YSC2021} (See Figure \ref{fig: Tangent-point kernel approximation}):
+One sensible approximation is to use the following 4-point quadrature\cite{YSC2021}.
 \begin{multline}
     K_{\beta}^{\alpha} (i, j) \coloneqq \frac{1}{4} \biggl( k_{\beta}^{\alpha} \left( \xbf_i^k, \xbf_j^k, \Tbf_i^k \right)
         + k_{\beta}^{\alpha} \left( \xbf_i^k, \xbf_{j+1}^k, \Tbf_i^k \right) \\
@@ -129,6 +129,7 @@ One sensible approximation is to use the following 4-point quadrature\cite{YSC20
     \label{equ: Kernel 4-point}
 \end{multline}
 where $\Tbf_{i}^k \coloneqq \frac{\xbf_{i+1}^k - \xbf_i^k}{\norm{\xbf_{i+1}^k - \xbf_i^k}}$ approximates the tangent vector to the curve at $\gammabf_x$.
+(See Figure \ref{fig: Tangent-point kernel approximation}.)
 
 Putting (\ref{equ: Energy Approximation Form}) and (\ref{equ: Kernel 4-point}) together,
 one can write the \textbf{tangent-point energy quadrature} as:
