@@ -156,12 +156,13 @@ For the simplest scheme, one could take the forward difference operator as $\mat
 
 \subsection{Example: $L^2$ Explicit Euler Scheme for Buck-Orloff Energy}
 Now we visit the simplest concrete numerical scheme for curve untangling process.
-We will demonstrate with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance}).
+We will demonstrate with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance})\footnote{One could construct a similar working example for other scale-invariant tangent-point energies.}.
 
 
 In $L^2$, $\grad_{L^2} \mathcal{E}_{4}^{2} \left( \gammabf \right)$ is simply the ``first-order perturbation'' as in (\ref{equ: L2 Gradient Explicit Form}).
 Discrete equivalent is the $\ell^2$ space,
-and $\Grad_{\ell^2} = \nabla_{\Gammabf}$.
+where one may justify this by noting that first-order perturbation in a curve is analogous to perturbing each of the point on its discretisation.
+ %$\Grad_{\ell^2} = \nabla_{\Gammabf}$.
 Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be forward difference operator,
 \begin{equation}
     \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right)
@@ -169,7 +170,10 @@ Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untang
 \end{equation}
 where one could explicitly write $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ as
 \begin{equation*}
-    \Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right) =
+    \Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)
+    =
+    \nabla_{\Gammabf} E_{4}^2 \left( \Gammabf^k \right)
+    =
     \begin{pmatrix}
         \frac{\partial}{\partial x_{1,1}} & \frac{\partial}{\partial x_{1,2}} & \cdots & \frac{\partial}{\partial x_{1,N-1}} \\
         \frac{\partial}{\partial x_{2,1}} & \frac{\partial}{\partial x_{2,2}} & \cdots & \frac{\partial}{\partial x_{1,N-1}} \\
@@ -177,14 +181,14 @@ where one could explicitly write $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \righ
     \end{pmatrix}
     E_4^2 \left( \Gammabf^k \right)
 \end{equation*}
-where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \times N$ tensor representation of $\Gammabf^k$.
+where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \times N$ tensor.
 Note that $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also a tensor of the same shape as $\Gammabf^k$,
 so naturally, most arithmetics\footnote{Such as addition, subtraction, and scalar multiplication.} needed for (\ref{equ: L2 Explicit Euler}) is well-defined.
 \begin{remark}
     $\Grad_{\ell^2}$ is in fact a linear operator with respect to its input, energy.
 \end{remark}
 
-One could use this exact form of $\Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right)$ as given in appendix \ref{sct: Exact Gradient}, but it could be considered cumbersome (even though there are benefits to implementing this).
+One could use this exact form of $\Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right)$ as given in appendix \ref{sct: Exact Gradient}, but it could be considered cumbersome (even though there are benefits to implementing this as stated in section \ref{sct: L2 Complexity}).
 One could alternatively approximate $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ by central difference scheme, for example:
 for $i=0,1,\cdots,N-1$ and $j = 1,2,3$,
 \begin{equation}
@@ -205,5 +209,24 @@ where
 \end{align*}
 Here $\ebf_j$ is the canonical vector of which has entry $1$ at $j$\textsuperscript{th} component.
 
-Notice that (\ref{equ: L2 Explicit Euler}) can be interpreted as SDM over all the coordinates on the curve.
+\begin{remark}
+Notice that (\ref{equ: L2 Explicit Euler}) can be interpreted as SDM over all the coordinates on the curve!
+This is consistent with the motivation of gradient flow equation given in section \ref{sct: Motivation of Gradient Flow Equation}.
+\end{remark}
+
+\subsubsection{Time Complexity}
+\label{sct: L2 Complexity}
+Since we expect to take $N$ to be very large, it is reasonable to consider the computational work.
+
+If we \textit{use a difference scheme} to approximate $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right)$,
+for every time step, one needs to be able to evaluate $E_{\beta}^\alpha$ for a given $\Gammabf^k \in \mathbb{R}^{3\times N}$.
+From (\ref{equ: Tangent-Point Energy Quadrature}),
+it takes $O \left( N^2 \right)$ evaluations of the kernel.
+Since the approximation for $\Grad_{L^2} E_\beta^\alpha$ requires evaluation of the energy for each point perturbed, for each time step, it takes $O \left( N^3 \right)$ evaluations of the kernel.
+
+On the other hand, this is where doing the hard work of implementing \textit{exact gradient computation} is beneficial,
+For exact gradient implementation as in appendix \ref{sct: Exact Gradient},
+it takes $O \left( N \right)$ evaluations\footnote{$4 \left( N-3 \right)$ to be exact.} of the derivative of the kernel.
+This implies the overall computation needed for a single step is $O \left( N^2 \right)$.
+
 \end{document}
