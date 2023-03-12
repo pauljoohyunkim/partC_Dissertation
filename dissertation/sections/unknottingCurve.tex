@@ -53,9 +53,15 @@ Since we restrict our attention to a simple closed curve, it is convenient to ex
 \end{equation}
 so that $\xbf_N^k = \xbf_{0}^k$, $\xbf_{N+1}^k = \xbf_{1}^k$, etc.
 
-Assign a function definition $\Gammabf^k: \mathbb{Z} \rightarrow \left\{ \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right\}$ as:
+Define (right) operator $[\cdot]:\mathbb{R}^{3 \times N} \rightarrow \mathbb{R}$ such that for tensor $T \in \mathbb{R}^{3 \times N}$,
+%$\Gammabf^k: \mathbb{Z} \rightarrow \left\{ \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right\}$ as:
+\begin{equation*}
+    T[i] = T \ebf_{r\left( i,N \right)}
+\end{equation*}
+where $\ebf_i$ is the canonical vector with 1 as its only nontrivial $i$\textsuperscript{th} coordinate.
+With this operator, one could write
 \begin{equation}
-    \Gammabf^k (i) = \xbf_{r\left( i, N \right)}^k 
+    \Gammabf^k [i] = \xbf_{r\left( i, N \right)}^k 
 \end{equation}
 anaogous to $\gammabf = \gammabf(s)$ being a parameterised curve, which is a vector-valued function.
 
@@ -145,7 +151,7 @@ where $\mathcal{D}_t$ is the finite difference operator over time,
 $\Grad_{X}$ is discrete equivalent of $\grad_{\mathcal{X}}$ on discrete inner product space $X$,
 $E_{\beta}^{\alpha}$ is the tangent-point energy quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
 and $C$ is the discretised version of the constraint energy $\mathcal{C}$.
-For the simplest scheme, one could take the forward difference operator as $\mathcal{D}_t \Gammabf^k(i) \coloneqq \frac{\Gammabf^{k+1}(i) - \Gammabf^{k}(i)}{\Delta T}$.
+For the simplest scheme, one could take the forward difference operator as $\mathcal{D}_t \Gammabf^k[i] \coloneqq \frac{\Gammabf^{k+1}[i] - \Gammabf^{k}[i]}{\Delta T}$.
 
 \subsection{Example: $L^2$ Explicit Euler Scheme for Buck-Orloff Energy}
 Now we visit the simplest concrete numerical scheme for curve untangling process.
@@ -176,7 +182,7 @@ One could use this exact form of $\Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right)
 One could alternatively approximate $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ by central difference scheme, for example:
 for $i=0,1,\cdots,N-1$ and $j = 1,2,3$,
 \begin{equation}
-    \ebf_j \cdot \left( \Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right) (i) \right)
+    \ebf_j \cdot \left( \Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right) [i] \right)
     =
     \frac{\partial E_{4}^2 (\Gammabf)}{\partial x_{j,i}}
     \approx
