@@ -1,0 +1,48 @@
+\documentclass[../dissertation.tex]{subfiles}
+\begin{document}
+Recall the discretisation of tangent-point energy for simple closed curve $\Gammabf$ from (\ref{equ: Tangent-Point Energy Quadrature})
+with $K_{\beta}^{\alpha}$ defined by (\ref{equ: Kernel 4-point}).
+
+To compute $\Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf \right)$,
+one can consider subproblem of computing $\nabla_{\xbf_k} E_{\beta}^{\alpha} \left( \Gammabf \right)$
+for each $k=0, 1, \cdots, N-1$.
+
+Fix $k$.
+The pairs of indices $(i,j)$ where the summand $K_{\beta}^{\alpha} (i,j) \norm{\ebf_i}\,\norm{\ebf_j}$ involves $\xbf_k$ are:
+\begin{itemize}
+    \item $(k,0), \cdots, (k,k-2), (k,k+2), \cdots, (k,N-1)$
+    \item $(k-1,0), \cdots, (k-1,k-3), (k-1,k+1), \cdots, (k-1,N-1)$
+    \item $(0, k), \cdots, (k-2,k), (k+2,k), \cdots, (N-1,k)$
+    \item $(0,k-1), \cdots, (k-3,k-1), (k+1,k-1), \cdots, (N-1, k-1)$
+\end{itemize}
+
+We now attempt to construct explicit derivative in a ``modular fashion''.
+
+First note that, if $m \neq k$,
+\begin{equation}
+    \nabla_{\xbf_k} \norm{\xbf_k - \xbf_m} = \frac{\xbf_k - \xbf_m}{\norm{\xbf_k - \xbf_m}}
+\end{equation}
+
+Now, the demanding part is to compute $\nabla_{\xbf_k} k_{\beta}^{\alpha}$.
+Note that
+\begin{align}
+    k_{\beta}^{\alpha} \left( \xbf_p, \xbf_q, \Tbf_r \right) &= k_{\beta}^{\alpha} \left( \xbf_p, \xbf_q, \frac{\xbf_{r+1} - \xbf_r}{\norm{\xbf_{r+1} - \xbf_r}} \right) \nonumber \\
+    &= \frac{\sqrt{\norm{\xbf_{r+1} - \xbf_r}^2 \norm{\xbf_p - \xbf_q}^2 - \left( \left( \xbf_{r+1} - \xbf_r \right) \cdot \left( \xbf_p - \xbf_q \right) \right)^2}}{\norm{\xbf_p - \xbf_q}^{\beta} \norm{\xbf_{r+1} - \xbf_r}^{\alpha}} \nonumber \\
+    &= \frac{\left( \xi_{p,q,r} \right)^{\alpha/2}}{\eta_{p,q,r}}
+\end{align}
+where we have defined
+\begin{align*}
+    \xi_{p,q,r} &= \norm{\xbf_{r+1} - \xbf_r}^2 \norm{\xbf_p - \xbf_q}^2 - \left( \left( \xbf_{r+1} - \xbf_r \right) \cdot \left( \xbf_p - \xbf_q \right) \right)^2 \\
+    \eta_{p,q,r} &= \norm{\xbf_p - \xbf_q}^{\beta} \norm{\xbf_{r+1} - \xbf_r}^{\alpha}
+\end{align*}
+Then, we may express $\nabla_{\xbf_k} k_{\beta}^{\alpha} \left( \xbf_p, \xbf_q, \Tbf_r \right)$ as:
+\begin{align}
+    \nabla_{\xbf_k} k_{\beta}^{\alpha} \left( \xbf_p, \xbf_q, \Tbf_r \right)
+    &= \nabla_{\xbf_k} \left(\frac{\left( \xi_{p,q,r} \right)^{\alpha/2}}{\eta_{p,q,r}} \right) \nonumber \\
+    &=
+    \frac{1}{\left( \eta_{p,q,r} \right)^2} \left( \frac{\alpha}{2} \left( \xi_{p,q,r} \right)^{\alpha/2-1} \eta_{p,q,r} \nabla_{\xbf_k} \xi_{p,q,r} - \left( \xi_{p,q,r} \right)^{\alpha/2} \nabla_{\xbf_k} \eta_{p,q,r} \right)
+\end{align}
+
+
+
+\end{document}
