@@ -158,6 +158,7 @@ and $\Grad_{\ell^2} = \nabla_{\Gammabf}$.
 Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be forward difference operator,
 \begin{equation}
     \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right)
+    \label{equ: L2 Explicit Euler}
 \end{equation}
 where one could explicitly write $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ as
 \begin{equation*}
@@ -171,7 +172,8 @@ where one could explicitly write $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \righ
 \end{equation*}
 where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \times N$ tensor representation of $\Gammabf^k$.
 
-One could approximate $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ by central difference scheme, for example:
+One could use this exact form of $\Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right)$ as given in appendix \ref{sct: Exact Gradient}, but it could be considered cumbersome (even though there are benefits to implementing this).
+One could alternatively approximate $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ by central difference scheme, for example:
 for $i=0,1,\cdots,N-1$ and $j = 1,2,3$,
 \begin{equation}
     \ebf_j \cdot \left( \Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right) (i) \right)
@@ -190,4 +192,6 @@ where
     \underaccent{\bar}{E}_4^2 (i) &\coloneqq E_{4}^2 \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i - \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right)
 \end{align*}
 Here $\ebf_j$ is the canonical vector of which has entry $1$ at $j$\textsuperscript{th} component.
+
+Notice that (\ref{equ: L2 Explicit Euler}) can be interpreted as SDM over all the coordinates on the curve.
 \end{document}
