@@ -8,7 +8,7 @@ one can consider subproblem of computing $\nabla_{\xbf_k} E_{\beta}^{\alpha} \le
 for each $k=0, 1, \cdots, N-1$.
 
 Fix $k$.
-The pairs of indices $(i,j)$ where the summand $K_{\beta}^{\alpha} (i,j) \norm{\ebf_i}\,\norm{\ebf_j}$ involves $\xbf_k$ are:
+There are $4\left( N-3 \right)$ pairs of indices $(i,j)$ where the summand $K_{\beta}^{\alpha} (i,j) \norm{\ebf_i}\,\norm{\ebf_j}$ involves $\xbf_k$ are:
 \begin{itemize}
     \item $(k,0), \cdots, (k,k-2), (k,k+2), \cdots, (k,N-1)$
     \item $(k-1,0), \cdots, (k-1,k-3), (k-1,k+1), \cdots, (k-1,N-1)$
@@ -20,6 +20,7 @@ We now attempt to construct explicit derivative in a ``modular fashion''.
 If we take gradient of the summand directly,\footnote{recall $\norm{\ebf_i} = \norm{\xbf_i - \xbf_{i+1}}$ and $\norm{\ebf_j} = \norm{\xbf_j - \xbf_{j+1}}$.}
 \begin{equation}
     \nabla_{\xbf_k} \left( K_{\beta}^{\alpha} (i,j) \norm{\ebf_i}\,\norm{\ebf_j} \right) = \norm{\ebf_i}\,\norm{\xbf_j} \nabla_{\xbf_k} K_{\beta}^{\alpha} (i,j) + K_{\beta}^{\alpha} \left( i,j \right) \nabla_{\xbf_k} \left( \norm{\ebf_i} \, \norm{\ebf_j} \right)
+    \label{equ: Exact Gradient 1}
 \end{equation}
 
 Due to restriction $r\left( i-j,N \right) > 1$, at most one of $\norm{\ebf_i}$ and $\norm{\xbf_j}$ may involve $\xbf_k$ at a time.
@@ -27,6 +28,7 @@ Due to restriction $r\left( i-j,N \right) > 1$, at most one of $\norm{\ebf_i}$ a
 First note that, if $m \neq k$,
 \begin{equation}
     \nabla_{\xbf_k} \norm{\xbf_k - \xbf_m} = \frac{\xbf_k - \xbf_m}{\norm{\xbf_k - \xbf_m}}
+    \label{equ: Exact Gradient 2}
 \end{equation}
 
 Now, the demanding part is to compute $\nabla_{\xbf_k} k_{\beta}^{\alpha}$, since it is needed for computing $\nabla_{\xbf_k} K_{\beta}^{\alpha}$.
@@ -35,6 +37,7 @@ Note that
     k_{\beta}^{\alpha} \left( \xbf_p, \xbf_q, \Tbf_r \right) &= k_{\beta}^{\alpha} \left( \xbf_p, \xbf_q, \frac{\xbf_{r+1} - \xbf_r}{\norm{\xbf_{r+1} - \xbf_r}} \right) \nonumber \\
     &= \frac{\sqrt{\norm{\xbf_{r+1} - \xbf_r}^2 \norm{\xbf_p - \xbf_q}^2 - \left( \left( \xbf_{r+1} - \xbf_r \right) \cdot \left( \xbf_p - \xbf_q \right) \right)^2}}{\norm{\xbf_p - \xbf_q}^{\beta} \norm{\xbf_{r+1} - \xbf_r}^{\alpha}} \nonumber \\
     &= \frac{\left( \xi_{p,q,r} \right)^{\alpha/2}}{\eta_{p,q,r}}
+    \label{equ: Exact Gradient 3}
 \end{align}
 where we have defined
 \begin{align*}
@@ -47,10 +50,11 @@ Then, we may express $\nabla_{\xbf_k} k_{\beta}^{\alpha} \left( \xbf_p, \xbf_q, 
     &= \nabla_{\xbf_k} \left(\frac{\left( \xi_{p,q,r} \right)^{\alpha/2}}{\eta_{p,q,r}} \right) \nonumber \\
     &=
     \frac{1}{\left( \eta_{p,q,r} \right)^2} \left( \frac{\alpha}{2} \left( \xi_{p,q,r} \right)^{\alpha/2-1} \eta_{p,q,r} \nabla_{\xbf_k} \xi_{p,q,r} - \left( \xi_{p,q,r} \right)^{\alpha/2} \nabla_{\xbf_k} \eta_{p,q,r} \right)
+    \label{equ: Exact Gradient 4}
 \end{align}
 It now remains to compute $\nabla_{\xbf_k} \xi_{p,q,r}$ and $\nabla_{\xbf_k} \eta_{p,q,r}$ for relevant $(p,q,r)$ tuples.
 
-There are five class of $(p,q,r)$ tuples.
+There are five classes of $(p,q,r)$ relevant tuples.
 
 If $\left( p,q,r \right) = \left( k,j,k \right)$,
 \begin{align*}
@@ -63,5 +67,44 @@ If $\left( p,q,r \right) = \left( k,j,k \right)$,
     &+ \alpha \norm{\xbf_k - \xbf_j}^{\beta} \norm{\xbf_k - \xbf_{k+1}}^{\alpha - 2} \left( \xbf_k - \xbf_{k+1} \right)
 \end{align*}
 
+If $\left( p,q,r \right) = \left( i,j,k \right)$ where $i \neq k$ and $i \neq k-1$
+\begin{align*}
+    \xi_{i,j,k} &= \norm{\xbf_{k+1} - \xbf_k}^2 \norm{\xbf_i - \xbf_j}^2- \left( \left( \xbf_{k+1} - \xbf_{k} \right) \cdot \left( \xbf_{i} - \xbf_{j} \right) \right)^2 \\
+    \eta_{i,j,k} &= \norm{\xbf_i - \xbf_j}^{\beta} \norm{\xbf_k - \xbf_{k+1}}^{\alpha} \\
+    \nabla_{\xbf_k} \xi_{i,j,k} &= 2 \norm{\xbf_i - \xbf_j}^2 \left( \xbf_k - \xbf_{k+1} \right) \\
+    &- 2 \left(\left( \xbf_{k+1} - \xbf_k \right) \cdot \left( \xbf_i - \xbf_j \right)\right) \left( \xbf_j - \xbf_i \right) \\
+    \nabla_{\xbf_k} \eta_{i,j,k} &= \alpha \norm{\xbf_i - \xbf_j}^{\beta} \norm{\xbf_k - \xbf_{k+1}}^{\alpha - 2} \left( \xbf_k - \xbf_{k+1} \right)
+\end{align*}
+
+If $\left( p,q,r \right) = \left( k-1,j,k-1 \right)$,
+\begin{align*}
+    \xi_{k-1,j,k-1} &= \norm{\xbf_k - \xbf_{k-1}}^2 \norm{\xbf_{k-1} - \xbf_j}^2- \left( \left( \xbf_k - \xbf_{k-1} \right) \cdot \left( \xbf_{k-1} - \xbf_{j} \right) \right)^2 \\
+    \eta_{k-1,j,k-1} &= \norm{\xbf_{k-1} - \xbf_j}^{\beta} \norm{\xbf_{k-1} - \xbf_k}^{\alpha} \\
+    \nabla_{\xbf_k} \xi_{k-1,j,k-1} &= 2 \norm{\xbf_{k-1} - \xbf_j}^2 \left( \xbf_k - \xbf_{k-1} \right) \\
+    &- 2 \left( \left( \xbf_k - \xbf_{k-1} \right) \cdot \left( \xbf_{k-1} - \xbf_j \right)\right) \left( \xbf_{k-1} - \xbf_j \right) \\
+    \nabla_{\xbf_k} \eta_{k-1,j,k-1} &= \alpha \norm{\xbf_{k-1} - \xbf_j}^{\beta} \norm{\xbf_k - \xbf_{k-1}}^{\alpha-2} \left( \xbf_k - \xbf_{k-1} \right)
+\end{align*}
+
+If $\left( p,q,r \right) = \left( k,j,k-1 \right)$,
+\begin{align*}
+    \xi_{k,j,k-1} &= \norm{\xbf_{k} - \xbf_{k-1}}^2 \norm{\xbf_k - \xbf_j}^2- \left( \left( \xbf_{k} - \xbf_{k-1} \right) \cdot \left( \xbf_{k} - \xbf_{j} \right) \right)^2 \\
+    \eta_{k,j,k-1} &= \norm{\xbf_k - \xbf_j}^{\beta} \norm{\xbf_{k-1} - \xbf_{k}}^{\alpha} \\
+    \nabla_{\xbf_k} \xi_{k,j,k-1} &= 2 \norm{\xbf_k - \xbf_j}^2 \left( \xbf_k - \xbf_{k-1} \right) \\
+    &+ 2 \norm{\xbf_k - \xbf_{k-1}}^2 \left( \xbf_k - \xbf_j \right) \\
+    &- 2 \left(\left( \xbf_k - \xbf_{k-1} \right) \cdot \left( \xbf_k - \xbf_j \right)\right) \left( 2 \xbf_k - \xbf_j - \xbf_{k-1} \right) \\
+    \nabla_{\xbf_k} \eta_{k,j,k-1} &= \beta \norm{\xbf_{k-1} - \xbf_k}^{\alpha} \norm{\xbf_k - \xbf_j}^{\beta - 2} \left( \xbf_k - \xbf_j \right) \\
+    &+ \alpha \norm{\xbf_k - \xbf_j}^{\beta} \norm{\xbf_k - \xbf_{k-1}}^{\alpha - 2} \left( \xbf_k - \xbf_{k-1} \right)
+\end{align*}
+
+If $\left( p,q,r \right) = \left( i,k,j \right)$,
+\begin{align*}
+    \xi_{i,k,j} &= \norm{x_{j+1} - x_{j}}^2 \norm{x_k - x_i}^2- \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k} - x_{i} \right) \right)^2 \\
+    \eta_{i,k,j} &= \norm{x_k - x_i}^{\beta} \norm{x_{j} - x_{j+1}}^{\alpha} \\
+    \nabla_{\xbf_k} \xi_{i,k,j} &= 2 \norm{x_{j+1} - x_j}^2 \left( x_k - x_i \right) \\
+    &- 2 \left(\left( x_{j+1} - x_j \right) \cdot \left( x_k - x_i \right)\right) \left( x_{j+1} - x_j \right) \\
+    \nabla_{\xbf_k} \eta_{i,k,j} &= \beta \norm{x_j - x_{j+1}}^{\alpha} \norm{x_k - x_i}^{\beta - 2} \left( x_k - x_i \right)
+\end{align*}
+
+With all these cases covered, one may back substitute to (\ref{equ: Exact Gradient 1}) $\sim$ (\ref{equ: Exact Gradient 4}) to acquire the exact gradient by summing over the $4\left( N-3 \right)$ pairs of indices.
 
 \end{document}
