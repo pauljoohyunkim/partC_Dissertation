@@ -61,6 +61,10 @@ anaogous to $\gammabf = \gammabf(s)$ being a parameterised curve, which is a vec
 
 Finally, denote by $e_{i}^k$ for the (undirected) edge with vertex pair $\left( \xbf_i^k, \xbf_{i+1}^k \right)$.
 
+\begin{remark}
+    $\Gammabf^k$ is a tensor of type $\left( 3, N \right)$.
+\end{remark}
+
 \subsubsection{Discretisation of Tangent-Point Energy}
 In order to acquire numerical solution, one must also be able to numerically compute the tangent-point energy.
 For this, we pose the energy quadrature $E_{\beta}^{\alpha} \left( \Gammabf \right)$ of the following form:
@@ -134,12 +138,56 @@ characterising the avoidance of adjacent edges on simple closed polygonal curve.
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}
 Based on (\ref{equ: Curve Untangling Process}), one writes the following finite difference scheme:
 \begin{equation}
-    \mathcal{D}_{t} \Gammabf^{k} = -\grad_{\mathcal{X}} E_{\beta}^{\alpha} (\Gammabf^k) - \grad_{\mathcal{X}} C \left( \Gammabf^k \right) \hspace{1cm} \text{for } k=0,1,\cdots
+    \mathcal{D}_{t} \Gammabf^{k} = -\Grad_{X} E_{\beta}^{\alpha} (\Gammabf^k) - \Grad_{X} C \left( \Gammabf^k \right) \hspace{1cm} \text{for } k=0,1,\cdots
+    \label{equ: Finite Difference Scheme for Curve Untangling Process}
 \end{equation}
-where $\mathcal{D}_t$ is the finite difference operator over time step.
+where $\mathcal{D}_t$ is the finite difference operator over time,
+$\Grad_{X}$ is discrete equivalent of $\grad_{\mathcal{X}}$ on discrete inner product space $X$,
+$E_{\beta}^{\alpha}$ is the tangent-point energy quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
+and $C$ is the discretised version of the constraint energy $\mathcal{C}$.
 For the simplest scheme, one could take the forward difference operator as $\mathcal{D}_t \Gammabf^k(i) \coloneqq \frac{\Gammabf^{k+1}(i) - \Gammabf^{k}(i)}{\Delta T}$.
 
-\subsection{$L^2$ Explicit Euler Scheme}
+\subsection{Example: $L^2$ Explicit Euler Scheme for Buck-Orloff Energy}
+Now we visit the simplest concrete numerical scheme for curve untangling process.
+We will demonstrate with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance}).
 
 
+In $L^2$, $\grad_{L^2} \mathcal{E}_{4}^{2} \left( \gammabf \right)$ is simply the ``first-order perturbation'' as in (\ref{equ: L2 Gradient Explicit Form}).
+Discrete equivalent is the $\ell^2$ space,
+and $\Grad_{\ell^2} = \nabla_{\Gammabf}$.
+Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be forward difference operator,
+\begin{equation}
+    \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right)
+\end{equation}
+where one could explicitly write $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ as
+\begin{equation*}
+    \Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right) =
+    \begin{pmatrix}
+        \frac{\partial}{\partial x_{1,1}} & \frac{\partial}{\partial x_{1,2}} & \cdots & \frac{\partial}{\partial x_{1,N-1}} \\
+        \frac{\partial}{\partial x_{2,1}} & \frac{\partial}{\partial x_{2,2}} & \cdots & \frac{\partial}{\partial x_{1,N-1}} \\
+        \frac{\partial}{\partial x_{3,1}} & \frac{\partial}{\partial x_{3,2}} & \cdots & \frac{\partial}{\partial x_{3,N-1}}
+    \end{pmatrix}
+    E_4^2 \left( \Gammabf^k \right)
+\end{equation*}
+where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \times N$ tensor representation of $\Gammabf^k$.
+
+One could approximate $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ by central difference scheme, for example:
+for $i=0,1,\cdots,N-1$ and $j = 1,2,3$,
+\begin{equation}
+    \ebf_j \cdot \left( \Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right) (i) \right)
+    =
+    \frac{\partial E_{4}^2 (\Gammabf)}{\partial x_{j,i}}
+    \approx
+    \frac{1}{2 \Delta X} \left( 
+        \bar{E}_{4}^{2} (i)
+        -
+        \underaccent{\bar} E_{4}^{2} (i)
+    \right)
+\end{equation}
+where
+\begin{align*}
+    \bar{E}_4^2 (i) &\coloneqq E_{4}^2 \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i + \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right) \\
+    \underaccent{\bar}{E}_4^2 (i) &\coloneqq E_{4}^2 \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i - \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right)
+\end{align*}
+Here $\ebf_j$ is the canonical vector of which has entry $1$ at $j$\textsuperscript{th} component.
 \end{document}

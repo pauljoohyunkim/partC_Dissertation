@@ -41,12 +41,14 @@
 \renewcommand\qedsymbol{$\blacksquare$}
 \renewcommand\labelitemii{$\circ$}
 \usepackage{mathtools}
+\usepackage{accents}
 \usepackage{subfiles}               % BEST LOADED AT THE END OF PREAMBLE
 \newcommand{\xbf}{\mathbf{x}}
 \newcommand{\ybf}{\mathbf{y}}
 \newcommand{\pbf}{\mathbf{p}}
 \newcommand{\qbf}{\mathbf{q}}
 \newcommand{\ubf}{\mathbf{u}}
+\newcommand{\ebf}{\mathbf{e}}
 \newcommand{\nbf}{\mathbf{n}}
 \newcommand{\Tbf}{\mathbf{T}}
 \newcommand{\zerobf}{\mathbf{0}}
@@ -57,6 +59,7 @@
 \newcommand{\norm}[1]{\lvert \lvert #1 \rvert \rvert}
 \newcommand{\intd}{\, \text{d}}
 \DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\Grad}{Grad}
 \DeclarePairedDelimiter{\abs}{\lvert}{\lvert}
 \begin{document}
 
@@ -87,7 +90,7 @@ In our case, \textbf{gradient flow equation} seems to be appropriate.
 \section{Tangent-Point Energy}
 \subfile{sections/tangentPointEnergy}
 
-\section{Unknotting Curves via Energy Minimisation}
+\section{Unknotting Curves via Gradient Flow Equation}
 \subfile{sections/unknottingCurve}
 
 \newpage
