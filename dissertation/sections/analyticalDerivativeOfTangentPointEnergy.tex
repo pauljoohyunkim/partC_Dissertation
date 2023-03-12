@@ -50,5 +50,18 @@ Then, we may express $\nabla_{\xbf_k} k_{\beta}^{\alpha} \left( \xbf_p, \xbf_q, 
 \end{align}
 It now remains to compute $\nabla_{\xbf_k} \xi_{p,q,r}$ and $\nabla_{\xbf_k} \eta_{p,q,r}$ for relevant $(p,q,r)$ tuples.
 
+There are five class of $(p,q,r)$ tuples.
+
+If $\left( p,q,r \right) = \left( k,j,k \right)$,
+\begin{align*}
+        \xi_{k,j,k} &= \norm{\xbf_{k+1} - \xbf_k}^2 \norm{\xbf_k - \xbf_j}^2- \left( \left( \xbf_{k+1} - \xbf_{k} \right) \cdot \left( \xbf_{k} - \xbf_{j} \right) \right)^2 \\
+        \eta_{k,j,k} &= \norm{\xbf_k - \xbf_j}^{\beta} \norm{\xbf_k - \xbf_{k+1}}^{\alpha} \\
+        \nabla_{\xbf_k} \xi_{k,j,k} &= 2\left( \xbf_k - \xbf_{k+1} \right) \norm{\xbf_k - \xbf_j}^2
+    + 2 \norm{\xbf_{k+1} - \xbf_k}^2 \left( \xbf_k - \xbf_j \right) \\
+    &- 2 \left(\left( \xbf_{k+1} - \xbf_k \right) \cdot \left( \xbf_k - \xbf_j \right)\right) \left( \xbf_j + \xbf_{k+1} - 2 \xbf_k \right) \\
+    \nabla_{\xbf_k} \eta_{k,j,k} &= \beta \norm{\xbf_k - \xbf_j}^{\beta - 2} \norm{\xbf_k - \xbf_{k+1}}^{\alpha} \left( \xbf_k - \xbf_j \right)\\
+    &+ \alpha \norm{\xbf_k - \xbf_j}^{\beta} \norm{\xbf_k - \xbf_{k+1}}^{\alpha - 2} \left( \xbf_k - \xbf_{k+1} \right)
+\end{align*}
+
 
 \end{document}
