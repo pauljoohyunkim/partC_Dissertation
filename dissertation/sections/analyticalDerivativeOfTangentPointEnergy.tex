@@ -98,11 +98,11 @@ If $\left( p,q,r \right) = \left( k,j,k-1 \right)$,
 
 If $\left( p,q,r \right) = \left( i,k,j \right)$,
 \begin{align*}
-    \xi_{i,k,j} &= \norm{x_{j+1} - x_{j}}^2 \norm{x_k - x_i}^2- \left( \left( x_{j+1} - x_{j} \right) \cdot \left( x_{k} - x_{i} \right) \right)^2 \\
-    \eta_{i,k,j} &= \norm{x_k - x_i}^{\beta} \norm{x_{j} - x_{j+1}}^{\alpha} \\
-    \nabla_{\xbf_k} \xi_{i,k,j} &= 2 \norm{x_{j+1} - x_j}^2 \left( x_k - x_i \right) \\
-    &- 2 \left(\left( x_{j+1} - x_j \right) \cdot \left( x_k - x_i \right)\right) \left( x_{j+1} - x_j \right) \\
-    \nabla_{\xbf_k} \eta_{i,k,j} &= \beta \norm{x_j - x_{j+1}}^{\alpha} \norm{x_k - x_i}^{\beta - 2} \left( x_k - x_i \right)
+    \xi_{i,k,j} &= \norm{\xbf_{j+1} - \xbf_{j}}^2 \norm{\xbf_k - \xbf_i}^2- \left( \left( \xbf_{j+1} - \xbf_{j} \right) \cdot \left( \xbf_{k} - \xbf_{i} \right) \right)^2 \\
+    \eta_{i,k,j} &= \norm{\xbf_k - \xbf_i}^{\beta} \norm{\xbf_{j} - \xbf_{j+1}}^{\alpha} \\
+    \nabla_{\xbf_k} \xi_{i,k,j} &= 2 \norm{\xbf_{j+1} - \xbf_j}^2 \left( \xbf_k - \xbf_i \right) \\
+    &- 2 \left(\left( \xbf_{j+1} - \xbf_j \right) \cdot \left( \xbf_k - \xbf_i \right)\right) \left( \xbf_{j+1} - \xbf_j \right) \\
+    \nabla_{\xbf_k} \eta_{i,k,j} &= \beta \norm{\xbf_j - \xbf_{j+1}}^{\alpha} \norm{\xbf_k - \xbf_i}^{\beta - 2} \left( \xbf_k - \xbf_i \right)
 \end{align*}
 
 With all these cases covered, one may back substitute to (\ref{equ: Exact Gradient 1}) $\sim$ (\ref{equ: Exact Gradient 4}) to acquire the exact gradient by summing over the $4\left( N-3 \right)$ pairs of indices.
