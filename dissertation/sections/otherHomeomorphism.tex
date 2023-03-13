@@ -39,17 +39,51 @@ Suppose for all branches protrude from a single ``stem''.
 On Figure \ref{fig: Bus Network}, the stem is represented by the thick blue curve.
 
 One can capture this curve by a tensor of the following form.
-\begin{equation*}
-    \Gammabf^k = \left( \underbrace{\xbf_{0,0}^k, \cdots, \xbf_{0,n_0}^k}_{\text{Stem}} \middle|
-    \underbrace{\xbf_{1,0}^k, \cdots, \xbf_{1,n_1}^k}_{\text{Branch 1}}
+\begin{equation}
+    \Gammabf^k = \left( \underbrace{\xbf_{0,0}^k, \cdots, \xbf_{0,n_0-1}^k}_{\text{Stem}} \middle|
+    \underbrace{\xbf_{1,0}^k, \cdots, \xbf_{1,n_1-1}^k}_{\text{Branch 1}}
 \middle| \cdots \middle|
-\underbrace{\xbf_{m,0}^k, \cdots, \xbf_{m,n_m}^k}_{\text{Branch } m}\right)
-\end{equation*}
+\underbrace{\xbf_{m,0}^k, \cdots, \xbf_{m,n_m-1}^k}_{\text{Branch } m}\right)
+\label{equ: Bus Network Tensor}
+\end{equation}
 where the ``linkage points'' for branches to the stem are $\xbf_{1,0}^k, \cdots, \xbf_{m,0}^k$,
-which can be identified by the fact that $\xbf_{1,0}^k, \cdots, \xbf_{m,0}^k \in \left\{ \xbf_{0,0}^k, \cdots, \xbf_{0, n_0}^k \right\}$,
+which can be identified by the fact that $\xbf_{1,0}^k, \cdots, \xbf_{m,0}^k \in \left\{ \xbf_{0,0}^k, \cdots, \xbf_{0, n_0-1}^k \right\}$,
 that is, all duplicate points are to be understood as linkage points.
-Denote the set of linkage points as $L \left( \Gammabf^k \right)$.
+Denote the multiset\footnote{``a set that allows multiplicity of same elements''} of linkage points as $L \left( \Gammabf^k \right)$.
+Then one may note the relation $N = \sum_{i=0}^{m} n_{i} - |L\left( \Gammabf^k \right)| = \sum_{i=0}^m n_i - m$.
 Note that this is a natural generalisation of discretisation of curves homeomorphic to a line segment.
+
+Now, one may write a tangent-point energy quadrature as:
+\begin{equation}
+    E_{\beta}^{\alpha} \left( \Gammabf^k \right) \coloneqq 
+    \sum_{p, q \in \left\{ 0, 1, \cdots, m \right\}}
+    \sum_{\substack{
+            i \in \left\{ 1, \cdots, n_p - 2 \right\} \\
+            j \in \left\{ 1, \cdots, n_q - 2 \right\} \\
+            \sigma \left( e_{p_i}, e_{q_j} \right) = 1
+    }}
+    K_{\beta}^{\alpha} (p_i,q_j) \norm{e_{p_i}} \, \norm{e_{q_j}}
+    \label{equ: Bus Network Quadrature}
+\end{equation}
+where $p_i$ refer to the index of vector $\xbf_{p,i}^k$ in (\ref{equ: Bus Network Tensor}),
+that is,
+\begin{align*}
+    p_i = \sum_{j=0}^{p-1} n_j + i
+\end{align*}
+(similarly with $q_j$),
+and
+\begin{equation*}
+    \sigma \left( e_1, e_2 \right) =
+    \begin{cases}
+        0 & \exists \text{ shared vertex between edges } e_1, e_2 \\
+        1 & \text{Otherwise}
+    \end{cases}
+\end{equation*}
+
+\begin{remark}
+    Representation (\ref{equ: Bus Network Tensor}) is not unique; for example, one could take different curve to be the ``stem''.
+    The quadrature given by (\ref{equ: Bus Network Quadrature}) is, however, invariant under different representation, hence well-defined.
+\end{remark}
 
 
 \end{document}
