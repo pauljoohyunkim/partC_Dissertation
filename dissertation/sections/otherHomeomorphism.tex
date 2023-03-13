@@ -18,24 +18,34 @@
     \end{subfigure}
     \caption{Curves in different homeomorphism classes.}
 \end{figure}
-We have defined tangent-point energy quadrature for simple closed curve (any finite curve homeomorphic to unit circle $S^1$) $\gammabf$ at (\ref{equ: Tangent-Point Energy Quadrature}).
+Because homeomorphism relation is an equivalence relation, one could define equivalence classes.
+We will call them homeomorphism classes.
 
-For curves in different homeomorphism class from $S^1$,
+To make notation more concise, we introduce some labels:
+\begin{itemize}
+    \item Write $\mathbb{S}$ for the equivalence class of curves that are simple and closed; in other words, curves homeomorphic to a unit circle.
+    \item Write $\mathbb{L}$ for the equivalence class of curves that are homeomorphic to a line segment.
+    \item Write $\overline{\mathbb{L}}$ for the union of equivalence classes for curves that are homeomorphic to a tree graph, or a ``bus network''.
+\end{itemize}
+
+We have defined tangent-point energy quadrature for $\gammabf \in \mathbb{S}$ at (\ref{equ: Tangent-Point Energy Quadrature}).
+
+For curves in different homeomorphism classes,
 one may make minor changes to (\ref{equ: Tangent-Point Energy Quadrature}) to get a sensible quadrature.
 
-\subsection{Curves Homeomorphic to a Line Segment}
-Given a curve $\gammabf$ homeomorphic to a line segment such as the helix (Figure \ref{fig: Line Segment Homeomorphism Class}),
+\subsection{Curves in $\mathbb{L}$}
+Given a curve $\gammabf \in \mathbb{L}$ such as the helix (Figure \ref{fig: Line Segment Homeomorphism Class}),
 one could take the following as its tangent-point energy quadrature for its discretisation $\Gammabf^k$:
 \begin{equation}
     E_{\beta}^{\alpha} \left( \Gammabf^k \right) \coloneqq \sum_{\substack{i,j \in \left\{ 1, \cdots, N-2 \right\} \\ r\left( i-j,N \right) > 1}} K_{\beta}^{\alpha} (i,j) \norm{e_i} \, \norm{e_j}
 \end{equation}
 where the contribution from each end is neglected.
-Note that unlike a simple closed curve,
+Note that unlike a curve from $\mathbb{S}$
 one does not generalise the indexing rule to be ``cyclic''.
 
-\subsection{Curves Homeomorphic to ``Bus Network''}
-For a curve $\gammabf$ that has $m$ ``branches'', one needs to take into account of at what points on the discretisation branching happens.
-Suppose for all branches protrude from a single ``stem''.
+\subsection{Curves in $\overline{\mathbb{L}}$}
+For a curve $\gammabf \in \overline{\mathbb{L}}$ that has $m$ ``branches'' from a single ``stem'', one needs to take into account of at what points on the discretisation branching happens.
+Suppose for all branches protrude from the stem.
 On Figure \ref{fig: Bus Network}, the stem is represented by the thick blue curve.
 
 One can capture this curve by a tensor of the following form.
@@ -51,7 +61,7 @@ which can be identified by the fact that $\xbf_{1,0}^k, \cdots, \xbf_{m,0}^k \in
 that is, all duplicate points are to be understood as linkage points.
 Denote the multiset\footnote{``a set that allows multiplicity of same elements''} of linkage points as $L \left( \Gammabf^k \right)$.
 Then one may note the relation $N = \sum_{i=0}^{m} n_{i} - |L\left( \Gammabf^k \right)| = \sum_{i=0}^m n_i - m$.
-Note that this is a natural generalisation of discretisation of curves homeomorphic to a line segment.
+Note that this is a natural generalisation for curves in $\mathbb{L}$.
 
 Now, one may write a tangent-point energy quadrature as:
 \begin{equation}
@@ -65,12 +75,12 @@ Now, one may write a tangent-point energy quadrature as:
     K_{\beta}^{\alpha} (p_i,q_j) \norm{e_{p_i}} \, \norm{e_{q_j}}
     \label{equ: Bus Network Quadrature}
 \end{equation}
-where $p_i$ refer to the index of vector $\xbf_{p,i}^k$ in (\ref{equ: Bus Network Tensor}),
+where $p_i$ (similarly with $q_j$) refers to the index of vector $\xbf_{p,i}^k$ in (\ref{equ: Bus Network Tensor}),
 that is,
 \begin{align*}
     p_i = \sum_{j=0}^{p-1} n_j + i
 \end{align*}
-(similarly with $q_j$),
+
 and
 \begin{equation*}
     \sigma \left( e_1, e_2 \right) =
