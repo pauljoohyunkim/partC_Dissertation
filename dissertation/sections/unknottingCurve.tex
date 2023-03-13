@@ -152,7 +152,8 @@ where $\mathcal{D}_t$ is the finite difference operator over time,
 $\Grad_{X}$ is discrete equivalent of $\grad_{\mathcal{X}}$ on discrete inner product space $X$,
 $E_{\beta}^{\alpha}$ is the tangent-point energy quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
 and $C$ is the discretised version of the constraint energy $\mathcal{C}$.
-For the simplest scheme, one could take the forward difference operator as $\mathcal{D}_t \Gammabf^k[i] \coloneqq \frac{\Gammabf^{k+1}[i] - \Gammabf^{k}[i]}{\Delta T}$.
+Note that because similar operations are done for each point vector, this is a parallelisable task.
+For the simplest scheme, one could take the forward difference operator characterised as $\mathcal{D}_t \Gammabf^k[i] \coloneqq \frac{\Gammabf^{k+1}[i] - \Gammabf^{k}[i]}{\Delta T}$.
 
 \subsection{Example: $L^2$ Explicit Euler Scheme for Buck-Orloff Energy}
 Now we visit the simplest concrete numerical scheme for curve untangling process.
