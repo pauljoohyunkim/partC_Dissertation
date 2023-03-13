@@ -45,7 +45,10 @@ Assume for simplicity that the curve of interest is simple closed.\footnote{
 
 \subsubsection{Discretisation of Curve}
 We start by discretising the initial curve $\gammabf_0$ by taking $N$ points on a curve as shown in Figure \ref{fig: Discretization of Curve}.
-Represent the initially discretised curve in the tensor form: $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right)$,
+Represent the initially discretised curve in the tensor\footnote{``Tensors are multidimensional arrays of numerical values and there-
+fore generalize matrices to multiple dimensions.''\cite{https://doi.org/10.48550/arxiv.1711.10781} Note that we use the definition from machine learning,
+rather than mathematics, merely as a convenient data type to capture a discretised curve.}
+ form: $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right)$,
 and the discretised curve at subsequent time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right)$.
 Since we restrict our attention to a simple closed curve, it is convenient to extend the indexing rule by:
 \begin{equation}
