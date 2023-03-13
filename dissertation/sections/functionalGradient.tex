@@ -35,11 +35,10 @@ For functional $F$, write $h \coloneqq \grad_{L^2} F$ for gradient of $F$ in $L^
     \frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon = 0} = \inner{h, g}_{L^2} \eqqcolon \mathcal{D}
     \label{equ: L2 Gradient Explicit Form}
 \end{equation}
-By integration by parts (IBP) on boundary-free domain $\Omega$,
-\footnote{A more careful treatment of IBP is outlined in appendix \ref{sct: Integration By Parts}.}
+By lemma \ref{lemma: Shifting Gradient Operator} and lemma \ref{lemma: Shifting Laplacian Operator} on boundary-free domain $\Omega$,\footnote{Integration by parts to ``shift'' operators to other function.}
 \begin{align*}
     \mathcal{D} &= \inner{\laplacian \laplacian^{-1} h, g}_{L^2} \\
-    &\stackrel{\text{IBP}}{=} \inner{-\nabla \laplacian^{-1} h, \nabla g}_{L^2} \\
+    &= \inner{-\nabla \laplacian^{-1} h, \nabla g}_{L^2} \\
     &= \inner{-\laplacian^{-1} h, g}_{H^1}
 \end{align*}
 So one concludes that
