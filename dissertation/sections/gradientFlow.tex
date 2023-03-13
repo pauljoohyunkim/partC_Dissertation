@@ -13,12 +13,14 @@ reducing the value at evaluation of $f$.
 \begin{figure}[tbp]
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/gradientFlowImgs/sdm}
         \caption{SDM applied to $f(x,y) = -3 \cos x + \cos^2 y$ at different initial points.}
         \label{fig: SDM}
     \end{subfigure}
     \hspace{1cm}
     \begin{subfigure}[b]{0.4\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{sections/gradientFlowImgs/gf}
         \caption{Solution to $L^2$ gradient flow equation with 1D energy functional $\mathcal{E} (f) \coloneqq \int_{-1}^1 \abs{\nabla f(x)}^2 \intd x$, which penealises variation in function. Note that the solution converges to a function with no variation.}
         \label{fig: GF}

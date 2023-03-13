@@ -1,13 +1,30 @@
 \documentclass[../dissertation.tex]{subfiles}
 
 \begin{document}
-We have defined tangent-point energy quadrature for simple closed curve (any curve homeomorphic to circle) $\gammabf$ at (\ref{equ: Tangent-Point Energy Quadrature}).
+\begin{figure}[tpb]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/otherHomeomorphismImgs/linesegment}
+        \caption{A helix is an example of a curve homeomorphic to a line segment.}
+        \label{fig: Line Segment Homeomorphism Class}
+    \end{subfigure}
+    \hspace{1cm}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/otherHomeomorphismImgs/branch}
+        \caption{A curve with branches from a main ``stem''.}
+        \label{fig: Bus Network}
+    \end{subfigure}
+    \caption{Curves in different homeomorphism classes.}
+\end{figure}
+We have defined tangent-point energy quadrature for simple closed curve (any finite curve homeomorphic to unit circle $S^1$) $\gammabf$ at (\ref{equ: Tangent-Point Energy Quadrature}).
 
 For curves in different homeomorphism class from $S^1$,
 one may make minor changes to (\ref{equ: Tangent-Point Energy Quadrature}) to get a sensible quadrature.
 
 \subsection{Curves Homeomorphic to a Line Segment}
-Given a curve $\gammabf$ homeomorphic to a line segment,
+Given a curve $\gammabf$ homeomorphic to a line segment such as the helix (Figure \ref{fig: Line Segment Homeomorphism Class}),
 one could take the following as its tangent-point energy quadrature for its discretisation $\Gammabf^k$:
 \begin{equation}
     E_{\beta}^{\alpha} \left( \Gammabf^k \right) \coloneqq \sum_{\substack{i,j \in \left\{ 1, \cdots, N-2 \right\} \\ r\left( i-j,N \right) > 1}} K_{\beta}^{\alpha} (i,j) \norm{e_i} \, \norm{e_j}
@@ -16,13 +33,7 @@ where the contribution from each end is neglected.
 Note that unlike a simple closed curve,
 one does not generalise the indexing rule to be ``cyclic''.
 
-\subsection{Curves Homeomorphic to Bus Network}
-\begin{figure}[tpb]
-    \centering
-    \includegraphics[]{sections/otherHomeomorphismImgs/branch}
-    \caption{A curve with branches from a main ``stem''.}
-    \label{fig: Bus Network}
-\end{figure}
+\subsection{Curves Homeomorphic to ``Bus Network''}
 For a curve $\gammabf$ that has $m$ ``branches'', one needs to take into account of at what points on the discretisation branching happens.
 Suppose for all branches protrude from a single ``stem''.
 On Figure \ref{fig: Bus Network}, the stem is represented by the thick blue curve.
