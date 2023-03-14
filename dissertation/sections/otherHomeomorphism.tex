@@ -13,13 +13,14 @@
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{sections/otherHomeomorphismImgs/branch}
-        \caption{A curve with branches from a main ``stem''. This curve is homeomorphic to some tree, so is in $\overline{\mathbb{L}}$.}
+        \caption{A curve with 3 branches from a main ``stem''. This curve is homeomorphic to some tree, so is in $\overline{\mathbb{L}}$.}
         \label{fig: Bus Network}
     \end{subfigure}
     \caption{Curves in different homeomorphism classes.}
 \end{figure}
 Because homeomorphism relation is an equivalence relation, one could define equivalence classes.
 We will call them homeomorphism classes.
+\textit{We restrict our discussion to bounded curves.}
 
 To make notation more concise, we introduce some labels:
 \begin{itemize}
@@ -44,7 +45,7 @@ one could take the following as its tangent-point energy quadrature for its disc
 \end{equation}
 where the contribution from each end is neglected.
 Note that unlike a curve from $\mathbb{S}$
-one does not generalise the indexing rule to be ``cyclic''.
+one need not generalise the indexing rule to be ``cyclic''.
 
 \subsection{Curves in $\overline{\mathbb{L}}$}
 For a curve $\gammabf \in \overline{\mathbb{L}}$ that has $m$ ``branches'' from a single ``stem'', one needs to take into account of at what points on the discretisation branching happens.
@@ -110,6 +111,6 @@ but it may be more practical to summarise the strategy to build one.
     \item Take an (ordered) pair of points on the discretised curve except for the points at boundary (that is, end of the branches or stems).
     \item Take two separate edges that involve the two points, but only one each.
         If the two edges share a vertex, disregard.
-    \item Sum $K \norm{e_i} \, \norm{e_j}$ over all the points.
+    \item Sum $K \norm{e_i} \, \norm{e_j}$ over all the pair of points chosen.
 \end{enumerate}
 \end{document}

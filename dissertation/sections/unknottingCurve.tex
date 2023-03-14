@@ -34,8 +34,8 @@ Assume for simplicity that the curve of interest is simple closed.\footnote{
 We start by discretising the initial curve $\gammabf_0$ by taking $N$ points on a curve as shown in Figure \ref{fig: Discretization of Curve}.
 Represent the initially discretised curve in the tensor\footnote{``Tensors are multidimensional arrays of numerical values and therefore generalize matrices to multiple dimensions.''\cite{https://doi.org/10.48550/arxiv.1711.10781} Note that we use the definition from machine learning,
 rather than mathematics, merely as a convenient data type to capture a discretised curve.}
- form: $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right)$,
-and the discretised curve at subsequent time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right)$.
+form: $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right) \in \mathbb{R}^{3 \times N}$,
+and the discretised curve at subsequent time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right) \in \mathbb{R}^{3 \times N}$.
 Since we restrict our attention to a simple closed curve, it is convenient to extend the indexing rule by:
 \begin{equation}
     \xbf_{i}^k = \xbf_{r\left( i,N \right)}^k \hspace{1cm} \text{where } r\left( i,N \right) = \text{(remainder of } i \div N \text{)}
@@ -56,13 +56,9 @@ anaogous to $\gammabf = \gammabf(s)$ being a parameterised curve, which is a vec
 
 Finally, denote by $e_{i}^k$ for the (undirected) edge with vertex pair $\left( \xbf_i^k, \xbf_{i+1}^k \right)$.
 
-\begin{remark}
-    $\Gammabf^k$ is a tensor in $\mathbb{R}^{3 \times N}$.
-\end{remark}
-
 \subsubsection{Discretisation of Tangent-Point Energy}
 In order to acquire numerical solution, one must also be able to numerically compute the tangent-point energy.
-For this, we pose the energy quadrature $E_{\beta}^{\alpha} \left( \Gammabf \right)$ of the following form:
+For this, we pose the energy quadrature $E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ of the following form:
 \begin{equation}
     \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \left( \cdot, t \right) \right) \coloneqq
     \iint_{M^2} k_{\beta}^{\alpha} (\gammabf_x, \gammabf_y) \intd \gamma_x \intd \gamma_y
@@ -128,7 +124,7 @@ one can write the \textbf{tangent-point energy quadrature} as:
 \end{equation}
 where $r\left( i-j,N \right)$ is the geodesic distance between $i$ and $j$ in modulo $N$,
 characterising the avoidance of adjacent edges on simple closed polygonal curve.
-
+For discussion of quadratures for nonclosed curves, see appendix \ref{sct: Other Homeomorphism Classes}.
 
 
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}
