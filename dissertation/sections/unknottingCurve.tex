@@ -159,13 +159,13 @@ where one could explicitly write $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammab
 \begin{equation}
     \Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right)
     =
-    \nabla_{\Gammabf^k} E_{\beta}^\alpha \left( \Gammabf^k \right)
-    =
-    \begin{pmatrix}
-        \frac{\partial}{\partial x_{1,1}} & \frac{\partial}{\partial x_{1,2}} & \cdots & \frac{\partial}{\partial x_{1,N-1}} \\
-        \frac{\partial}{\partial x_{2,1}} & \frac{\partial}{\partial x_{2,2}} & \cdots & \frac{\partial}{\partial x_{1,N-1}} \\
-        \frac{\partial}{\partial x_{3,1}} & \frac{\partial}{\partial x_{3,2}} & \cdots & \frac{\partial}{\partial x_{3,N-1}}
-    \end{pmatrix}
+    \underbrace{
+        \begin{pmatrix}
+            \frac{\partial}{\partial x_{1,1}} & \frac{\partial}{\partial x_{1,2}} & \cdots & \frac{\partial}{\partial x_{1,N-1}} \\
+            \frac{\partial}{\partial x_{2,1}} & \frac{\partial}{\partial x_{2,2}} & \cdots & \frac{\partial}{\partial x_{1,N-1}} \\
+            \frac{\partial}{\partial x_{3,1}} & \frac{\partial}{\partial x_{3,2}} & \cdots & \frac{\partial}{\partial x_{3,N-1}}
+        \end{pmatrix}
+    }_{\nabla_{\Gammabf^k} E_{\beta}^\alpha \left( \Gammabf^k \right)}
     E_{\beta}^{\alpha} \left( \Gammabf^k \right)
     \label{equ: Gradient in l2}
 \end{equation}
