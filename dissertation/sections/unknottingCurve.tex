@@ -253,7 +253,8 @@ For exact gradient implementation as in appendix \ref{sct: Exact Gradient},
 it takes $O \left( N \right)$ evaluations\footnote{$4 \left( N-3 \right)$ to be exact.} of the derivative of the kernel.
 This implies the overall computation needed for a single step is $O \left( N^2 \right)$.
 
-\subsection{Example: $H^{-1}$ Explicit Euler Scheme}
+\subsection{Example: Euler Scheme in Other Spaces}
+Consider curve untangling process in $H^{-1}$.
 By (\ref{equ: H-1 Gradient}), we may write $\grad_{H^{-1}} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \laplacian \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$,
 where we do not necessarily assume scale-invariance.
 For the discrete equivalent, take
@@ -262,6 +263,16 @@ For the discrete equivalent, take
     = -\nabla_{\Gammabf^k} \left( \laplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
 \end{equation}
 where the last equality is from the fact that Laplacian and gradient operators commute \cite{679160}.
+Note that computing ``third derivative'' $\grad \laplacian$ could increase complexity of the scheme.
+In fact, if one approximates the Laplacian as $\laplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)\approx \frac{\bar{E}_{\beta}^{\alpha} (i) - 2 E_{\beta}^{\alpha} \left( \Gammabf^k \right) + \underaccent{\bar}E_{\beta}^{\alpha} (i)}{\Delta X^2}$,
+for each time step, it takes $O \left( N^4 \right)$ evaluations of the kernel, so the scheme becomes impractical.
+
+On the other hand, consider curve untangling process in $H^1$.
+By (\ref{equ: H1 Gradient}), we write $\grad_{H^1} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)$,
+and the discrete equivalent becomes:
+\begin{equation}
+    \Grad E_{\beta}^{\alpha} \left( \Gammabf^k \right) = - \laplacian^{-1}_{\Gammabf^k} \left( \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = -\laplacian^{-1}_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
+\end{equation}
 
 %Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be forward difference operator,
 
