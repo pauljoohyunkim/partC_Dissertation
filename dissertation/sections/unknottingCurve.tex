@@ -47,7 +47,7 @@ Define (right) operator $[\cdot]:\mathbb{R}^{3 \times N} \rightarrow \mathbb{R}$
 \begin{equation*}
     T[i] \coloneqq T \ebf_{r\left( i,N \right)}
 \end{equation*}
-where $\ebf_i$ is the canonical vector with 1 as its only nontrivial $i$\textsuperscript{th} coordinate.
+where $\ebf_i$ is the $i$\textsuperscript{th} canonical vector.
 With this operator, one could write
 \begin{equation}
     \Gammabf^k [i] = \xbf_{r\left( i, N \right)}^k = \xbf_i^k
@@ -136,7 +136,7 @@ Based on (\ref{equ: Curve Untangling Process}), one writes the following finite 
 where $\mathcal{D}_t$ is the finite difference operator over time,
 $\Grad_{X}$ is discrete equivalent\footnote{Worth noting that $\Grad_X:\mathbb{T} \rightarrow \mathbb{T}$ where $\mathbb{T}$ is a set of tensors of certain shape; $\Grad_X$ maps tensors to tensors of the same shape.}  of $\grad_{\mathcal{X}}$ on discrete inner product space $X$ (which may be omitted in the notation),
 $E_{\beta}^{\alpha}$ is the tangent-point energy quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
-and $C$ is the discretised version of the constraint energy $\mathcal{C}$.
+and $C$ is the discretised version of the constraint energy $\mathcal{C}$ (See section \ref{sct: Constraint Energy}).
 Often times, however, it is easier to construct finite difference scheme directly from (\ref{equ: Curve Untangling Process}) after some simplification,
 rather than attempting to use (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) directly.
 Note that because similar operations are done for each point vector, this is a parallelisable task.
@@ -195,7 +195,6 @@ where
     \bar{E}_{\beta}^{\alpha} (i) &\coloneqq E_{\beta}^{\alpha} \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i + \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right) \\
     \underaccent{\bar}{E}_{\beta}^{\alpha} (i) &\coloneqq E_{\beta}^{\alpha} \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i - \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right)
 \end{align*}
-Here $\ebf_j$ is the canonical vector of which has entry $1$ at $j$\textsuperscript{th} component.
 
 %We will start with a demonstration with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance})\footnote{One could construct a similar working example for other scale-invariant tangent-point energies.}.
 
@@ -218,6 +217,7 @@ energy scales inversely proportional to its scale factor.
     \label{fig: Scale Variant}
 \end{figure}
 \subsubsection{Constraint Energy}
+\label{sct: Constraint Energy}
 From lemma \ref{lemma: Scale-Invariance}, in the case that $\beta > \alpha + 2$,
 one could trivially minimise tangent-point energy $\mathcal{E}_{\beta}^{\alpha}$ of the curve 
 (and by the same logic, $E_{\beta}^{\alpha}$ of the discretised curve, albeit due to increases in edge lengths, would cease to be a ``valid'' quadrature)
