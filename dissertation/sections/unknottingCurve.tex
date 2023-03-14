@@ -259,7 +259,9 @@ where we do not necessarily assume scale-invariance.
 For the discrete equivalent, take
 \begin{equation}
     \Grad E_{\beta}^{\alpha} = - \laplacian_{\Gammabf^k} \left( \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = - \laplacian_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
+    = -\nabla_{\Gammabf^k} \left( \laplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
 \end{equation}
+where the last equality is from the fact that Laplacian and gradient operators commute \cite{679160}.
 
 %Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be forward difference operator,
 
