@@ -14,7 +14,7 @@ there are two main ``rules'' one could use.
             \inner{\nabla f, \nabla g}_{L^2} &= \int_{\Omega} \nabla f \cdot \nabla g \intd V \\
             &= \int_{\Omega} \left( \nabla \cdot \left( g \nabla f \right) - g \laplacian f \right) \intd V \\
             &\stackrel{\text{IBP}}{=} \underbrace{\oint_{\partial \Omega} g \nabla f \cdot \nbf \intd s}_{\text{Boundary Term}} - \int_{\Omega} g \laplacian f \intd V\\
-            &= -\inner{\laplacian f, g}_{L^2} + \text{Boundary Term}
+            &= -\inner{\laplacian f, g}_{L^2} + \underbrace{\oint_{\partial \Omega} g \nabla f \cdot \nbf \intd s}_{\text{Boundary Term}}
         \end{align*}
         For boundary-free $\Omega$, boundary terms can be taken to be zero.
     \end{proof}
@@ -30,7 +30,7 @@ there are two main ``rules'' one could use.
             \inner{\laplacian f, g}_{L^2} &= \int_{\Omega} g \laplacian f \intd V \\
             &= \int_{\Omega} \left( \nabla \cdot \left( g \nabla f \right) - \nabla f \cdot \nabla g \right) \intd V \\
             &\stackrel{\text{IBP}}{=} \underbrace{\oint_{\partial \Omega} g \nabla f \cdot \nbf \intd s}_{\text{Boundary Term}} - \int_{\Omega} \nabla f \cdot \nabla g \intd V \\
-            &= \text{Boundary Term} - \inner{\nabla f, \nabla g}_{L^2}
+            &= \underbrace{\oint_{\partial \Omega} g \nabla f \cdot \nbf \intd s}_{\text{Boundary Term}} - \inner{\nabla f, \nabla g}_{L^2}
         \end{align*}
         Now, use lemma \ref{lemma: Shifting Gradient Operator} and take boundary terms to be zero.
     \end{proof}
