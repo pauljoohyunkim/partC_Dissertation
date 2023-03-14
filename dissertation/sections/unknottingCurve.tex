@@ -235,11 +235,12 @@ Here are some examples of constraint one could take. (Since we are interested in
 %\end{itemize}
 \begin{itemize}
     \item Taking $C \left( \Gammabf^k \right) \coloneqq \lambda \sum_{i=0}^{N-1} \norm{\Gammabf^k [i]}^p$ adds the motivation for the curve not to stray away from the origin.
-    \item Taking $C \left( \Gammabf^k \right) \coloneqq \lambda \left(\sum_{i=0}^{N-1} \norm{e_i} - L\right)$ adds the motivation for the curve to stay close to some constant arc-length $L$.
+    \item Taking $C \left( \Gammabf^k \right) \coloneqq \lambda \left| \sum_{i=0}^{N-1} \norm{e_i} - L \right|^p$ adds the motivation for the curve to stay close to some constant arc-length $L$.
+    \item Taking $C \left( \Gammabf^k \right) \coloneqq \lambda \sum_{i=0}^{N-1} \left| \norm{e_i} - L_i \right|^p$ adds the motivation for the edge lengths on the discretised curve not to deviate from prescribed edge lengths $L_i$.
 \end{itemize}
 %For both cases,
-$\lambda > 0$ is the strength of the overall constraint, and
-$p > 0$ is the order of local strength, where higher $p$ would lead to harsher ``thresholding''.
+$\lambda \geq 0$ is the strength of the overall constraint, and
+$p > 0$ is the order of ``thresholding'', where higher $p$ would lead to harsher ``thresholding''.
 
 \subsubsection{Time Complexity}
 \label{sct: L2 Complexity}
