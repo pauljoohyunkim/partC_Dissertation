@@ -6,14 +6,14 @@
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{sections/otherHomeomorphismImgs/linesegment}
-        \caption{A helix is an example of a curve homeomorphic to a line segment.}
+        \caption{A helix is an example of a curve homeomorphic to a line segment, so is in $\mathbb{L}$.}
         \label{fig: Line Segment Homeomorphism Class}
     \end{subfigure}
     \hspace{1cm}
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{sections/otherHomeomorphismImgs/branch}
-        \caption{A curve with branches from a main ``stem''. This curve is homeomorphic to some tree.}
+        \caption{A curve with branches from a main ``stem''. This curve is homeomorphic to some tree, so is in $\overline{\mathbb{L}}$.}
         \label{fig: Bus Network}
     \end{subfigure}
     \caption{Curves in different homeomorphism classes.}
@@ -33,6 +33,9 @@ We have defined tangent-point energy quadrature for $\gammabf \in \mathbb{S}$ at
 For curves in different homeomorphism classes,
 one may make minor changes to (\ref{equ: Tangent-Point Energy Quadrature}) to get a sensible quadrature.
 
+Note that because curves in $\mathbb{L}$ and $\overline{\mathbb{L}}$ may have boundaries unlike curves in $\mathbb{S}$.
+For the gradient operators derived in section \ref{sct: Gradient on Integer Sobolev Spaces} to be applicable, one assumes natural boundary conditions;
+where the boundary integrals in lemma \ref{lemma: Shifting Gradient Operator} and \ref{lemma: Shifting Laplacian Operator} to be zero for any $g$ appropriate.
 \subsection{Curves in $\mathbb{L}$}
 Given a curve $\gammabf \in \mathbb{L}$ such as the helix (Figure \ref{fig: Line Segment Homeomorphism Class}),
 one could take the following as its tangent-point energy quadrature for its discretisation $\Gammabf^k$:
