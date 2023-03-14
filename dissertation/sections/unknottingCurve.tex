@@ -158,9 +158,9 @@ and $C$ is the discretised version of the constraint energy $\mathcal{C}$.
 Note that because similar operations are done for each point vector, this is a parallelisable task.
 For the simplest scheme, one could take the forward difference operator characterised as $\mathcal{D}_t \Gammabf^k[i] \coloneqq \frac{\Gammabf^{k+1}[i] - \Gammabf^{k}[i]}{\Delta T}$.
 
-\subsection{Example: $L^2$ Explicit Euler Scheme for Buck-Orloff Energy}
+\subsection{Example: $L^2$ Explicit Euler Scheme}
 Now we visit the simplest concrete numerical scheme for curve untangling process.
-We will demonstrate with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance})\footnote{One could construct a similar working example for other scale-invariant tangent-point energies.}.
+We will start with a demonstration with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance})\footnote{One could construct a similar working example for other scale-invariant tangent-point energies.}.
 
 
 In $L^2$, $\grad_{L^2} \mathcal{E}_{4}^{2} \left( \gammabf \right)$ is simply the ``first-order perturbation'' as in (\ref{equ: L2 Gradient Explicit Form}).
@@ -218,21 +218,20 @@ Notice that (\ref{equ: L2 Explicit Euler}) can be interpreted as SDM over all th
 This is consistent with the motivation of gradient flow equation given in section \ref{sct: Motivation of Gradient Flow Equation}.
 \end{remark}
 
-\subsubsection{Explicit Euler Scheme for Scale-variant Energy}
-We now attempt the finite difference scheme with a scale-variant energy, that is, when $\beta > \alpha + 2$. 
-When one attempts the following finite difference scheme:
+We now attempt the finite difference scheme with a \textit{scale-variant energy}, that is, when $\beta > \alpha + 2$. 
+If one attempts the following finite difference scheme:
 \begin{equation}
     \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
 \end{equation}
 one may observe that the curve ``grows'' in size, indefinitely.
 This is due to the fact that with $\beta > \alpha + 2$,
-by the virtue of (lemma \ref{lemma: Scale-Invariance})
-energy scales inversely proportional to its ``size''.
+by the virtue of lemma \ref{lemma: Scale-Invariance},
+energy scales inversely proportional to its scale factor.
 (See Figure \ref{fig: Scale Variant})
 \begin{figure}[tbp]
     \centering
     \includegraphics{sections/unknottingCurveImgs/scaleVariant}
-    \caption{The height represents $\mathcal{E}_{4.5}^{2}$ for circles of different radius.}
+    \caption{The height represents $\mathcal{E}_{4.5}^{2}$ for circles of different radius. Note that the energy decreases trivially by taking a larger circle.}
     \label{fig: Scale Variant}
 \end{figure}
 
