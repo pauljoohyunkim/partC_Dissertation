@@ -46,7 +46,7 @@ class Curve:
 
 
 
-def curvePlot(curve, q2d=False, size=(-5,5), title="", ax=plt):
+def curvePlot(curve, q2d=False, size=(-5,5), title="", ax=plt, color="#ff0000"):
     J = curve.J
 
     xpoints = []
@@ -60,7 +60,7 @@ def curvePlot(curve, q2d=False, size=(-5,5), title="", ax=plt):
     if q2d:
         ax.plot(xpoints, ypoints)
     else:
-        ax.plot(xpoints, ypoints, zpoints)
+        ax.plot(xpoints, ypoints, zpoints, color=color)
         #ax.set_zlim(size)
     #ax.set_xlim(size)
     #ax.set_ylim(size)
