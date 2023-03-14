@@ -151,7 +151,7 @@ Based on (\ref{equ: Curve Untangling Process}), one writes the following finite 
     \label{equ: Finite Difference Scheme for Curve Untangling Process}
 \end{equation}
 where $\mathcal{D}_t$ is the finite difference operator over time,
-$\Grad_{X}$ is discrete equivalent\footnote{Worth noting that $\Grad_X:\mathbb{T} \rightarrow \mathbb{T}$ where $\mathbb{T}$ is a set of tensors of certain shape; $\Grad_X$ maps tensors to tensors of the same shape.}  of $\grad_{\mathcal{X}}$ on discrete inner product space $X$,
+$\Grad_{X}$ is discrete equivalent\footnote{Worth noting that $\Grad_X:\mathbb{T} \rightarrow \mathbb{T}$ where $\mathbb{T}$ is a set of tensors of certain shape; $\Grad_X$ maps tensors to tensors of the same shape.}  of $\grad_{\mathcal{X}}$ on discrete inner product space $X$ (which may be omitted in the notation),
 $E_{\beta}^{\alpha}$ is the tangent-point energy quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
 and $C$ is the discretised version of the constraint energy $\mathcal{C}$.
 Often times, however, it is easier to construct finite difference scheme directly from (\ref{equ: Curve Untangling Process}) after some simplification,
@@ -173,7 +173,7 @@ Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untang
     \label{equ: L2 Explicit Euler}
 \end{equation}
 where one could explicitly write $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right)$ as
-\begin{equation*}
+\begin{equation}
     \Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right)
     =
     \nabla_{\Gammabf^k} E_{\beta}^\alpha \left( \Gammabf^k \right)
@@ -184,7 +184,8 @@ where one could explicitly write $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammab
         \frac{\partial}{\partial x_{3,1}} & \frac{\partial}{\partial x_{3,2}} & \cdots & \frac{\partial}{\partial x_{3,N-1}}
     \end{pmatrix}
     E_{\beta}^{\alpha} \left( \Gammabf^k \right)
-\end{equation*}
+    \label{equ: Gradient in l2}
+\end{equation}
 where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \times N$ tensor.
 Note that $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also a tensor of the same shape as $\Gammabf^k$,
 so naturally, most arithmetics\footnote{Such as addition, subtraction, and scalar multiplication.} needed for (\ref{equ: L2 Explicit Euler}) is well-defined.
@@ -250,8 +251,14 @@ it takes $O \left( N \right)$ evaluations\footnote{$4 \left( N-3 \right)$ to be 
 This implies the overall computation needed for a single step is $O \left( N^2 \right)$.
 
 \subsection{Example: $H^{-1}$ Explicit Euler Scheme}
-By (\ref{equ: H-1 Gradient}), we may write $\grad_{H^{-1}} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \laplacian \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$.
+By (\ref{equ: H-1 Gradient}), we may write $\grad_{H^{-1}} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \laplacian \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$,
+where we do not necessarily assume scale-invariance any more.
+For the discrete equivalent, take
+\begin{equation}
+    \Grad E_{\beta}^{\alpha} = - \laplacian_{\Gammabf^k} \left( \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = - \laplacian_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
+\end{equation}
 
+%Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be forward difference operator,
 
 %\subsection{Example: $H^1$ Explicit Euler Scheme}
 %By (\ref{equ: H1 Gradient}), we may write $\grad_{H^1} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \laplacian^{-1} \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$.
