@@ -155,6 +155,8 @@ where $\mathcal{D}_t$ is the finite difference operator over time,
 $\Grad_{X}$ is discrete equivalent\footnote{Worth noting that $\Grad_X:\mathbb{T} \rightarrow \mathbb{T}$ where $\mathbb{T}$ is a set of tensors of certain shape; $\Grad_X$ maps tensors to tensors of the same shape.}  of $\grad_{\mathcal{X}}$ on discrete inner product space $X$,
 $E_{\beta}^{\alpha}$ is the tangent-point energy quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
 and $C$ is the discretised version of the constraint energy $\mathcal{C}$.
+Often times, however, it is easier to construct finite difference scheme directly from (\ref{equ: Curve Untangling Process}) after some simplification,
+rather than attempting to use (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) directly.
 Note that because similar operations are done for each point vector, this is a parallelisable task.
 For the simplest scheme, one could take the forward difference operator characterised as $\mathcal{D}_t \Gammabf^k[i] \coloneqq \frac{\Gammabf^{k+1}[i] - \Gammabf^{k}[i]}{\Delta T}$.
 
@@ -250,4 +252,11 @@ For exact gradient implementation as in appendix \ref{sct: Exact Gradient},
 it takes $O \left( N \right)$ evaluations\footnote{$4 \left( N-3 \right)$ to be exact.} of the derivative of the kernel.
 This implies the overall computation needed for a single step is $O \left( N^2 \right)$.
 
+%\subsection{Example: $H^1$ Explicit Euler Scheme}
+%By (\ref{equ: H1 Gradient}), we may write $\grad_{H^1} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \laplacian^{-1} \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$.
+%The gradient flow equation with constraint (\ref{equ: Curve Untangling Process}) can be written as,
+%\begin{equation}
+%    \laplacian \frac{\partial \gammabf}{\partial t} = \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) - \laplacian \grad_{L^2} \mathcal{C} \left( \gammabf \right)
+%\end{equation}
+%The finite difference scheme can be written by approximating $\frac{\partial}{\partial t} \approx \mathcal{D}_t$:
 \end{document}
