@@ -45,8 +45,7 @@ Assume for simplicity that the curve of interest is simple closed.\footnote{
 
 \subsubsection{Discretisation of Curve}
 We start by discretising the initial curve $\gammabf_0$ by taking $N$ points on a curve as shown in Figure \ref{fig: Discretization of Curve}.
-Represent the initially discretised curve in the tensor\footnote{``Tensors are multidimensional arrays of numerical values and there-
-fore generalize matrices to multiple dimensions.''\cite{https://doi.org/10.48550/arxiv.1711.10781} Note that we use the definition from machine learning,
+Represent the initially discretised curve in the tensor\footnote{``Tensors are multidimensional arrays of numerical values and therefore generalize matrices to multiple dimensions.''\cite{https://doi.org/10.48550/arxiv.1711.10781} Note that we use the definition from machine learning,
 rather than mathematics, merely as a convenient data type to capture a discretised curve.}
  form: $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right)$,
 and the discretised curve at subsequent time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right)$.
@@ -162,58 +161,59 @@ For the simplest scheme, one could take the forward difference operator characte
 
 \subsection{Example: $L^2$ Explicit Euler Scheme}
 Now we visit the simplest concrete numerical scheme for curve untangling process.
-We will start with a demonstration with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance})\footnote{One could construct a similar working example for other scale-invariant tangent-point energies.}.
+Assume for now scale-invariance by taking parameters $\alpha$ and $\beta$ to satisfy $\beta = \alpha+2$ (See lemma \ref{lemma: Scale-Invariance}).
 
-
-In $L^2$, $\grad_{L^2} \mathcal{E}_{4}^{2} \left( \gammabf \right)$ is simply the ``first-order perturbation'' as in (\ref{equ: L2 Gradient Explicit Form}).
+In $L^2$, $\grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)$ is simply the ``first-order perturbation'' as in (\ref{equ: L2 Gradient Explicit Form}).
 Discrete equivalent is the $\ell^2$ space,
 where one may justify this by noting that first-order perturbation in a curve is analogous to perturbing each of the point on its discretisation.
  %$\Grad_{\ell^2} = \nabla_{\Gammabf}$.
 Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be forward difference operator,
 \begin{equation}
-    \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right)
+    \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
     \label{equ: L2 Explicit Euler}
 \end{equation}
-where one could explicitly write $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ as
+where one could explicitly write $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right)$ as
 \begin{equation*}
-    \Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)
+    \Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right)
     =
-    \nabla_{\Gammabf^k} E_{4}^2 \left( \Gammabf^k \right)
+    \nabla_{\Gammabf^k} E_{\beta}^\alpha \left( \Gammabf^k \right)
     =
     \begin{pmatrix}
         \frac{\partial}{\partial x_{1,1}} & \frac{\partial}{\partial x_{1,2}} & \cdots & \frac{\partial}{\partial x_{1,N-1}} \\
         \frac{\partial}{\partial x_{2,1}} & \frac{\partial}{\partial x_{2,2}} & \cdots & \frac{\partial}{\partial x_{1,N-1}} \\
         \frac{\partial}{\partial x_{3,1}} & \frac{\partial}{\partial x_{3,2}} & \cdots & \frac{\partial}{\partial x_{3,N-1}}
     \end{pmatrix}
-    E_4^2 \left( \Gammabf^k \right)
+    E_{\beta}^{\alpha} \left( \Gammabf^k \right)
 \end{equation*}
 where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \times N$ tensor.
-Note that $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also a tensor of the same shape as $\Gammabf^k$,
+Note that $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also a tensor of the same shape as $\Gammabf^k$,
 so naturally, most arithmetics\footnote{Such as addition, subtraction, and scalar multiplication.} needed for (\ref{equ: L2 Explicit Euler}) is well-defined.
 \begin{remark}
     $\Grad_{\ell^2}$ is in fact a linear operator with respect to its input, energy.
 \end{remark}
 
-One could use this exact form of $\Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right)$ as given in appendix \ref{sct: Exact Gradient}, but it could be considered cumbersome (even though there are benefits to implementing this as stated in section \ref{sct: L2 Complexity}).
-One could alternatively approximate $\Grad_{\ell^2} E_{4}^2 \left( \Gammabf^k \right)$ by central difference scheme, for example:
+One could use this exact form of $\Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ as given in appendix \ref{sct: Exact Gradient}, but it could be considered cumbersome (even though there are benefits to implementing this as stated in section \ref{sct: L2 Complexity}).
+One could alternatively approximate $\Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ by central difference scheme, for example:
 for $i=0,1,\cdots,N-1$ and $j = 1,2,3$,
 \begin{equation}
-    \ebf_j \cdot \left( \Grad_{\ell^2} E_4^2 \left( \Gammabf^k \right) [i] \right)
+    \ebf_j \cdot \left( \Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) [i] \right)
     =
-    \frac{\partial E_{4}^2 (\Gammabf^k)}{\partial x_{j,i}}
+    \frac{\partial E_{\beta}^{\alpha} (\Gammabf^k)}{\partial x_{j,i}}
     \approx
     \frac{1}{2 \Delta X} \left( 
-        \bar{E}_{4}^{2} (i)
+        \bar{E}_{\beta}^{\alpha} (i)
         -
-        \underaccent{\bar} E_{4}^{2} (i)
+        \underaccent{\bar} E_{\beta}^{\alpha} (i)
     \right)
 \end{equation}
 where
 \begin{align*}
-    \bar{E}_4^2 (i) &\coloneqq E_{4}^2 \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i + \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right) \\
-    \underaccent{\bar}{E}_4^2 (i) &\coloneqq E_{4}^2 \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i - \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right)
+    \bar{E}_{\beta}^{\alpha} (i) &\coloneqq E_{\beta}^{\alpha} \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i + \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right) \\
+    \underaccent{\bar}{E}_{\beta}^{\alpha} (i) &\coloneqq E_{\beta}^{\alpha} \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i - \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right)
 \end{align*}
 Here $\ebf_j$ is the canonical vector of which has entry $1$ at $j$\textsuperscript{th} component.
+
+%We will start with a demonstration with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance})\footnote{One could construct a similar working example for other scale-invariant tangent-point energies.}.
 
 \begin{remark}
 Notice that (\ref{equ: L2 Explicit Euler}) can be interpreted as SDM over all the coordinates on the curve!
@@ -221,10 +221,7 @@ This is consistent with the motivation of gradient flow equation given in sectio
 \end{remark}
 
 We now attempt the finite difference scheme with a \textit{scale-variant energy}, that is, when $\beta > \alpha + 2$. 
-If one attempts the following finite difference scheme:
-\begin{equation}
-    \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
-\end{equation}
+If one attempts the same finite difference scheme as (\ref{equ: L2 Explicit Euler})
 one may observe that the curve ``grows'' in size, indefinitely.
 This is due to the fact that with $\beta > \alpha + 2$,
 by the virtue of lemma \ref{lemma: Scale-Invariance},
@@ -251,6 +248,10 @@ On the other hand, this is where doing the hard work of implementing \textit{exa
 For exact gradient implementation as in appendix \ref{sct: Exact Gradient},
 it takes $O \left( N \right)$ evaluations\footnote{$4 \left( N-3 \right)$ to be exact.} of the derivative of the kernel.
 This implies the overall computation needed for a single step is $O \left( N^2 \right)$.
+
+\subsection{Example: $H^{-1}$ Explicit Euler Scheme}
+By (\ref{equ: H-1 Gradient}), we may write $\grad_{H^{-1}} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \laplacian \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$.
+
 
 %\subsection{Example: $H^1$ Explicit Euler Scheme}
 %By (\ref{equ: H1 Gradient}), we may write $\grad_{H^1} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \laplacian^{-1} \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$.
