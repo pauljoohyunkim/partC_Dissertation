@@ -210,6 +210,7 @@ This is due to the fact that with $\beta > \alpha + 2$,
 by the virtue of lemma \ref{lemma: Scale-Invariance},
 energy scales inversely proportional to its scale factor.
 (See Figure \ref{fig: Scale Variant})
+To use scale-variant energy, one may consider having constraint energy as part of the curve untagling process.
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.85\textwidth]{sections/unknottingCurveImgs/scaleVariant}
@@ -224,7 +225,8 @@ one could trivially minimise tangent-point energy $\mathcal{E}_{\beta}^{\alpha}$
 by scaling the curve to infinity.
 In order to avoid this phenomenon, or to change the behaviour of the flow, one may add additional energy which penalises unwanted behaviours.
 
-Here are some examples of constraint one could take. (Since we are interested in numerical schemes, constraints are expressed in terms of $C$ rather than $\mathcal{C}$.)
+Here are some examples of constraint one could take. 
+(Since we are interested in numerical schemes, constraints are expressed for $C$ rather than $\mathcal{C}$.)
 %\begin{itemize}
 %    \item Taking $\mathcal{C} \coloneqq \lambda \int_{M} \norm{\gammabf}^{p} \intd \gamma$ adds the motivation for the curve not to stray away from the origin.
 %    \item Taking $\mathcal{C} \coloneqq \lambda \left( \int_M \intd \gamma - L \right)^p$ adds the motivation for the curve to stay close to some constant arc-length $L$.
@@ -252,6 +254,21 @@ On the other hand, this is where doing the hard work of implementing \textit{exa
 For exact gradient implementation as in appendix \ref{sct: Exact Gradient},
 it takes $O \left( N \right)$ evaluations\footnote{$4 \left( N-3 \right)$ to be exact.} of the derivative of the kernel.
 This implies the overall computation needed for a single step is $O \left( N^2 \right)$.
+
+\subsubsection{Discussion of Nonexplicit Euler}
+A problem with explicit schemes is that, there often exists some sort of condition for stability.
+This tends to be an issue particularly when using approximation of derivatives in both time and space variables.
+
+For unconditional stability, one may attempt implicit Euler scheme, that is,
+taking $\mathcal{D}_t$ in (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be the backward difference operator,
+\begin{equation}
+    \frac{\Gammabf^{k} - \Gammabf^{k-1}}{\Delta T} = -\Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
+\end{equation}
+This scheme is, however, nonlinear.
+One needs an efficient rootfinding algorithm (such as Newton's method) to compute each time step.
+
+Another potential scheme is the Crank-Nicolson scheme,
+where one combines both explicit and implicit scheme to achieve higher order of error.
 
 \subsection{Example: Euler Scheme in Other Spaces}
 Consider curve untangling process in $H^{-1}$.
