@@ -81,7 +81,7 @@ So,
 
 \subsection{Derivative Operators for Curves}
 For application of functional gradients on curves $\gammabf: M \rightarrow \mathbb{R}^3$,
-we define the following derivative operators.
+the following derivative operators replace the traditional derivative operators,
 \begin{definition}[First Derivative Operator ``Curve Gradient'']
     Define first derivative operator\cite{YSC2021} $\curvenabla_{\gammabf}$ in a way that for $u \left( \gammabf (\cdot) \right): M \rightarrow \mathbb{R}$,
     \begin{equation}
@@ -89,6 +89,7 @@ we define the following derivative operators.
         = \frac{\intd u \left( \gammabf \left( s \right) \right)}{\norm{\intd \gammabf}} \frac{\intd \gammabf}{\norm{\intd \gammabf}}
         = \frac{\intd u \left( \gammabf \left( s \right) \right)}{\norm{\intd \gammabf}} \underbrace{\Tbf(s)}_{\text{Unit tangent at } s}
     \end{equation}
+    This encapsulates the tangential derivative with the actual direction of the tangent vector.
 \end{definition}
 
 \begin{definition}[Second Derivative Laplacian Operator ``Curve Laplacian'']
