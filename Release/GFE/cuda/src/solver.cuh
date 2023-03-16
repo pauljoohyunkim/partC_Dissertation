@@ -8,13 +8,12 @@ class CurveTensor
         ~CurveTensor();
 
         unsigned int N { 0 };
-        
 
         double* dev_blocks;
-    private:
 };
 
 void tensorBlockLoad(CurveTensor& Gammabf, double* blocks, unsigned int N);
 void tensorBlockFlush(CurveTensor& Gammabf, double* blocks, unsigned int N);
+void tensorAdd(CurveTensor& t1, CurveTensor& t2);
 
 #endif
