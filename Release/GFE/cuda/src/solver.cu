@@ -14,6 +14,20 @@ __global__ static void cuTensorAdd(double* dev_blocks_1, double* dev_blocks_2, i
     }
 }
 
+
+/* (DO NOT USE DIRECTLY) Abstract Function: Subtraction of Tensor */
+__global__ static void cuTensorAdd(double* dev_blocks_1, double* dev_blocks_2, int N)
+{
+    int i = blockIdx.x;
+    int j = blockIdx.y;
+    int offset = N * i + j;
+
+    if (offset < 3 * N)
+    {
+        dev_blocks_1[offset] -= dev_blocks_2[offset];
+    }
+}
+
 CurveTensor::CurveTensor(unsigned int aN)
 {
     N = aN;
