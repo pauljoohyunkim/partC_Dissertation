@@ -127,6 +127,20 @@ characterising the avoidance of adjacent edges on simple closed polygonal curve.
 For discussion of quadratures for nonclosed curves, see appendix \ref{sct: Other Homeomorphism Classes}.
 
 
+\subsubsection{Derivative Operators Discretised Curve}
+For discrete curve, the (forward and backward) first derivative operators (\ref{equ: Curve Gradient Operator}) transforms to operator for $U \left( \Gammabf^k \left[ \cdot \right] \right): \left\{ 0, 1, \cdots, N-1 \right\} \rightarrow \mathbb{R}$ characterised by:
+\begin{align}
+    \curvenabla_{\Gammabf^k}^{+} U \left( \Gammabf^k \left[ i \right] \right) &= \frac{U \left( \Gammabf^k \left[ i+1 \right] \right) - U \left( \Gammabf^k \left[ i \right] \right)}{\norm{\Gammabf \left[ i+1 \right] - \Gammabf \left[ i \right]}} \\
+    \curvenabla_{\Gammabf^k}^{-} U \left( \Gammabf^k \left[ i \right] \right) &= \frac{U \left( \Gammabf^k \left[ i \right] \right) - U \left( \Gammabf^k \left[ i-1 \right] \right)}{\norm{\Gammabf \left[ i \right] - \Gammabf \left[ i-1 \right]}}
+\end{align}
+and analogously with second derivative operator:
+\begin{equation}
+    \curvelaplacian_{\Gammabf^k} U \left( \Gammabf[i] \right)
+    =
+    \frac{\frac{U \left( \Gammabf^k [i+1] \right) - U\left( \Gammabf^k [i] \right)}{\norm{\Gammabf^k \left[ i+1 \right] - \Gammabf^k \left[ i \right]}} - \frac{U \left( \Gammabf^k [i] \right) - U \left( \Gammabf^k \left[ i-1 \right] \right)}{\norm{\Gammabf^k[i] - \Gammabf^k[i-1]}}}{\frac{1}{2}\norm{\Gammabf^k \left[ i+1 \right] - \Gammabf^k \left[ i-1 \right]}}
+    \label{equ: Discrete Curve Laplacian}
+\end{equation}
+
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}
 Based on (\ref{equ: Curve Untangling Process}), one writes the following finite difference scheme:
 \begin{equation}
@@ -277,20 +291,25 @@ where we do not necessarily assume scale-invariance.
 For the discrete equivalent, take
 \begin{equation}
     \Grad E_{\beta}^{\alpha} = - \curvelaplacian_{\Gammabf^k} \left( \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = - \curvelaplacian_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
-    = -\nabla_{\Gammabf^k} \left( \curvelaplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
+    %= -\nabla_{\Gammabf^k} \left( \curvelaplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
 \end{equation}
 %where the last equality is from the fact that Laplacian and gradient operators commute \cite{679160}.
-Note that computing ``third derivative'' operator %$\grad \curvelaplacian$
+Note that computing ``third derivative operator'' %$\grad \curvelaplacian$
 could increase complexity of the scheme.
-In fact, if one approximates the Laplacian as $\curvelaplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)\approx \frac{\bar{E}_{\beta}^{\alpha} (i) - 2 E_{\beta}^{\alpha} \left( \Gammabf^k \right) + \underaccent{\bar}E_{\beta}^{\alpha} (i)}{\Delta X^2}$,
+In fact, if one approximates the Laplacian as \ref{equ: Discrete Curve Laplacian}, 
+%$\curvelaplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)\approx \frac{\bar{E}_{\beta}^{\alpha} (i) - 2 E_{\beta}^{\alpha} \left( \Gammabf^k \right) + \underaccent{\bar}E_{\beta}^{\alpha} (i)}{\Delta X^2}$,
 for each time step, it takes $O \left( N^4 \right)$ evaluations of the kernel, so the scheme becomes impractical.
 
 On the other hand, consider curve untangling process in $H^1$.
 By (\ref{equ: H1 Gradient}), we write $\grad_{H^1} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)$,
-and the discrete equivalent becomes:
+%and the discrete equivalent becomes:
+and (\ref{equ: Curve Untangling Process}) without constraint term can be written as:
 \begin{equation}
-    \Grad E_{\beta}^{\alpha} \left( \Gammabf^k \right) = - \curvelaplacian^{-1}_{\Gammabf^k} \left( \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = -\curvelaplacian^{-1}_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
+    \curvelaplacian_{\gammabf} \frac{\partial \gammabf}{\partial t} = \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
 \end{equation}
+%\begin{equation}
+%    \Grad E_{\beta}^{\alpha} \left( \Gammabf^k \right) = - \curvelaplacian^{-1}_{\Gammabf^k} \left( \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = -\curvelaplacian^{-1}_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
+%\end{equation}
 
 %Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be forward difference operator,
 
