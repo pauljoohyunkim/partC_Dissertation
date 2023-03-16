@@ -134,12 +134,29 @@ For discrete curve, the (forward and backward) first derivative operators (\ref{
     \curvenabla_{\Gammabf^k}^{-} U \left( \Gammabf^k \left[ i \right] \right) &= \frac{U \left( \Gammabf^k \left[ i \right] \right) - U \left( \Gammabf^k \left[ i-1 \right] \right)}{\norm{\Gammabf \left[ i \right] - \Gammabf \left[ i-1 \right]}}
 \end{align}
 and analogously with second derivative operator:
-\begin{equation}
+\begin{align}
     \curvelaplacian_{\Gammabf^k} U \left( \Gammabf[i] \right)
-    =
+    &=
     \frac{\frac{U \left( \Gammabf^k [i+1] \right) - U\left( \Gammabf^k [i] \right)}{\norm{\Gammabf^k \left[ i+1 \right] - \Gammabf^k \left[ i \right]}} - \frac{U \left( \Gammabf^k [i] \right) - U \left( \Gammabf^k \left[ i-1 \right] \right)}{\norm{\Gammabf^k[i] - \Gammabf^k[i-1]}}}{\frac{1}{2}\norm{\Gammabf^k \left[ i+1 \right] - \Gammabf^k \left[ i-1 \right]}}
-    \label{equ: Discrete Curve Laplacian}
-\end{equation}
+    \label{equ: Discrete Curve Laplacian} \\
+    &= 
+    %\frac{\frac{U_{i+1} - U_{i}}{\norm{e_i}} - \frac{U_{i} - U_{i-1}}{\norm{e_{i-1}}}}{\norm{f_i}} \\
+    %&= 
+    \frac{\norm{e_i} U_{i-1} - \left( \norm{e_{i-1}} + \norm{e_{i}} \right) U_i + \norm{e_{i-1}} U_{i+1} }{\norm{e_{i-1}} \, \norm{e_i} \, \norm{f_i}} \\
+    &= 
+    \frac{1}{\norm{e_{i-1}} \, \norm{e_i} \, \norm{f_i}}
+    \begin{pmatrix}
+        \norm{e_i} & \norm{e_{i-1}} + \norm{e_i} & \norm{e_{i-1}}
+    \end{pmatrix}
+    \begin{pmatrix}
+        U_{i-1} \\
+        U_i \\
+        U_{i+1}
+    \end{pmatrix}
+    \label{equ: Discrete Curve Laplacian Matrix Form}
+\end{align}
+where one defines $f_i \coloneqq \frac{1}{2} \left( \Gammabf^k \left[ i+1 \right] - \Gammabf^k \left[ i-1 \right] \right)$
+and $U_{i} \coloneqq U\left( \Gammabf^k \left[ i \right] \right)$.
 
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}
 Based on (\ref{equ: Curve Untangling Process}), one writes the following finite difference scheme:
@@ -316,13 +333,39 @@ and $\laplacian_{\Gammabf^k}$ is still the conventional gradient operator over a
 To compute a step, one performs three steps:
 \begin{enumerate}
     \item Compute $\nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$.
-    \item Solve linear system $\mathcal{L} \mathcal{G} = \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ for $\mathcal{G} \in \mathbb{R}^{3N}$
+    \item Solve linear system $\mathcal{L} \mathcal{G}^{T} = \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)^T$ for $\mathcal{G} \in \mathbb{R}^{3 \times N}$
         \begin{itemize}
-            \item $\mathcal{L}$ is the (almost tridiagonal) matrix capturing the discretised curve Laplacian $\curvelaplacian_{\Gammabf^k}$.
-            \item $\mathcal{G}$ is the flattening of tensor $\Gammabf^k$ to a vector such that $\mathcal{G} \in \mathbb{R}^{3N \times 1}$.
+            \item $\mathcal{L}$ is the (almost tridiagonal by (\ref{equ: Discrete Curve Laplacian Matrix Form})) matrix capturing the discretised curve Laplacian $\curvelaplacian_{\Gammabf^k}$.
         \end{itemize}
     \item Evolve by $\Gammabf^{k+1} = \left( \Delta T \right) \mathcal{G} + \Gammabf^k$.
 \end{enumerate}
+Note that the linear system $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)^T$ has the following structure:
+\begin{equation*}
+    \underbrace{
+    \begin{pmatrix}
+        * & * &   &   &   & & * \\
+        * & * & * &   &   & &  \\
+          & * & * & * &  &  &   \\
+          &   & \ddots  & \ddots & \ddots &  & \\
+          &   &   & *  &  * & * & \\
+          &  & &  & *  & *  & * \\
+        * &   & &  &   & *  & *
+    \end{pmatrix}
+}_{\mathcal{L} \in \mathbb{R}^{N \times N}}
+\mathcal{G}^T
+=
+\underbrace{
+\begin{pmatrix}
+    * & * & * \\
+    * & * & * \\
+    * & * & * \\
+    \vdots & \vdots & \vdots \\
+    * & * & * \\
+    * & * & * \\
+    * & * & *
+\end{pmatrix}
+}_{\left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)^T \in \mathbb{R}^{N \times 3}}
+\end{equation*}
 %\begin{equation}
 %    \Grad E_{\beta}^{\alpha} \left( \Gammabf^k \right) = - \curvelaplacian^{-1}_{\Gammabf^k} \left( \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = -\curvelaplacian^{-1}_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
 %\end{equation}
