@@ -7,7 +7,7 @@ set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
 
 add_executable(loadTest loadTest.cu ../src/solver.cu)
-set_target_properties(loadTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+set_target_properties(loadTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES 61)
 
 add_executable(addTest addTest.cu ../src/solver.cu)
 set_target_properties(addTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES 61)

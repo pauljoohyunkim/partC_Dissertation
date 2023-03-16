@@ -2,15 +2,15 @@
 #include "solver.cuh"
 
 /* (DO NOT USE DIRECTLY) Abstract Function: Addition of Tensor */
-__global__ static void cuTensorAdd(CurveTensor& t1, CurveTensor& t2)
+__global__ static void cuTensorAdd(double* dev_blocks_1, double* dev_blocks_2, int N)
 {
     int i = blockIdx.x;
     int j = blockIdx.y;
-    int offset = i + (int) t1.N * j;
+    int offset = N * i + j;
 
-    if (offset < 3 * t1.N)
+    if (offset < 3 * N)
     {
-        t1.dev_blocks[offset] = t1.dev_blocks[offset] + t2.dev_blocks[offset];
+        dev_blocks_1[offset] += dev_blocks_2[offset];
     }
 }
 
@@ -39,6 +39,6 @@ void tensorBlockFlush(CurveTensor& Gammabf, double* blocks, unsigned int N)
 void tensorAdd(CurveTensor& t1, CurveTensor& t2)
 {
     dim3 grid(3, t1.N);
-    cuTensorAdd<<<grid,1>>>(t1, t2);
+    cuTensorAdd<<<grid,1>>>(t1.dev_blocks, t2.dev_blocks, (int) t1.N);
 }
 
