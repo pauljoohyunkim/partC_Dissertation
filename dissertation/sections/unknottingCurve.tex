@@ -296,7 +296,7 @@ For the discrete equivalent, take
 %where the last equality is from the fact that Laplacian and gradient operators commute \cite{679160}.
 Note that computing ``third derivative operator'' %$\grad \curvelaplacian$
 could increase complexity of the scheme.
-In fact, if one approximates the Laplacian as \ref{equ: Discrete Curve Laplacian}, 
+In fact, if one approximates the Laplacian as (\ref{equ: Discrete Curve Laplacian}), 
 %$\curvelaplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)\approx \frac{\bar{E}_{\beta}^{\alpha} (i) - 2 E_{\beta}^{\alpha} \left( \Gammabf^k \right) + \underaccent{\bar}E_{\beta}^{\alpha} (i)}{\Delta X^2}$,
 for each time step, it takes $O \left( N^4 \right)$ evaluations of the kernel, so the scheme becomes impractical.
 
@@ -307,12 +307,22 @@ By (\ref{equ: H1 Gradient}), we write $\grad_{H^1} \mathcal{E}_{\beta}^{\alpha} 
 \begin{equation}
     \curvelaplacian_{\gammabf} \frac{\partial \gammabf}{\partial t} = \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
 \end{equation}
-Discretising this, one gets $H^1$ discretised scheme:
+Discretising this with forward difference for time, one gets $H^1$ explicit Euler scheme:
 \begin{equation}
     \curvelaplacian_{\Gammabf^k} \left( \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} \right) = \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
 \end{equation}
 where $\curvelaplacian_{\Gammabf^k}$ is the Laplacian as given in (\ref{equ: Discrete Curve Laplacian}),
 and $\laplacian_{\Gammabf^k}$ is still the conventional gradient operator over all the coordinates of $\Gammabf^k$.
+To compute a step, one performs three steps:
+\begin{enumerate}
+    \item Compute $\nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$.
+    \item Solve linear system $\mathcal{L} \mathcal{G} = \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ for $\mathcal{G} \in \mathbb{R}^{3N}$
+        \begin{itemize}
+            \item $\mathcal{L}$ is the (almost tridiagonal) matrix capturing the discretised curve Laplacian $\curvelaplacian_{\Gammabf^k}$.
+            \item $\mathcal{G}$ is the flattening of tensor $\Gammabf^k$ to a vector such that $\mathcal{G} \in \mathbb{R}^{3N \times 1}$.
+        \end{itemize}
+    \item Evolve by $\Gammabf^{k+1} = \left( \Delta T \right) \mathcal{G} + \Gammabf^k$.
+\end{enumerate}
 %\begin{equation}
 %    \Grad E_{\beta}^{\alpha} \left( \Gammabf^k \right) = - \curvelaplacian^{-1}_{\Gammabf^k} \left( \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = -\curvelaplacian^{-1}_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
 %\end{equation}
