@@ -15,5 +15,6 @@ class CurveTensor
 void tensorBlockLoad(CurveTensor& Gammabf, double* blocks, unsigned int N);
 void tensorBlockFlush(CurveTensor& Gammabf, double* blocks, unsigned int N);
 void tensorAdd(CurveTensor& t1, CurveTensor& t2);
+void tensorSubtract(CurveTensor& t1, CurveTensor& t2);
 
 #endif
