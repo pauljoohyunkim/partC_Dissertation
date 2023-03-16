@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "solver.cuh"
 
 /* (DO NOT USE DIRECTLY) Abstract Function: Addition of Tensor */
@@ -32,6 +33,15 @@ CurveTensor::CurveTensor(unsigned int aN)
     N = aN;
     cudaMalloc((void**)&dev_blocks, 3 * N * sizeof(double));
     std::cout << "Tensor Constructed" << std::endl;
+}
+
+CurveTensor::CurveTensor(std::vector<double>& x, std::vector<double>& y, std::vector<double>& z)
+{
+    N = x.size();
+    cudaMalloc((void**)&dev_blocks, 3 * N * sizeof(double));
+    cudaMemcpy(dev_blocks, &x[0], N * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_blocks + N, &y[0], N * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_blocks + 2 * N, &z[0], N * sizeof(double), cudaMemcpyHostToDevice);
 }
 
 CurveTensor::~CurveTensor()

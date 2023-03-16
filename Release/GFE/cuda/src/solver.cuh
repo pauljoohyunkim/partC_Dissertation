@@ -1,10 +1,13 @@
 #ifndef __SOLVER_CUH__
 #define __SOLVER_CUH__
 
+#include <vector>
+
 class CurveTensor
 {
     public:
         CurveTensor(unsigned int aN);
+        CurveTensor(std::vector<double>& x, std::vector<double>& y, std::vector<double>& z);
         ~CurveTensor();
 
         unsigned int N { 0 };
