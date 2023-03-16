@@ -130,8 +130,8 @@ For discussion of quadratures for nonclosed curves, see appendix \ref{sct: Other
 \subsubsection{Derivative Operators Discretised Curve}
 For discrete curve, the (forward and backward) first derivative operators (\ref{equ: Curve Gradient Operator}) transforms to operator for $U \left( \Gammabf^k \left[ \cdot \right] \right): \left\{ 0, 1, \cdots, N-1 \right\} \rightarrow \mathbb{R}$ characterised by:
 \begin{align}
-    \curvenabla_{\Gammabf^k}^{+} U \left( \Gammabf^k \left[ i \right] \right) &= \frac{U \left( \Gammabf^k \left[ i+1 \right] \right) - U \left( \Gammabf^k \left[ i \right] \right)}{\norm{\Gammabf \left[ i+1 \right] - \Gammabf \left[ i \right]}} \\
-    \curvenabla_{\Gammabf^k}^{-} U \left( \Gammabf^k \left[ i \right] \right) &= \frac{U \left( \Gammabf^k \left[ i \right] \right) - U \left( \Gammabf^k \left[ i-1 \right] \right)}{\norm{\Gammabf \left[ i \right] - \Gammabf \left[ i-1 \right]}}
+    \curvenabla_{\Gammabf^k}^{+} U \left( \Gammabf^k \left[ i \right] \right) &= \frac{U \left( \Gammabf^k \left[ i+1 \right] \right) - U \left( \Gammabf^k \left[ i \right] \right)}{\norm{\Gammabf \left[ i+1 \right] - \Gammabf \left[ i \right]}} \Tbf_i^k\\
+    \curvenabla_{\Gammabf^k}^{-} U \left( \Gammabf^k \left[ i \right] \right) &= \frac{U \left( \Gammabf^k \left[ i \right] \right) - U \left( \Gammabf^k \left[ i-1 \right] \right)}{\norm{\Gammabf \left[ i \right] - \Gammabf \left[ i-1 \right]}} \Tbf_{i-1}^k
 \end{align}
 and analogously with second derivative operator:
 \begin{align}
@@ -146,7 +146,7 @@ and analogously with second derivative operator:
     &= 
     \frac{1}{\norm{e_{i-1}} \, \norm{e_i} \, \norm{f_i}}
     \begin{pmatrix}
-        \norm{e_i} & \norm{e_{i-1}} + \norm{e_i} & \norm{e_{i-1}}
+        \norm{e_i} & -\left( \norm{e_{i-1}} + \norm{e_i} \right) & \norm{e_{i-1}}
     \end{pmatrix}
     \begin{pmatrix}
         U_{i-1} \\
