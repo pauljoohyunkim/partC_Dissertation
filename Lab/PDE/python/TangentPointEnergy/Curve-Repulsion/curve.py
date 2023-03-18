@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 class Curve:
     # Constructor
     def __init__(self, list_of_points, closed=False):
-        self.list_of_points = list_of_points
+        self.list_of_points = np.array(list_of_points)
         self.closed = closed
-        self.J = len(list_of_points)
+        self.J = self.list_of_points.shape[0]
     
     # Square Bracket Overload
     def __getitem__(self, key):
@@ -21,17 +21,20 @@ class Curve:
     
     # Curve Addition
     def __add__(self, otherCurve):
-        if len(self) == len(otherCurve) and self.closed == otherCurve.closed:
-            return Curve([self[i] + otherCurve[i] for i in range(len(self))])
+        #if len(self) == len(otherCurve) and self.closed == otherCurve.closed:
+        #    return Curve([self[i] + otherCurve[i] for i in range(len(self))])
+        return Curve(self.list_of_points + otherCurve.list_of_points)
 
     # Curve Subtraction
     def __sub__(self, otherCurve):
-        if len(self) == len(otherCurve) and self.closed == otherCurve.closed:
-            return Curve([self[i] - otherCurve[i] for i in range(len(self))])
+        #if len(self) == len(otherCurve) and self.closed == otherCurve.closed:
+        #    return Curve([self[i] - otherCurve[i] for i in range(len(self))])
+        return Curve(self.list_of_points - otherCurve.list_of_points)
 
     # Scalar Multiplication
     def __mul__(self, val):
-        return Curve([self[i] * val for i in range(len(self))])
+        #return Curve([self[i] * val for i in range(len(self))])
+        return Curve(self.list_of_points * val)
     
     # Curve Length
     def curveLength(self):
@@ -43,6 +46,10 @@ class Curve:
             edgeLength = np.linalg.norm(self[-1] - self[0])
             l += edgeLength ** 2
         return l
+    
+    # Edge Length
+    def edgeLength(self, i):
+        return np.linalg.norm(self[i+1] - self[i])
 
 
 
