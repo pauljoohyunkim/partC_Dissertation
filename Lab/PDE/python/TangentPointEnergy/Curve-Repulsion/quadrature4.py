@@ -129,7 +129,7 @@ def ikj(curve, p, q, r, alpha=3, beta=6):
     return (xi, eta, dxi, deta)
 
 # Derivative of k_{\beta}^{\alpha}
-def dkalphabeta(curve, p, q, r, k, alpha=3, beta=6, thresholder_enabled=True):
+def dkalphabeta(curve, p, q, r, k, alpha=3, beta=6, thresholder_enabled=False):
     J = len(curve)
     p = p % J
     q = q % J

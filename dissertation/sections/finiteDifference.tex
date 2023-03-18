@@ -2,6 +2,44 @@
 
 \begin{document}
 \subsection{Motivating Example: Heat Equation}
-Suppose one needs to solve the heat equation $\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2}$ for $u = u(x,t)$ over $\left[ 0, L \right] \times \left[ 0, T_f \right]$.
+Suppose one needs to solve the heat equation $\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2}$ for $u = u(x,t)$ over $\left[ 0, L \right] \times \left[ 0, T_f \right]$
+with initial data $u\left( x,0 \right) = u_0 (x)$.
+
+One could diescretise the problem by constructing a mesh;
+taking equispaced points on the spatial domain $\left[ 0,L \right]$
+and the time domain $\left[ 0,T_f \right]$.
+\begin{align*}
+    X_i &= i \left( \Delta X \right) & \text{for } i = 0, 1, \cdots, N \\
+    T_j &= j \left( \Delta T \right) & \text{for } j = 0, 1, \cdots, M
+\end{align*}
+where $N, M$ are the resolution of respective domains,
+and $\Delta X \coloneqq \frac{L}{N}$ and $\Delta T \coloneqq \frac{T_f}{M}$.
+
+Now the idea is to approximate the actual solution $u$ at $\left( x,t \right) = \left( X_i, T_j \right)$ of the heat equation by the following algebraic (difference) equations.
+\begin{align}
+    \mathcal{D}_t U_{i}^j &= \mathcal{D}_x^+ \mathcal{D}_x^- U_{i}^j \\
+    U_{i}^0 &= u\left( X_i \right)
+\end{align}
+for $i=0,1,\cdots,N$ and $j = 0, 1, \cdots, M$,
+where $\mathcal{D}_z$ is a finite difference operator that approximates a derivative in $z$ variable ($t$ for time, $x$ for spatial variable).
+One interprets $U_i^j$ as an approximation of $u \left( X_i, T_j \right)$.
+
+\subsubsection{Finite Difference Operator}
+For utilising finite difference method for PDEs, one must choose an operator $\mathcal{D}_z$ to approximate the derivative with respect to variable $z$.
+Consider the \textbf{forward difference operator} for $F_i$, an approximation of $f'(z)$ at $z = Z_i$:
+\begin{equation}
+    \mathcal{D}_z^+ F_{i} = \frac{F_{i+1} - F_{i}}{\Delta Z} \approx f'\left( Z_i \right)
+\end{equation}
+A formal analysis shows that the order of error is $O\left( \Delta Z \right)$.
+Consider the \textbf{backward difference operator} for $F_i$, another approximation of $f'(z)$ at $z = Z_i$:
+\begin{equation}
+    \mathcal{D}_z^- F_{i} = \frac{F_{i} - F_{i-1}}{\Delta Z} \approx f'\left( Z_i \right)
+\end{equation}
+Again, the order of error is $O\left( \Delta Z \right)$.
+One can combine the idea of forward difference and backward difference to motivate the \textbf{central difference operator}, again for approximation of $f'(z)$ at $z = Z_i$:
+\begin{equation}
+    \mathcal{D}_z^\circ F_{i} = \frac{F_{i+1} - F_{i-1}}{2 \Delta Z} \approx f'\left( Z_i \right)
+\end{equation}
+which has a better order of error of $O\left( \Delta Z^2 \right)$.
 
 \end{document}
