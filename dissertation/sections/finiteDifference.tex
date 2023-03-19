@@ -2,26 +2,33 @@
 
 \begin{document}
 \subsection{Motivating Example: Heat Equation}
-Suppose one needs to solve the heat equation $\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2}$ for $u = u(x,t)$ over $\left[ 0, L \right] \times \left[ 0, T_f \right]$
-with initial data $u\left( x,0 \right) = u_0 (x)$.
+Suppose one needs to solve the heat equation $\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2}$ for $u = u(x,t)$ over $\left[ -L, L \right] \times \left[ 0, T_f \right]$
+with initial data $u\left( x,0 \right) = u_0 (x)$
+and Neumann boundary condition $f'(-L) = f'(L) = 0$.
 
 One could diescretise the problem by constructing a mesh;
-taking equispaced points on the spatial domain $\left[ 0,L \right]$
+taking equispaced points on the spatial domain $\left[ -L,L \right]$
 and the time domain $\left[ 0,T_f \right]$.
 \begin{align*}
-    X_i &= i \left( \Delta X \right) & \text{for } i = 0, 1, \cdots, N \\
+    X_i &= -L + i \left( \Delta X \right) & \text{for } i = 0, 1, \cdots, N \\
     T_j &= j \left( \Delta T \right) & \text{for } j = 0, 1, \cdots, M
 \end{align*}
 where $N, M$ are the resolution of respective domains,
-and $\Delta X \coloneqq \frac{L}{N}$ and $\Delta T \coloneqq \frac{T_f}{M}$.
+and $\Delta X \coloneqq \frac{2L}{N}$ and $\Delta T \coloneqq \frac{T_f}{M}$.
 
 Now the idea is to approximate the actual solution $u$ at $\left( x,t \right) = \left( X_i, T_j \right)$ of the heat equation by the following algebraic (difference) equations.
 \begin{align}
     \mathcal{D}_t U_{i}^j &= \mathcal{D}_x^+ \mathcal{D}_x^- U_{i}^j \\
-    U_{i}^0 &= u\left( X_i \right)
+    U_{i}^0 &= u\left( X_i \right) \\
+    U_{0}^j - U_{-1}^j &= 0
+    \label{equ: Discretised Neumann BC 1}
+    \\
+    U_{N+1}^j - U_{N}^j &= 0
+    \label{equ: Discretised Neumann BC 2}
 \end{align}
 for $i=0,1,\cdots,N$ and $j = 0, 1, \cdots, M$,
 where $\mathcal{D}_z$ is a finite difference operator that approximates a derivative in $z$ variable ($t$ for time, $x$ for spatial variable).
+Note that ``virtual points'' $X_{-1}$ and $X_{N+1}$ are added for discretised Neumann boundary condition (\ref{equ: Discretised Neumann BC 1}) and (\ref{equ: Discretised Neumann BC 2}).
 One interprets $U_i^j$ as an approximation of $u \left( X_i, T_j \right)$.
 
 \subsubsection{First-Order Finite Difference Operator}
@@ -53,5 +60,8 @@ A sensible choice is to use both the forward difference operator and and the bac
     \mathcal{D}_z^+ \mathcal{D}_z^- f \left( Z_i \right) = \frac{f \left( Z_{i+1} \right) - 2 f \left( Z_i \right) + f \left( Z_{i-1} \right)}{\left( \Delta Z \right)^2} = f''\left( Z_i \right) + \underbrace{O \left( \left( \Delta Z \right)^2 \right)}_{\text{Consistency Error}}
 \end{equation}
 One can easily check that $\mathcal{D}_z^+ \mathcal{D}_z^- = \mathcal{D}_z^- \mathcal{D}_z^+$.
+
+\subsection{Euler Schemes for Heat Equation}
+
 
 \end{document}
