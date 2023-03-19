@@ -24,22 +24,34 @@ for $i=0,1,\cdots,N$ and $j = 0, 1, \cdots, M$,
 where $\mathcal{D}_z$ is a finite difference operator that approximates a derivative in $z$ variable ($t$ for time, $x$ for spatial variable).
 One interprets $U_i^j$ as an approximation of $u \left( X_i, T_j \right)$.
 
-\subsubsection{Finite Difference Operator}
+\subsubsection{First-Order Finite Difference Operator}
 For utilising finite difference method for PDEs, one must choose an operator $\mathcal{D}_z$ to approximate the derivative with respect to variable $z$.
-Consider the \textbf{forward difference operator} for $F_i$, an approximation of $f'(z)$ at $z = Z_i$:
+
+Consider the \textbf{forward difference operator} to get an approximation of $f'(z)$ at $z = Z_i$:
 \begin{equation}
-    \mathcal{D}_z^+ F_{i} = \frac{F_{i+1} - F_{i}}{\Delta Z} \approx f'\left( Z_i \right)
+    \mathcal{D}_z^+ f \left( Z_i \right) = \frac{f \left( Z_{i+1} \right) - f\left( Z_i \right)}{\Delta Z} = f'\left( Z_i \right) + \underbrace{O \left( \Delta Z \right)}_{\text{Consistency Error}}
 \end{equation}
-A formal analysis shows that the order of error is $O\left( \Delta Z \right)$.
-Consider the \textbf{backward difference operator} for $F_i$, another approximation of $f'(z)$ at $z = Z_i$:
+
+Consider the \textbf{backward difference operator}, another approximation of $f'(z)$ at $z = Z_i$:
 \begin{equation}
-    \mathcal{D}_z^- F_{i} = \frac{F_{i} - F_{i-1}}{\Delta Z} \approx f'\left( Z_i \right)
+    \mathcal{D}_z^- f \left( Z_i \right) = \frac{f \left( Z_i \right) - f\left( Z_{i-1} \right)}{\Delta Z} = f'\left( Z_i \right) + \underbrace{O \left( \Delta Z \right)}_{\text{Consistency Error}}
 \end{equation}
-Again, the order of error is $O\left( \Delta Z \right)$.
+
 One can combine the idea of forward difference and backward difference to motivate the \textbf{central difference operator}, again for approximation of $f'(z)$ at $z = Z_i$:
 \begin{equation}
-    \mathcal{D}_z^\circ F_{i} = \frac{F_{i+1} - F_{i-1}}{2 \Delta Z} \approx f'\left( Z_i \right)
+    \mathcal{D}_z^\circ f \left( Z_i \right) = \frac{f \left( Z_{i+1} \right) - f\left( Z_{i-1} \right)}{2 \Delta Z} = f'\left( Z_i \right) + \underbrace{O \left( \left( \Delta Z \right)^2 \right)}_{\text{Consistency Error}}
 \end{equation}
-which has a better order of error of $O\left( \Delta Z^2 \right)$.
+Note that one could write $\mathcal{D}_z^\circ f \left( Z_i \right) = \frac{1}{2}\left( D_z^+ + D_z^- \right) f \left( Z_i \right) $
+
+While central difference operator may seem like the best choice in terms of consistency error,
+different choice of operators may result in much easier problem to solve albeit the cost of increased consistency error.
+
+\subsubsection{Second-Order Finite Difference Operator}
+For PDEs involving second derivatives (such as the Laplace's equation), one must also be able to approximate the second derivatives with respect to variable $z$.
+A sensible choice is to use both the forward difference operator and and the backward difference operator, known as the \textbf{second divided difference operator}:
+\begin{equation}
+    \mathcal{D}_z^+ \mathcal{D}_z^- f \left( Z_i \right) = \frac{f \left( Z_{i+1} \right) - 2 f \left( Z_i \right) + f \left( Z_{i-1} \right)}{\left( \Delta Z \right)^2} = f''\left( Z_i \right) + \underbrace{O \left( \left( \Delta Z \right)^2 \right)}_{\text{Consistency Error}}
+\end{equation}
+One can easily check that $\mathcal{D}_z^+ \mathcal{D}_z^- = \mathcal{D}_z^- \mathcal{D}_z^+$.
 
 \end{document}
