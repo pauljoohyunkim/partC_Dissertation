@@ -14,7 +14,8 @@ One could analogously construct the definition of gradient of a functional.
 \begin{definition}[Gradient of Functional]
     For a functional $F:\mathcal{X} \rightarrow \mathbb{R}$, define functional gradient $\grad_{\mathcal{X}} F (f)$ as:
     \begin{equation}
-        \forall f, g \in \mathcal{X} \; \; \inner{\grad_{\mathcal{X}} F (f), g}_{\mathcal{X}} = \frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon = 0}
+        \forall f, g \in \mathcal{X} \; \; \inner{\grad_{\mathcal{X}} F (f), g}_{\mathcal{X}} = \left.\frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)\right|_{\epsilon = 0}
+        \label{equ: Functional Gradient Definition}
     \end{equation}
     where $\inner{\cdot, \cdot}_{\mathcal{X}}$ is the inner product defined over the inner product function space $\mathcal{X}$.
 \end{definition}
@@ -33,23 +34,35 @@ Assume $\Omega$ is a boundary-free domain.
 Given $L^2(\Omega) = H^0(\Omega)$ gradient ($\Omega$ will be omitted in this section when unambiguous), one could express Sobolev gradients of other orders.
 For functional $F$, write $h \coloneqq \grad_{L^2} F$ for gradient of $F$ in $L^2$, that is, by definition
 \begin{equation}
-    \frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon = 0} = \inner{h, g}_{L^2} \eqqcolon \mathcal{D}
+    \frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon = 0} = \inner{h, g}_{L^2} \eqqcolon \mathcal{P}
     \label{equ: L2 Gradient Explicit Form}
 \end{equation}
 By lemma \ref{lemma: Shifting Gradient Operator} and lemma \ref{lemma: Shifting Laplacian Operator} on boundary-free domain $\Omega$,\footnote{Integration by parts to ``shift'' operators to other function.}
 \begin{align*}
-    \mathcal{D} &= \inner{\laplacian \laplacian^{-1} h, g}_{L^2} \\
+    \mathcal{P} &= \inner{\laplacian \laplacian^{-1} h, g}_{L^2} \\
     &= \inner{-\nabla \laplacian^{-1} h, \nabla g}_{L^2} \\
     &= \inner{-\laplacian^{-1} h, g}_{H^1}
 \end{align*}
-So one concludes that
+So one could spot that
 \begin{equation}
     \grad_{H^1} F = -\laplacian^{-1} h
     \label{equ: H1 Gradient}
 \end{equation}
+\begin{remark}
+However, there is a subtlety here.
+Because inverting a Laplacian requires additional information
+(often about the boundary, even though we assume it was a boundary-free domain),
+$\laplacian^{-1}$ can be problematic.
+One could resolve this by replacing $\laplacian^{-1}$ by $\left(\laplacian + c \idf\right)^{-1}$
+where $c\neq 0$ is a constant and $\idf$ is the identity operator.
+One justifies this replacement by noting the fact that $H^1$ gradient is only defined up to
+addition of null space of the Laplacian\footnote{``Harmonic functions''}, and hence addition of $c \idf$ can be absorbed.
+Note that $\left(\laplacian + c \idf\right)$ is an invertible operator now.
+\end{remark}
+
 Similarly, one could acquire gradient in $H^2$ by
 \begin{align*}
-    \mathcal{D} &= \inner{\laplacian^{-1} h, \laplacian g}_{L^2} \\
+    \mathcal{P} &= \inner{\laplacian^{-1} h, \laplacian g}_{L^2} \\
     &= \inner{\laplacian \left( \laplacian^{-2} h \right), \laplacian g}_{L^2} \\
     &= \inner{\laplacian^{-2} h, g}_{H^2}
 \end{align*}
@@ -60,7 +73,7 @@ Hence,
 \end{equation}
 One could take it even further and define gradient in $H^{-1}$,
 \begin{align*}
-    \mathcal{D} &= \inner{h, \laplacian \laplacian^{-1} g}_{L^2} \\
+    \mathcal{P} &= \inner{h, \laplacian \laplacian^{-1} g}_{L^2} \\
     &= \inner{-\nabla h, \nabla \left( \laplacian^{-1} g \right)}_{L^2} \\
     &= \inner{-\laplacian h, g}_{H^{-1}}
 \end{align*}
@@ -72,12 +85,42 @@ So,
 \begin{remark}
     From (\ref{equ: H1 Gradient}), (\ref{equ: H2 Gradient}), and (\ref{equ: H-1 Gradient}), one may deduce that
     choosing the right Sobolev space for a functional may make the gradient flow equation much easier to solve.
-    For example, given functional $F (f) \coloneqq \int_{\Omega} |\nabla f (x)|^2 \intd V$ over an open set $\Omega$,
-    $L^2$ gradient turns out to be $\grad_{L^2} F (f) = h = -\laplacian f$. 
-    Instead of solving $L^2$ gradient flow equation $\frac{\partial}{\partial t} f = \laplacian f$ (Refer to Figure \ref{fig: GF} for the case $\Omega = (-1, 1)$.),
-    solving $H^1$ gradient flow equation $\frac{\partial}{\partial t}f = -f$ is more trivial
-    as it practically collapses down to solving an ordinary differential equation.
 \end{remark}
+
+\begin{example}[Dirichlet Energy]
+    For example, given functional $\mathcal{E} (f) \coloneqq \int_{\Omega} |\nabla f \left( \xbf \right)|^2 \intd V$ over an open set $\Omega \subset \mathbb{R}^n$,
+    one can explicitly deduce $L^2$ gradient from definition (\ref{equ: Functional Gradient Definition}):
+    \begin{align*}
+        \inner{\grad_{L^2} \mathcal{E} (f), g}_{L^2} &= \left.\frac{\partial}{\partial \epsilon} \mathcal{E} \left( f + \epsilon g \right)\right|_{\epsilon=0} \\
+            &= \left.\frac{\partial}{\partial \epsilon} \int_{\Omega} \left( \nabla f + \epsilon \nabla g \right) \cdot \left( \nabla f + \epsilon \nabla g \right) \intd V\right|_{\epsilon=0} \\
+                &= \int_{\Omega} \nabla f \cdot \nabla g \intd V \\
+                &\stackrel{\text{IBP}}{=} \underbrace{\oint_{\partial \Omega} g \frac{\partial f}{\partial n} \intd S}_{\text{Boundary Term}} - \int_{\Omega} g \laplacian f \intd V \\
+                &= \underbrace{\oint_{\partial \Omega} g \frac{\partial f}{\partial n} \intd S}_{\text{Boundary Term}} + \inner{-\laplacian f, g}_{L^2}
+            \end{align*}
+            Assuming natural boundary condition $\frac{\partial f}{\partial n} = 0$, or restricting our interest to periodic functions such that there is no boundary, we may set the boundary term to zero.
+            We can then read off $L^2$ gradient to be $\grad_{L^2} \mathcal{E} (f) = h = -\laplacian f$. 
+            The gradient flow equation turns out to be the heat equation:
+            \begin{equation}
+                \frac{\partial f}{\partial t} = \laplacian f
+            \end{equation}
+            (Refer to Figure \ref{fig: GF} for the case $\Omega = (-1, 1)$.)
+            However, note that one could ``reduce the order'' or the RHS by considering the gradient flow in $H^1$.
+            Observe from (\ref{equ: H1 Gradient}) that $\grad_{H^1} \mathcal{E} (f) = \idf_{\Omega}$, where $\idf_{\Omega}$ is the identity function over $\Omega$.
+            Solving $H^1$ gradient flow equation
+            \begin{equation}
+                \frac{\partial f}{\partial t} = -f
+    \end{equation}
+    is much easier as it boils down to solving an ordinary differential equation,
+    which the solution decays (or rather converges) exponentially fast.
+
+    On the other hand, what if one reduces the order too much by taking $H^2$?
+    Since $\grad_{H^2} \mathcal{E} (f) = -\laplacian^{-1} f$, the $H^2$ gradient flow equation becomes:
+    \begin{equation}
+        \frac{\partial f}{\partial t} = \laplacian^{-1} f
+    \end{equation}
+    This is solved by solving a Poisson's equation $\laplacian g = f$ for $g$,
+    then $g = \frac{\partial f}{\partial t}$.
+\end{example}
 
 \subsection{Derivative Operators for Curves}
 For application of functional gradients on curves $\gammabf: M \rightarrow \mathbb{R}^3$,
@@ -93,6 +136,7 @@ the following derivative operators replace the traditional derivative operators,
     This encapsulates the tangential derivative with the actual direction of the tangent vector.
 \end{definition}
 
+Similarly, for Laplacian,
 \begin{definition}[Second Derivative Laplacian Operator ``Curve Laplacian'']
     Define second derivative operator $\curvelaplacian$ in a way that for $f: M \rightarrow \mathbb{R}$,
     \begin{equation}
