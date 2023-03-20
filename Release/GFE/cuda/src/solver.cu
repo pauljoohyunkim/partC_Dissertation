@@ -50,6 +50,12 @@ CurveTensor::~CurveTensor()
     std::cout << "Tensor Destructed" << std::endl;
 }
 
+__device__ double& componentAccess(double* dev_blocks, int i, unsigned int j, unsigned int N)
+{
+    i = (i % (int) N + N) % (int) N;
+    return dev_blocks[N * (unsigned int) j + i];
+}
+
 void tensorBlockLoad(CurveTensor& Gammabf, double* blocks, unsigned int N)
 {
     cudaMemcpy(Gammabf.dev_blocks, blocks, 3 * N * sizeof(double), cudaMemcpyHostToDevice);
