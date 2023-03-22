@@ -14,6 +14,7 @@ __global__ void kernel()
     printf("sum: %f, %f, %f\n", vp.x, vp.y, vp.z);
     printf("diff: %f, %f, %f\n", vn.x, vn.y, vn.z);
     printf("|v1|: %f\n", v1.norm());
+    printf("dot: %f\n", v1 * v2);
     printf("cross: %f, %f, %f\n", vcross.x, vcross.y, vcross.z);
     
 }

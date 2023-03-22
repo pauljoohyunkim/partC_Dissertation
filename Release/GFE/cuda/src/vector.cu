@@ -32,6 +32,14 @@ __device__ Vector operator - (Vector v1, Vector v2)
     return v;
 }
 
+__device__ double operator * (Vector v1, Vector v2)
+{
+    double xp = v1.x * v2.x;
+    double yp = v1.y * v2.y;
+    double zp = v1.z * v2.z;
+    return xp + yp + zp;
+}
+
 __device__ Vector operator ^ (Vector v1, Vector v2)
 {
     double x = v1.y * v2.z - v1.z * v2.y;
