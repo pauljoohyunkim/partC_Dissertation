@@ -158,6 +158,30 @@ and analogously with second derivative operator:
 where one defines $f_i \coloneqq \frac{1}{2} \left( \Gammabf^k \left[ i+1 \right] - \Gammabf^k \left[ i-1 \right] \right)$
 and $U_{i} \coloneqq U\left( \Gammabf^k \left[ i \right] \right)$.
 
+However, inverting the Laplacian is troublesome, as it is equivalent to inverting a singular matrix.
+\begin{lemma}
+    The matrix capturing curve Laplacian $\curvelaplacian_{\Gammabf^k}$ for closed discrete curve $\Gammabf^k$ is singular.
+\end{lemma}
+\begin{proof}
+    The matrix $L$ for $\curvelaplacian_{\Gammabf^k}$ for closed discrete curve $\Gammabf^k$ has the form:
+    \begin{equation*}
+        L \coloneqq
+        \begin{pmatrix}
+            * & * &   &   &   & & * \\
+            * & * & * &   &   & &  \\
+            & * & * & * &  &  &   \\
+            &   & \ddots  & \ddots & \ddots &  & \\
+            &   &   & *  &  * & * & \\
+            &  & &  & *  & *  & * \\
+            * &   & &  &   & *  & *
+        \end{pmatrix}
+    \end{equation*}
+    To show that $L$ is singular, it is sufficient to show that there is a nontrivial solution $\xbf$ to $L \xbf = \zerobf$.
+    Since rows follow from (\ref{equ: Discrete Curve Laplacian Matrix Form}),
+    observe that the rows sum to zero.
+    Hence, one can spot such nontrivial solution $\xbf = \left( 1, 1, \cdots, 1 \right)^T$.
+\end{proof}
+
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}
 Based on (\ref{equ: Curve Untangling Process}), one writes the following finite difference scheme:
 \begin{equation}
@@ -335,9 +359,12 @@ To compute a step, one performs three steps:
     \item Compute $\nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$.
     \item Solve linear system $\mathcal{L} \mathcal{G}^{T} = \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)^T$ for $\mathcal{G} \in \mathbb{R}^{3 \times N}$
         \begin{itemize}
-            \item $\mathcal{L} = \curvelaplacian_{\Gammabf^k} + cI$ is the (almost tridiagonal by (\ref{equ: Discrete Curve Laplacian Matrix Form})) matrix capturing the discretised curve Laplacian $\curvelaplacian_{\Gammabf^k}$
-                plus a constant multiple of the identity matrix; without the latter, because curve Laplacian matrix alone is singular, the linear system would not have a unique solution.
-            \item $c > 0$ is a constant such that $c$ closer to zero characterises ``more $H^1$-like flow''.
+            \item $\mathcal{L} = \curvelaplacian_{\Gammabf^k} + cI$ is the (almost tridiagonal by (\ref{equ: Discrete Curve Laplacian Matrix Form})) matrix capturing the ``regularised'' discrete curve Laplacian $\curvelaplacian_{\Gammabf^k}$;
+                %plus a constant multiple of the identity matrix;
+                %without the latter,
+                because curve Laplacian matrix alone is singular, the linear system would not have a unique solution,
+                and the regularisation is to pick a sensible solution to the singular linear system.
+            \item $c > 0$ is a constant such that $c$ closer to zero characterises ``more $H^1$-like flow'', at the cost of higher conditioning number.
         \end{itemize}
     \item Evolve by $\Gammabf^{k+1} = \left( \Delta T \right) \mathcal{G} + \Gammabf^k$.
 \end{enumerate}
