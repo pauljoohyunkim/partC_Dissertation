@@ -15,3 +15,6 @@ set_target_properties(addTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCH
 
 add_executable(accessTest accessTest.cu ../src/solver.cu)
 set_target_properties(accessTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})
+
+add_executable(vectorTest vectorTest.cu ../src/solver.cu ../src/vector.cu)
+set_target_properties(vectorTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})
