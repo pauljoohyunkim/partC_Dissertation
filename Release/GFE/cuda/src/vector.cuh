@@ -16,5 +16,6 @@ struct Vector
 
 __device__ Vector operator + (Vector v1, Vector v2);
 __device__ Vector operator - (Vector v1, Vector v2);
+__device__ Vector operator ^ (Vector v1, Vector v2);
 
 #endif  // __VECTOR_CUH__

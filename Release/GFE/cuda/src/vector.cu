@@ -31,3 +31,14 @@ __device__ Vector operator - (Vector v1, Vector v2)
     Vector v { v1.x - v2.x, v1.y - v2.y, v1.z - v2.z };
     return v;
 }
+
+__device__ Vector operator ^ (Vector v1, Vector v2)
+{
+    double x = v1.y * v2.z - v1.z * v2.y;
+    double y = v1.z * v2.x - v1.x * v2.z;
+    double z = v1.x * v2.y - v1.y * v2.x;
+
+    Vector v { x, y, z };
+
+    return v;
+}
