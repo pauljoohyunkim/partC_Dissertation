@@ -20,4 +20,6 @@ __device__ Vector operator - (Vector v1, Vector v2);
 __device__ double operator * (Vector v1, Vector v2);
 __device__ Vector operator ^ (Vector v1, Vector v2);
 
+__device__ double norm(Vector v);
+
 #endif  // __VECTOR_CUH__

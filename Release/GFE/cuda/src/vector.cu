@@ -50,3 +50,8 @@ __device__ Vector operator ^ (Vector v1, Vector v2)
 
     return v;
 }
+
+__device__ double norm(Vector v)
+{
+    return norm3d(v.x, v.y, v.z);
+}
