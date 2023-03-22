@@ -12,6 +12,7 @@ __global__ void kernel()
     printf("v2: %f, %f, %f\n", v2.x, v2.y, v2.z);
     printf("sum: %f, %f, %f\n", vp.x, vp.y, vp.z);
     printf("diff: %f, %f, %f\n", vn.x, vn.y, vn.z);
+    printf("|v1|: %f\n", v1.norm());
 }
 
 int main()

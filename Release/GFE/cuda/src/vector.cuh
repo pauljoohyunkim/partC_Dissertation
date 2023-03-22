@@ -5,6 +5,9 @@ struct Vector
 {
     __device__ Vector();
     __device__ Vector(double ax, double ay, double az);
+
+    /* Norm */
+    __device__ double norm();
     
     double x;
     double y;
