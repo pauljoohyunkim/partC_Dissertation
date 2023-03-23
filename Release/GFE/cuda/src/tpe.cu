@@ -66,3 +66,19 @@ __device__ void kjkm1(double* dev_blocks, int p, int q, int r, unsigned int N, d
     deta = beta * pow(xkEdgeLen, alpha) * pow(xkjLen, beta-2) * xkj
         + alpha * pow(xkjLen, beta) * pow(xkEdgeLen, alpha-2) * xkEdge;
 }
+
+__device__ void ikj(double* dev_blocks, int p, int q, int r, unsigned int N, double& xi, double&eta, Vector& dxi, Vector& deta, double alpha, double beta)
+{
+    int i { p };
+    int j { r };
+    int k { q };
+    Vector xjEdge = vectorFromTensor(dev_blocks, j+1, N) - vectorFromTensor(dev_blocks, j, N);
+    double xjEdgeLen = xjEdge.norm();
+    Vector xki = vectorFromTensor(dev_blocks, k, N) - vectorFromTensor(dev_blocks, i, N);
+    double xkiLen = xki.norm();
+
+    xi = pow(xjEdgeLen * xkiLen, 2) - pow(xjEdge * xki, 2);
+    eta = pow(xkiLen, beta) * pow(xjEdgeLen, alpha);
+    dxi = 2 * pow(xjEdgeLen, 2) * xki - 2 * (xjEdge * xki) * xjEdge;
+    deta = beta * pow(xjEdgeLen, alpha) * pow(xkiLen, beta-2) * xki;
+}
