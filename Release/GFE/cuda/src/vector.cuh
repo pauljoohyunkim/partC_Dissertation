@@ -17,6 +17,7 @@ struct Vector
 __device__ Vector operator + (Vector v1, Vector v2);
 __device__ Vector operator - (Vector v1, Vector v2);
 __device__ Vector operator - (Vector v1);
+__device__ Vector operator / (Vector v1, double lambda);
 /* Scalar Multiplication */
 __device__ Vector operator * (Vector v1, double lambda);
 __device__ Vector operator * (double lambda, Vector v1);
