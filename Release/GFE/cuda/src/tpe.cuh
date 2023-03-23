@@ -11,4 +11,8 @@ __device__ void km1jkm1(double* dev_blocks, int p, int q, int r, unsigned int N,
 __device__ void kjkm1(double* dev_blocks, int p, int q, int r, unsigned int N, double& xi, double&eta, Vector& dxi, Vector& deta, double alpha=3, double beta=6);
 __device__ void ikj(double* dev_blocks, int p, int q, int r, unsigned int N, double& xi, double&eta, Vector& dxi, Vector& deta, double alpha=3, double beta=6);
 
+__device__ void dProductOfLengths(double* dev_blocks, int p, int q, int k, unsigned int N, Vector& res);
+
+__device__ void fillDerivativeIndex(int* dev_derivative_indices, int k, unsigned int J);
+
 #endif  // __TPE_CUH__

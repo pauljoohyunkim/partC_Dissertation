@@ -146,3 +146,86 @@ __device__ void ikj(double* dev_blocks, int p, int q, int r, unsigned int N, dou
     dxi = 2 * pow(xjEdgeLen, 2) * xki - 2 * (xjEdge * xki) * xjEdge;
     deta = beta * pow(xjEdgeLen, alpha) * pow(xkiLen, beta-2) * xki;
 }
+
+
+__device__ void dProductOfLengths(double* dev_blocks, int p, int q, int k, unsigned int N, Vector& res)
+{
+    int i { p % (int) N };
+    int j { q % (int) N };
+    k = k % (int) N;
+    int ip1 { (i+1) % (int) N };
+    int jp1 { (j+1) % (int) N };
+
+    Vector xiEdge = vectorFromTensor(dev_blocks, i+1, N) - vectorFromTensor(dev_blocks, i, N);
+    double xiEdgeLen = xiEdge.norm();
+    Vector xjEdge = vectorFromTensor(dev_blocks, j+1, N) - vectorFromTensor(dev_blocks, j, N);
+    double xjEdgeLen = xjEdge.norm();
+
+    if (i == k)
+    {
+        res = xjEdgeLen * (-xiEdge) / xiEdgeLen;
+    }
+    else if (ip1 == k)
+    {
+        res = xjEdgeLen * xiEdge / xiEdgeLen;
+    }
+    else if (j == k)
+    {
+        res = xiEdgeLen * (-xjEdge) / xjEdgeLen;
+    }
+    else if (jp1 == k)
+    {
+        res = xiEdgeLen * xjEdge / xjEdgeLen;
+    }
+    else
+    {
+        res = Vector(0, 0, 0);
+    }
+}
+
+/* 4(N-1) Pairs of Form:
+   * *
+   * *
+   * *
+ */
+__device__ void fillDerivativeIndex(int* dev_derivative_indices, int k, unsigned int J)
+{
+    int N { (int) J };
+    int stackpt = 0;
+    for (int i = 0; i < N; i++)
+    {
+        if (abs(k-i) > 1 && abs(k-i+N) > 1 && abs(k-i-N) > 1)
+        {
+            dev_derivative_indices[2 * stackpt] = k;
+            dev_derivative_indices[2 * stackpt + 1] = i;
+            stackpt++;
+        }
+    }
+    for (int i = 0; i < N; i++)
+    {
+        if (abs(k-i) > 1 && abs(k-i+N) > 1 && abs(k-i-N) > 1)
+        {
+            dev_derivative_indices[2 * stackpt] = i;
+            dev_derivative_indices[2 * stackpt + 1] = k;
+            stackpt++;
+        }
+    }
+    for (int i = 0; i < N; i++)
+    {
+        if (abs(k-1-i) > 1 && abs(k-1-i+N) > 1 && abs(k-1-i-N) > 1)
+        {
+            dev_derivative_indices[2 * stackpt] = (k+N-1)%N;
+            dev_derivative_indices[2 * stackpt + 1] = i;
+            stackpt++;
+        }
+    }
+    for (int i = 0; i < N; i++)
+    {
+        if (abs(k-1-i) > 1 && abs(k-1-i+N) > 1 && abs(k-1-i-N) > 1)
+        {
+            dev_derivative_indices[2 * stackpt] = i;
+            dev_derivative_indices[2 * stackpt + 1] = (k+N-1)%N;
+            stackpt++;
+        }
+    }
+}

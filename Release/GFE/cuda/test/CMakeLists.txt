@@ -24,3 +24,6 @@ set_target_properties(vectorFromTensorTest PROPERTIES CUDA_SEPARABLE_COMPILATION
 
 add_executable(dTPETest dTPETest.cu ../src/solver.cu ../src/vector.cu ../src/tpe.cu)
 set_target_properties(dTPETest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})
+
+add_executable(derivativeIndexTest derivativeIndexTest.cu ../src/solver.cu ../src/vector.cu ../src/tpe.cu)
+set_target_properties(derivativeIndexTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})

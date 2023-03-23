@@ -13,6 +13,7 @@ class CurveTensor
         unsigned int N { 0 };
 
         double* dev_blocks;
+        int* dev_derivative_indices;
 };
 
 void tensorBlockLoad(CurveTensor& Gammabf, double* blocks, unsigned int N);
