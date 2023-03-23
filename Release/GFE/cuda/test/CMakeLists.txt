@@ -21,3 +21,6 @@ set_target_properties(vectorTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_A
 
 add_executable(vectorFromTensorTest vectorFromTensorTest.cu ../src/solver.cu ../src/vector.cu)
 set_target_properties(vectorFromTensorTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})
+
+add_executable(dTPETest dTPETest.cu ../src/solver.cu ../src/vector.cu ../src/tpe.cu)
+set_target_properties(dTPETest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})
