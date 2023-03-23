@@ -3,6 +3,39 @@
 #include "vector.cuh"
 #include "tpe.cuh"
 
+/* Static Function Declaration */
+//__global__ static void dEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, unsigned int N, double alpha=3, double beta=6);
+
+
+
+
+__device__ double kernelalphabeta(Vector& p, Vector& q, Vector& T, double alpha, double beta)
+{
+    Vector pmq = p - q;
+    auto numerator = pow(norm(T ^ pmq), alpha);
+    auto denominator = pow(pmq.norm(), beta);
+
+    return numerator / denominator;
+}
+
+__device__ double kij(double* dev_blocks, int i, int j, unsigned int N, double alpha, double beta)
+{
+    Vector TI = vectorFromTensor(dev_blocks, i+1, N) - vectorFromTensor(dev_blocks, i, N);
+    TI = TI / TI.norm();
+    
+    double res = 0;
+    Vector xi = vectorFromTensor(dev_blocks, i, N);
+    Vector xj = vectorFromTensor(dev_blocks, j, N);
+    Vector xip = vectorFromTensor(dev_blocks, i+1, N);
+    Vector xjp = vectorFromTensor(dev_blocks, j+1, N);
+    res += kernelalphabeta(xi, xj, TI, alpha, beta);
+    res += kernelalphabeta(xi, xjp, TI, alpha, beta);
+    res += kernelalphabeta(xip, xj, TI, alpha, beta);
+    res += kernelalphabeta(xip, xjp, TI, alpha, beta);
+
+    return res;
+}
+
 __device__ void dkij(double* dev_blocks, int i, int j, int k, unsigned int N, Vector& res, double alpha, double beta)
 {
     res = Vector();
@@ -229,3 +262,35 @@ __device__ void fillDerivativeIndex(int* dev_derivative_indices, int k, unsigned
         }
     }
 }
+
+/* <<<N, 1>>> */
+//__global__ static void dEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, const unsigned int N, double alpha, double beta)
+//{
+//    int k = blockIdx.x;
+//
+//    /* This vector will be the column of the tensor */
+//    Vector res(0, 0, 0);
+//
+//    /* Generate the indices relevant to derivative for each k */
+//    int dev_derivative_indices [8 * (N - 3)];
+//    fillDerivativeIndex(dev_derivative_indices, k, N);
+//
+//    /* Loop over each pair of indices */
+//    for (int index = 0; index < 4 * ((int)N-3); index++)
+//    {
+//        int i = dev_derivative_indices[2 * index];
+//        int j = dev_derivative_indices[2 * index + 1];
+//
+//        Vector xiEdge = vectorFromTensor(dev_curve_tensor_blocks, i+1, N) - vectorFromTensor(dev_curve_tensor_blocks, i, N);
+//        double xiEdgeLen = xiEdge.norm();
+//        Vector xjEdge = vectorFromTensor(dev_curve_tensor_blocks, j+1, N) - vectorFromTensor(dev_curve_tensor_blocks, j, N);
+//        double xjEdgeLen = xjEdge.norm();
+//
+//        /* Each summand is from the product rule of k_ij and product of edge lengths */
+//        Vector summand1;
+//        Vector summand2;
+//        dkij(dev_curve_tensor_blocks, i, j, k, N, summand1, alpha, beta);
+//        summand1 = summand1 * xiEdgeLen * xjEdgeLen;
+//        
+//    }
+//}
