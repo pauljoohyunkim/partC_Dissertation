@@ -3,6 +3,22 @@
 #include "vector.cuh"
 #include "tpe.cuh"
 
+__device__ void dkij(double* dev_blocks, int i, int j, int k, unsigned int N, Vector& res, double alpha, double beta)
+{
+    res = Vector();
+    Vector temp;
+
+    dkalphabeta(dev_blocks, i, j, i, k, N, temp, alpha, beta);
+    res = res + temp;
+    dkalphabeta(dev_blocks, i, j+1, i, k, N, temp, alpha, beta);
+    res = res + temp;
+    dkalphabeta(dev_blocks, i+1, j, i, k, N, temp, alpha, beta);
+    res = res + temp;
+    dkalphabeta(dev_blocks, i+1, j+1, i, k, N, temp, alpha, beta);
+    res = res + temp;
+    res = res / 4;
+}
+
 __device__ void dkalphabeta(double* dev_blocks, int p, int q, int r, int k, unsigned int N, Vector& res, double alpha, double beta)
 {
     p = p % (int) N;
@@ -43,6 +59,8 @@ __device__ void dkalphabeta(double* dev_blocks, int p, int q, int r, int k, unsi
     else
     {
         printf("(p,q,r) tuple not defined\n");
+        res = Vector(0, 0, 0);
+        return;
     }
 
     res = (alpha / 2 * pow(xi, alpha/2-1) * dxi * eta - pow(xi, alpha/2) * deta) / pow(eta,2);

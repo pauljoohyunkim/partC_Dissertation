@@ -1,6 +1,7 @@
 #include <vector>
 #include <cstdio>
 #include <cmath>
+#include <iostream>
 #include "../src/tpe.cuh"
 #include "../src/solver.cuh"
 
@@ -83,6 +84,13 @@ __global__ void kernel(double* dev_blocks, unsigned int N)
 
 }
 
+__global__ void kernel2(double* dev_blocks, unsigned int N, int i, int j, int k)
+{
+    Vector res { };
+    dkij(dev_blocks, i, j, k, N, res, 3, 6);
+       printf("%f, %f, %f\n", res.x, res.y, res.z);
+}
+
 int main()
 {
     std::vector<double> x {};
@@ -100,6 +108,9 @@ int main()
     CurveTensor T { x, y, z };
 
     kernel<<<1,1>>>(T.dev_blocks, T.N);
+    cudaDeviceSynchronize();
+    std::cout << "------------------------------" << std::endl;
+    kernel2<<<1,1>>>(T.dev_blocks, T.N, 3, 1, 1);
 
     return 0;
 }
