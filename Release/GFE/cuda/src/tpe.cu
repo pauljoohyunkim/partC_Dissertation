@@ -3,8 +3,33 @@
 #include "vector.cuh"
 #include "tpe.cuh"
 
+template <class T>
+ScratchPad<T>::ScratchPad(unsigned int am, unsigned int aN)
+{
+    m = am;
+    N = aN;
+    scratchpads = new T*[m];
+    for (auto i = 0; i < am; i++)
+    {
+        cudaMalloc((void**)(&scratchpads[i]), N * sizeof(T));
+    }
+}
+
+template <class T>
+ScratchPad<T>::~ScratchPad()
+{
+    for (auto i = 0; i < m; i++)
+    {
+        cudaFree(scratchpads[i]);
+    }
+    delete [] scratchpads;
+}
+
+
+
+
 /* Static Function Declaration */
-//__global__ static void dEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, unsigned int N, double alpha=3, double beta=6);
+//__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, unsigned int N, double alpha=3, double beta=6);
 
 
 
@@ -264,7 +289,7 @@ __device__ void fillDerivativeIndex(int* dev_derivative_indices, int k, unsigned
 }
 
 /* <<<N, 1>>> */
-//__global__ static void dEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, const unsigned int N, double alpha, double beta)
+//__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index, unsigned int N, double alpha, double beta)
 //{
 //    int k = blockIdx.x;
 //
@@ -294,3 +319,9 @@ __device__ void fillDerivativeIndex(int* dev_derivative_indices, int k, unsigned
 //        
 //    }
 //}
+
+
+
+
+/* Explicit Instantiation */
+template class ScratchPad<int>;

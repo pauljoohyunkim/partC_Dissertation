@@ -3,6 +3,19 @@
 
 #include "vector.cuh"
 
+template <class T>
+struct ScratchPad
+{
+    /* m arrays of length N */
+    ScratchPad(unsigned int am, unsigned int aN);
+    ~ScratchPad();
+
+    T** scratchpads;
+    unsigned int m;
+    unsigned int N;
+
+};
+
 __device__ double kernelalphabeta(Vector& p, Vector& q, Vector& T, double alpha=3, double beta=6);
 __device__ double kij(double* dev_blocks, int i, int j, unsigned int N, double alpha=3, double beta=6);
 
