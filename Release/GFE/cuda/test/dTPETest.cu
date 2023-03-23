@@ -13,13 +13,29 @@ __global__ void kernel(double* dev_blocks, unsigned int N)
    int p = 0;
    int q = 2;
    int r = 0;
+   int k = 0;
 
    kjk(dev_blocks, p, q, r, N, xi, eta, dxi, deta);
 
+   printf("kjk\n");
    printf("xi: %f\n", xi);
    printf("eta: %f\n", eta);
    printf("dxi: %f, %f, %f\n", dxi.x, dxi.y, dxi.z);
    printf("deta: %f, %f, %f\n", deta.x, deta.y, deta.z);
+
+   p = 1;
+   q = 4;
+   r = 0;
+   k = 0;
+
+   ijk(dev_blocks, p, q, r, N, xi, eta, dxi, deta);
+   
+   printf("ijk\n");
+   printf("xi: %f\n", xi);
+   printf("eta: %f\n", eta);
+   printf("dxi: %f, %f, %f\n", dxi.x, dxi.y, dxi.z);
+   printf("deta: %f, %f, %f\n", deta.x, deta.y, deta.z);
+
 }
 
 int main()
