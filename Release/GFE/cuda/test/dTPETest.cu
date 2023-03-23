@@ -71,6 +71,16 @@ __global__ void kernel(double* dev_blocks, unsigned int N)
    printf("eta: %f\n", eta);
    printf("dxi: %f, %f, %f\n", dxi.x, dxi.y, dxi.z);
    printf("deta: %f, %f, %f\n", deta.x, deta.y, deta.z);
+
+   p = 3;
+   q = 1;
+   r = 3;
+   k = 1;
+
+   Vector res { };
+   dkalphabeta(dev_blocks, p, q, r, k, N, res, 3, 6);
+   printf("%f, %f, %f\n", res.x, res.y, res.z);
+
 }
 
 int main()

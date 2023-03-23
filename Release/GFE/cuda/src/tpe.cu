@@ -1,6 +1,52 @@
+#include <cstdio>
 #include "solver.cuh"
 #include "vector.cuh"
 #include "tpe.cuh"
+
+__device__ void dkalphabeta(double* dev_blocks, int p, int q, int r, int k, unsigned int N, Vector& res, double alpha, double beta)
+{
+    p = p % (int) N;
+    q = q % (int) N;
+    r = r % (int) N;
+    k = k % (int) N;
+    int km1 = ((k-1) % (int) N + N) % (int) N;
+    double xi;
+    double eta;
+    Vector dxi;
+    Vector deta;
+
+    if (p == k && r == k)
+    {
+        kjk(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
+        printf("kjk\n");
+    }
+    else if (r == k)
+    {
+        ijk(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
+        printf("ijk\n");
+    }
+    else if (p == km1 && r == km1)
+    {
+        km1jkm1(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
+        printf("km1jkm1\n");
+    }
+    else if (p == k && r == km1)
+    {
+        kjkm1(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
+        printf("kjkm1\n");
+    }
+    else if (q == k)
+    {
+        ikj(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
+        printf("ikj\n");
+    }
+    else
+    {
+        printf("(p,q,r) tuple not defined\n");
+    }
+
+    res = (alpha / 2 * pow(xi, alpha/2-1) * dxi * eta - pow(xi, alpha/2) * deta) / pow(eta,2);
+}
 
 __device__ void kjk(double* dev_blocks, int p, int q, int r, unsigned int N, double& xi, double&eta, Vector& dxi, Vector& deta, double alpha, double beta)
 {
