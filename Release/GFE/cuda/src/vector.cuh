@@ -16,8 +16,12 @@ struct Vector
 
 __device__ Vector operator + (Vector v1, Vector v2);
 __device__ Vector operator - (Vector v1, Vector v2);
+/* Scalar Multiplication */
+__device__ Vector operator * (Vector v1, double lambda);
+__device__ Vector operator * (double lambda, Vector v1);
 /* Dot Product */
 __device__ double operator * (Vector v1, Vector v2);
+/* Cross Product */
 __device__ Vector operator ^ (Vector v1, Vector v2);
 
 __device__ double norm(Vector v);

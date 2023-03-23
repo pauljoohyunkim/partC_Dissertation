@@ -9,6 +9,7 @@ __global__ void kernel()
     auto vn = v1 - v2;
     auto vcross = v1 ^ v2;
     auto vcrossnorm { norm(vcross) };
+    auto quarterv1 = 0.5 * v1 * 0.5;
 
     printf("v1: %f, %f, %f\n", v1.x, v1.y, v1.z);
     printf("v2: %f, %f, %f\n", v2.x, v2.y, v2.z);
@@ -18,6 +19,7 @@ __global__ void kernel()
     printf("dot: %f\n", v1 * v2);
     printf("cross: %f, %f, %f\n", vcross.x, vcross.y, vcross.z);
     printf("|cross|: %f\n", vcrossnorm);
+    printf("0.25v1: %f, %f, %f\n", quarterv1.x, quarterv1.y, quarterv1.z);
     
 }
 

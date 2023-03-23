@@ -33,6 +33,17 @@ __device__ Vector operator - (Vector v1, Vector v2)
     return v;
 }
 
+__device__ Vector operator * (Vector v1, double lambda)
+{
+    Vector v { v1.x * lambda, v1.y * lambda, v1.z * lambda };
+    return v;
+}
+
+__device__ Vector operator * (double lambda, Vector v1)
+{
+    return v1 * lambda;
+}
+
 __device__ double operator * (Vector v1, Vector v2)
 {
     double xp = v1.x * v2.x;
