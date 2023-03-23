@@ -1,3 +1,4 @@
+#include "solver.cuh"
 #include "vector.cuh"
 
 
@@ -54,4 +55,14 @@ __device__ Vector operator ^ (Vector v1, Vector v2)
 __device__ double norm(Vector v)
 {
     return norm3d(v.x, v.y, v.z);
+}
+
+__device__ Vector vectorFromTensor(double* dev_blocks, int i, unsigned int N)
+{
+    Vector v {
+        componentAccess(dev_blocks, i, 0, N),
+        componentAccess(dev_blocks, i, 1, N),
+        componentAccess(dev_blocks, i, 2, N)
+    };
+    return v;
 }

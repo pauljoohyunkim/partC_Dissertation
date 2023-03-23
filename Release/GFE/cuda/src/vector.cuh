@@ -22,4 +22,6 @@ __device__ Vector operator ^ (Vector v1, Vector v2);
 
 __device__ double norm(Vector v);
 
+__device__ Vector vectorFromTensor(double* dev_blocks, int i, unsigned int N);
+
 #endif  // __VECTOR_CUH__
