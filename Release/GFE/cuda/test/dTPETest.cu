@@ -47,6 +47,18 @@ __global__ void kernel(double* dev_blocks, unsigned int N)
    printf("eta: %f\n", eta);
    printf("dxi: %f, %f, %f\n", dxi.x, dxi.y, dxi.z);
    printf("deta: %f, %f, %f\n", deta.x, deta.y, deta.z);
+
+   p = 1;
+   q = 4;
+   r = 0;
+   k = 1;
+
+   kjkm1(dev_blocks, p, q, r, N, xi, eta, dxi, deta);
+   printf("kjkm1\n");
+   printf("xi: %f\n", xi);
+   printf("eta: %f\n", eta);
+   printf("dxi: %f, %f, %f\n", dxi.x, dxi.y, dxi.z);
+   printf("deta: %f, %f, %f\n", deta.x, deta.y, deta.z);
 }
 
 int main()
