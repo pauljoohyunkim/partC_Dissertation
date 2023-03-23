@@ -33,3 +33,6 @@ set_target_properties(kernelalphabetaTest PROPERTIES CUDA_SEPARABLE_COMPILATION 
 
 add_executable(scratchTest scratchTest.cu ../src/tpe.cu)
 set_target_properties(scratchTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})
+
+add_executable(dEnergyTest dEnergyTest.cu ../src/tpe.cu ../src/solver.cu ../src/vector.cu)
+set_target_properties(dEnergyTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})

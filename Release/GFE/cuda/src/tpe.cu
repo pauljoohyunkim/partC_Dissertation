@@ -29,7 +29,7 @@ ScratchPad<T>::~ScratchPad()
 
 
 /* Static Function Declaration */
-//__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, unsigned int N, double alpha=3, double beta=6);
+//__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index_scratch, unsigned int N, double alpha=3, double beta=6);
 
 
 
@@ -288,37 +288,51 @@ __device__ void fillDerivativeIndex(int* dev_derivative_indices, int k, unsigned
     }
 }
 
-/* <<<N, 1>>> */
+/* <<<N, 1>>> 
+
+ Note that derivative_index_scratch should be called from ScratchPad<int> { N, 8 * (N - 3) }*/
+//__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index_scratch, unsigned int N, double alpha, double beta)
+__global__ void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index_scratch, unsigned int N, double alpha, double beta)
 //__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index, unsigned int N, double alpha, double beta)
-//{
-//    int k = blockIdx.x;
-//
-//    /* This vector will be the column of the tensor */
-//    Vector res(0, 0, 0);
-//
-//    /* Generate the indices relevant to derivative for each k */
-//    int dev_derivative_indices [8 * (N - 3)];
-//    fillDerivativeIndex(dev_derivative_indices, k, N);
-//
-//    /* Loop over each pair of indices */
-//    for (int index = 0; index < 4 * ((int)N-3); index++)
-//    {
-//        int i = dev_derivative_indices[2 * index];
-//        int j = dev_derivative_indices[2 * index + 1];
-//
-//        Vector xiEdge = vectorFromTensor(dev_curve_tensor_blocks, i+1, N) - vectorFromTensor(dev_curve_tensor_blocks, i, N);
-//        double xiEdgeLen = xiEdge.norm();
-//        Vector xjEdge = vectorFromTensor(dev_curve_tensor_blocks, j+1, N) - vectorFromTensor(dev_curve_tensor_blocks, j, N);
-//        double xjEdgeLen = xjEdge.norm();
-//
-//        /* Each summand is from the product rule of k_ij and product of edge lengths */
-//        Vector summand1;
-//        Vector summand2;
-//        dkij(dev_curve_tensor_blocks, i, j, k, N, summand1, alpha, beta);
-//        summand1 = summand1 * xiEdgeLen * xjEdgeLen;
-//        
-//    }
-//}
+{
+    int k = blockIdx.x;
+
+    /* This vector will be the column of the tensor */
+    Vector res(0, 0, 0);
+
+    /* Generate the indices relevant to derivative for each k */
+    int* dev_derivative_indices = derivative_index_scratch[k];
+    //int dev_derivative_indices [8 * (N - 3)];
+    fillDerivativeIndex(dev_derivative_indices, k, N);
+
+    /* Loop over each pair of indices */
+    for (int index = 0; index < 4 * ((int)N-3); index++)
+    {
+        int i = dev_derivative_indices[2 * index];
+        int j = dev_derivative_indices[2 * index + 1];
+
+        Vector xiEdge = vectorFromTensor(dev_curve_tensor_blocks, i+1, N) - vectorFromTensor(dev_curve_tensor_blocks, i, N);
+        double xiEdgeLen = xiEdge.norm();
+        Vector xjEdge = vectorFromTensor(dev_curve_tensor_blocks, j+1, N) - vectorFromTensor(dev_curve_tensor_blocks, j, N);
+        double xjEdgeLen = xjEdge.norm();
+
+        /* Each summand is from the product rule of k_ij and product of edge lengths */
+        Vector summand1;
+        Vector summand2;
+        dkij(dev_curve_tensor_blocks, i, j, k, N, summand1, alpha, beta);
+        summand1 = summand1 * xiEdgeLen * xjEdgeLen;
+
+        dProductOfLengths(dev_curve_tensor_blocks, i, j, k, N, summand2);
+        summand2 = kij(dev_curve_tensor_blocks, i, j, N, alpha, beta) * summand2;
+        
+        res = res + summand1;
+        res = res + summand2;
+    }
+
+    componentAccess(dev_differential_blocks, k, 0, N) = res.x;
+    componentAccess(dev_differential_blocks, k, 1, N) = res.y;
+    componentAccess(dev_differential_blocks, k, 2, N) = res.z;
+}
 
 
 

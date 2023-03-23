@@ -31,4 +31,6 @@ __device__ void dProductOfLengths(double* dev_blocks, int p, int q, int k, unsig
 
 __device__ void fillDerivativeIndex(int* dev_derivative_indices, int k, unsigned int J);
 
+__global__ void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index_scratch, unsigned int N, double alpha, double beta);
+
 #endif  // __TPE_CUH__
