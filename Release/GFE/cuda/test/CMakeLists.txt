@@ -4,7 +4,8 @@ project(CurveRepulsion LANGUAGES CUDA CXX)
 
 #set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS}; -gencode arch=compute_86,code=sm_86")
 #set(CMAKE_VERBOSE_MAKEFILE TRUE)
-set(CUDA_GENCODE_NUM 61)
+set(CUDA_GENCODE_NUM 86)
+set(CMAKE_CUDA_FLAGS_DEBUG "-g -G")
 
 
 add_executable(loadTest loadTest.cu ../src/solver.cu)
@@ -31,7 +32,7 @@ set_target_properties(derivativeIndexTest PROPERTIES CUDA_SEPARABLE_COMPILATION 
 add_executable(kernelalphabetaTest kernelalphabetaTest.cu ../src/solver.cu ../src/vector.cu ../src/tpe.cu)
 set_target_properties(kernelalphabetaTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})
 
-add_executable(scratchTest scratchTest.cu ../src/tpe.cu)
+add_executable(scratchTest scratchTest.cu ../src/tpe.cu ../src/vector.cu ../src/solver.cu)
 set_target_properties(scratchTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})
 
 add_executable(dEnergyTest dEnergyTest.cu ../src/tpe.cu ../src/solver.cu ../src/vector.cu)

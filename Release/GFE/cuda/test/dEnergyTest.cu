@@ -5,7 +5,7 @@
 
 int main()
 {
-    const unsigned int resolution = 30;
+    const unsigned int resolution = 10;
     std::vector<double> x {};
     std::vector<double> y {};
     std::vector<double> z {};
@@ -30,6 +30,7 @@ int main()
     double derivatives_in_memory[3 * resolution];
     tensorBlockFlush(dT, derivatives_in_memory, resolution);
 
+    cudaDeviceSynchronize();
 
     return 0;
 
