@@ -84,31 +84,31 @@ __device__ void dkalphabeta(double* dev_blocks, int p, int q, int r, int k, unsi
     if (p == k && r == k)
     {
         kjk(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
-        printf("kjk\n");
+        //printf("kjk\n");
     }
     else if (r == k)
     {
         ijk(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
-        printf("ijk\n");
+        //printf("ijk\n");
     }
     else if (p == km1 && r == km1)
     {
         km1jkm1(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
-        printf("km1jkm1\n");
+        //printf("km1jkm1\n");
     }
     else if (p == k && r == km1)
     {
         kjkm1(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
-        printf("kjkm1\n");
+        //printf("kjkm1\n");
     }
     else if (q == k)
     {
         ikj(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
-        printf("ikj\n");
+        //printf("ikj\n");
     }
     else
     {
-        printf("(p,q,r) tuple not defined\n");
+        //printf("(p,q,r) tuple not defined\n");
         res = Vector(0, 0, 0);
         return;
     }

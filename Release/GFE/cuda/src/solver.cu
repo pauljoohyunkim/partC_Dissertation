@@ -39,7 +39,6 @@ CurveTensor::CurveTensor(std::vector<double>& x, std::vector<double>& y, std::ve
 {
     N = x.size();
     cudaMalloc((void**)&dev_blocks, 3 * N * sizeof(double));
-    cudaMalloc((void**)&dev_derivative_indices, (8 * (N - 3)) * sizeof(int));
     cudaMemcpy(dev_blocks, &x[0], N * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(dev_blocks + N, &y[0], N * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(dev_blocks + 2 * N, &z[0], N * sizeof(double), cudaMemcpyHostToDevice);
@@ -48,7 +47,6 @@ CurveTensor::CurveTensor(std::vector<double>& x, std::vector<double>& y, std::ve
 CurveTensor::~CurveTensor()
 {
     cudaFree(dev_blocks);
-    cudaFree(dev_derivative_indices);
     std::cout << "Tensor Destructed" << std::endl;
 }
 
