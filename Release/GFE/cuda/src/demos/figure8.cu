@@ -38,6 +38,7 @@ int main()
     {
         /* Energy Derivative Computaton */
         cuDEnergy<<<RESOLUTION, 1>>>(figure8.dev_blocks, dCurve.dev_blocks, s.scratchpads, RESOLUTION, ALPHA, BETA);
+        cudaDeviceSynchronize();
         /* Evolution */
         tensorSubtract(figure8, dCurve, DELTA_T);
         //cudaDeviceSynchronize();
