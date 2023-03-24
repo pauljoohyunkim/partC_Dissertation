@@ -50,7 +50,7 @@ __device__ double kij(double* dev_blocks, int i, int j, unsigned int N, double a
     res += kernelalphabeta(xip, xj, TI, alpha, beta);
     res += kernelalphabeta(xip, xjp, TI, alpha, beta);
 
-    return res;
+    return res / 4;
 }
 
 __device__ void dkij(double* dev_blocks, int i, int j, int k, unsigned int N, Vector& res, double alpha, double beta)
@@ -320,7 +320,8 @@ __global__ void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_different
         res = res + summand1;
         res = res + summand2;
     }
-
+    
+    printf("%f, %f, %f\n", res.x, res.y, res.z);
     componentAccess(dev_differential_blocks, k, 0, N) = res.x;
     componentAccess(dev_differential_blocks, k, 1, N) = res.y;
     componentAccess(dev_differential_blocks, k, 2, N) = res.z;
