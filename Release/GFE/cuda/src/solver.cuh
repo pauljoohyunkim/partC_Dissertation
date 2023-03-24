@@ -17,8 +17,8 @@ class CurveTensor
 
 void tensorBlockLoad(CurveTensor& Gammabf, double* blocks, unsigned int N);
 void tensorBlockFlush(CurveTensor& Gammabf, double* blocks, unsigned int N);
-void tensorAdd(CurveTensor& t1, CurveTensor& t2);
-void tensorSubtract(CurveTensor& t1, CurveTensor& t2);
+void tensorAdd(CurveTensor& t1, CurveTensor& t2, double scalar=1);
+void tensorSubtract(CurveTensor& t1, CurveTensor& t2, double scalar=1);
 __device__ double& componentAccess(double* dev_blocks, int i, unsigned int j, unsigned int N);
 
 #endif

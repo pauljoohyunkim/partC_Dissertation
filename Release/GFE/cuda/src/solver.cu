@@ -3,7 +3,7 @@
 #include "solver.cuh"
 
 /* (DO NOT USE DIRECTLY) Abstract Function: Addition of Tensor */
-__global__ static void cuTensorAdd(double* dev_blocks_1, double* dev_blocks_2, int N)
+__global__ static void cuTensorAdd(double* dev_blocks_1, double* dev_blocks_2, int N, double scalar=1)
 {
     int i = blockIdx.x;
     int j = blockIdx.y;
@@ -11,12 +11,12 @@ __global__ static void cuTensorAdd(double* dev_blocks_1, double* dev_blocks_2, i
 
     if (offset < 3 * N)
     {
-        dev_blocks_1[offset] += dev_blocks_2[offset];
+        dev_blocks_1[offset] += scalar * dev_blocks_2[offset];
     }
 }
 
 /* (DO NOT USE DIRECTLY) Abstract Function: Subtraction of Tensor */
-__global__ static void cuTensorSubtract(double* dev_blocks_1, double* dev_blocks_2, int N)
+__global__ static void cuTensorSubtract(double* dev_blocks_1, double* dev_blocks_2, int N, double scalar=1)
 {
     int i = blockIdx.x;
     int j = blockIdx.y;
@@ -24,7 +24,7 @@ __global__ static void cuTensorSubtract(double* dev_blocks_1, double* dev_blocks
 
     if (offset < 3 * N)
     {
-        dev_blocks_1[offset] -= dev_blocks_2[offset];
+        dev_blocks_1[offset] -= scalar * dev_blocks_2[offset];
     }
 }
 
@@ -65,15 +65,15 @@ void tensorBlockFlush(CurveTensor& Gammabf, double* blocks, unsigned int N)
     cudaMemcpy(blocks, Gammabf.dev_blocks, 3 * N * sizeof(double), cudaMemcpyDeviceToHost);
 }
 
-void tensorAdd(CurveTensor& t1, CurveTensor& t2)
+void tensorAdd(CurveTensor& t1, CurveTensor& t2, double scalar)
 {
     dim3 grid(3, t1.N);
-    cuTensorAdd<<<grid,1>>>(t1.dev_blocks, t2.dev_blocks, (int) t1.N);
+    cuTensorAdd<<<grid,1>>>(t1.dev_blocks, t2.dev_blocks, (int) t1.N, scalar);
 }
 
-void tensorSubtract(CurveTensor& t1, CurveTensor& t2)
+void tensorSubtract(CurveTensor& t1, CurveTensor& t2, double scalar)
 {
     dim3 grid(3, t1.N);
-    cuTensorSubtract<<<grid,1>>>(t1.dev_blocks, t2.dev_blocks, (int) t1.N);
+    cuTensorSubtract<<<grid,1>>>(t1.dev_blocks, t2.dev_blocks, (int) t1.N, scalar);
 }
 

@@ -12,7 +12,7 @@ int main()
     tensorBlockLoad(tensor2, blocks2, VECTORNUM);
 
     //cuTensorAdd<<<grid,1>>> (tensor1, tensor2);
-    tensorAdd(tensor1, tensor2);
+    tensorAdd(tensor1, tensor2, 1/3.2);
     tensorBlockFlush(tensor1, blocks2, VECTORNUM);
 
     return 0;

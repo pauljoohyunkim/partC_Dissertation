@@ -321,7 +321,7 @@ __global__ void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_different
         res = res + summand2;
     }
     
-    printf("%f, %f, %f\n", res.x, res.y, res.z);
+    //printf("%f, %f, %f\n", res.x, res.y, res.z);
     componentAccess(dev_differential_blocks, k, 0, N) = res.x;
     componentAccess(dev_differential_blocks, k, 1, N) = res.y;
     componentAccess(dev_differential_blocks, k, 2, N) = res.z;
