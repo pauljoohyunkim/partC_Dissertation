@@ -56,13 +56,23 @@ __device__ double& componentAccess(double* dev_blocks, int i, unsigned int j, un
     return dev_blocks[N * (unsigned int) j + i];
 }
 
-void tensorBlockLoad(CurveTensor& Gammabf, double* blocks, unsigned int N)
+void tensorBlockLoad(CurveTensor& Gammabf, double* blocks)
 {
+    unsigned int N { Gammabf.N };
     cudaMemcpy(Gammabf.dev_blocks, blocks, 3 * N * sizeof(double), cudaMemcpyHostToDevice);
 }
-void tensorBlockFlush(CurveTensor& Gammabf, double* blocks, unsigned int N)
+void tensorBlockFlush(CurveTensor& Gammabf, double* blocks)
 {
+    unsigned int N { Gammabf.N };
     cudaMemcpy(blocks, Gammabf.dev_blocks, 3 * N * sizeof(double), cudaMemcpyDeviceToHost);
+}
+void tensorBlockFlush(CurveTensor& Gammabf, std::vector<double>& x, std::vector<double>& y, std::vector<double>& z)
+{
+    unsigned int N { Gammabf.N };
+    //cudaMemcpy(blocks, Gammabf.dev_blocks, 3 * N * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&(x[0]), Gammabf.dev_blocks, N * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&(y[0]), Gammabf.dev_blocks + N, N * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&(z[0]), Gammabf.dev_blocks + 2 * N, N * sizeof(double), cudaMemcpyDeviceToHost);
 }
 
 void tensorAdd(CurveTensor& t1, CurveTensor& t2, double scalar)

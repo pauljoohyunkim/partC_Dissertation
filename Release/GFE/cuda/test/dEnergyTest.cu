@@ -28,7 +28,7 @@ int main()
 
     /* Get Differential into RAM */
     double derivatives_in_memory[3 * resolution];
-    tensorBlockFlush(dT, derivatives_in_memory, resolution);
+    tensorBlockFlush(dT, derivatives_in_memory);
 
     cudaDeviceSynchronize();
 

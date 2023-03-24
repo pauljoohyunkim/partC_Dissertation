@@ -37,3 +37,6 @@ set_target_properties(scratchTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_
 
 add_executable(dEnergyTest dEnergyTest.cu ../src/tpe.cu ../src/solver.cu ../src/vector.cu)
 set_target_properties(dEnergyTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})
+
+add_executable(flushToVectorTest flushToVectorTest.cu ../src/tpe.cu ../src/solver.cu ../src/vector.cu)
+set_target_properties(flushToVectorTest PROPERTIES CUDA_SEPARABLE_COMPILATION ON CUDA_ARCHITECTURES ${CUDA_GENCODE_NUM})

@@ -28,7 +28,8 @@ int main()
     }
     CurveTensor T { x, y, z };
 
-    kernel<<<1,1>>>(T.dev_derivative_indices, T.N);
+    ScratchPad<int> s { 1, 8 * (res - 3) };
+    kernel<<<1,1>>>(s.scratchpads, T.N);
 
     cudaDeviceSynchronize();
     return 0;
