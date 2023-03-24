@@ -8,21 +8,13 @@ ScratchPad<T>::ScratchPad(unsigned int am, unsigned int aN)
 {
     m = am;
     N = aN;
-    scratchpads = new T*[m];
-    for (auto i = 0; i < am; i++)
-    {
-        cudaMalloc((void**)(&scratchpads[i]), N * sizeof(T));
-    }
+    cudaMalloc((void**)(&scratchpads), m * N * sizeof(T));
 }
 
 template <class T>
 ScratchPad<T>::~ScratchPad()
 {
-    for (auto i = 0; i < m; i++)
-    {
-        cudaFree(scratchpads[i]);
-    }
-    delete [] scratchpads;
+    cudaFree(scratchpads);
 }
 
 
@@ -292,7 +284,7 @@ __device__ void fillDerivativeIndex(int* dev_derivative_indices, int k, unsigned
 
  Note that derivative_index_scratch should be called from ScratchPad<int> { N, 8 * (N - 3) }*/
 //__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index_scratch, unsigned int N, double alpha, double beta)
-__global__ void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index_scratch, unsigned int N, double alpha, double beta)
+__global__ void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int* derivative_index_scratch, unsigned int N, double alpha, double beta)
 //__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index, unsigned int N, double alpha, double beta)
 {
     int k = blockIdx.x;
@@ -301,7 +293,7 @@ __global__ void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_different
     Vector res(0, 0, 0);
 
     /* Generate the indices relevant to derivative for each k */
-    int* dev_derivative_indices = derivative_index_scratch[k];
+    int* dev_derivative_indices = derivative_index_scratch + N * k;
     //int dev_derivative_indices [8 * (N - 3)];
     fillDerivativeIndex(dev_derivative_indices, k, N);
 
