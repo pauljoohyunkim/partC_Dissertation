@@ -96,7 +96,7 @@ int main()
     std::vector<double> x {};
     std::vector<double> y {};
     std::vector<double> z {};
-    const int res = 40;
+    const int res = 10;
 
     for (auto i = 0; i < res; i++)
     {

@@ -7,10 +7,11 @@ template <class T>
 struct ScratchPad
 {
     /* m arrays of length N */
+    /* Access k-th copy by scratchpads + N * k */
     ScratchPad(unsigned int am, unsigned int aN);
     ~ScratchPad();
 
-    T** scratchpads;
+    T* scratchpads;
     unsigned int m;
     unsigned int N;
 
@@ -30,5 +31,7 @@ __device__ void ikj(double* dev_blocks, int p, int q, int r, unsigned int N, dou
 __device__ void dProductOfLengths(double* dev_blocks, int p, int q, int k, unsigned int N, Vector& res);
 
 __device__ void fillDerivativeIndex(int* dev_derivative_indices, int k, unsigned int J);
+
+__global__ void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int* derivative_index_scratch, unsigned int N, double alpha, double beta);
 
 #endif  // __TPE_CUH__

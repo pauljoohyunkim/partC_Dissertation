@@ -8,28 +8,20 @@ ScratchPad<T>::ScratchPad(unsigned int am, unsigned int aN)
 {
     m = am;
     N = aN;
-    scratchpads = new T*[m];
-    for (auto i = 0; i < am; i++)
-    {
-        cudaMalloc((void**)(&scratchpads[i]), N * sizeof(T));
-    }
+    cudaMalloc((void**)(&scratchpads), m * N * sizeof(T));
 }
 
 template <class T>
 ScratchPad<T>::~ScratchPad()
 {
-    for (auto i = 0; i < m; i++)
-    {
-        cudaFree(scratchpads[i]);
-    }
-    delete [] scratchpads;
+    cudaFree(scratchpads);
 }
 
 
 
 
 /* Static Function Declaration */
-//__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, unsigned int N, double alpha=3, double beta=6);
+//__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index_scratch, unsigned int N, double alpha=3, double beta=6);
 
 
 
@@ -58,7 +50,7 @@ __device__ double kij(double* dev_blocks, int i, int j, unsigned int N, double a
     res += kernelalphabeta(xip, xj, TI, alpha, beta);
     res += kernelalphabeta(xip, xjp, TI, alpha, beta);
 
-    return res;
+    return res / 4;
 }
 
 __device__ void dkij(double* dev_blocks, int i, int j, int k, unsigned int N, Vector& res, double alpha, double beta)
@@ -92,31 +84,31 @@ __device__ void dkalphabeta(double* dev_blocks, int p, int q, int r, int k, unsi
     if (p == k && r == k)
     {
         kjk(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
-        printf("kjk\n");
+        //printf("kjk\n");
     }
     else if (r == k)
     {
         ijk(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
-        printf("ijk\n");
+        //printf("ijk\n");
     }
     else if (p == km1 && r == km1)
     {
         km1jkm1(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
-        printf("km1jkm1\n");
+        //printf("km1jkm1\n");
     }
     else if (p == k && r == km1)
     {
         kjkm1(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
-        printf("kjkm1\n");
+        //printf("kjkm1\n");
     }
     else if (q == k)
     {
         ikj(dev_blocks, p, q, r, N, xi, eta, dxi, deta, alpha, beta);
-        printf("ikj\n");
+        //printf("ikj\n");
     }
     else
     {
-        printf("(p,q,r) tuple not defined\n");
+        //printf("(p,q,r) tuple not defined\n");
         res = Vector(0, 0, 0);
         return;
     }
@@ -288,37 +280,52 @@ __device__ void fillDerivativeIndex(int* dev_derivative_indices, int k, unsigned
     }
 }
 
-/* <<<N, 1>>> */
+/* <<<N, 1>>> 
+
+ Note that derivative_index_scratch should be called from ScratchPad<int> { N, 8 * (N - 3) }*/
+//__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index_scratch, unsigned int N, double alpha, double beta)
+__global__ void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int* derivative_index_scratch, unsigned int N, double alpha, double beta)
 //__global__ static void cuDEnergy(double* dev_curve_tensor_blocks, double* dev_differential_blocks, int** derivative_index, unsigned int N, double alpha, double beta)
-//{
-//    int k = blockIdx.x;
-//
-//    /* This vector will be the column of the tensor */
-//    Vector res(0, 0, 0);
-//
-//    /* Generate the indices relevant to derivative for each k */
-//    int dev_derivative_indices [8 * (N - 3)];
-//    fillDerivativeIndex(dev_derivative_indices, k, N);
-//
-//    /* Loop over each pair of indices */
-//    for (int index = 0; index < 4 * ((int)N-3); index++)
-//    {
-//        int i = dev_derivative_indices[2 * index];
-//        int j = dev_derivative_indices[2 * index + 1];
-//
-//        Vector xiEdge = vectorFromTensor(dev_curve_tensor_blocks, i+1, N) - vectorFromTensor(dev_curve_tensor_blocks, i, N);
-//        double xiEdgeLen = xiEdge.norm();
-//        Vector xjEdge = vectorFromTensor(dev_curve_tensor_blocks, j+1, N) - vectorFromTensor(dev_curve_tensor_blocks, j, N);
-//        double xjEdgeLen = xjEdge.norm();
-//
-//        /* Each summand is from the product rule of k_ij and product of edge lengths */
-//        Vector summand1;
-//        Vector summand2;
-//        dkij(dev_curve_tensor_blocks, i, j, k, N, summand1, alpha, beta);
-//        summand1 = summand1 * xiEdgeLen * xjEdgeLen;
-//        
-//    }
-//}
+{
+    int k = blockIdx.x;
+
+    /* This vector will be the column of the tensor */
+    Vector res(0, 0, 0);
+
+    /* Generate the indices relevant to derivative for each k */
+    int* dev_derivative_indices = derivative_index_scratch + N * k;
+    //int dev_derivative_indices [8 * (N - 3)];
+    fillDerivativeIndex(dev_derivative_indices, k, N);
+
+    /* Loop over each pair of indices */
+    for (int index = 0; index < 4 * ((int)N-3); index++)
+    {
+        int i = dev_derivative_indices[2 * index];
+        int j = dev_derivative_indices[2 * index + 1];
+
+        Vector xiEdge = vectorFromTensor(dev_curve_tensor_blocks, i+1, N) - vectorFromTensor(dev_curve_tensor_blocks, i, N);
+        double xiEdgeLen = xiEdge.norm();
+        Vector xjEdge = vectorFromTensor(dev_curve_tensor_blocks, j+1, N) - vectorFromTensor(dev_curve_tensor_blocks, j, N);
+        double xjEdgeLen = xjEdge.norm();
+
+        /* Each summand is from the product rule of k_ij and product of edge lengths */
+        Vector summand1;
+        Vector summand2;
+        dkij(dev_curve_tensor_blocks, i, j, k, N, summand1, alpha, beta);
+        summand1 = summand1 * xiEdgeLen * xjEdgeLen;
+
+        dProductOfLengths(dev_curve_tensor_blocks, i, j, k, N, summand2);
+        summand2 = kij(dev_curve_tensor_blocks, i, j, N, alpha, beta) * summand2;
+        
+        res = res + summand1;
+        res = res + summand2;
+    }
+    
+    printf("%f, %f, %f\n", res.x, res.y, res.z);
+    componentAccess(dev_differential_blocks, k, 0, N) = res.x;
+    componentAccess(dev_differential_blocks, k, 1, N) = res.y;
+    componentAccess(dev_differential_blocks, k, 2, N) = res.z;
+}
 
 
 
