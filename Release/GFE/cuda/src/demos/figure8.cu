@@ -52,13 +52,18 @@ int main()
         /* Export to RAM, then to file */
         tensorBlockFlush(figure8, x, y, z);
 
-        jsonX << x;
-        jsonY << y;
-        jsonZ << z;
-
         if (t % STATUS_UPDATE_FREQUENCY == 0)
         {
-            std::cout << "Progress: " << t << "/" << NUM_OF_STEPS << std::endl;
+
+            std::cout << "\33[2K\rProgress: " << t << "/" << NUM_OF_STEPS << " ";
+            std::cout << "Tensor[0]: (" << x[0] << ", " << y[0] << ", " << z[0] << ")" << std::flush;
+        }
+
+        if (t % PLOT_FREQUENCY == 0)
+        {
+            jsonX << x;
+            jsonY << y;
+            jsonZ << z;
         }
     }
 }
@@ -71,6 +76,7 @@ static std::string filename(int i)
     fn += std::string("_RES_") + std::to_string(RESOLUTION);
     fn += std::string("_DELTAT_") + std::to_string(DELTA_T);
     fn += std::string("_NUMOFSTEP_") + std::to_string(NUM_OF_STEPS);
+    fn += std::string("_PLOTFREQ_") + std::to_string(PLOT_FREQUENCY);
     fn += std::string("_SCALE_") + std::to_string(SCALE);
     fn += std::string("_TWIST_") + std::to_string(TWIST);
     if (i == 0)
