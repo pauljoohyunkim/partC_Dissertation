@@ -52,6 +52,12 @@ int main()
         /* Export to RAM, then to file */
         tensorBlockFlush(figure8, x, y, z);
 
+        if (isnan(x[0]) || isnan(y[0]) || isnan(z[0]))
+        {
+            std::cout << "NaN Detected! Stopping now!" << std::endl;
+            break;
+        }
+
         if (t % STATUS_UPDATE_FREQUENCY == 0)
         {
 
