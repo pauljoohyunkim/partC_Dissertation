@@ -3,12 +3,12 @@
 
 #define ALPHA 2
 #define BETA 4
-#define RESOLUTION 30
-#define DELTA_T 0.0001
-#define NUM_OF_STEPS 10000
+#define RESOLUTION 40
+#define DELTA_T 0.00001
+#define NUM_OF_STEPS 50000
 #define STATUS_UPDATE_FREQUENCY 10
 
-#define SCALE 1.0
+#define SCALE 1.2
 // Taking this value smaller results in "tighter" figure-8
 #define TWIST 0.2
 
