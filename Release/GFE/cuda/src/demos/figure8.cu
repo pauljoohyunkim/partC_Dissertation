@@ -7,12 +7,19 @@
 #include "../tpe.cuh"
 #include "../export.cuh"
 
+/* Filename Construction
+   i = 0 for x
+   i = 1 for y
+   i = 2 for z
+ */
+static std::string filename(int i);
+
 int main()
 {
     /* Exporter */
-    JsonExporter jsonX { "figure8_x.json" };
-    JsonExporter jsonY { "figure8_y.json" };
-    JsonExporter jsonZ { "figure8_z.json" };
+    JsonExporter jsonX { filename(0) };
+    JsonExporter jsonY { filename(1) };
+    JsonExporter jsonZ { filename(2) };
 
     /* Figure 8 Generation */
     std::vector<double> x {};
@@ -54,4 +61,29 @@ int main()
             std::cout << "Progress: " << t << "/" << NUM_OF_STEPS << std::endl;
         }
     }
+}
+
+static std::string filename(int i)
+{
+    std::string fn { "figure8" };
+    fn += std::string("_ALPHA_") + std::to_string(ALPHA);
+    fn += std::string("_BETA_") + std::to_string(BETA);
+    fn += std::string("_RES_") + std::to_string(RESOLUTION);
+    fn += std::string("_DELTAT_") + std::to_string(DELTA_T);
+    fn += std::string("_NUMOFSTEP_") + std::to_string(NUM_OF_STEPS);
+    fn += std::string("_SCALE_") + std::to_string(SCALE);
+    fn += std::string("_TWIST_") + std::to_string(TWIST);
+    if (i == 0)
+    {
+        fn += std::string("_x.json");
+    }
+    else if (i == 1)
+    {
+        fn += std::string("_y.json");
+    }
+    else if (i == 2)
+    {
+        fn += std::string("_z.json");
+    }
+    return fn;
 }
