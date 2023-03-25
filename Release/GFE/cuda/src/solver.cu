@@ -79,11 +79,13 @@ void tensorAdd(CurveTensor& t1, CurveTensor& t2, double scalar)
 {
     dim3 grid(3, t1.N);
     cuTensorAdd<<<grid,1>>>(t1.dev_blocks, t2.dev_blocks, (int) t1.N, scalar);
+    cudaDeviceSynchronize();
 }
 
 void tensorSubtract(CurveTensor& t1, CurveTensor& t2, double scalar)
 {
     dim3 grid(3, t1.N);
     cuTensorSubtract<<<grid,1>>>(t1.dev_blocks, t2.dev_blocks, (int) t1.N, scalar);
+    cudaDeviceSynchronize();
 }
 
