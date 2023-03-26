@@ -1,5 +1,5 @@
-#ifndef __EXPORT_HPP__
-#define __EXPORT_HPP__
+#ifndef __EXPORT_CUH__
+#define __EXPORT_CUH__
 
 #include <iostream>
 #include <fstream>
@@ -23,4 +23,4 @@ class JsonExporter
 
 };
 
-#endif  // export.hpp
+#endif  // export.cuh
