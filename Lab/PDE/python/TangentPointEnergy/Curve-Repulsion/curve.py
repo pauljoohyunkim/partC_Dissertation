@@ -53,7 +53,7 @@ class Curve:
 
 
 
-def curvePlot(curve, q2d=False, size=(-5,5), title=""):
+def curvePlot(curve, q2d=False, size=(-5,5), title="", dpi=100):
     J = curve.J
 
     xpoints = []
@@ -64,7 +64,11 @@ def curvePlot(curve, q2d=False, size=(-5,5), title=""):
         ypoints.append(curve[i][1])
         zpoints.append(curve[i][2])
     
-    fig = plt.figure()
+    xpoints.append(curve[0][0])
+    ypoints.append(curve[0][1])
+    zpoints.append(curve[0][2])
+    
+    fig = plt.figure(dpi=dpi)
     if q2d:
         ax = fig.add_subplot()
         ax.plot(xpoints, ypoints)
