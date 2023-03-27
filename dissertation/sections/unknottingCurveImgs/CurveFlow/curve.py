@@ -53,7 +53,7 @@ class Curve:
 
 
 
-def curvePlot(curve, ax, size=(-5,5), title="", dpi=100):
+def curvePlot(curve, ax, size=(-5,5), title=""):
     J = curve.J
 
     xpoints = []
