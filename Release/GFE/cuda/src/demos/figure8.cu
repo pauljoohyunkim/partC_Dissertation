@@ -46,9 +46,12 @@ int main()
         /* Energy Derivative Computaton */
         cuDEnergy<<<RESOLUTION, 1>>>(figure8.dev_blocks, dCurve.dev_blocks, s.scratchpads, RESOLUTION, ALPHA, BETA);
         cudaDeviceSynchronize();
+
+        /* Constraint */
+        tensorAdd(dCurve, figure8, LAMBDA);
+
         /* Evolution */
         tensorSubtract(figure8, dCurve, DELTA_T);
-        //cudaDeviceSynchronize();
         /* Export to RAM, then to file */
         tensorBlockFlush(figure8, x, y, z);
 
