@@ -5,6 +5,7 @@
 #define BETA 6
 #define RESOLUTION 80
 #define DELTA_T 0.00001
+#define NUM_OF_STEPS 10000
 #define STATUS_UPDATE_FREQUENCY 10
 #define PLOT_FREQUENCY 100
 
