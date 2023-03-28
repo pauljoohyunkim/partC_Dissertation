@@ -1,15 +1,15 @@
 #ifndef __FIGURE8_CUH__
 #define __FIGURE8_CUH__
 
-#define ALPHA 3
-#define BETA 6
-#define RESOLUTION 80
-#define DELTA_T 0.00001
-#define NUM_OF_STEPS 10000
+#define ALPHA 2
+#define BETA 4
+#define RESOLUTION 150
+#define DELTA_T 0.00004
+#define NUM_OF_STEPS 100000
 #define STATUS_UPDATE_FREQUENCY 10
-#define PLOT_FREQUENCY 100
+#define PLOT_FREQUENCY 10
 
-#define LAMBDA 0.1
+#define LAMBDA 0.0
 
 #define SCALE 1.3
 // Taking this value smaller results in "tighter" figure-8
