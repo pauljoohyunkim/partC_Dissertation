@@ -32,9 +32,8 @@ Assume for simplicity that the curve of interest is simple closed.\footnote{
 
 \subsubsection{Discretisation of Curve}
 We start by discretising the initial curve $\gammabf_0$ by taking $N$ points on a curve as shown in Figure \ref{fig: Discretization of Curve}.
-Represent the initially discretised curve in the tensor\footnote{``Tensors are multidimensional arrays of numerical values and therefore generalize matrices to multiple dimensions.''\cite{https://doi.org/10.48550/arxiv.1711.10781} Note that we use the definition from machine learning,
-rather than mathematics, merely as a convenient data type to capture a discretised curve.}
-form: $\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right) \in \mathbb{R}^{3 \times N}$,
+Represent the initially discretised curve in the form of multidimensional array (or a matrix for specific time step index):
+$\Gammabf^0 = \left( \xbf_0^0, \xbf_1^0, \cdots, \xbf_{N-1}^0 \right) \in \mathbb{R}^{3 \times N}$,
 and the discretised curve at subsequent time step $k \in \mathbb{N} \cup \left\{ 0 \right\}$ as $\Gammabf^k = \left( \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right) \in \mathbb{R}^{3 \times N}$.
 Since we restrict our attention to a simple closed curve, it is convenient to extend the indexing rule by:
 \begin{equation}
@@ -42,7 +41,7 @@ Since we restrict our attention to a simple closed curve, it is convenient to ex
 \end{equation}
 so that $\xbf_N^k = \xbf_{0}^k$, $\xbf_{N+1}^k = \xbf_{1}^k$, etc.
 
-Define (right) operator $[\cdot]:\mathbb{R}^{3 \times N} \rightarrow \mathbb{R}$ such that for tensor $T \in \mathbb{R}^{3 \times N}$,
+Define (right) operator $[\cdot]:\mathbb{R}^{3 \times N} \rightarrow \mathbb{R}$ such that for array $T \in \mathbb{R}^{3 \times N}$,
 %$\Gammabf^k: \mathbb{Z} \rightarrow \left\{ \xbf_0^k, \xbf_1^k, \cdots, \xbf_{N-1}^k \right\}$ as:
 \begin{equation*}
     T[i] \coloneqq T \ebf_{r\left( i,N \right)}
@@ -190,7 +189,7 @@ Based on (\ref{equ: Curve Untangling Process}), one writes the following finite 
     \label{equ: Finite Difference Scheme for Curve Untangling Process}
 \end{equation}
 where $\mathcal{D}_t$ is the finite difference operator over time,
-$\Grad_{X}$ is discrete equivalent\footnote{Worth noting that $\Grad_X:\mathbb{T} \rightarrow \mathbb{T}$ where $\mathbb{T}$ is a set of tensors of certain shape; $\Grad_X$ maps tensors to tensors of the same shape.}  of $\grad_{\mathcal{X}}$ on discrete inner product space $X$ (which may be omitted in the notation),
+$\Grad_{X}$ is discrete equivalent\footnote{Worth noting that $\Grad_X:\mathbb{T} \rightarrow \mathbb{T}$ where $\mathbb{T}$ is a set of arrays of certain shape; $\Grad_X$ maps arrays to arrays of the same shape.}  of $\grad_{\mathcal{X}}$ on discrete inner product space $X$ (which may be omitted in the notation),
 $E_{\beta}^{\alpha}$ is the tangent-point energy quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
 and $C$ is the discretised version of the constraint energy $\mathcal{C}$ (See section \ref{sct: Constraint Energy}).
 Often times, however, it is easier to construct finite difference scheme directly from (\ref{equ: Curve Untangling Process}) after some simplification,
@@ -225,13 +224,13 @@ where one could explicitly write $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammab
     E_{\beta}^{\alpha} \left( \Gammabf^k \right)
     \label{equ: Gradient in l2}
 \end{equation}
-where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \times N$ tensor.
+where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \times N$ array.
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/L2Derivative}
     \caption{$-\Grad_{L^2} \left( \Gammabf^k \right)$ which is the direction of flow of a discretised curve $\Gammabf^k$ at each point, represented by the arrows. The magnitude is represented by both color and the length of the arrows.}
 \end{figure}
-Note that $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also a tensor of the same shape as $\Gammabf^k$,
+Note that $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also a array of the same shape as $\Gammabf^k$,
 so naturally, most arithmetics\footnote{Such as addition, subtraction, and scalar multiplication.} needed for (\ref{equ: L2 Explicit Euler}) is well-defined.
 \begin{remark}
     $\Grad_{\ell^2}$ is in fact a linear operator with respect to its input, energy.

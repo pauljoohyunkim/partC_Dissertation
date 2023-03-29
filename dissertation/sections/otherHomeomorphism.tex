@@ -52,13 +52,13 @@ For a curve $\gammabf \in \overline{\mathbb{L}}$ that has $m$ ``branches'' from 
 Suppose for all branches protrude from the stem.
 On Figure \ref{fig: Bus Network}, the stem is represented by the thick blue curve.
 
-One can capture this curve by a tensor of the following form.
+One can capture this curve by an array of the following form.
 \begin{equation}
     \Gammabf^k = \left( \underbrace{\xbf_{0,0}^k, \cdots, \xbf_{0,n_0-1}^k}_{\text{Stem}} \middle|
     \underbrace{\xbf_{1,0}^k, \cdots, \xbf_{1,n_1-1}^k}_{\text{Branch 1}}
 \middle| \cdots \middle|
 \underbrace{\xbf_{m,0}^k, \cdots, \xbf_{m,n_m-1}^k}_{\text{Branch } m}\right)
-\label{equ: Bus Network Tensor}
+\label{equ: Bus Network Array}
 \end{equation}
 where the ``linkage points'' for branches to the stem are $\xbf_{1,0}^k, \cdots, \xbf_{m,0}^k$,
 which can be identified by the fact that $\xbf_{1,0}^k, \cdots, \xbf_{m,0}^k \in \left\{ \xbf_{0,0}^k, \cdots, \xbf_{0, n_0-1}^k \right\}$,
@@ -79,7 +79,7 @@ Now, one may write a tangent-point energy quadrature as:
     K_{\beta}^{\alpha} (p_i,q_j) \norm{e_{p_i}} \, \norm{e_{q_j}}
     \label{equ: Bus Network Quadrature}
 \end{equation}
-where $p_i$ (similarly with $q_j$) refers to the index of vector $\xbf_{p,i}^k$ in (\ref{equ: Bus Network Tensor}),
+where $p_i$ (similarly with $q_j$) refers to the index of vector $\xbf_{p,i}^k$ in (\ref{equ: Bus Network Array}),
 that is,
 \begin{align*}
     p_i = \sum_{j=0}^{p-1} n_j + i
@@ -95,7 +95,7 @@ and
 \end{equation*}
 
 \begin{remark}
-    Representation (\ref{equ: Bus Network Tensor}) is \textbf{not unique}; for example, one could take different curve to be the ``stem''.
+    Representation (\ref{equ: Bus Network Array}) is \textbf{not unique}; for example, one could take different curve to be the ``stem''.
     The quadrature given by (\ref{equ: Bus Network Quadrature}) is, however, invariant under different representation, hence well-defined.
 \end{remark}
 
