@@ -22,10 +22,10 @@ one defines some \emph{curve energy} $\mathcal{E}$ of the form:
 \begin{equation}
     \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} k\left( \gammabf_x, \gammabf_y \right) \intd \gamma_x \intd \gamma_y
 \end{equation}
-where $k\left( \gammabf_1, \gammabf_2 \right) \geq 0$ is the \emph{curve energy kernel} such that $k \rightarrow +\infty$ as $\abs{\gammabf_1 - \gammabf_2} \rightarrow 0^+$.
+where $k\left( \cdot , \cdot \right) \geq 0$ is the \emph{curve energy kernel} such that $k \rightarrow +\infty$ as $\norm{\gammabf_1 - \gammabf_2} \rightarrow 0^+$ where $\gammabf_1$ and $\gammabf_2$ are the two points ``nearly-crossing''.
 
-A na\"ive choice of $k$ satisfying this condition is $k_S \left( \gammabf_1, \gammabf_2 \right) \coloneqq \frac{1}{\abs{\gammabf_1 - \gammabf_2}}$.
-However, it turns out that $k_S \sim O\left( \frac{1}{\abs{\gammabf_1 - \gammabf_2}} \right)$ as $\abs{\gammabf_1 - \gammabf_2} \rightarrow 0$ (consider neighbouring points), meaning the $\mathcal{E}$ diverges all continuous curves $\gammabf$ of nonzero measure.
+A na\"ive choice of $k$ satisfying this condition is $k_S \left( \gammabf_x, \gammabf_y \right) \coloneqq \frac{1}{\norm{\gammabf_x - \gammabf_y}}$.
+However, it turns out that $k_S \sim O\left( \frac{1}{\norm{\gammabf_x - \gammabf_y}} \right)$ as $\norm{\gammabf_x - \gammabf_y} \rightarrow 0$ (consider neighbouring points), meaning the $\mathcal{E}$ diverges all continuous curves $\gammabf$ of nonzero measure.
 %This seemingly ill-defined energy, however, may not be the end of story in terms of numerics, and will be explored later.
 
 A more analytically sensible choice of $k$ would be the tangent-point kernel introduced in a paper by Buck and Orloff\cite{BO1995} and later generalised by Yu, Schumacher, and Crane\cite{YSC2021}.

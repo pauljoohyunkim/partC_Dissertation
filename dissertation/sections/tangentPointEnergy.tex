@@ -10,10 +10,10 @@ a sensible choice of curve energy is the tangent-point energy\cite{YSC2021}.
         \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) \coloneqq \iint_{M^2} k_{\beta}^{\alpha} (\gammabf_x, \gammabf_y, \Tbf_x) \intd \gamma_x \intd \gamma_y 
         \label{equ: Tangent-Point Energy}
     \end{equation}
-    where $\Tbf_x \coloneqq \left. \frac{\intd \gammabf_x}{\intd t} \middle/ \abs{\frac{\intd \gammabf_x}{\intd t}} \right. $ is the unit tangent vector at $\gammabf_x$ along the curve,
+    where $\Tbf_x \coloneqq \left. \frac{\intd \gammabf_x}{\intd t} \middle/ \norm{\frac{\intd \gammabf_x}{\intd t}} \right. $ is the unit tangent vector at $\gammabf_x$ along the curve,
     and \textbf{tangent-point kernel} is given as:
     \begin{equation}
-        k_{\beta}^{\alpha} \left( \pbf, \qbf, \Tbf \right) \coloneqq \frac{\abs{\Tbf \wedge \left( \pbf - \qbf \right)}^{\alpha}}{\abs{\pbf - \qbf}^{\beta}}
+        k_{\beta}^{\alpha} \left( \pbf, \qbf, \Tbf \right) \coloneqq \frac{\norm{\Tbf \wedge \left( \pbf - \qbf \right)}^{\alpha}}{\norm{\pbf - \qbf}^{\beta}}
     \end{equation}
     $\alpha$ and $\beta$ are parameters one could choose, but for tangent-point energy to be well-defined,
     one may choose them to satisfy $\alpha >1$ and $\beta \in \left[ \alpha+2, 2\alpha + 1 \right)$.
@@ -46,13 +46,13 @@ The choice of parameters $\alpha$ and $\beta$ changes the behaviour of the tange
     Moreover, if $\beta > \alpha + 2$, then $\mathcal{E}_{\beta}^{\alpha}$ scales inversely with the curve.
     \begin{proof}
         Take a parameterised curve $\gammabf:M \rightarrow \mathbb{R}^3$ and $\Gammabf \coloneqq c \gammabf$, a curve scaled by factor $c>0$ of $\gammabf$.
-        Note that the unit tangent vector is identical for $\gammabf$ and $\Gammabf$, that is, $\Tbf_x \coloneqq \left. \frac{\intd \gammabf_x}{\intd t} \middle/ \abs{\frac{\intd \gammabf_x}{\intd t}} \right. = \left. \frac{\intd \Gammabf_x}{\intd t} \middle/ \abs{\frac{\intd \Gammabf_x}{\intd t}} \right. $
+        Note that the unit tangent vector is identical for $\gammabf$ and $\Gammabf$, that is, $\Tbf_x \coloneqq \left. \frac{\intd \gammabf_x}{\intd t} \middle/ \norm{\frac{\intd \gammabf_x}{\intd t}} \right. = \left. \frac{\intd \Gammabf_x}{\intd t} \middle/ \norm{\frac{\intd \Gammabf_x}{\intd t}} \right. $
 
         Then,
         \begin{equation}
             \frac{k_{\beta}^{\alpha} \left( \gammabf_x, \gammabf_y, \Tbf_x \right)}{k_{\beta}^{\alpha} \left( \Gammabf_x, \Gammabf_y, \Tbf_x \right)}
             =
-            \frac{\abs{\gammabf_x - \gammabf_y}^{\alpha}}{\abs{\Gammabf_x - \Gammabf_y}^{\beta}} = c^{\beta - \alpha}
+            \frac{\norm{\gammabf_x - \gammabf_y}^{\alpha}}{\norm{\Gammabf_x - \Gammabf_y}^{\beta}} = c^{\beta - \alpha}
         \end{equation}
         Also note that
         \begin{equation}
@@ -142,6 +142,14 @@ From lemma \ref{lemma: Scale-Invariance} and lemma \ref{lemma: Perturbation}, th
 \begin{corollary}
     If $\alpha > 1$ and $\beta \in \left[ \alpha + 2, 2\alpha + 1 \right)$, tangent-point energy $\mathcal{E}_{\beta}^{\alpha}$ is well-defined.
 \end{corollary}
+
+\begin{remark}
+    Ideas from lemma \ref{lemma: Scale-Invariance} and lemma \ref{lemma: Perturbation} suggest that modification of the na\"ively introduced energy kernel $k_S \left( \gammabf_1, \gammabf_2 \right) = \frac{1}{\norm{\gammabf_1 - \gammabf_2}}$ to $\tilde k_S \left( \gammabf_1, \gammabf_2 \right) = \frac{1}{\norm{\gammabf_1 - \gammabf_2}^p}$ is not feasible.
+    By choosing $p < 1$, singular behaviour is $O \left( 1/\epsilon^p \right)$ as $\epsilon \rightarrow 0$ hence integrable,
+    but a similar analysis to lemma \ref{lemma: Scale-Invariance} shows that
+    one needs to take $p \geq 1$ for the energy to be scale inverse-proportional to the scaling of the curve.
+    Hence, the kernel $\tilde k_S$ is still ill-defined.
+\end{remark}
 
 \begin{figure}[tpb]
     \centering
