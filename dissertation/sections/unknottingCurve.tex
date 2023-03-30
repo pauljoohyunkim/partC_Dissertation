@@ -230,6 +230,7 @@ where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \t
     \centering
     \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/L2Derivative}
     \caption{$-\Grad_{L^2} \left( \Gammabf^k \right)$ which is the direction of flow of a discretised curve $\Gammabf^k$ at each point, represented by the arrows. The magnitude is represented by both color and the length of the arrows.}
+    \label{fig: L2Derivative}
 \end{figure}
 Note that $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also a array of the same shape as $\Gammabf^k$,
 so naturally, most arithmetics\footnote{Such as addition, subtraction, and scalar multiplication.} needed for (\ref{equ: L2 Explicit Euler}) is well-defined.
@@ -393,10 +394,16 @@ To compute a step, one performs three steps:
                 %without the latter,
                 because curve Laplacian matrix alone is singular, the linear system would not have a unique solution,
                 and the regularisation is to pick a sensible solution to the singular linear system.
-            \item $c > 0$ is a constant such that $c$ closer to zero characterises ``more $H^1$-like flow'', at the cost of higher conditioning number.
+            \item $c \neq 0$ is a constant such that $c$ closer to zero characterises ``more $H^1$-like flow'', at the cost of higher conditioning number.
+            \item $\mathcal{G}$ represents the discrete time derivative, that is, $\mathcal{G} = \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T}$.
         \end{itemize}
     \item Evolve by $\Gammabf^{k+1} = \left( \Delta T \right) \mathcal{G} + \Gammabf^k$.
 \end{enumerate}
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/H1Derivative}
+    \caption{$-\Grad_{H^1} \left( \Gammabf^k \right)$, again represented by arrows. Unlike $L^2$ gradient at Figure \ref{fig: L2Derivative}, direction of arrows are more aligned with its neighbours.}
+\end{figure}
 Note that the linear system $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)^T$ has the following structure:
 \begin{equation*}
     \underbrace{
