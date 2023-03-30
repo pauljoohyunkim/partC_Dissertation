@@ -258,6 +258,8 @@ where
     \underaccent{\bar}{E}_{\beta}^{\alpha} (i) &\coloneqq E_{\beta}^{\alpha} \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i - \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right)
 \end{align*}
 See Figure \ref{fig: L2 Curve Unknotting} for a demonstration of curve untangling process using this $L^2$ gradient.
+Note that because $L^2$ gradient flow does not take smoothness into account, this may break the assumption later of the smoothness of the curve,
+which could be problematic as the tangent-point energy quadrature relied on the assumption that the discrete curve stays ``relatively smooth''.
 %We will start with a demonstration with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance})\footnote{One could construct a similar working example for other scale-invariant tangent-point energies.}.
 
 \begin{remark}
@@ -403,6 +405,7 @@ To compute a step, one performs three steps:
     \centering
     \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/H1Derivative}
     \caption{$-\Grad_{H^1} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$, again represented by arrows. Unlike $L^2$ gradient at Figure \ref{fig: L2Derivative}, direction of arrows are more aligned with its neighbours.}
+    \label{fig: H1 Derivative}
 \end{figure}
 Note that the linear system $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)^T$ has the following structure:
 \begin{equation*}
@@ -434,6 +437,8 @@ Note that the linear system $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf
 Because solving matrix equation\footnote{``Cyclic tridiagonal matrix''} $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)$ costs $O \left( N \right)$ by Gaussian elimination or otherwise\cite{10.1145/44164.44165},
 the cost of computing $H^1$ gradient is dominated by the cost of computing $\Grad_{L^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$.
 
+Note that because $H^1$ takes weak derivative into account, the direction of the flow is more aligned with its neighbours as shown in Figure \ref{fig: H1 Derivative} and hence, smoother flow as shown in Figure \ref{fig: H1 Curve Unknotting}.
+
 \begin{figure}[tbp]
     \centering
     \begin{subfigure}[b]{0.32\textwidth}
@@ -449,7 +454,7 @@ the cost of computing $H^1$ gradient is dominated by the cost of computing $\Gra
         \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-H1-2}
     \end{subfigure}
 
-    \caption{$H^1$ flow on a figure-eight curve. Unlike $L^2$ flow as shown in Figure \ref{fig: L2 Curve Unknotting}, $H^2$ takes the first derivative into account, hence results in a smoother curve.}
+    \caption{$H^1$ flow on a figure-eight curve. Unlike $L^2$ flow as shown in Figure \ref{fig: L2 Curve Unknotting}, $H^1$ takes the first derivative into account, hence results in a smoother curve.}
     \label{fig: H1 Curve Unknotting}
 \end{figure}
 \end{document}
