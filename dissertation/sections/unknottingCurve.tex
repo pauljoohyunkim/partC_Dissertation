@@ -285,6 +285,10 @@ This is consistent with the motivation of gradient flow equation given in sectio
     \caption{$L^2$ gradient flow on a figure-eight curve. Note that there are ``sharp'' points, along with ``high frequency oscillation'' (which are undesirable or unexpected characteristics); this may be due to the fact that $L^2$ gradient flow does not take into account of the smoothness of the curve.}
     \label{fig: L2 Curve Unknotting}
 \end{figure}
+There is a subtlety;
+there is no guarantee that the edge lengths does not grow,
+which would break the assumption that the tangent-point energy quadrature is valid.
+This can be mitigated by prescribing edge lengths $L_i$ using some constraint energy as in section \ref{sct: Constraint Energy}.
 
 We now attempt the finite difference scheme with a \textit{scale-variant energy}, that is, when $\beta > \alpha + 2$. 
 If one attempts the same finite difference scheme as (\ref{equ: L2 Explicit Euler})
