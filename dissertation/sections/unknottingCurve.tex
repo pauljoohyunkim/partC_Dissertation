@@ -424,7 +424,7 @@ Note that the linear system $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf
 \end{pmatrix}
 }_{\left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)^T \in \mathbb{R}^{N \times 3}}
 \end{equation*}
-Because solving matrix equation\footnote{``Cyclic tridiagonal matrix'': Can be solved by Gaussian elimination rather efficiently.} $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)$ costs $O \left( N \right)$,
+Because solving matrix equation\footnote{``Cyclic tridiagonal matrix''} $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)$ costs $O \left( N \right)$ by Gaussian elimination or otherwise\cite{10.1145/44164.44165},
 the cost of computing $H^1$ gradient is dominated by the cost of computing $\Grad_{L^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$.
 
 \begin{figure}[tbp]
