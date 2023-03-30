@@ -256,7 +256,7 @@ where
     \bar{E}_{\beta}^{\alpha} (i) &\coloneqq E_{\beta}^{\alpha} \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i + \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right) \\
     \underaccent{\bar}{E}_{\beta}^{\alpha} (i) &\coloneqq E_{\beta}^{\alpha} \left( \left( \xbf_0, \cdots, \xbf_{i-1}, \xbf_i - \Delta X \ebf_{j}, \xbf_{i+1}, \cdots, \xbf_{N-1}\right) \right)
 \end{align*}
-
+See Figure \ref{fig: L2 Curve Unknotting} for a demonstration of curve untangling process using this $L^2$ gradient.
 %We will start with a demonstration with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance})\footnote{One could construct a similar working example for other scale-invariant tangent-point energies.}.
 
 \begin{remark}
@@ -266,24 +266,21 @@ This is consistent with the motivation of gradient flow equation given in sectio
 
 \begin{figure}[tbp]
     \centering
-    \begin{subfigure}[b]{0.24\textwidth}
+    \begin{subfigure}[b]{0.32\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-0}
+        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-L2-0}
     \end{subfigure}
-    \begin{subfigure}[b]{0.24\textwidth}
+    \begin{subfigure}[b]{0.32\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-1}
+        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-L2-1}
     \end{subfigure}
-    \begin{subfigure}[b]{0.24\textwidth}
+    \begin{subfigure}[b]{0.32\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-2}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-3}
+        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-L2-2}
     \end{subfigure}
 
     \caption{$L^2$ gradient flow on a figure-eight curve. Note that there are ``sharp'' points, along with ``high frequency oscillation'' (which are undesirable or unexpected characteristics); this may be due to the fact that $L^2$ gradient flow does not take into account of the smoothness of the curve.}
+    \label{fig: L2 Curve Unknotting}
 \end{figure}
 
 We now attempt the finite difference scheme with a \textit{scale-variant energy}, that is, when $\beta > \alpha + 2$. 
@@ -427,17 +424,25 @@ Note that the linear system $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf
 \end{pmatrix}
 }_{\left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)^T \in \mathbb{R}^{N \times 3}}
 \end{equation*}
-%\begin{equation}
-%    \Grad E_{\beta}^{\alpha} \left( \Gammabf^k \right) = - \curvelaplacian^{-1}_{\Gammabf^k} \left( \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = -\curvelaplacian^{-1}_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
-%\end{equation}
+Because solving a linear system costs at most $O \left( N^3 \right)$,
+computing $H^1$ gradient costs at most $O \left( N^3 \right)$ operations.
 
-%Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be forward difference operator,
+\begin{figure}[tbp]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-H1-0}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-H1-1}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-H1-2}
+    \end{subfigure}
 
-%\subsection{Example: $H^1$ Explicit Euler Scheme}
-%By (\ref{equ: H1 Gradient}), we may write $\grad_{H^1} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \laplacian^{-1} \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$.
-%The gradient flow equation with constraint (\ref{equ: Curve Untangling Process}) can be written as,
-%\begin{equation}
-%    \laplacian \frac{\partial \gammabf}{\partial t} = \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) - \laplacian \grad_{L^2} \mathcal{C} \left( \gammabf \right)
-%\end{equation}
-%The finite difference scheme can be written by approximating $\frac{\partial}{\partial t} \approx \mathcal{D}_t$:
+    \caption{$H^1$ flow on a figure-eight curve. Unlike $L^2$ flow as shown in Figure \ref{fig: L2 Curve Unknotting}, $H^2$ takes the first derivative into account, hence results in a smoother curve.}
+    \label{fig: H1 Curve Unknotting}
+\end{figure}
 \end{document}
