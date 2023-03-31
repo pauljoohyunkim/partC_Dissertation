@@ -4,8 +4,9 @@ Instead of solving a discretised gradient flow equation (\ref{equ: Finite Differ
 a possible approach is to use approximation theory for a simple class of tangled curves;
 if one knows beforehand that the initial curve is homeomorphic to a circle or a line segment,
 it is possible to interpret and approximate the curve as comprised of simple functions.
+Denote by $\mathbb{S}$ and $\mathbb{L}$ for bounded curves that are homeomorphic to a circle and a line segment, respectively, as in Appendix \ref{sct: Other Homeomorphism Classes}.
 
-\subsubsection{Homeomorphic to a Circle}
+\subsubsection{Curves in $\mathbb{S}$}
 For a continuous $2\pi$-periodic 1D function $f:\mathbb{R} \rightarrow \mathbb{R}$
 (where one only needs to define $f$ on $\left[ 0,2\pi \right)$),
 there exists a Fourier series representation:
@@ -47,15 +48,15 @@ one for each coordinate:
         c_{2,n} \\
         c_{3,n}
     \end{pmatrix}
-    e^{-int}
+    e^{int}
 \end{align}
 where the coefficients $\left\{ a_{i,n} \right\}, \left\{ b_{i,n} \right\}, \left\{ c_{i,n} \right\}$ are given by
 \begin{align}
-    a_{i,n} &= \frac{1}{\pi} \int_{0}^{2\pi} f_i (x) \cos {\left( nx \right)} \intd x & \in \mathbb{R}\\
-    b_{i,n} &= \frac{1}{\pi} \int_{0}^{2\pi} f_i (x) \sin {\left( nx \right)} \intd x & \in \mathbb{R}\\
-    c_{i,n} &= \frac{1}{2\pi} \int_{0}^{2\pi} f_i (x) e^{-inx} \intd x & \in \mathbb{C}
+    a_{i,n} &= \frac{1}{\pi} \int_{0}^{2\pi} \gamma_i (t) \cos {\left( nt \right)} \intd t & \in \mathbb{R}\\
+    b_{i,n} &= \frac{1}{\pi} \int_{0}^{2\pi} \gamma_i (t) \sin {\left( nt \right)} \intd t & \in \mathbb{R}\\
+    c_{i,n} &= \frac{1}{2\pi} \int_{0}^{2\pi} \gamma_i (t) e^{-int} \intd t & \in \mathbb{C}
 \end{align}
-for $i=1, 2, 3$.
+for $i=1, 2, 3$ where $\gamma_i$ represents $i$\textsuperscript{th} coordinate of $\gammabf$.
 
 Now the idea is to truncate the series to order $J > 0$ terms and collect its coefficients,
 that is,
@@ -72,10 +73,62 @@ One may justify the truncation of Fourier series representation by the following
 \begin{theorem}[Fourier Convergence Theorem]
 \lipsum[1]
 \end{theorem}
-Now, using these coefficients, one could construct the approximate discrete curve $\Gammabf_{N,J}$ of resolution $N$.
+Now, using these coefficients, one could construct the approximate discrete curve $\Gammabf_{N,J}$ of resolution $N \gg J$.
+Take the dependent variables for the discrete tangent-point energy to be the coefficients on Fourier series representation:
+\begin{equation}
+    \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
+    \approx
+    \mathcal{E}_{\beta}^{\alpha} \left( \gammabf_{J} \right)
+    =
+    \mathcal{E}_{\beta}^{\alpha} \underbrace{\left( \cbf_{-J}, \cbf_{-J+1}, \cdots, \cbf_{J} \right)}_{3\left( 2J+1 \right) \text{ variables}}
+    \approx
+    E_{\beta}^{\alpha} \left( \Gammabf_{N,J} \right)
+\end{equation}
 This time, instead of solving for gradient flow equation,
-we use standard methods of minimising a function, such as gradient descent or otherwise \textit{over the coefficients}.
+we use standard methods of minimising a function, such as gradient descent or otherwise \textit{over the $3(2J+1)$ coefficients\footnote{Without loss of generality, one could take $c_{i,0} = 0$ for $i=1,2,3$ as it only determines constant shift of the entire curve, so one actually only needs to consider $6J$ coefficients.}} $\cbf_{-J}, \cbf_{-J+1}, \cdots, \cbf_{J}$.
+It is practical to take $N$ to be larger than the resolution for the discrete gradient flow,
+as we have less variables to minimise over.
 The smoothness of the evolving curve follows since it is represented as a finite sum of infinitely smooth function,
 so there is no misbehaviour from sharp points as in $L^2$ gradient flow.
+
+\subsubsection{Curves in $\mathbb{L}$}
+For $\gammabf$ that is not closed, but rather homeomorphic to a line segment,
+it is more natural to use Chebyshev approximation\cite{Trefethen_2020}.
+For a curve $\gammabf:\left[ -1, 1 \right] \rightarrow \mathbb{R}^3$ such that $\gammabf \in \mathbb{L}$,
+\begin{equation}
+    \gammabf (t) =
+    \begin{pmatrix}
+        a_{1,0} \\
+        a_{2,0} \\
+        a_{3,0}
+    \end{pmatrix}
+    +
+    \sum_{n=1}^{\infty}
+    \begin{pmatrix}
+        a_{1,n} \\
+        a_{2,n} \\
+        a_{3,n}
+    \end{pmatrix}
+    T_n (t)
+\end{equation}
+where $T_n (t)$ is the $n$\textsuperscript{th} Chebyshev polynomial.
+The coefficients $\left\{ a_{i,n} \right\}$ are given by:
+\begin{equation}
+    a_{i,n} = \frac{2}{\pi} \int_{-1}^{1} \frac{\gamma_i(t) T_n(t)}{\sqrt{1-t^2}} \intd t
+\end{equation}
+for $i = 1, 2, 3$.
+
+We again approximate $\gammabf$ by truncating the Chebyshev series up to order $J$ term,
+and interpret the tangent-point energy to dependent on its coefficients.
+\begin{equation}
+    \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
+    \approx
+    \mathcal{E}_{\beta}^{\alpha} \left( \gammabf_{J} \right)
+    =
+    \mathcal{E}_{\beta}^{\alpha} \underbrace{\left( \abf_{0}, \abf_{1}, \cdots, \abf_{J} \right)}_{3\left( J+1 \right) \text{ variables}}
+    \approx
+    E_{\beta}^{\alpha} \left( \Gammabf_{N,J} \right)
+\end{equation}
+This time, the tangent-point quadrature is taken as the one in Appendix \ref{sct: Curves in L}.
 
 \end{document}
