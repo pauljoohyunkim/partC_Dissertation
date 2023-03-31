@@ -1,5 +1,11 @@
 \documentclass[../dissertation.tex]{subfiles}
 \begin{document}
+Instead of solving a discretised gradient flow equation (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) directly,
+a possible approach is to use approximation theory for a simple class of tangled curves;
+if one knows beforehand that the initial curve is homeomorphic to a circle or a line segment,
+it is possible to interpret and approximate the curve as comprised of simple functions.
+
+\subsubsection{Homeomorphic to a Circle}
 For a continuous $2\pi$-periodic 1D function $f:\mathbb{R} \rightarrow \mathbb{R}$
 (where one only needs to define $f$ on $\left[ 0,2\pi \right)$),
 there exists a Fourier series representation:
@@ -14,15 +20,11 @@ The coefficients are given by
     b_n &= \frac{1}{\pi} \int_{0}^{2\pi} f(x) \sin {\left( nx \right)} \intd x &\in \mathbb{R} \\
     c_n &= \frac{1}{2 \pi} \int_{0}^{2\pi} f(x) e^{-inx} \intd x &\in \mathbb{C}
 \end{align}
-One may justify the use of Fourier series representation by the following theorem:
-\begin{theorem}[Fourier Convergence Theorem]
-\lipsum[1]
-\end{theorem}
 
 Now, for a vector-valued function such as a parameterised curve $\gammabf:\mathbb{R} \rightarrow \mathbb{R}^3$, one could write 3D Fourier series,
 one for each coordinate:
 \begin{align}
-    \mathbf{f} (x) &= \frac{1}{2}
+    \mathbf{\gammabf} (t) &= \frac{1}{2}
     \begin{pmatrix}
         a_{1,0} \\
         a_{2,0} \\
@@ -35,8 +37,8 @@ one for each coordinate:
         a_{3,n} & b_{N,n}
     \end{pmatrix}
     \begin{pmatrix}
-        \cos {\left( nx \right)} \\
-        \sin {\left( nx \right)}
+        \cos {\left( nt \right)} \\
+        \sin {\left( nt \right)}
     \end{pmatrix}
     \\
     &= \sum_{n=-\infty}^{\infty}
@@ -45,7 +47,7 @@ one for each coordinate:
         c_{2,n} \\
         c_{3,n}
     \end{pmatrix}
-    e^{-inx}
+    e^{-int}
 \end{align}
 where the coefficients $\left\{ a_{i,n} \right\}, \left\{ b_{i,n} \right\}, \left\{ c_{i,n} \right\}$ are given by
 \begin{align}
@@ -55,5 +57,25 @@ where the coefficients $\left\{ a_{i,n} \right\}, \left\{ b_{i,n} \right\}, \lef
 \end{align}
 for $i=1, 2, 3$.
 
+Now the idea is to truncate the series to order $J > 0$ terms and collect its coefficients,
+that is,
+\begin{equation*}
+    \gammabf(t) \approx \sum_{n=-J}^{J}
+    \begin{pmatrix}
+        c_{1,n} \\
+        c_{2,n} \\
+        c_{3,n}
+    \end{pmatrix}
+    e^{-int}
+\end{equation*}
+One may justify the truncation of Fourier series representation by the following theorem:
+\begin{theorem}[Fourier Convergence Theorem]
+\lipsum[1]
+\end{theorem}
+Now, using these coefficients, one could construct the approximate discrete curve $\Gammabf_{N,J}$ of resolution $N$.
+This time, instead of solving for gradient flow equation,
+we use standard methods of minimising a function, such as gradient descent or otherwise \textit{over the coefficients}.
+The smoothness of the evolving curve follows since it is represented as a finite sum of infinitely smooth function,
+so there is no misbehaviour as in $L^2$ gradient flow.
 
 \end{document}

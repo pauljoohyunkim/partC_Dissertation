@@ -30,6 +30,7 @@ However, reducing the time step means the evolution itself will be slower, which
 \subsubsection{Varying Time Step}
 One modification to discrete curve untangling process is to \textbf{vary the time step}.
 Instead of using a fixed time step $\Delta T > 0$, one could try modified backtracking Armijo line search\cite{doi:10.1137/1.9781611971200.ch6} as described in Algorithm \ref{alg: Modified bArmijo linesearch}.
+(For simplicity, Algorithm \ref{alg: Modified bArmijo linesearch} is expressed for explicit Euler scheme.)
 \begin{algorithm}[tbp]
     \caption{Modified backtracking Armijo line search}
     \label{alg: Modified bArmijo linesearch}
@@ -66,7 +67,7 @@ there is an optimal choice of space for one to implement the curve untangling pr
 which makes the evolution by (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) the fastest
 and its computation trivial.
 It turns out that one could choose the gradient flow over \textbf{fractional Sobolev space} $H^s$
-where $s = \frac{\beta - 1}{2 \alpha}$ to achieve this\cite{YSC2021}.
+where $s = \frac{\beta - 1}{\alpha}$ to achieve this\cite{YSC2021}.
 Just as fractional derivative operators on $\mathbb{R}$ are non-local,
 the gradient operator $\grad_{H^s} \mathcal{E}_{\beta}^{\alpha} \left( \Gammabf^k \right)$ over
 the generalised Sobolev space $H^s$ is also nonlocal.
