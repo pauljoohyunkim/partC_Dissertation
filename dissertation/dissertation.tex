@@ -60,6 +60,7 @@
 \newcommand{\nbf}{\mathbf{n}}
 \newcommand{\Tbf}{\mathbf{T}}
 \newcommand{\zerobf}{\mathbf{0}}
+\newcommand{\xibf}{\boldsymbol{\xi}}
 \newcommand{\laplacian}{\Delta}
 \newcommand{\curvenabla}{\tilde{\nabla}}
 \newcommand{\curvelaplacian}{\tilde{\laplacian}}
@@ -73,7 +74,16 @@
 \DeclareMathOperator{\grad}{grad}
 \DeclareMathOperator{\Grad}{Grad}
 \DeclarePairedDelimiter{\abs}{\lvert}{\lvert}
-
+\def\Xint#1{\mathchoice
+   {\XXint\displaystyle\textstyle{#1}}%
+   {\XXint\textstyle\scriptstyle{#1}}%
+   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+   {\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+   \!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
 
 \begin{document}
 

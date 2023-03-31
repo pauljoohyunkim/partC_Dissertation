@@ -71,9 +71,12 @@ Just as fractional derivative operators on $\mathbb{R}$ are non-local,
 the gradient operator $\grad_{H^s} \mathcal{E}_{\beta}^{\alpha} \left( \Gammabf^k \right)$ over
 the generalised Sobolev space $H^s$ is also nonlocal.
 This gradient operator relies on the definition of fractional Laplacian\cite{DINEZZA2012521}:
-\begin{align*}
-    \left( -\laplacian \right)^2 u(x) = C_{n,s} %\dashint
-\end{align*}
+\begin{align}
+    \left( -\laplacian \right)^s u(\xbf) &= C_{n,s} \dashint_{\mathbb{R}^n} \frac{u(\xbf) - u(\ybf)}{\norm{\xbf - \ybf}^{n+2s}} \intd V_{\ybf} \\
+    &= -\frac{1}{2} C_{n,s} \int_{\mathbb{R}^n} \frac{u\left( \xbf + \ybf \right) + u\left( \xbf - \ybf \right) - 2 u(\xbf)}{\norm{\ybf}^{n+2s}} \intd V_{\ybf} \\
+    &= \mathcal{F}^{-1} \left( \norm{\xibf}^{2s} \left( \mathcal{F} u \right) \right)
+\end{align}
+where $\mathcal{F}$ is the Fourier transform operator, $\dashint$ is the principal value integral as in the definition of inverse Fourier transform, and $C_{n,s}$ is some constant that makes the last equality valid.
 It is sensible to attempt nonlocal gradient operator in the gradient flow, as the tangent-point energy itself is, in some sense, nonlocal.
 
 \end{document}
