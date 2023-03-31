@@ -64,5 +64,11 @@ for given $\alpha$ and $\beta$ values for the tangent-point energy,
 there is an optimal choice of space for one to implement the curve untangling process,
 which makes the evolution by (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) the fastest
 and its computation trivial.
+It turns out that one could choose the gradient flow over fractional Sobolev space $H^s$
+where $s = \frac{\beta - 1}{2 \alpha}$ to achieve this\cite{YSC2021}.
+Just as fractional derivative operators on $\mathbb{R}$ are non-local,
+the gradient operator $\grad_{H^s} \mathcal{E}_{\beta}^{\alpha} \left( \Gammabf^k \right)$ over
+the generalised Sobolev space $H^s$ is also nonlocal.
+It is sensible to attempt nonlocal gradient operator in the gradient flow, as the tangent-point energy itself is, in some sense, nonlocal.
 
 \end{document}
