@@ -74,7 +74,7 @@ One may justify the truncation of Fourier series representation by the following
 \lipsum[1]
 \end{theorem}
 Now, using these coefficients, one could construct the approximate discrete curve $\Gammabf_{N,J}$ of resolution $N \gg J$.
-Take the dependent variables for the discrete tangent-point energy to be the coefficients on Fourier series representation:
+Take the dependent variables for the tangent-point energy to be the coefficients on Fourier series representation:
 \begin{equation}
     \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
     \approx
@@ -130,5 +130,15 @@ and interpret the tangent-point energy to dependent on its coefficients.
     E_{\beta}^{\alpha} \left( \Gammabf_{N,J} \right)
 \end{equation}
 This time, the tangent-point quadrature is taken as the one in Appendix \ref{sct: Curves in L}.
+
+\subsubsection{Sample Points}
+While approximation via series reduces the number of dimensions to reduce the energy over,
+in order to compute the derivative (against coefficients) of the tangent-point energy,
+one still needs to use quadrature, meaning, one needs to take $N$ sample points.
+
+Because we have captured the function that describes the curve rather than points,
+there is more flexibility to either sample/resample points as needed.
+
+There are, again, natural choice of points.
 
 \end{document}
