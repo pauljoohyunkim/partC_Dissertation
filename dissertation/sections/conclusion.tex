@@ -51,6 +51,11 @@ Note that time step $\Delta T^k$ decreases only when needed, hence avoids self-c
 this gives collision avoidance guarantee by construction\cite{YSC2021}.
 However, this requires an algorithm for detecting the change in the isotopy class of the curve.
 
+Another modification of the discrete curve untangling process is to \textbf{vary the sample points}.
+When some of the edges of the discrete curve grow disproportionally large compared to most edges,
+this can render the tangent-point energy quadrature unusable.
+An alternative to adding a constraint energy to fix edge lengths is to resampling points around troublesome edges.
+One uses the points around the growing edges to approximate the portion of the curve by a spline. The advantage of this method is that it results in flexibility to change the resolution of the curve sensibly at any time during evolution, at the cost of potential errors which could lead to self-crossing if not careful.
 
 
 \subsection{Discussion of Fractional Sobolev Space}
