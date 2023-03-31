@@ -27,9 +27,29 @@ Of course, there are other possible things one could do instead to ameliorate th
 The most obvious way to improve the evolution is to take smaller time step and higher resolution of the curve.
 However, reducing the time step means the evolution itself will be slower, which is undesirable.
 
-One modification to discrete curve untangling process is to \textbf{vary the time step};
-instead of using a fixed time step $\Delta T > 0$, one could try modified backtracking Armijo line search.
-Take initial time step $\Delta T^{0}$ to be such that the evolution would result in a collision.
+One modification to discrete curve untangling process is to \textbf{vary the time step}.
+Instead of using a fixed time step $\Delta T > 0$, one could try modified backtracking Armijo line search\cite{doi:10.1137/1.9781611971200.ch6} as described in Algorithm \ref{alg: Modified bArmijo linesearch}.
+\begin{algorithm}[tbp]
+    \caption{Modified backtracking Armijo line search}
+    \label{alg: Modified bArmijo linesearch}
+    \begin{algorithmic}
+        \State Choose constant $0 < \delta < 1$, and $\Delta T^0$ such that after one step of evolution, the curve would not have crossed itself.
+        \State Let $k = 0$.
+        \State Choose $M > 0$, the number of time steps.
+        \While{$k < M$}
+        \If{evolution ($\dag$) by time step $\Delta T^k$ requires self-crossing.}
+            \State $\Delta T^k \mapsto \delta \Delta T^k$.
+            \Else
+            \State $\Gammabf^{k+1} \coloneqq \underbrace{\Gammabf^k - \Delta T^k \left( \Grad_X E_{\beta}^{\alpha} \left( \Gammabf^k \right) + \Grad_X C \left( \Gammabf^k \right)\right)}_{(\dag)}$
+            \State $k \mapsto k + 1$
+            \EndIf
+        \EndWhile
+        \Comment{One could choose any other appropriate condition for termination.}
+    \end{algorithmic}
+\end{algorithm}
+Note that time step $\Delta T^k$ decreases only when needed, hence avoids self-crossing;
+this gives collision avoidance guarantee by construction\cite{YSC2021}.
+However, this requires an algorithm for detecting the change in the isotopy class of the curve.
 
 
 
