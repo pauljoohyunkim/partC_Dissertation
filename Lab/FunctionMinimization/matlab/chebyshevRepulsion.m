@@ -27,19 +27,32 @@ tangentPointEnergy(x, y, z, pointnum, 2, 4)
 tangentPointEnergyGradient(x, y, z, pointnum, 0.00001, 2, 4)
 
 %% Gradient Descent
-stepsize=10;
-resolution=30;
-perturbation=0.00001;
+stepsize=0.0005;
+resolution=90;
+perturbation=0.0001;
+epsilon = 0.0001;
 alpha=2;
 beta=4;
 J = length(x);
 for t = 1:10000
-    coeffs = [chebcoeffs(x); chebcoeffs(y); chebcoeffs(z)];
+    coeffsx = chebcoeffs(x);
+    coeffsy = chebcoeffs(y);
+    coeffsz = chebcoeffs(z);
+    coeffs = [coeffsx; coeffsy; coeffsz];
     coeffs = coeffs - stepsize * tangentPointEnergyGradient(x, y, z, resolution, perturbation, alpha, beta);
     %tangIentPointEnergy(x,y,z,resolution, alpha, beta)
+    %Deflation
+    i = 0;
+    while norm(coeffs(:,end-i)) < epsilon
+        i = i + 1;
+    end
+    J = J - i;
+
     x = chebfun(coeffs(1:J), 'coeffs');
     y = chebfun(coeffs(J+1:2*J), 'coeffs');
     z = chebfun(coeffs(2*J + 1:3*J), 'coeffs');
     plot(x,y);
+    timeIndex = sprintf("t=%d",t);
+    title(timeIndex)
     drawnow;
 end

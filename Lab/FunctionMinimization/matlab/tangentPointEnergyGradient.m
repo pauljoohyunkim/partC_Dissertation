@@ -32,7 +32,7 @@ function gradient = tangentPointEnergyGradient(x, y, z, resolution, perturbation
         % Restore
         coeffs(i) = temp;
         
-        gradient(i) = (energyP - energyN) / 2;
+        gradient(i) = (energyP - energyN) / (2 * perturbation);
     end
 end
 
