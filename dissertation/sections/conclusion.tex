@@ -25,7 +25,9 @@ Of course, there are other possible things one could do instead to ameliorate th
 
 \subsection{Possible Variations to Curve Untangling Process}
 The most obvious way to improve the evolution is to take smaller time step and higher resolution of the curve.
-However, reducing the time step means the evolution itself will be slower, which is undesirable.
+However, reducing the time step means the evolution itself will be slower,
+and increasing resolution means the computation requires more operations per time step,
+both of which are undesirable.
 
 \subsubsection{Varying Time Step}
 One modification to discrete curve untangling process is to \textbf{vary the time step}.
