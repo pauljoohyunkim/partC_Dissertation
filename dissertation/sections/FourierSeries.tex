@@ -137,8 +137,21 @@ in order to compute the derivative (against coefficients) of the tangent-point e
 one still needs to use quadrature, meaning, one needs to take $N$ sample points.
 
 Because we have captured the function that describes the curve rather than points,
-there is more flexibility to either sample/resample points as needed.
+there is more flexibility to either sample/resample points as needed,
+simply by varying the parameter for the sample points.
 
-There are, again, natural choice of points.
+There are, again, natural choice of points for curves in $\mathbb{S}$ and $\mathbb{L}$.
+\begin{itemize}
+    \item For a curve $\gammabf \in \mathbb{S}$, the natural choice of sample points are points of which the parameter values are equispaced on periodic interval.
+        \begin{equation}
+\left\{ \gammabf(t) \middle| t = \frac{2\pi}{N}i, i \in \left\{ 0, 1, \cdots, N-1 \right\} \right\}
+        \end{equation}
+    \item For a curve $\gammabf \in \mathbb{L}$, the natural choice of sample points are Chebyshev points on the interval.
+        \begin{equation}
+            \left\{ \gammabf(t) \middle| t = \cos \left( \frac{i \pi}{N} \right), i \in \left\{ 0, 1, \cdots, N \right\} \right\}
+        \end{equation}
+\end{itemize}
+Note that keeping $N$ constant during evolution allows one to optimise the computation using FFT.
+
 
 \end{document}
