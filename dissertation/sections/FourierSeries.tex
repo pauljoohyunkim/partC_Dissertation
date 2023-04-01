@@ -26,13 +26,8 @@ The coefficients are given by
     c_n &= \frac{1}{2 \pi} \int_{0}^{2\pi} f(x) e^{-inx} \intd x &\in \mathbb{C}
 \end{align}
 
-\begin{figure}[tbp]
-    \centering
-    \includegraphics[width=\textwidth]{sections/FourierSeriesImgs/FSProjection}
-    \caption{Decomposition of curve $\gammabf\in\mathbb{S}$ into 1D functions in each coordinate.}
-\end{figure}
 Now, for a vector-valued function such as a parameterised curve $\gammabf:\mathbb{R} \rightarrow \mathbb{R}^3$, one could write 3D Fourier series,
-one for each coordinate:
+one for each coordinate (Figure \ref{fig: Fourier series decomposition into 1D}):
 \begin{align}
     \mathbf{\gammabf} (t) &= \frac{1}{2}
     \begin{pmatrix}
@@ -66,6 +61,12 @@ where the coefficients $\left\{ a_{i,n} \right\}, \left\{ b_{i,n} \right\}, \lef
     c_{i,n} &= \frac{1}{2\pi} \int_{0}^{2\pi} \gamma_i (t) e^{-int} \intd t & \in \mathbb{C}
 \end{align}
 for $i=1, 2, 3$ where $\gamma_i$ represents $i$\textsuperscript{th} coordinate of $\gammabf$.
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[width=\textwidth]{sections/FourierSeriesImgs/FSProjection}
+    \caption{Decomposition of curve $\gammabf\in\mathbb{S}$ into 1D functions in each coordinate.}
+    \label{fig: Fourier series decomposition into 1D}
+\end{figure}
 
 Now the idea is to truncate the series to order $J > 0$ terms and collect its coefficients,
 that is,
