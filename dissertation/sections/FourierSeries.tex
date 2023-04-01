@@ -184,12 +184,18 @@ There are natural choice of sample points for curves in $\mathbb{S}$ and $\mathb
         \begin{equation}
 \left\{ \gammabf(t) \middle| t = \frac{2\pi}{N}j, j \in \left\{ 0, 1, \cdots, N-1 \right\} \right\}
         \end{equation}
-    \item For a curve $\gammabf \in \mathbb{L}$, the natural choice of sample points are Chebyshev points on the interval.
+    \item For a curve $\gammabf \in \mathbb{L}$, the natural choice of sample points are Chebyshev points on the interval. (Figure \ref{fig: Chebyshev Points})
         \begin{equation}
             \left\{ \gammabf(t) \middle| t = \cos \left( \frac{j \pi}{N} \right), j \in \left\{ 0, 1, \cdots, N \right\} \right\}
         \end{equation}
-\end{itemize}
 Use of Chebyshev points may aid in avoiding Runge phenomenon\cite{Trefethen_2020}.
+\end{itemize}
+\begin{figure}[tbp]
+    \centering
+    \includegraphics{sections/FourierSeriesImgs/ChebyshevPoints}
+    \caption{Chebyshev points are acquired from projecting equally spaced points on a unit circle to the $x$-axis.}
+    \label{fig: Chebyshev Points}
+\end{figure}
 
 Note that keeping $N$ constant during evolution allows one to optimise the generation/computation of sample points.
 For example, for $\gammabf \in \mathbb{S}$, the points on the discretised curve $\Gammabf_{N,J}^k$:
