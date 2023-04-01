@@ -3,7 +3,11 @@
 Instead of solving a discretised gradient flow equation (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) directly,
 a possible approach is to use approximation theory for a simple class of tangled curves;
 if one knows beforehand that the initial curve is homeomorphic to a circle or a line segment,
-it is possible to interpret and approximate the curve as comprised of simple functions.
+it is possible to interpret and approximate the curve as comprised of simple functions,
+and significantly optimise the untangling process by casting the functional reduction problem to
+a traditional function reduction problem.
+This also results in a simpler implementation for low-stake applications,
+such as rope physics for video games.
 Denote by $\mathbb{S}$ and $\mathbb{L}$ for bounded curves that are homeomorphic to a circle and a line segment, respectively, as in Appendix \ref{sct: Other Homeomorphism Classes}.
 
 \subsubsection{Curves in $\mathbb{S}$}
@@ -87,9 +91,9 @@ Take the dependent variables for the tangent-point energy to be the coefficients
 This time, instead of solving for gradient flow equation,
 we use standard methods of minimising a function, such as gradient descent or otherwise \textit{over the $3(2J+1)$ coefficients\footnote{Without loss of generality, one could take $c_{i,0} = 0$ for $i=1,2,3$ as it only determines constant shift of the entire curve, so one actually only needs to consider $6J$ coefficients.}} $\cbf_{-J}, \cbf_{-J+1}, \cdots, \cbf_{J}$.
 It is practical to take $N$ to be larger than the resolution for the discrete gradient flow,
-as we have less variables to minimise over.
+as we have will have less variables to minimise over anyways.
 The smoothness of the evolving curve follows since it is represented as a finite sum of infinitely smooth function,
-so there is no misbehaviour from sharp points as in $L^2$ gradient flow.
+so there is no misbehaviour from sharp points as in Figure \ref{fig: L2Derivative}.
 
 \subsubsection{Curves in $\mathbb{L}$}
 For $\gammabf$ that is not closed, but rather homeomorphic to a line segment,
@@ -131,27 +135,43 @@ and interpret the tangent-point energy to dependent on its coefficients.
 \end{equation}
 This time, the tangent-point quadrature is taken as the one in Appendix \ref{sct: Curves in L}.
 
-\subsubsection{Sample Points}
-While approximation via series reduces the number of dimensions to reduce the energy over,
-in order to compute the derivative (against coefficients) of the tangent-point energy,
+\subsubsection{Sample Points and Time Complexity}
+While approximation via series reduces the number of dimensions to reduce the tangent-point energy over,
+in order to compute the derivative (against coefficients),
 one still needs to use quadrature, meaning, one needs to take $N$ sample points.
 
 Because we have captured the function that describes the curve rather than points,
 there is more flexibility to either sample/resample points as needed,
 simply by varying the parameter for the sample points.
 
-There are, again, natural choice of points for curves in $\mathbb{S}$ and $\mathbb{L}$.
+There are natural choice of sample points for curves in $\mathbb{S}$ and $\mathbb{L}$.
 \begin{itemize}
-    \item For a curve $\gammabf \in \mathbb{S}$, the natural choice of sample points are points of which the parameter values are equispaced on periodic interval.
+    \item For a curve $\gammabf \in \mathbb{S}$, the natural choice of sample points are points of which the parameter values are equispaced on the interval $\left[ 0,2\pi \right)$.
         \begin{equation}
-\left\{ \gammabf(t) \middle| t = \frac{2\pi}{N}i, i \in \left\{ 0, 1, \cdots, N-1 \right\} \right\}
+\left\{ \gammabf(t) \middle| t = \frac{2\pi}{N}j, j \in \left\{ 0, 1, \cdots, N-1 \right\} \right\}
         \end{equation}
     \item For a curve $\gammabf \in \mathbb{L}$, the natural choice of sample points are Chebyshev points on the interval.
         \begin{equation}
-            \left\{ \gammabf(t) \middle| t = \cos \left( \frac{i \pi}{N} \right), i \in \left\{ 0, 1, \cdots, N \right\} \right\}
+            \left\{ \gammabf(t) \middle| t = \cos \left( \frac{j \pi}{N} \right), j \in \left\{ 0, 1, \cdots, N \right\} \right\}
         \end{equation}
 \end{itemize}
-Note that keeping $N$ constant during evolution allows one to optimise the computation using FFT.
+Use of Chebyshev points may aid in avoiding Runge phenomenon\cite{Trefethen_2020}.
 
+Note that keeping $N$ constant during evolution allows one to optimise the generation/computation of sample points.
+For example, for $\gammabf \in \mathbb{S}$, the points on the discretised curve $\Gammabf_{N,J}^k$:
+\begin{align}
+    \Gammabf_{N,J}^k [j] &= \xbf_{j}^{k} = \sum_{n=-J}^{J} \cbf_{n} e^{i \frac{2\pi}{N}n j} & j=0,1,\cdots,N-1
+\end{align}
+By using modified FFT\cite{5213896}, one could reduce the cost from $O\left( NJ \right)$ to $O \left( J \log N \right)$.
+Also, because the tangent-point energy of the truncated curve $\mathcal{E}_{\beta}^{\alpha} \left( \gammabf_{J} \right)$ involves integral which the integration variable is independent from the coefficients $\cbf_n$,
+one could, in theory, directly compute derivative by differentiating under the integral sign (which turns out to be a messy computation),
+or one could use central difference scheme to approximate it;
+because one only needs to compute $3J$ derivatives\footnote{Order $0$ terms do not contribute, hence derivative with respect to those coefficients are identically zero.}
+instead of $3N \gg 3J$ derivatives, this can be a practical approach.
+With latter approach to compute derivative, this would result in $O\left( J^3 + J \log N \right)$ operations per time step.
+Because $J$ does not need to be large at all\footnote{Instead of storing a unit circle with, say $N = 90$ points, one technically only needs $J=1$ to do the same.},
+so with this approach, ``practical cost'' (assuming $J$ is a constant order) is $O\left( \log N \right)$.
+
+Similar analysis with can be done with curves in $\mathbb{L}$ as the evaluation of Chebyshev series can also be improved using FFT.
 
 \end{document}
