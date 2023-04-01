@@ -66,17 +66,22 @@ Now the idea is to truncate the series to order $J > 0$ terms and collect its co
 that is,
 \begin{equation*}
     \gammabf(t) \approx \sum_{n=-J}^{J}
+    \underbrace{
     \begin{pmatrix}
         c_{1,n} \\
         c_{2,n} \\
         c_{3,n}
     \end{pmatrix}
+}_{\cbf_n}
     e^{-int}
 \end{equation*}
-One may justify the truncation of Fourier series representation by the following theorem:
-\begin{theorem}[Fourier Convergence Theorem]
-\lipsum[1]
-\end{theorem}
+One may justify the truncation of Fourier series representation by the following remark:
+\begin{remark}[Rate of Convergence for Fourier Series\cite{fourierseries}]
+    For sufficiently well-behaving $f \in \mathcal{C}^{p-1}$, typically the nonzero coefficients $c_n$ decay as $O\left( \frac{1}{n^{p+1}} \right)$.
+    This can be made more rigorous by theorem \ref{thrm: Rate of Convergence of Chebyshev Series},
+    and the remark following it.
+%\lipsum[1]
+\end{remark}
 Now, using these coefficients, one could construct the approximate discrete curve $\Gammabf_{N,J}$ of resolution $N \gg J$.
 Take the dependent variables for the tangent-point energy to be the coefficients on Fourier series representation:
 \begin{equation}
@@ -98,21 +103,34 @@ so there is no misbehaviour from sharp points as in Figure \ref{fig: L2Derivativ
 \subsubsection{Curves in $\mathbb{L}$}
 For $\gammabf$ that is not closed, but rather homeomorphic to a line segment,
 it is more natural to use Chebyshev approximation\cite{Trefethen_2020}.
+\begin{definition}[Chebyshev Polynomial]
+    $n$\textsuperscript{th} Chebyshev polynomial $T_n(x)$ is defined in the following way:
+    \begin{align}
+        x &= \frac{1}{2} \left( z+z^{-1} \right) = \cos{\theta} \\
+        T_n(x) &= \frac{1}{2}\left( z^k + z^{-k} \right) = \cos{(k\theta)}
+    \end{align}
+    where $z \in \left\{ z\in\mathbb{C} \middle| |z| = 1 \right\}$.
+\end{definition}
 For a curve $\gammabf:\left[ -1, 1 \right] \rightarrow \mathbb{R}^3$ such that $\gammabf \in \mathbb{L}$,
+there exists a Chebyshev series representation:
 \begin{equation}
     \gammabf (t) =
+    \underbrace{
     \begin{pmatrix}
         a_{1,0} \\
         a_{2,0} \\
         a_{3,0}
     \end{pmatrix}
+}_{\abf_0}
     +
     \sum_{n=1}^{\infty}
+    \underbrace{
     \begin{pmatrix}
         a_{1,n} \\
         a_{2,n} \\
         a_{3,n}
     \end{pmatrix}
+}_{\abf_n}
     T_n (t)
 \end{equation}
 where $T_n (t)$ is the $n$\textsuperscript{th} Chebyshev polynomial.
@@ -123,7 +141,17 @@ The coefficients $\left\{ a_{i,n} \right\}$ are given by:
 for $i = 1, 2, 3$.
 
 We again approximate $\gammabf$ by truncating the Chebyshev series up to order $J$ term,
-and interpret the tangent-point energy to dependent on its coefficients.
+which we justify by the following theorem for Chebyshev series:
+\begin{theorem}[Rate of Convergence for Chebyshev Series\cite{Trefethen_2020}]
+    \label{thrm: Rate of Convergence of Chebyshev Series}
+    For $f:\left[ -1,1 \right]\rightarrow \mathbb{R}$ such that its derivatives through $f^{(p-1)}$ are absolutely continuous, and $f^{(p)}$ is of bounded variation, then the nonzero coefficients decay as $O\left( \frac{1}{n^{p+1}} \right)$ and the 2-norm error of interpolants and truncations decay as $O\left( \frac{1}{n^p} \right)$.
+\end{theorem}
+\begin{remark}
+    There is actually a way in a sense that Chebyshev series and Fourier series are equivalent, which is outlined in \cite{Trefethen_2020}.
+    The remark of rate of convergence of Fourier series can be posed, hence, equivalently to this theorem.
+\end{remark}
+
+Then, interpret the tangent-point energy to dependent on its coefficients.
 \begin{equation}
     \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
     \approx
@@ -166,12 +194,12 @@ By using modified FFT\cite{5213896}, one could reduce the cost from $O\left( NJ 
 Also, because the tangent-point energy of the truncated curve $\mathcal{E}_{\beta}^{\alpha} \left( \gammabf_{J} \right)$ involves integral which the integration variable is independent from the coefficients $\cbf_n$,
 one could, in theory, directly compute derivative by differentiating under the integral sign (which turns out to be a messy computation),
 or one could use central difference scheme to approximate it;
-because one only needs to compute $3J$ derivatives\footnote{Order $0$ terms do not contribute, hence derivative with respect to those coefficients are identically zero.}
+because one only needs to compute $3J$ derivatives\footnote{Order $0$ terms do not contribute as tangent-point energy is shift-invariant, hence derivative with respect to those coefficients are identically zero.}
 instead of $3N \gg 3J$ derivatives, this can be a practical approach.
 With latter approach to compute derivative, this would result in $O\left( J^3 + J \log N \right)$ operations per time step.
 Because $J$ does not need to be large at all\footnote{Instead of storing a unit circle with, say $N = 90$ points, one technically only needs $J=1$ to do the same.},
 so with this approach, ``practical cost'' (assuming $J$ is a constant order) is $O\left( \log N \right)$.
 
-Similar analysis with can be done with curves in $\mathbb{L}$ as the evaluation of Chebyshev series can also be improved using FFT.
+Similar analysis with can be done with curves in $\mathbb{L}$ as the evaluation of Chebyshev series can also be improved using FFT\cite{Trefethen_2020}.
 
 \end{document}
