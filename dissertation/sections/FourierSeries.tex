@@ -207,6 +207,7 @@ Note that keeping $N$ constant during evolution allows one to optimise the gener
 For example, for $\gammabf \in \mathbb{S}$, the points on the discretised curve $\Gammabf_{N,J}^k$:
 \begin{align}
     \Gammabf_{N,J}^k [j] &= \xbf_{j}^{k} = \sum_{n=-J}^{J} \cbf_{n} e^{i \frac{2\pi}{N}n j} & j=0,1,\cdots,N-1
+    \label{equ: DFT}
 \end{align}
 By using modified FFT\cite{5213896}, one could reduce the cost from $O\left( NJ \right)$ to $O \left( J \log N \right)$.
 Also, because the tangent-point energy of the truncated curve $\mathcal{E}_{\beta}^{\alpha} \left( \gammabf_{J} \right)$ involves integral which the integration variable is independent from the coefficients $\cbf_n$,
@@ -216,8 +217,40 @@ because one only needs to compute $3J$ derivatives\footnote{Order $0$ terms do n
 instead of $3N \gg 3J$ derivatives, this can be a practical approach.
 With latter approach to compute derivative, this would result in $O\left( J^3 + J \log N \right)$ operations per time step.
 Because $J$ does not need to be large at all\footnote{Instead of storing a unit circle with, say $N = 90$ points, one technically only needs $J=1$ to do the same.},
-so with this approach, ``practical cost'' (assuming $J$ is a constant order) is $O\left( \log N \right)$.
+and in fact, assuming that the higher order coefficients decay fast enough,
+one could ``deflate'' the problem by truncating the series further later.
+So with this approach, ``practical cost'' (assuming $J$ is a constant order) is $O\left( \log N \right)$.
 
-Similar analysis with can be done with curves in $\mathbb{L}$ as the evaluation of Chebyshev series can also be improved using FFT\cite{Trefethen_2020}.
+Similar analysis can be done with curves in $\mathbb{L}$ as the evaluation of Chebyshev series can also be improved using FFT\cite{Trefethen_2020}.
+
+The full algorithm with deflation is outlined in Algorithm \ref{alg: Energy Reduction via Approximation Theory with Deflation}.
+
+\begin{algorithm}[tbp]
+    \caption{Fixed Step-size Energy Reduction via Approximation Theory with Deflation}
+    \label{alg: Energy Reduction via Approximation Theory with Deflation}
+    \begin{algorithmic}
+        \State Choose $J$. (Depends on the complexity of the initial curve.)
+        \State Let $k=0$.
+        \State Choose $M > 0$, the number of time steps.
+        \State Choose $N > J$, the resolution of the curve to generate.
+        \State Choose $0 < \epsilon \ll 1$, the tolerance for deflation.
+        \State Choose $0 < \Delta T \ll 1$, the fixed step size.
+        %\Comment{One could easily conceive an algorithm which the time step changes.}
+
+        \State Given initial curve $\gammabf$ or initial set of sample points $\Gammabf$, find a series approximation up to order $J$.
+        \While{$k < M$}
+        \State Compute sample points $\Gammabf_{N,J}^k$ as in (\ref{equ: DFT}) via FFT.
+        \State Compute $\nabla_{\cbf} E_{\beta}^{\alpha} \left( \Gammabf_{N,J}^k \right)$ exactly or approximately, where the $\nabla_{\cbf}$ is gradient operator over all the coefficients of the series.
+        \Comment{$\cbf$ is the array of coefficients.}
+        \State Evolve a time step by $\cbf \leftarrow \cbf - \nabla_{\cbf} E_{\beta}^{\alpha} \left( \Gammabf_{N,J}^k \right)$.
+        \If{$\exists j \suchthat \forall i \geq j$, the modulus of the order $i$ coefficient is less than $\epsilon$}
+        \State Truncate the series to order $j-1$ term.
+        \State $J \leftarrow j-1$.
+        \Comment{Deflation: reduced $J$, so expect a speedup in computation.}
+        \EndIf
+        \State $k \leftarrow k+1$
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}
 
 \end{document}

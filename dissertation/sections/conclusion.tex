@@ -43,7 +43,7 @@ Instead of using a fixed time step $\Delta T > 0$, one could try modified backtr
             \State $\Delta T^k \mapsto \delta \Delta T^k$.
             \Else
             \State $\Gammabf^{k+1} \coloneqq \underbrace{\Gammabf^k - \Delta T^k \left( \Grad_X E_{\beta}^{\alpha} \left( \Gammabf^k \right) + \Grad_X C \left( \Gammabf^k \right)\right)}_{(\dag)}$
-            \State $k \mapsto k + 1$
+            \State $k \leftarrow k + 1$
             \EndIf
         \EndWhile
         \Comment{One could choose any other appropriate condition for termination.}
