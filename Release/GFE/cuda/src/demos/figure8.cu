@@ -46,9 +46,15 @@ int main()
         /* Energy Derivative Computaton */
         cuDEnergy<<<RESOLUTION, 1>>>(figure8.dev_blocks, dCurve.dev_blocks, s.scratchpads, RESOLUTION, ALPHA, BETA);
         cudaDeviceSynchronize();
+
+        /* Constraint */
+        if (LAMBDA != 0.0)
+        {
+            tensorAdd(dCurve, figure8, LAMBDA);
+        }
+
         /* Evolution */
         tensorSubtract(figure8, dCurve, DELTA_T);
-        //cudaDeviceSynchronize();
         /* Export to RAM, then to file */
         tensorBlockFlush(figure8, x, y, z);
 
@@ -83,6 +89,10 @@ static std::string filename(int i)
     fn += std::string("_DELTAT_") + std::to_string(DELTA_T);
     fn += std::string("_NUMOFSTEP_") + std::to_string(NUM_OF_STEPS);
     fn += std::string("_PLOTFREQ_") + std::to_string(PLOT_FREQUENCY);
+    if (LAMBDA != 0.0)
+    {
+        fn += std::string("_LAMBDA_") + std::to_string(LAMBDA);
+    }
     fn += std::string("_SCALE_") + std::to_string(SCALE);
     fn += std::string("_TWIST_") + std::to_string(TWIST);
     if (i == 0)
