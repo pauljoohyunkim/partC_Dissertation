@@ -273,8 +273,8 @@ The full algorithm with deflation is outlined in Algorithm \ref{alg: Energy Redu
         \Comment{$\cbf$ is the array of coefficients.}
         \State Evolve a time step by $\cbf \leftarrow \cbf - \nabla_{\cbf} E_{\beta}^{\alpha} \left( \Gammabf_{N,J}^k \right)$.
         \If{$\exists j \suchthat \forall i \geq j$, the modulus of the order $i$ coefficient is less than $\epsilon$}
-        \State Truncate the series to order $j-1$ term.
-        \State $J \leftarrow j-1$.
+        \State Truncate the series to order $j-i$ term.
+        \State $J \leftarrow j-i$.
         \Comment{Deflation: reduced $J$, so expect a speedup in computation.}
         \EndIf
         \State $k \leftarrow k+1$
