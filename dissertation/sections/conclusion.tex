@@ -1,7 +1,7 @@
 \documentclass[../dissertation.tex]{subfiles}
 \begin{document}
 Because of the nature of discretisation, there is no absolute guarantee that a curve would not intersect;
-this implies that the implementation of the curve untangling process must be carefully designed.
+this implies that the implementation of the curve untangling process is not a trivial task, and must be carefully designed.
 Throughout experiments, common points of failure were:
 \begin{itemize}
     \item Some of the edge lengths of the discretised curve became sufficiently large that the quadrature ceased to become valid.
@@ -98,5 +98,6 @@ for $s \in \left( 0,1 \right)$,
 \end{align}
 where $\mathcal{F}$ is the Fourier transform operator, $\dashint$ is the principal value integral as in the definition of inverse Fourier transform, and $C_{n,s}$ is some constant that makes the last equality valid.
 It is sensible to attempt nonlocal gradient operator in the gradient flow, as the tangent-point energy itself is, in some sense, nonlocal.
+For more detail, see \cite{DINEZZA2012521}, and \cite{YSC2021} for its adaptation to curve repulsion.
 
 \end{document}

@@ -1,12 +1,16 @@
 \documentclass[../dissertation.tex]{subfiles}
 \begin{document}
+Motivated by the fact that we are approximating a curve by discretisation,
+and the tangent-point energy is ``continuous'' in the sense that small perturbation
+leads to small change,
+one could attempt untangling problem with a different approach.
 Instead of solving a discretised gradient flow equation (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) directly,
 a possible approach is to use approximation theory for a simple class of tangled curves;
 if one knows beforehand that the initial curve is homeomorphic to a circle or a line segment,
 it is possible to interpret and approximate the curve as comprised of simple functions,
 and significantly optimise the untangling process by casting the functional reduction problem to
 a traditional function reduction problem.
-This also results in a simpler implementation for low-stake applications,
+This also results in a simpler implementation for low-stake/intensity applications,
 such as rope physics for video games.
 Denote by $\mathbb{S}$ and $\mathbb{L}$ for bounded curves that are homeomorphic to a circle and a line segment, respectively, as in Appendix \ref{sct: Other Homeomorphism Classes}.
 
@@ -79,7 +83,7 @@ that is,
         c_{3,n}
     \end{pmatrix}
 }_{\cbf_n}
-    e^{-int}
+    e^{int}
 \end{equation*}
 One may justify the truncation of Fourier series representation by the following remark:
 \begin{remark}[Rate of Convergence for Fourier Series\cite{fourierseries}]
