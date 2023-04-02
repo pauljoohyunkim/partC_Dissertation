@@ -211,15 +211,15 @@ For example, for $\gammabf \in \mathbb{S}$, the points on the discretised curve 
 \end{align}
 By using modified FFT\cite{5213896}, one could reduce the cost from $O\left( NJ \right)$ to $O \left( J \log N \right)$.
 Also, because the tangent-point energy of the truncated curve $\mathcal{E}_{\beta}^{\alpha} \left( \gammabf_{J} \right)$ involves integral which the integration variable is independent from the coefficients $\cbf_n$,
-one could, in theory, directly compute derivative by differentiating under the integral sign (which turns out to be a messy computation),
+one could, in theory, directly compute derivative by differentiating under the integral sign (which turns out to be a messy computation, but possible),
 or one could use central difference scheme to approximate it;
 because one only needs to compute $3J$ derivatives\footnote{Order $0$ terms do not contribute as tangent-point energy is shift-invariant, hence derivative with respect to those coefficients are identically zero.}
 instead of $3N \gg 3J$ derivatives, this can be a practical approach.
 With latter approach to compute derivative, this would result in $O\left( J^3 + J \log N \right)$ operations per time step.
 Because $J$ does not need to be large at all\footnote{Instead of storing a unit circle with, say $N = 90$ points, one technically only needs $J=1$ to do the same.},
 and in fact, assuming that the higher order coefficients decay fast enough,
-one could ``deflate'' the problem by truncating the series further later.
-So with this approach, ``practical cost'' (assuming $J$ is a constant order) is $O\left( \log N \right)$.
+one could ``deflate'' the problem by truncating the series further later,
+the ``practical cost'' (assuming $J$ is a constant order) can be expressed as $O\left( \log N \right)$ with this approach.
 
 Similar analysis can be done with curves in $\mathbb{L}$ as the evaluation of Chebyshev series can also be improved using FFT\cite{Trefethen_2020}.
 
