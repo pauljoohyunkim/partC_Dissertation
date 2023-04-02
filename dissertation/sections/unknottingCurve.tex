@@ -443,6 +443,10 @@ the cost of computing $H^1$ gradient is dominated by the cost of computing $\Gra
 
 Note that because $H^1$ takes weak derivative into account, the direction of the flow is more aligned with its neighbours as shown in Figure \ref{fig: H1 Derivative} and hence, smoother flow as shown in Figure \ref{fig: H1 Curve Unknotting}.
 
+Also, because $H^1$ gradient operator was closer to the ``order of the differential'' of the curve,
+the evolution is faster (Figure \ref{fig: Gradient Flow Energies}).
+See section \ref{sct: Discussion of Fractional Sobolev Space} for a bit more detail.
+
 \begin{figure}[tbp]
     \centering
     \begin{subfigure}[b]{0.32\textwidth}
@@ -460,5 +464,12 @@ Note that because $H^1$ takes weak derivative into account, the direction of the
 
     \caption{$H^1$ flow on a figure-eight curve. Unlike $L^2$ flow as shown in Figure \ref{fig: L2 Curve Unknotting}, $H^1$ takes the first derivative into account, hence results in a smoother curve.}
     \label{fig: H1 Curve Unknotting}
+\end{figure}
+
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/GradientFlowEnergies}
+    \caption{Untangling the figure-eight curve. Energy of the curve evolution in each gradient flow. $H^1$ flow is slightly faster in each time step in the same conditions.}
+    \label{fig: Gradient Flow Energies}
 \end{figure}
 \end{document}

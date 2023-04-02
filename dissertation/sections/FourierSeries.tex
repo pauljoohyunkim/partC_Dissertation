@@ -219,7 +219,7 @@ With latter approach to compute derivative, this would result in $O\left( J^3 + 
 Because $J$ does not need to be large at all\footnote{Instead of storing a unit circle with, say $N = 90$ points, one technically only needs $J=1$ to do the same.},
 and in fact, assuming that the higher order coefficients decay fast enough,
 one could ``deflate'' the problem by truncating the series further later,
-the ``practical cost'' (assuming $J$ is a constant order) can be expressed as $O\left( \log N \right)$ with this approach.
+the ``practical cost'' (assuming $J$ is of constant order) can be expressed as $O\left( \log N \right)$ with this approach.
 
 Similar analysis can be done with curves in $\mathbb{L}$ as the evaluation of Chebyshev series can also be improved using FFT\cite{Trefethen_2020}.
 
@@ -253,6 +253,8 @@ Similar analysis can be done with curves in $\mathbb{L}$ as the evaluation of Ch
     \caption{Evolution of $\gammabf \in \mathbb{S}$ and $\gammabf \in \mathbb{L}$.}
 \end{figure}
 The full algorithm with deflation is outlined in Algorithm \ref{alg: Energy Reduction via Approximation Theory with Deflation}.
+As demonstrated in Figure \ref{fig: UnknottingEnergiesProgress},
+this method can indeed be practical.
 
 \begin{algorithm}[tbp]
     \caption{Fixed Step-size Energy Reduction via Approximation Theory with Deflation}
@@ -271,7 +273,7 @@ The full algorithm with deflation is outlined in Algorithm \ref{alg: Energy Redu
         \State Compute sample points $\Gammabf_{N,J}^k$ as in (\ref{equ: DFT}) via FFT.
         \State Compute $\nabla_{\cbf} E_{\beta}^{\alpha} \left( \Gammabf_{N,J}^k \right)$ exactly or approximately, where the $\nabla_{\cbf}$ is gradient operator over all the coefficients of the series.
         \Comment{$\cbf$ is the array of coefficients.}
-        \State Evolve a time step by $\cbf \leftarrow \cbf - \nabla_{\cbf} E_{\beta}^{\alpha} \left( \Gammabf_{N,J}^k \right)$.
+        \State Evolve a time step by $\cbf \leftarrow \cbf - \Delta T \nabla_{\cbf} E_{\beta}^{\alpha} \left( \Gammabf_{N,J}^k \right)$.
         \If{$\exists j \suchthat \forall i \geq j$, the modulus of the order $i$ coefficient is less than $\epsilon$}
         \State Truncate the series to order $j-i$ term.
         \State $J \leftarrow j-i$.
@@ -281,5 +283,12 @@ The full algorithm with deflation is outlined in Algorithm \ref{alg: Energy Redu
         \EndWhile
     \end{algorithmic}
 \end{algorithm}
+
+\begin{figure}[tbp]
+    \centering
+    \includegraphics{sections/conclusionImgs/UnknottingEnergiesProgress}
+    \caption{The method of minimising function can be much faster than using the gradient flow.}
+    \label{fig: UnknottingEnergiesProgress}
+\end{figure}
 
 \end{document}
