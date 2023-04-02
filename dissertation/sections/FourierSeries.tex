@@ -223,6 +223,35 @@ So with this approach, ``practical cost'' (assuming $J$ is a constant order) is 
 
 Similar analysis can be done with curves in $\mathbb{L}$ as the evaluation of Chebyshev series can also be improved using FFT\cite{Trefethen_2020}.
 
+
+\begin{figure}[tbp]
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/FourierSeriesImgs/Fourier0}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/FourierSeriesImgs/Chebyshev0}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/FourierSeriesImgs/Fourier1}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/FourierSeriesImgs/Chebyshev1}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/FourierSeriesImgs/Fourier2}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{sections/FourierSeriesImgs/Chebyshev2}
+    \end{subfigure}
+    \caption{Evolution of $\gammabf \in \mathbb{S}$ and $\gammabf \in \mathbb{L}$.}
+\end{figure}
 The full algorithm with deflation is outlined in Algorithm \ref{alg: Energy Reduction via Approximation Theory with Deflation}.
 
 \begin{algorithm}[tbp]

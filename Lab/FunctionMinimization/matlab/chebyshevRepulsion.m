@@ -78,7 +78,7 @@ for t = 1:301
     %view([-53+90 80])
     drawnow;
     if mod(t, snapshotInterval) == 1
-        saveas(gcf, sprintf("%d.png",snapshotNumber));
+        exportgraphics(gcf, sprintf("%d.png",snapshotNumber),"Resolution",300, "BackgroundColor","none");
         snapshotNumber = snapshotNumber + 1;
     end
 end
