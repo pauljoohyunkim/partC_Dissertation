@@ -29,11 +29,12 @@ For example, the first point of failure could be fixed by taking the constraint 
 Of course, the other points of failure are innate to the approach itself,
 and one must tweak the scheme to resolve them.
 The nonsmoothness issue can be resolved by using a higher order Sobolev space,
-Nullification of the kernel can be resolved by stopping the evolution afer achieving the energy value within a specified tolerance from the energy of the stationary state;
-for example, if one attempts evolution of curve which the unknot is a circle, with Buck-Orloff tangent-point energy $\mathcal{E}_{4}^{2}$, we stop the evolution after the energy of the curve is within $\epsilon > 0$ from $\pi^2$,
+nullification of the kernel can be resolved by stopping the evolution afer achieving the energy value within a specified tolerance from the energy of the expected stationary state;
+for example, if one attempts evolution of curve which the unknot is a circle, with Buck-Orloff tangent-point energy $\mathcal{E}_{4}^{2}$, we stop the evolution after the energy of the curve is within some tolerance $\epsilon > 0$ from $\pi^2$,
 the Buck-Orloff tangent-point energy of a circle.
 For the issue of self-intersection,
-it turns out that in practice, taking higher resolution and smaller time step ends up resolving it.
+it turns out that in practice, taking higher resolution and smaller time step helps alleviate it,
+yet does not result in certainty of complete fix.
 
 Of course, there are other possible things one could do instead to ameliorate the result of evolution.
 
