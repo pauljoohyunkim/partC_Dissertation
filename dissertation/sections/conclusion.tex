@@ -7,8 +7,22 @@ Throughout experiments, common points of failure were:
     \item Some of the edge lengths of the discretised curve became sufficiently large that the quadrature ceased to become valid.
     \item The curves ceased to be smooth (as in Figure \ref{fig: L2 Curve Unknotting} partially).
     \item The curves ``collapsing'' to nullify the kernel, usually after a long time since reaching a stationary state.
+        (Figure \ref{fig: Collapse})
     \item Self-intersection in some cases.
 \end{itemize}
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[width=\textwidth]{sections/conclusionImgs/FailureCollapse}
+    \caption{
+        %For sufficiently low local resolution, the energy can be nullified by a ``collapse'' to a line, as the summand in the quadrature ceases to approximate the actual tangent-point energy kernel.
+        In the case of a 4-point discretised curve as shown, while computing the approximate kernel,
+        it disregards the adjacent edges, which in fact takes significant portion of the curve out of consideration,
+        and does not accurately approximate the kernel of the original curve which the discretised curve came from.
+        By taking the height of the parallelogram to zero, all the points align with all the edges $e_i$,
+        hence energy is trivially reduced to zero.
+    }
+    \label{fig: Collapse}
+\end{figure}
 
 The simplest idea to resolve some of the arising issues is to take a combination of appropriate constraints as in section \ref{sct: Constraint Energy} to steer the curve away from those issues.
 For example, the first point of failure could be fixed by taking the constraint of prescribing edge lengths to be the initial edge lengths. 
@@ -52,7 +66,7 @@ Instead of using a fixed time step $\Delta T > 0$, one could try modified backtr
     \end{algorithmic}
 \end{algorithm}
 Note that time step $\Delta T^k$ decreases only when needed, hence avoids self-crossing;
-this gives collision avoidance guarantee by construction\cite{YSC2021}.
+this gives collision avoidance guarantee\footnote{At least in terms of discretised curve.} by construction\cite{YSC2021}.
 However, this requires an algorithm for detecting the change in the isotopy class of the curve.
 
 \subsubsection{Varying the Sample Points}
