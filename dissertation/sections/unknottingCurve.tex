@@ -232,7 +232,7 @@ where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \t
     \caption{$-\Grad_{L^2} \left( \Gammabf^k \right)$ which is the direction of flow of a discretised curve $\Gammabf^k$ at each point, represented by the arrows. The magnitude is represented by both color and the length of the arrows.}
     \label{fig: L2Derivative}
 \end{figure}
-Note that $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also a array of the same shape as $\Gammabf^k$,
+Note that $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also an array of the same shape as $\Gammabf^k$,
 so naturally, most arithmetics\footnote{Such as addition, subtraction, and scalar multiplication.} needed for (\ref{equ: L2 Explicit Euler}) is well-defined.
 \begin{remark}
     $\Grad_{\ell^2}$ is in fact a linear operator with respect to its input, energy.
@@ -286,7 +286,7 @@ This is consistent with the motivation of gradient flow equation given in sectio
     \label{fig: L2 Curve Unknotting}
 \end{figure}
 There is a subtlety;
-there is no guarantee that the edge lengths does not grow,
+there is no guarantee that the edge lengths do not grow,
 which would break the assumption that the tangent-point energy quadrature is valid.
 This can be mitigated by prescribing edge lengths $L_i$ using some constraint energy as in section \ref{sct: Constraint Energy}.
 

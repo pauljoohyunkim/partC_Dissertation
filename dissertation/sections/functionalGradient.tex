@@ -53,11 +53,11 @@ However, there is a subtlety here.
 Because inverting a Laplacian requires additional information
 (often about the boundary, even though we assume it was a boundary-free domain),
 $\laplacian^{-1}$ can be problematic.
-One could resolve this by replacing $\laplacian^{-1}$ by $\left(\laplacian + c \idf\right)^{-1}$
+One could resolve this by regularising $\laplacian^{-1}$ to $\left(\laplacian + c \idf\right)^{-1}$
 where $c\neq 0$ is a constant and $\idf$ is the identity operator.
 One justifies this replacement by noting the fact that $H^1$ gradient is only defined up to
-addition of null space of the Laplacian\footnote{``Harmonic functions''}, and hence addition of $c \idf$ can be absorbed.
-Note that $\left(\laplacian + c \idf\right)$ is an invertible operator now.
+addition of null space of the Laplacian\footnote{``Harmonic functions''}, and addition of $c \idf$ can make the operator invertible.
+%Note that $\left(\laplacian + c \idf\right)$ is an invertible operator now.
 \end{remark}
 
 Similarly, one could acquire gradient in $H^2$ by
@@ -71,7 +71,7 @@ Hence,
     \grad_{H^2} F = \laplacian^{-2} h
     \label{equ: H2 Gradient}
 \end{equation}
-One could take it even further and define gradient in $H^{-1}$,
+One could extend by considering dual space\cite{YSC2021} and define gradient in $H^{-1}$,
 \begin{align*}
     \mathcal{P} &= \inner{h, \laplacian \laplacian^{-1} g}_{L^2} \\
     &= \inner{-\nabla h, \nabla \left( \laplacian^{-1} g \right)}_{L^2} \\

@@ -5,7 +5,7 @@
 Given a curve $\gammabf:M \rightarrow \mathbb{R}^3$,
 a sensible choice of curve energy is the tangent-point energy\cite{YSC2021}.
 \begin{definition}[Tangent-Point Energy]
-    For a continuously differentiable parameterised curve $\gammabf:M \rightarrow \mathbb{R}^3$, define \textbf{tangent-point energy} as:
+    For a continuously differentiable parameterised curve $\gammabf:M \rightarrow \mathbb{R}^3$, define \textbf{tangent-point energy} (TPE) as:
     \begin{equation}
         \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) \coloneqq \iint_{M^2} k_{\beta}^{\alpha} (\gammabf_x, \gammabf_y, \Tbf_x) \intd \gamma_x \intd \gamma_y 
         \label{equ: Tangent-Point Energy}
@@ -20,7 +20,7 @@ a sensible choice of curve energy is the tangent-point energy\cite{YSC2021}.
 
     Note that choosing $\alpha = 2$ and $\beta = 4$ results in the scaled version of the original tangent-point energy by Buck and Orloff\cite{BO1995}.
 \end{definition}
-The geometric intuition of $k_{4}^2 (\gammabf_x, \gammabf_y, \Tbf_x)$ (kernel of ``Buck-Orloff tangent-point energy'') is that the kernel evaluates to $\frac{1}{4r^2}$ where $r$ is the radius of the smallest circle drawn that is tangent at $\gammabf_x$ and crosses through $\gammabf_y$
+The geometric intuition of $k_{4}^2 (\gammabf_x, \gammabf_y, \Tbf_x)$ (``Buck-Orloff kernel'') is that it evaluates to $\frac{1}{4r^2}$ where $r$ is the radius of the smallest circle drawn that is tangent at $\gammabf_x$ and crosses through $\gammabf_y$
 as shown in Figure \ref{Fig: Intuition of Buck-Orloff}.
 
 
@@ -154,7 +154,7 @@ From lemma \ref{lemma: Scale-Invariance} and lemma \ref{lemma: Perturbation}, th
 \begin{figure}[tpb]
     \centering
     \includegraphics[width=0.5\textwidth]{sections/tangentPointEnergyImgs/kHeatMap3}
-    \caption{Heat map of $k_{4.5}^{2}$: Even with singularities, because their order is less than 1, the kernel is integrable, hence $\mathcal{E}_{4.5}^{2}$ is well-defined.}
+    \caption{Heat map of $k_{4.5}^{2}$: Even with singularities, because it is weaker than $O \left( \frac{1}{\epsilon} \right)$, the kernel is integrable, hence $\mathcal{E}_{4.5}^{2}$ is well-defined.}
     \label{fig: Low-Order Pole}
 \end{figure}
 
