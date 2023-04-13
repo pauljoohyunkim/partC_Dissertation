@@ -17,27 +17,10 @@ a sensible choice of curve energy is the tangent-point energy\cite{YSC2021}.
     \end{equation}
     $\alpha$ and $\beta$ are parameters one could choose, but for tangent-point energy to be well-defined,
     one may choose them to satisfy $\alpha >1$ and $\beta \in \left[ \alpha+2, 2\alpha + 1 \right)$.
+    The intuition is that TPE takes not only the displacement between two points, but its relation to the tangent vector via cross product, ``controlling'' the strength of singularity.
 
     Note that choosing $\alpha = 2$ and $\beta = 4$ results in the scaled version of the original tangent-point energy by Buck and Orloff\cite{BO1995}.
 \end{definition}
-The geometric intuition of $k_{4}^2 (\gammabf_x, \gammabf_y, \Tbf_x)$ (``Buck-Orloff kernel'') is that it evaluates to $\frac{1}{4r^2}$ where $r$ is the radius of the smallest circle drawn that is tangent at $\gammabf_x$ and crosses through $\gammabf_y$
-as shown in Figure \ref{Fig: Intuition of Buck-Orloff}.
-
-
-\begin{figure}[tbp]
-    \centering
-    \begin{subfigure}[b]{\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{sections/tangentPointEnergyImgs/straight}
-    \end{subfigure}
-    \par \bigskip
-    \begin{subfigure}[b]{1\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{sections/tangentPointEnergyImgs/0}
-    \end{subfigure}
-    \caption{Intuition behind $k_{4}^{2}$}
-    \label{Fig: Intuition of Buck-Orloff}
-\end{figure}
 
 The choice of parameters $\alpha$ and $\beta$ changes the behaviour of the tangent-point energy as stated in the following lemma.
 \begin{lemma}
@@ -117,9 +100,30 @@ One could also justify the condition on $\alpha$ and $\beta$ by the following le
         as demonstrated in Figure \ref{fig: Buck-Orloff Perturbed}.
     \end{proof}
 \end{lemma}
+\begin{remark}
+    The geometric intuition of $k_{4}^2$ (``Buck-Orloff kernel''), for example, is that $k_{4}^{2} \left( \gammabf_x, \gammabf_y, \Tbf_x \right)$ evaluates to $\frac{1}{4r^2}$ where $r$ is the radius of the smallest circle drawn that is tangent at $\gammabf_x$ and crosses through $\gammabf_y$
+(Figure \ref{Fig: Intuition of Buck-Orloff}).
+Taking $\gammabf_y \rightarrow \gammabf_x$,
+lemma \ref{lemma: Perturbation} is consistent with the intuition that $k_4^2 \left( \gammabf_x, \gammabf_y, \Tbf_x \right) \rightarrow \frac{\kappa^2}{4}$ where $\kappa$ is the curvature at $\gammabf_x$.\footnote{Can be considered ``removable singularity'' (Figure \ref{fig: Buck-Orloff Heat Map})}
+(Figure \ref{fig: Buck-Orloff Perturbed})
+\end{remark}
+\begin{figure}[tbp]
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{sections/tangentPointEnergyImgs/straight}
+    \end{subfigure}
+    \par \bigskip
+    \begin{subfigure}[b]{1\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{sections/tangentPointEnergyImgs/0}
+    \end{subfigure}
+    \caption{Intuition behind $k_{4}^{2}$}
+    \label{Fig: Intuition of Buck-Orloff}
+\end{figure}
 
-From lemma \ref{lemma: Scale-Invariance} and lemma \ref{lemma: Perturbation}, the well-definedness condition of tangent-point energy immediately follows from arguing by considering integrability of functions with isolated poles of order lower than 1.
-(See Figure \ref{fig: Low-Order Pole})
+From lemma \ref{lemma: Scale-Invariance} and lemma \ref{lemma: Perturbation}, the well-definedness condition of tangent-point energy follows from arguing by integrability of functions with isolated poles of order lower than 1.
+(Figure \ref{fig: Low-Order Pole})
 
 \begin{figure}[tbp]
     \centering
@@ -147,7 +151,7 @@ From lemma \ref{lemma: Scale-Invariance} and lemma \ref{lemma: Perturbation}, th
     Ideas from lemma \ref{lemma: Scale-Invariance} and lemma \ref{lemma: Perturbation} suggest that modification of the na\"ively introduced energy kernel $k_S \left( \gammabf_1, \gammabf_2 \right) = \frac{1}{\norm{\gammabf_1 - \gammabf_2}}$ to $\tilde k_S \left( \gammabf_1, \gammabf_2 \right) = \frac{1}{\norm{\gammabf_1 - \gammabf_2}^p}$ is not feasible.
     By choosing $p < 1$, singular behaviour is $O \left( 1/\epsilon^p \right)$ as $\epsilon \rightarrow 0$ hence integrable,
     but a similar analysis to lemma \ref{lemma: Scale-Invariance} shows that
-    one needs to take $p \geq 1$ for the energy to be scale inverse-proportional to the scaling of the curve.
+    one needs to take $p \geq 2$ for the energy not to be scale proportional to the scaling of the curve.
     Hence, the kernel $\tilde k_S$ is still ill-defined.
 \end{remark}
 
