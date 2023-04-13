@@ -2,7 +2,7 @@
 
 \begin{document}
 
-For minimising a differentiable function $f:E \subset \mathbb{R}^n \rightarrow \mathbb{R}$, there is a well-known method known as \textbf{steepest descent method} (SDM)\cite{doi:10.1137/1.9781611974997.ch8}.
+For minimising a differentiable function $f:E \subset \mathbb{R}^n \rightarrow \mathbb{R}$, there is a well-known method called \textbf{steepest descent method} (SDM)\cite{doi:10.1137/1.9781611974997.ch8}.
 \begin{equation}
     \xbf^{k+1} = \xbf^{k} - \alpha_k \nabla f \left( \xbf^{k} \right)
     \label{equ: SDM}
@@ -22,17 +22,17 @@ reducing the value at evaluation of $f$.
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{sections/gradientFlowImgs/gf}
-        \caption{Solution to $L^2$ gradient flow equation with 1D energy functional $\mathcal{E} (f) \coloneqq \int_{-1}^1 \abs{\nabla f(x)}^2 \intd x$, which penealises variation in function. Note that the solution converges to a function with no variation.}
+        \caption{$L^2$ gradient flow equation applied to 1D functional $\mathcal{E} (f) \coloneqq \int_{-1}^1 \abs{\nabla f(x)}^2 \intd x$, which penalises variation in function. Note that the solution converges to a function with no variation, hence minimal $\mathcal{E}$.}
         \label{fig: GF}
     \end{subfigure}
-    \caption{Gradient flow can be understood as a continuous analogue of steepest descent.}
+    \caption{Gradient flow can be understood as a analogue of steepest descent to functionals.}
 \end{figure}
 Note that in general, this method is not guaranteed to find the minimiser (Figure \ref{fig: SDM}).
 On the other hand, convergence is guaranteed under certain assumptions, for example, convexity and $L$-smoothness\footnote{$\norm{\nabla f(\xbf) - \nabla f(\ybf)} \leq L \norm{\xbf-\ybf}$ for some constant $L > 0$}
 with a certain choice of step size $\alpha_k$.
 
-Analogously, differential equation known describing the reduction process of a functional $F:\mathcal{X} \rightarrow \mathbb{R}$ (where $\mathcal{X}$ is an inner product function space) can be motivated.
-Starting from (\ref{equ: SDM}), replacing $\xbf^{k}$ by $f_k$ and $\nabla f\left( \xbf^k \right)$ by $\grad_{\mathcal{X}} F\left( f_k \right)$
+Analogously, differential equation describing the reduction process of a functional $F:\mathcal{X} \rightarrow \mathbb{R}$ (where $\mathcal{X}$ is an inner product function space) can be motivated.
+Starting from (\ref{equ: SDM}), replacing $\xbf^{k}$ by $f_k$ and $\nabla f\left( \xbf^k \right)$ by $\grad_{\mathcal{X}} F\left( f_k \right)$,
 \begin{equation}
     f_{k+1} = f_k - \alpha_k \grad_{\mathcal{X}} F \left( f_k \right)
     \label{equ: Gradient Flow Motivation}

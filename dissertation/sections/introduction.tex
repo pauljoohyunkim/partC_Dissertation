@@ -4,7 +4,7 @@
 
 Shape optimisation is an important idea in engineering, relevant in anywhere from aircraft designs to packaging ramen noodle.
 One of the simplest and most fundamental shapes to consider is a curve.
-While curves are simple objects in theory, they prove to be quite difficult to analyse in practice with realistic physics.
+While simple in concept, they prove to be quite difficult to analyse in practice with realistic physics.
 Even in absence of other objects, one must consider resiliance to bending, stretching, and especially, impenetrability against itself.
 With these physical factors in mind, untangling a curve (Figure \ref{fig: Knot}) becomes a very complicated process,
 especially in a computer simulation.
@@ -14,7 +14,7 @@ especially in a computer simulation.
     \caption{A tangled curve in $\mathbb{R}^3$}
     \label{fig: Knot}
 \end{figure}
-In this dissertation, we explore numerical methods to achieve this.
+This dissertation explores numerical methods to achieve this.
 
 The main idea is to \emph{assign energy that penalises ``physical entanglement''.}
 Given a parameterised curve $\gammabf:M \rightarrow \mathbb{R}^3$ ($M$ being the domain of the parameter, often an interval),
@@ -22,7 +22,7 @@ one defines some \emph{curve energy} $\mathcal{E}$ of the form:
 \begin{equation}
     \mathcal{E} \left( \gammabf \right) \coloneqq \iint_{M^2} k\left( \gammabf_x, \gammabf_y \right) \intd \gamma_x \intd \gamma_y
 \end{equation}
-where $k\left( \cdot , \cdot \right) \geq 0$ is the \emph{curve energy kernel} such that $k \rightarrow +\infty$ as $\norm{\gammabf_1 - \gammabf_2} \rightarrow 0^+$ where $\gammabf_1$ and $\gammabf_2$ are the two points ``nearly-crossing''.
+where $k \geq 0$ is the \emph{curve energy kernel} such that $k \rightarrow +\infty$ as $\norm{\gammabf_1 - \gammabf_2} \rightarrow 0^+$ where $\gammabf_1$ and $\gammabf_2$ are the two points ``nearly-crossing''.
 
 A na\"ive choice of $k$ satisfying this condition is $k_S \left( \gammabf_x, \gammabf_y \right) \coloneqq \frac{1}{\norm{\gammabf_x - \gammabf_y}}$.
 However, it turns out that $k_S \sim O\left( \frac{1}{\norm{\gammabf_x - \gammabf_y}} \right)$ as $\norm{\gammabf_x - \gammabf_y} \rightarrow 0$ (consider neighbouring points), meaning the $\mathcal{E}$ diverges all continuous curves $\gammabf$ of nonzero measure.

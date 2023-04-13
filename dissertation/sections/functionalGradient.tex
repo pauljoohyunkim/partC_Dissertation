@@ -8,9 +8,9 @@ that is,
     \forall \xbf, \ybf \in \mathbb{R}^n \; \; \;
     \nabla f \left( \xbf \right) \cdot \ybf = \frac{\partial}{\partial \epsilon} f\left( \xbf + \epsilon \ybf \right)|_{\epsilon=0}
 \end{equation}
-While this is not a conventional definition of function gradient, it is still an equivalent definition.
+While this is not a conventional definition of function gradient, it is an equivalent definition.
 
-One could analogously construct the definition of gradient of a functional.
+One could analogously motivate the definition of gradient of a functional.
 \begin{definition}[Gradient of Functional]
     For a functional $F:\mathcal{X} \rightarrow \mathbb{R}$, define functional gradient $\grad_{\mathcal{X}} F (f)$ as:
     \begin{equation}
@@ -20,18 +20,18 @@ One could analogously construct the definition of gradient of a functional.
     where $\inner{\cdot, \cdot}_{\mathcal{X}}$ is the inner product defined over the inner product function space $\mathcal{X}$.
 \end{definition}
 
-Common inner product spaces include $L^2$, $H^1$, which are defined in Appendix \ref{sct: Definitions of Important Inner Product Spaces}.
+Common inner product spaces include $L^2$, $H^1$, which are introduced in Appendix \ref{sct: Definitions of Important Inner Product Spaces}.
 
 \begin{remark}
     By assuming time-independence of $f$ in the gradient flow equation (\ref{equ: Gradient Flow Equation}), we get a stationary state equation $\grad_{\mathcal{X}} F(f) = 0$,
     which implies $\frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)|_{\epsilon=0} = 0$ for all $g \in \mathcal{X}$.
-    This shows that the stationary state of the gradient flow equation is precisely the solution to the Euler-Lagrange equation which is expected.
+    This shows that the stationary state of the gradient flow equation is precisely the solution to the Euler-Lagrange equation.
 \end{remark}
 
 \subsubsection{Gradient on Integer Sobolev Spaces}
 \label{sct: Gradient on Integer Sobolev Spaces}
 Assume $\Omega$ is a boundary-free domain.
-Given $L^2(\Omega) = H^0(\Omega)$ gradient ($\Omega$ will be omitted in this section when unambiguous), one could express Sobolev gradients of other orders.
+Given $L^2(\Omega) = H^0(\Omega)$ gradient ($\Omega$ will be omitted when unambiguous), one could express Sobolev gradients of other orders.
 For functional $F$, write $h \coloneqq \grad_{L^2} F$ for gradient of $F$ in $L^2$, that is, by definition
 \begin{equation}
     \left.\frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)\right|_{\epsilon = 0} = \inner{h, g}_{L^2} \eqqcolon \mathcal{P}
@@ -119,7 +119,8 @@ So,
         \frac{\partial f}{\partial t} = \laplacian^{-1} f
     \end{equation}
     This is solved by solving a Poisson's equation $\laplacian g = f$ for $g$,
-    then $g = \frac{\partial f}{\partial t}$.
+    then $g = \frac{\partial f}{\partial t}$,
+    which is less practical.
 \end{example}
 
 \subsection{Derivative Operators for Curves}

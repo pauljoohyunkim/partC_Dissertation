@@ -46,7 +46,7 @@ Consider the \textbf{backward difference operator}, another approximation of $f'
     \mathcal{D}_z^- f \left( Z_i \right) = \frac{f \left( Z_i \right) - f\left( Z_{i-1} \right)}{\Delta Z} = f'\left( Z_i \right) + \underbrace{O \left( \Delta Z \right)}_{\text{Consistency Error}}
 \end{equation}
 
-One can combine the idea of forward difference and backward difference to motivate the \textbf{central difference operator}, again for approximation of $f'(z)$ at $z = Z_i$:
+One can combine forward difference and backward difference to formulate the \textbf{central difference operator}, again for approximation of $f'(z)$ at $z = Z_i$:
 \begin{equation}
     \mathcal{D}_z^\circ f \left( Z_i \right) = \frac{f \left( Z_{i+1} \right) - f\left( Z_{i-1} \right)}{2 \Delta Z} = f'\left( Z_i \right) + \underbrace{O \left( \left( \Delta Z \right)^2 \right)}_{\text{Consistency Error}}
 \end{equation}
