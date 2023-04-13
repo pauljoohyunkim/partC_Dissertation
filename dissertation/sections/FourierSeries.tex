@@ -178,13 +178,13 @@ While approximation via series reduces the number of dimensions to reduce the TP
 in order to compute the derivative (against coefficients),
 one still needs to use quadrature, meaning, one needs to take $N$ sample points.
 
-Because we have captured the function that describes the curve rather than points,
+Because we have captured the function defining the curve rather than points,
 there is more flexibility to either sample/resample points as needed,
-simply by varying the parameter for the sample points.
+simply by varying the parameters for the sample points.
 
 There are natural choice of sample points for curves in $\mathbb{S}$ and $\mathbb{L}$.
 \begin{itemize}
-    \item For a curve $\gammabf \in \mathbb{S}$, the natural choice of sample points are points of which the parameter values are equispaced on the interval $\left[ 0,2\pi \right)$.
+    \item For a curve $\gammabf \in \mathbb{S}$, the natural sample points are points of which the parameter values are equispaced on the interval $\left[ 0,2\pi \right)$.
         \begin{equation}
 \left\{ \gammabf(t) \middle| t = \frac{2\pi}{N}j, j \in \left\{ 0, 1, \cdots, N-1 \right\} \right\}
         \end{equation}
@@ -220,10 +220,10 @@ or one could use central difference scheme to approximate it;
 because one only needs to compute $3J$ derivatives\footnote{Order $0$ terms do not contribute as TPE is shift-invariant, hence derivative with respect to those coefficients are identically zero.}
 instead of $3N \gg 3J$ derivatives, this can be a practical approach.
 With latter approach to compute derivative, this would result in $O\left( J^3 + J \log N \right)$ operations per time step.
-Because $J$ does not need to be large at all\footnote{Instead of storing a unit circle with, say $N = 90$ points, one technically only needs $J=1$ to do the same.},
-and in fact, assuming that the higher order coefficients decay fast enough,
+Because $J$ does not need to be large at all\footnote{Instead of capturing a unit circle with, say $N = 90$ points, one technically only needs $J=1$ to do the same.},
+and in fact, assuming sufficiently fast decay of higher order coefficients,
 one could ``deflate'' the problem by truncating the series further later,
-the ``practical cost'' (assuming $J$ is of constant order) can be expressed as $O\left( \log N \right)$ with this approach.
+the ``practical cost'' (assuming $J$ is of constant order) is $O\left( \log N \right)$ with this approach.
 
 Similar analysis can be done with curves in $\mathbb{L}$ as the evaluation of Chebyshev series can also be improved using FFT\cite{Trefethen_2020}.
 
