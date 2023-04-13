@@ -24,7 +24,7 @@ Throughout experiments, common points of failure were:
     \label{fig: Collapse}
 \end{figure}
 
-The simplest idea to resolve some of the arising issues is to take a combination of appropriate constraints as in section \ref{sct: Constraint Energy} to steer the curve away from those issues.
+The simplest idea to resolve some of the issues is to take a combination of appropriate constraints as in section \ref{sct: Constraint Energy} to steer the curve away from those issues.
 For example, the first point of failure could be fixed by taking the constraint of prescribing edge lengths to be the initial edge lengths. 
 Of course, the other points of failure are innate to the approach itself,
 and one must tweak the scheme to resolve them.
@@ -33,10 +33,10 @@ nullification of the kernel can be resolved by stopping the evolution afer achie
 for example, if one attempts evolution of curve which the unknot is a circle, with Buck-Orloff TPE $\mathcal{E}_{4}^{2}$, we stop the evolution after the energy of the curve is within some tolerance $\epsilon > 0$ from $\pi^2$,
 the Buck-Orloff TPE of a circle.
 For the issue of self-intersection,
-it turns out that in practice, taking higher resolution and smaller time step helps alleviate it,
-yet does not result in certainty of complete fix.
+it turns out that in practice, taking higher resolution and smaller time step help alleviate it,
+yet does not guarantee a complete fix.
 
-Of course, there are other possible things one could do instead to ameliorate the result of evolution.
+Of course, there are alternative approaches of ameliorating the process of evolution.
 
 \subsection{Possible Variations to Curve Untangling Process}
 The most obvious way to improve the evolution is to take smaller time step and higher resolution of the curve.

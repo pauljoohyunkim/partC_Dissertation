@@ -1,7 +1,7 @@
 \documentclass[../dissertation.tex]{subfiles}
 \begin{document}
 Now that gradient flow equation and tangent-point energy are introduced,
-one can formalise the process of untangling a tangled curve:
+one formalises the process of untangling a curve:
 
 \begin{definition}[Curve Untangling Process]
     Given a parameterised curve $\gammabf:M \times T \rightarrow \mathbb{R}^3$ over an interval $M$ and time domain $T$,
@@ -15,9 +15,9 @@ one can formalise the process of untangling a tangled curve:
     \end{align}
     where 
     \begin{itemize}
-        \item $\gammabf_0 (s)$ is the parameterisation of the initial (tangled) curve (prescribed at $t=0$)
+        \item $\gammabf_0 (s)$ is the parameterisation of the initial (tangled) curve. 
         \item $\mathcal{E}_{\beta}^{\alpha}$ is the tangent-point energy (See (\ref{equ: Tangent-Point Energy}))
-        \item $\mathcal{C}$ is additional constraint energy to control behaviour of curve untangling process.
+        \item $\mathcal{C}$ is additional constraint energy to control behaviour of curve untangling process. (See section \ref{sct: Constraint Energy}.)
     \end{itemize}
 \end{definition}
 
@@ -78,7 +78,7 @@ Note that $\Gammabf^k$ is a polygonal curve, for which TPE (\ref{equ: Tangent-Po
     \label{fig: Discretization of Curve}
 \end{figure}
 
-One way to resolve the issue is to ``ignore'' the adjacent edge contribution\cite{YSC2021} in the energy quadrature $E_{\beta}^{\alpha}$ as shown in Figure \ref{fig: Energy discretization by ignoring adjacent edges}.
+One way to resolve the issue is to ``ignore'' the adjacent edge contribution\cite{YSC2021} in the energy quadrature $E_{\beta}^{\alpha}$ as in Figure \ref{fig: Energy discretization by ignoring adjacent edges}.
 The justification is that as we take a finer mesh ($N$ sufficiently large), the product of edge lengths ($\norm{e_i}\norm{e_j}$) should tend to zero sufficiently fast, resulting in approximation of the energy for the smooth curve, which did not have vertices resulting in local non-integrability in the first place.
 \begin{figure}[tbp]
     \centering
@@ -121,8 +121,8 @@ one can write the \textbf{tangent-point energy quadrature} as:
     E_{\beta}^{\alpha} \left( \Gammabf^k \right) \coloneqq \sum_{\substack{i, j \in \left\{ 0, \cdots, N-1 \right\} \\ r \left( i-j,N \right) > 1}} K_{\beta}^{\alpha} (i,j) \norm{e_i^k} \, \norm{e_j^k}
     \label{equ: Tangent-Point Energy Quadrature}
 \end{equation}
-where $r\left( i-j,N \right)$ is the geodesic distance between $i$ and $j$ in modulo $N$,
-characterising the avoidance of adjacent edges on simple closed polygonal curve.
+where $r\left( i-j,N \right)$ is the geodesic distance between $i$ and $j$ in modulo $N$.
+%characterising the avoidance of adjacent edges on simple closed polygonal curve.
 For discussion of quadratures for nonclosed curves, see appendix \ref{sct: Other Homeomorphism Classes}.
 
 
@@ -192,21 +192,21 @@ Based on (\ref{equ: Curve Untangling Process}), one writes the following finite 
 where $\mathcal{D}_t$ is the finite difference operator over time,
 $\Grad_{X}$ is discrete equivalent\footnote{Worth noting that $\Grad_X:\mathbb{T} \rightarrow \mathbb{T}$ where $\mathbb{T}$ is a set of arrays of certain shape; $\Grad_X$ maps arrays to arrays of the same shape.}  of $\grad_{\mathcal{X}}$ on discrete inner product space $X$ (which may be omitted in the notation),
 $E_{\beta}^{\alpha}$ is the TPE quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
-and $C$ is the discretised version of the constraint energy $\mathcal{C}$ (See section \ref{sct: Constraint Energy}).
+and $C$ is the discretised constraint energy $\mathcal{C}$ (See section \ref{sct: Constraint Energy}).
 Often times, however, it is easier to construct finite difference scheme directly from (\ref{equ: Curve Untangling Process}) after some simplification,
 rather than attempting to use (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) directly.
 Note that because similar operations are done for each point vector, this is a parallelisable task.
-For the simplest scheme, one could take the forward difference operator characterised as $\mathcal{D}_t \Gammabf^k[i] \coloneqq \frac{\Gammabf^{k+1}[i] - \Gammabf^{k}[i]}{\Delta T}$.
+For the simplest scheme, one could take the forward difference operator characterised as $\mathcal{D}_t^+ \Gammabf^k[i] \coloneqq \frac{\Gammabf^{k+1}[i] - \Gammabf^{k}[i]}{\Delta T}$.
 
 \subsection{Example: $L^2$ Explicit Euler Scheme}
-Now we visit the simplest concrete numerical scheme for curve untangling process.
+Now we visit the simplest numerical scheme for curve untangling process.
 Assume for now scale-invariance by taking parameters $\alpha$ and $\beta$ to satisfy $\beta = \alpha+2$ (See lemma \ref{lemma: Scale-Invariance}).
 
 In $L^2$, $\grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)$ is simply the ``first-order perturbation'' as in (\ref{equ: L2 Gradient Explicit Form}).
 Discrete equivalent is the $\ell^2$ space,
-where one may justify this by noting that first-order perturbation in a curve is analogous to perturbing each of the point on its discretisation.
+where one justifies this by noting that first-order perturbation in a curve is analogous to perturbing each point of its discretisation.
  %$\Grad_{\ell^2} = \nabla_{\Gammabf}$.
-Taking $\mathcal{D}_t$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be forward difference operator,
+Taking $\mathcal{D}_t = \mathcal{D}_t^+$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}),
 \begin{equation}
     \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
     \label{equ: L2 Explicit Euler}
@@ -223,6 +223,7 @@ where one could explicitly write $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammab
         \end{pmatrix}
     }_{\nabla_{\Gammabf^k}}
     E_{\beta}^{\alpha} \left( \Gammabf^k \right)
+    \in \mathbb{R}^{3 \times N}
     \label{equ: Gradient in l2}
 \end{equation}
 where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \times N$ array.
@@ -232,8 +233,8 @@ where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \t
     \caption{$-\Grad_{L^2} \left( \Gammabf^k \right)$ which is the direction of flow of a discretised curve $\Gammabf^k$ at each point, represented by the arrows. The magnitude is represented by both color and the length of the arrows.}
     \label{fig: L2Derivative}
 \end{figure}
-Note that $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also an array of the same shape as $\Gammabf^k$,
-so naturally, most arithmetics\footnote{Such as addition, subtraction, and scalar multiplication.} needed for (\ref{equ: L2 Explicit Euler}) is well-defined.
+%Note that $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right) \in \mathbb{R}^{3 \times N}$ is also an array of the same shape as $\Gammabf^k$,
+%so naturally, most arithmetics\footnote{Such as addition, subtraction, and scalar multiplication.} needed for (\ref{equ: L2 Explicit Euler}) is well-defined.
 \begin{remark}
     $\Grad_{\ell^2}$ is in fact a linear operator with respect to its input, energy.
 \end{remark}
@@ -282,7 +283,7 @@ This is consistent with the motivation of gradient flow equation given in sectio
         \includegraphics[width=\textwidth]{sections/unknottingCurveImgs/figure8-L2-2}
     \end{subfigure}
 
-    \caption{$L^2$ gradient flow on a figure-eight curve. Note that there are ``sharp'' points, along with ``high frequency oscillation'' (which are undesirable or unexpected characteristics); this may be due to the fact that $L^2$ gradient flow does not take into account of the smoothness of the curve.}
+    \caption{$L^2$ gradient flow on a figure-eight curve. Note that there are ``sharp'' points, along with ``high frequency oscillation'' (which are undesirable or unexpected characteristics); this may be due to the fact that $L^2$ gradient flow does not take the smoothness of the curve into account.}
     \label{fig: L2 Curve Unknotting}
 \end{figure}
 There is a subtlety;
@@ -295,8 +296,8 @@ If one attempts the same finite difference scheme as (\ref{equ: L2 Explicit Eule
 one may observe that the curve ``grows'' in size, indefinitely.
 This is due to the fact that with $\beta > \alpha + 2$,
 by the virtue of lemma \ref{lemma: Scale-Invariance},
-energy scales inversely proportional to its scale factor.
-(See Figure \ref{fig: Scale Variant})
+energy scales inversely proportional to its scale factor
+(Figure \ref{fig: Scale Variant}).
 To use scale-variant energy, one may consider having constraint energy as part of the curve untagling process.
 \begin{figure}[tbp]
     \centering
@@ -310,7 +311,7 @@ From lemma \ref{lemma: Scale-Invariance} and as demonstrated in Figure \ref{fig:
 one could trivially minimise TPE $\mathcal{E}_{\beta}^{\alpha}$ of the curve 
 (and by the same logic, $E_{\beta}^{\alpha}$ of the discretised curve, albeit due to increases in edge lengths, would cease to be a ``valid'' quadrature)
 by scaling the curve to infinity.
-In order to avoid this phenomenon, or to change the behaviour of the flow, one may add additional energy which penalises unwanted behaviours.
+In order to avoid this phenomenon, or to change the behaviour of the flow, one may add additional energy penalising unwanted behaviours.
 
 Here are some examples of constraint one could take. 
 (Since we are interested in numerical schemes, constraints are expressed for $C$ rather than $\mathcal{C}$.)
@@ -337,16 +338,16 @@ From (\ref{equ: Tangent-Point Energy Quadrature}),
 it takes $O \left( N^2 \right)$ evaluations of the kernel.
 Since the approximation for $\Grad_{L^2} E_\beta^\alpha$ requires evaluation of the energy for each point perturbed, it takes $O \left( N^3 \right)$ evaluations of the kernel for each time step. 
 
-On the other hand, this is where doing the hard work of implementing \textit{exact gradient computation} is beneficial,
+On the other hand, this is where doing the hard work of implementing \textit{exact gradient computation} as in Appendix \ref{sct: Exact Gradient} is beneficial,
 For exact gradient implementation as in appendix \ref{sct: Exact Gradient},
 it takes $O \left( N \right)$ evaluations\footnote{$4 \left( N-3 \right)$ to be exact.} of the derivative of the kernel.
 This implies the overall computation needed for a single step is $O \left( N^2 \right)$.
 
 \subsubsection{Discussion of Implicit $L^2$ Euler}
-A problem with explicit schemes is that, there often exists some sort of condition for stability. (See \ref{sct: Euler Schemes for Heat Equation})
+A problem with explicit schemes is that, there often exists some sort of condition for stability. (See section \ref{sct: Euler Schemes for Heat Equation})
 %This tends to be an issue particularly when using approximation of derivatives in both time and space variables.
 
-For unconditional stability, one may attempt (fully) implicit Euler scheme, that is,
+For unconditional stability, one may attempt implicit Euler scheme, that is,
 taking $\mathcal{D}_t = \mathcal{D}_t^-$ in (\ref{equ: Finite Difference Scheme for Curve Untangling Process}),
 \begin{equation}
     \frac{\Gammabf^{k} - \Gammabf^{k-1}}{\Delta T} = -\Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
@@ -376,7 +377,7 @@ In fact, if one approximates the Laplacian as (\ref{equ: Discrete Curve Laplacia
 %$\curvelaplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)\approx \frac{\bar{E}_{\beta}^{\alpha} (i) - 2 E_{\beta}^{\alpha} \left( \Gammabf^k \right) + \underaccent{\bar}E_{\beta}^{\alpha} (i)}{\Delta X^2}$,
 for each time step, it takes $O \left( N^4 \right)$ evaluations of the kernel, so the scheme becomes impractical.
 
-On the other hand, consider curve untangling process in $H^1$.
+Conversely, consider curve untangling process in $H^1$.
 By (\ref{equ: H1 Gradient}), we write $\grad_{H^1} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \curvelaplacian_{\gammabf}^{-1} \grad_{L^2} \mathcal{E}_{\beta}^{\alpha}$,
 and
 %and the discrete equivalent becomes:
@@ -386,10 +387,10 @@ and
 \end{equation}
 Discretising this with forward difference for time, one gets $H^1$ explicit Euler scheme:
 \begin{equation}
-    \left( \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} \right) = \curvelaplacian_{\Gammabf^k}^{-1} \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
+    \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = \curvelaplacian_{\Gammabf^k}^{-1} \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
 \end{equation}
 where $\curvelaplacian_{\Gammabf^k}$ is the Laplacian as given in (\ref{equ: Discrete Curve Laplacian}),
-and $\laplacian_{\Gammabf^k}$ is still the conventional gradient operator over all the coordinates of $\Gammabf^k$.
+and $\nabla_{\Gammabf^k}$ is still the conventional gradient operator over all the coordinates of $\Gammabf^k$.
 Note that by lemma \ref{lemma: Curve Laplacian is Singular}, one needs to ``regularise'' the curve Laplacian;
 we do not attempt to solve for an exact $H^1$ gradient, but rather a close one.
 To compute a step, one performs three steps:
