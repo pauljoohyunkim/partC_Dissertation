@@ -278,7 +278,7 @@ this method can indeed be practical.
         \State Compute $\nabla_{\cbf} E_{\beta}^{\alpha} \left( \Gammabf_{N,J}^k \right)$ exactly or approximately, where the $\nabla_{\cbf}$ is gradient operator over all the coefficients of the series.
         \Comment{$\cbf$ is the array of coefficients.}
         \State Evolve a time step by $\cbf \leftarrow \cbf - \Delta T \nabla_{\cbf} E_{\beta}^{\alpha} \left( \Gammabf_{N,J}^k \right)$.
-        \If{$\exists j \suchthat \forall i \geq j$, the modulus of the order $i$ coefficient is less than $\epsilon$}
+        \If{$\exists j \suchthat \forall i \geq j$, $\norm{\cbf_i} < \epsilon$}
         \State Truncate the series to order $j-i$ term.
         \State $J \leftarrow j-i$.
         \Comment{Deflation: reduced $J$, so expect a speedup in computation.}
