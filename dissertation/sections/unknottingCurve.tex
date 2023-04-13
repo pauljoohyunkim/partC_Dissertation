@@ -343,28 +343,30 @@ it takes $O \left( N \right)$ evaluations\footnote{$4 \left( N-3 \right)$ to be 
 This implies the overall computation needed for a single step is $O \left( N^2 \right)$.
 
 \subsubsection{Discussion of Implicit $L^2$ Euler}
-A problem with explicit schemes is that, there often exists some sort of condition for stability.
-This tends to be an issue particularly when using approximation of derivatives in both time and space variables.
+A problem with explicit schemes is that, there often exists some sort of condition for stability. (See \ref{sct: Euler Schemes for Heat Equation})
+%This tends to be an issue particularly when using approximation of derivatives in both time and space variables.
 
 For unconditional stability, one may attempt (fully) implicit Euler scheme, that is,
-taking $\mathcal{D}_t$ in (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) to be the backward difference operator,
+taking $\mathcal{D}_t = \mathcal{D}_t^-$ in (\ref{equ: Finite Difference Scheme for Curve Untangling Process}),
 \begin{equation}
     \frac{\Gammabf^{k} - \Gammabf^{k-1}}{\Delta T} = -\Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
 \end{equation}
-This scheme is, however, nonlinear.
+This scheme however involves solving a nonlinear equation.
 One needs an efficient rootfinding algorithm (such as Newton's method) to compute each time step.
 
-Another potential scheme is the Crank-Nicolson scheme,
-where one combines both explicit and implicit scheme to achieve higher order of error.
+We will stick to explicit Euler scheme for simplicity from now on.
+
+%Another potential scheme is the Crank-Nicolson scheme,
+%where one combines both explicit and implicit scheme to achieve higher order of error.
 
 \subsection{Example: Euler Scheme in Other Spaces}
 \label{sct: Example: Euler Scheme in Other Spaces}
 Consider curve untangling process in $H^{-1}$.
-By (\ref{equ: H-1 Gradient}), we may write $\grad_{H^{-1}} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \curvelaplacian_{\gammabf} \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$,
-where we do not necessarily assume scale-invariance.
+By (\ref{equ: H-1 Gradient}), we may write $\grad_{H^{-1}} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \curvelaplacian_{\gammabf} \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$.
+%where we do not necessarily assume scale-invariance.
 For the discrete equivalent, take
 \begin{equation}
-    \Grad E_{\beta}^{\alpha} = - \curvelaplacian_{\Gammabf^k} \left( \Grad_{l^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = - \curvelaplacian_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
+    \Grad E_{\beta}^{\alpha} = - \curvelaplacian_{\Gammabf^k} \left( \Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = - \curvelaplacian_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
     %= -\nabla_{\Gammabf^k} \left( \curvelaplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
 \end{equation}
 %where the last equality is from the fact that Laplacian and gradient operators commute \cite{679160}.
@@ -438,7 +440,7 @@ Note that the linear system $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf
 \end{pmatrix}
 }_{\left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)^T \in \mathbb{R}^{N \times 3}}
 \end{equation*}
-Because solving matrix equation\footnote{``Cyclic tridiagonal matrix''} $\mathcal{L} \mathcal{G}^T = \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)$ costs $O \left( N \right)$ by Gaussian elimination or otherwise\cite{10.1145/44164.44165},
+Because solving (cyclic tridiagonal) matrix equation $\mathcal{L} \mathcal{G}^T = \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ costs $O \left( N \right)$ by Gaussian elimination or otherwise\cite{10.1145/44164.44165},
 the cost of computing $H^1$ gradient is dominated by the cost of computing $\Grad_{L^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$.
 
 Note that because $H^1$ takes weak derivative into account, the direction of the flow is more aligned with its neighbours as shown in Figure \ref{fig: H1 Derivative} and hence, smoother flow as shown in Figure \ref{fig: H1 Curve Unknotting}.

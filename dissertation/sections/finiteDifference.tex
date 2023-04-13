@@ -64,6 +64,7 @@ A sensible choice is to use both the forward difference operator and and the bac
 One can easily check that $\mathcal{D}_z^+ \mathcal{D}_z^- = \mathcal{D}_z^- \mathcal{D}_z^+$.
 
 \subsection{Euler Schemes for Heat Equation}
+\label{sct: Euler Schemes for Heat Equation}
 Different choices for the first-order operator in (\ref{equ: Discretised Heat Equation}) for the time variable leads to different equations to solve.
 
 Taking $\mathcal{D}_t = \mathcal{D}_t^+$, one acquires the \textbf{explicit Euler scheme}:
@@ -71,9 +72,9 @@ Taking $\mathcal{D}_t = \mathcal{D}_t^+$, one acquires the \textbf{explicit Eule
     \frac{U_{i}^{j+1} - U_{i}^j}{\Delta T} = \frac{U_{i+1}^j - 2 U_{i}^{j} + U_{i-1}^j}{\left( \Delta X \right)^2}
 \end{equation}
 Note that figure \ref{fig: GF} is the numerical solution acquired using this scheme.
-One advantage of this scheme is that it is easy to compute the ``next time step'' by observing that this can be written as $U_{i}^{j+1} = U_{i}^j + \frac{\Delta T}{\left( \Delta X \right)^2} \left( U_{i+1}^j - 2 U_{i}^j + U_{i-1}^{j} \right)$,
-where the RHS is known.
-A drawback, however, is that a formal analysis using discrete Fourier transform shows that this scheme is stable if and only if $\mu \coloneqq \frac{\Delta T}{\left( \Delta X \right)^2} \leq \frac{1}{2}$.
+While it is easy to compute the ``next time step'' by observing that this can be written as $U_{i}^{j+1} = U_{i}^j + \frac{\Delta T}{\left( \Delta X \right)^2} \left( U_{i+1}^j - 2 U_{i}^j + U_{i-1}^{j} \right)$
+(where the RHS is known),
+a formal analysis using discrete Fourier transform shows that this scheme is stable if and only if $\mu \coloneqq \frac{\Delta T}{\left( \Delta X \right)^2} \leq \frac{1}{2}$.
 
 Conversely, taking $\mathcal{D}_t = \mathcal{D}_t^-$, one acquires the \textbf{implicit Euler scheme}:
 \begin{equation}
