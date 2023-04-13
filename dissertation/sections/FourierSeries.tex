@@ -1,16 +1,16 @@
 \documentclass[../dissertation.tex]{subfiles}
 \begin{document}
-Motivated by the fact that we are approximating a curve by discretisation,
+Motivated by the fact that we have approximated a curve by discretisation,
 and the TPE is ``continuous'' in the sense that small perturbation
 leads to small change,
-one could attempt untangling problem with a different approach.
-Instead of solving a discretised gradient flow equation (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) directly,
-a possible approach is to use approximation theory for a simple class of tangled curves;
+one could attempt untangling problem with a different framework.
+Instead of solving a discretised gradient flow equation (\ref{equ: Finite Difference Scheme for Curve Untangling Process}),
+one could use approximation theory;
 if one knows beforehand that the initial curve is homeomorphic to a circle or a line segment,
 it is possible to interpret and approximate the curve as comprised of simple functions,
 and significantly optimise the untangling process by casting the functional reduction problem to
 a traditional function reduction problem.
-This also results in a simpler implementation for low-stake/intensity applications,
+This also results in a \textit{simpler implementation} for low-stake/intensity applications,
 such as rope physics for video games.
 Denote by $\mathbb{S}$ and $\mathbb{L}$ for bounded curves that are homeomorphic to a circle and a line segment, respectively, as in Appendix \ref{sct: Other Homeomorphism Classes}.
 
@@ -161,7 +161,7 @@ which we justify by the following theorem for Chebyshev series:
     The remark of rate of convergence of Fourier series can be posed, hence, equivalently to this theorem.
 \end{remark}
 
-Then, interpret the TPE to dependent on its coefficients.
+Then, interpret the TPE as a function of the coefficients of the series.
 \begin{equation}
     \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
     \approx
