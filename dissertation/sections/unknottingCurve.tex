@@ -56,7 +56,7 @@ analogous to $\gammabf = \gammabf(s;t)$ being a parameterised curve, which is a 
 Finally, denote by $e_{i}^k$ for the (undirected) edge with vertex pair $\left( \xbf_i^k, \xbf_{i+1}^k \right)$.
 
 \subsubsection{Discretisation of Tangent-Point Energy}
-In order to acquire numerical solution, one must also be able to numerically compute the tangent-point energy.
+In order to acquire numerical solution, one must also be able to numerically compute the TPE.
 For this, we pose the energy quadrature $E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ of the following form:
 \begin{equation}
     \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \left( \cdot, t \right) \right) \coloneqq
@@ -69,7 +69,7 @@ For this, we pose the energy quadrature $E_{\beta}^{\alpha} \left( \Gammabf^k \r
 where
 $K_{\beta}^{\alpha}$ is an approximation of tangent-point kernel $k_{\beta}^{\alpha}$ (which is specified at (\ref{equ: Kernel 4-point})), 
 and $\norm{e_i^k}$ is the length of edge $e_i^k$, that is, $\norm{e_i^k} = \norm{\xbf_i^{k+1} - \xbf_i^k}$.
-Note that $\Gammabf^k$ is a polygonal curve, for which tangent-point energy (\ref{equ: Tangent-Point Energy}) is not well-defined due to locally non-integrable contributions from vertices:
+Note that $\Gammabf^k$ is a polygonal curve, for which TPE (\ref{equ: Tangent-Point Energy}) is not well-defined due to locally non-integrable contributions from vertices:
 
 \begin{figure}[tbp]
     \centering
@@ -99,7 +99,7 @@ The justification is that as we take a finer mesh ($N$ sufficiently large), the 
         \caption{Tangent-point kernel is approximated by 4-point quadrature defined as (\ref{equ: Kernel 4-point}).}
         \label{fig: Tangent-point kernel approximation}
     \end{subfigure}
-    \caption{Quadrature for approximation of tangent-point energy.}
+    \caption{Quadrature for approximation of TPE.}
 \end{figure}
 
 It still remains to sensibly approximate the kernel $k_{\beta}^{\alpha} (\gammabf_x, \gammabf_y) \approx K_{\beta}^{\alpha} (i, j)$.
@@ -191,7 +191,7 @@ Based on (\ref{equ: Curve Untangling Process}), one writes the following finite 
 \end{equation}
 where $\mathcal{D}_t$ is the finite difference operator over time,
 $\Grad_{X}$ is discrete equivalent\footnote{Worth noting that $\Grad_X:\mathbb{T} \rightarrow \mathbb{T}$ where $\mathbb{T}$ is a set of arrays of certain shape; $\Grad_X$ maps arrays to arrays of the same shape.}  of $\grad_{\mathcal{X}}$ on discrete inner product space $X$ (which may be omitted in the notation),
-$E_{\beta}^{\alpha}$ is the tangent-point energy quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
+$E_{\beta}^{\alpha}$ is the TPE quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
 and $C$ is the discretised version of the constraint energy $\mathcal{C}$ (See section \ref{sct: Constraint Energy}).
 Often times, however, it is easier to construct finite difference scheme directly from (\ref{equ: Curve Untangling Process}) after some simplification,
 rather than attempting to use (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) directly.
@@ -259,7 +259,7 @@ where
 \end{align*}
 See Figure \ref{fig: L2 Curve Unknotting} for a demonstration of curve untangling process using this $L^2$ gradient.
 Note that because $L^2$ gradient flow does not take smoothness into account, this may break the assumption later of the smoothness of the curve,
-which could be problematic as the tangent-point energy quadrature relied on the assumption that the discrete curve stays ``relatively smooth''.
+which could be problematic as the TPE quadrature relied on the assumption that the discrete curve stays ``relatively smooth''.
 %We will start with a demonstration with Buck-Orloff energy ($\alpha=2$, $\beta=4$), as one need not take into account of constraint energy $\mathcal{C}$ due to its scale invariance (lemma \ref{lemma: Scale-Invariance})\footnote{One could construct a similar working example for other scale-invariant tangent-point energies.}.
 
 \begin{remark}
@@ -287,7 +287,7 @@ This is consistent with the motivation of gradient flow equation given in sectio
 \end{figure}
 There is a subtlety;
 there is no guarantee that the edge lengths do not grow,
-which would break the assumption that the tangent-point energy quadrature is valid.
+which would break the assumption that the TPE quadrature is valid.
 This can be mitigated by prescribing edge lengths $L_i$ using some constraint energy as in section \ref{sct: Constraint Energy}.
 
 We now attempt the finite difference scheme with a \textit{scale-variant energy}, that is, when $\beta > \alpha + 2$. 
@@ -307,7 +307,7 @@ To use scale-variant energy, one may consider having constraint energy as part o
 \subsubsection{Constraint Energy}
 \label{sct: Constraint Energy}
 From lemma \ref{lemma: Scale-Invariance} and as demonstrated in Figure \ref{fig: Scale Variant}, in the case that $\beta > \alpha + 2$,
-one could trivially minimise tangent-point energy $\mathcal{E}_{\beta}^{\alpha}$ of the curve 
+one could trivially minimise TPE $\mathcal{E}_{\beta}^{\alpha}$ of the curve 
 (and by the same logic, $E_{\beta}^{\alpha}$ of the discretised curve, albeit due to increases in edge lengths, would cease to be a ``valid'' quadrature)
 by scaling the curve to infinity.
 In order to avoid this phenomenon, or to change the behaviour of the flow, one may add additional energy which penalises unwanted behaviours.

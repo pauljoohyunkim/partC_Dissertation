@@ -30,8 +30,8 @@ Of course, the other points of failure are innate to the approach itself,
 and one must tweak the scheme to resolve them.
 The nonsmoothness issue can be resolved by using a higher order Sobolev space,
 nullification of the kernel can be resolved by stopping the evolution afer achieving the energy value within a specified tolerance from the energy of the expected stationary state;
-for example, if one attempts evolution of curve which the unknot is a circle, with Buck-Orloff tangent-point energy $\mathcal{E}_{4}^{2}$, we stop the evolution after the energy of the curve is within some tolerance $\epsilon > 0$ from $\pi^2$,
-the Buck-Orloff tangent-point energy of a circle.
+for example, if one attempts evolution of curve which the unknot is a circle, with Buck-Orloff TPE $\mathcal{E}_{4}^{2}$, we stop the evolution after the energy of the curve is within some tolerance $\epsilon > 0$ from $\pi^2$,
+the Buck-Orloff TPE of a circle.
 For the issue of self-intersection,
 it turns out that in practice, taking higher resolution and smaller time step helps alleviate it,
 yet does not result in certainty of complete fix.
@@ -73,14 +73,14 @@ However, this requires an algorithm for detecting the change in the isotopy clas
 \subsubsection{Varying the Sample Points}
 Another modification of the discrete curve untangling process is to \textbf{vary the sample points}.
 When some of the edges of the discrete curve grow disproportionally large compared to most edges,
-this can render the tangent-point energy quadrature unusable.
+this can render the TPE quadrature unusable.
 An alternative to adding a constraint energy to fix edge lengths is to resampling points around troublesome edges.
 One uses the points around the growing edges to approximate the portion of the curve by a spline. The advantage of this method is that it results in flexibility to change the resolution of the curve sensibly at any time during evolution, at the cost of potential errors which could lead to self-crossing if not careful.
 
 \subsubsection{Discussion of Fractional Sobolev Space}
 \label{sct: Discussion of Fractional Sobolev Space}
 While this dissertation focused on $L^2$ and $H^1$ gradient flow for the untangling process,
-for given $\alpha$ and $\beta$ values for the tangent-point energy,
+for given $\alpha$ and $\beta$ values for the TPE,
 there is an optimal choice of space for one to implement the curve untangling process,
 which makes the evolution by (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) the fastest
 and its computation trivial.
@@ -97,7 +97,7 @@ for $s \in \left( 0,1 \right)$,
     &= \mathcal{F}^{-1} \left( \norm{\xibf}^{2s} \left( \mathcal{F} u \right) \right)
 \end{align}
 where $\mathcal{F}$ is the Fourier transform operator, $\dashint$ is the principal value integral as in the definition of inverse Fourier transform, and $C_{n,s}$ is some constant that makes the last equality valid.
-It is sensible to attempt nonlocal gradient operator in the gradient flow, as the tangent-point energy itself is, in some sense, nonlocal.
+It is sensible to attempt nonlocal gradient operator in the gradient flow, as the TPE itself is, in some sense, nonlocal.
 For more detail, see \cite{DINEZZA2012521}, and \cite{YSC2021} for its adaptation to curve repulsion.
 
 \end{document}

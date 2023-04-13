@@ -1,7 +1,7 @@
 \documentclass[../dissertation.tex]{subfiles}
 \begin{document}
 Motivated by the fact that we are approximating a curve by discretisation,
-and the tangent-point energy is ``continuous'' in the sense that small perturbation
+and the TPE is ``continuous'' in the sense that small perturbation
 leads to small change,
 one could attempt untangling problem with a different approach.
 Instead of solving a discretised gradient flow equation (\ref{equ: Finite Difference Scheme for Curve Untangling Process}) directly,
@@ -93,7 +93,7 @@ One may justify the truncation of Fourier series representation by the following
 %\lipsum[1]
 \end{remark}
 Now, using these coefficients, one could construct the approximate discrete curve $\Gammabf_{N,J}$ of resolution $N \gg J$.
-Take the dependent variables for the tangent-point energy to be the coefficients on Fourier series representation:
+Take the dependent variables for the TPE to be the coefficients on Fourier series representation:
 \begin{equation}
     \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
     \approx
@@ -161,7 +161,7 @@ which we justify by the following theorem for Chebyshev series:
     The remark of rate of convergence of Fourier series can be posed, hence, equivalently to this theorem.
 \end{remark}
 
-Then, interpret the tangent-point energy to dependent on its coefficients.
+Then, interpret the TPE to dependent on its coefficients.
 \begin{equation}
     \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)
     \approx
@@ -171,10 +171,10 @@ Then, interpret the tangent-point energy to dependent on its coefficients.
     \approx
     E_{\beta}^{\alpha} \left( \Gammabf_{N,J} \right)
 \end{equation}
-This time, the tangent-point quadrature is taken as the one in Appendix \ref{sct: Curves in L}.
+This time, the TPE quadrature is taken as the one in Appendix \ref{sct: Curves in L}.
 
 \subsubsection{Sample Points and Time Complexity}
-While approximation via series reduces the number of dimensions to reduce the tangent-point energy over,
+While approximation via series reduces the number of dimensions to reduce the TPE over,
 in order to compute the derivative (against coefficients),
 one still needs to use quadrature, meaning, one needs to take $N$ sample points.
 
@@ -214,10 +214,10 @@ For example, for $\gammabf \in \mathbb{S}$, the points on the discretised curve 
     \label{equ: DFT}
 \end{align}
 By using modified FFT\cite{5213896}, one could reduce the cost from $O\left( NJ \right)$ to $O \left( J \log N \right)$.
-Also, because the tangent-point energy of the truncated curve $\mathcal{E}_{\beta}^{\alpha} \left( \gammabf_{J} \right)$ involves integral which the integration variable is independent from the coefficients $\cbf_n$,
+Also, because the TPE of the truncated curve $\mathcal{E}_{\beta}^{\alpha} \left( \gammabf_{J} \right)$ involves integral which the integration variable is independent from the coefficients $\cbf_n$,
 one could, in theory, directly compute derivative by differentiating under the integral sign (which turns out to be a messy computation, but possible),
 or one could use central difference scheme to approximate it;
-because one only needs to compute $3J$ derivatives\footnote{Order $0$ terms do not contribute as tangent-point energy is shift-invariant, hence derivative with respect to those coefficients are identically zero.}
+because one only needs to compute $3J$ derivatives\footnote{Order $0$ terms do not contribute as TPE is shift-invariant, hence derivative with respect to those coefficients are identically zero.}
 instead of $3N \gg 3J$ derivatives, this can be a practical approach.
 With latter approach to compute derivative, this would result in $O\left( J^3 + J \log N \right)$ operations per time step.
 Because $J$ does not need to be large at all\footnote{Instead of storing a unit circle with, say $N = 90$ points, one technically only needs $J=1$ to do the same.},
