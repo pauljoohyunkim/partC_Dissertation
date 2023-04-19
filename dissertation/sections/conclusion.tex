@@ -5,9 +5,8 @@ this implies that the implementation of the curve untangling process is not a tr
 Throughout experiments, common points of failure were:
 \begin{itemize}
     \item Some of the edge lengths of the discretised curve became sufficiently large that the quadrature ceased to become valid.
-    \item The curves ceased to be smooth (as in Figure \ref{fig: L2 Curve Unknotting} partially).
-    \item The curves ``collapsing'' to nullify the kernel, usually after a long time since reaching a stationary state.
-        (Figure \ref{fig: Collapse})
+    \item The curves ceased to be smooth (as in Figure \ref{fig: L2 Curve Unknotting}).
+    \item The curves ``collapsing'' to nullify the kernel (Figure \ref{fig: Collapse}), usually after a long time since reaching a stationary state.
     \item Self-intersection in some cases.
 \end{itemize}
 \begin{figure}[tbp]
@@ -17,7 +16,7 @@ Throughout experiments, common points of failure were:
         %For sufficiently low local resolution, the energy can be nullified by a ``collapse'' to a line, as the summand in the quadrature ceases to approximate the actual tangent-point energy kernel.
         In the case of a 4-point discretised curve as shown, while computing the approximate kernel,
         it disregards the adjacent edges, which in fact takes significant portion of the curve out of consideration,
-        and does not accurately approximate the kernel of the original curve which the discretised curve came from.
+        and does not accurately approximate the kernel of the original curve.
         By taking the height of the parallelogram to zero, all the points align with all the edges $e_i$,
         hence energy is trivially reduced to zero.
     }
@@ -26,11 +25,11 @@ Throughout experiments, common points of failure were:
 
 The simplest idea to resolve some of the issues is to take a combination of appropriate constraints as in section \ref{sct: Constraint Energy} to steer the curve away from those issues.
 For example, the first point of failure could be fixed by taking the constraint of prescribing edge lengths to be the initial edge lengths. 
-Of course, the other points of failure are innate to the approach itself,
-and one must tweak the scheme to resolve them.
+Of course, the others are innate to the approach itself,
+and one must modify the scheme to resolve them.
 The nonsmoothness issue can be resolved by using a higher order Sobolev space,
 nullification of the kernel can be resolved by stopping the evolution afer achieving the energy value within a specified tolerance from the energy of the expected stationary state;
-for example, if one attempts evolution of curve which the unknot is a circle, with Buck-Orloff TPE $\mathcal{E}_{4}^{2}$, we stop the evolution after the energy of the curve is within some tolerance $\epsilon > 0$ from $\pi^2$,
+for example, if one attempts evolution of curve which the unknot known to be a circle, with Buck-Orloff TPE $\mathcal{E}_{4}^{2}$, we stop the evolution after the energy of the curve is within some tolerance $\epsilon > 0$ from $\pi^2$,
 the Buck-Orloff TPE of a circle.
 For the issue of self-intersection,
 it turns out that in practice, taking higher resolution and smaller time step help alleviate it,
@@ -97,7 +96,7 @@ for $s \in \left( 0,1 \right)$,
     &= \mathcal{F}^{-1} \left( \norm{\xibf}^{2s} \left( \mathcal{F} u \right) \right)
 \end{align}
 where $\mathcal{F}$ is the Fourier transform operator, $\dashint$ is the principal value integral as in the definition of inverse Fourier transform, and $C_{n,s}$ is some constant that makes the last equality valid.
-It is sensible to attempt nonlocal gradient operator in the gradient flow, as the TPE itself is, in some sense, nonlocal.
+It is sensible to attempt nonlocal gradient operator, as the TPE itself is, in some sense, nonlocal.
 For more detail, see \cite{DINEZZA2012521}, and \cite{YSC2021} for its adaptation to curve repulsion.
 
 \end{document}

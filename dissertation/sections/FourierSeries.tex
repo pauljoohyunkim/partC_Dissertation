@@ -106,7 +106,7 @@ Take the dependent variables for the TPE to be the coefficients on Fourier serie
 This time, instead of solving for gradient flow equation,
 we use standard methods of minimising a function, such as gradient descent or otherwise \textit{over the $3(2J+1)$ coefficients\footnote{Without loss of generality, one could take $c_{i,0} = 0$ for $i=1,2,3$ as it only determines constant shift of the entire curve, so one actually only needs to consider $6J$ coefficients.}} $\cbf_{-J}, \cbf_{-J+1}, \cdots, \cbf_{J}$.
 It is practical to take $N$ to be larger than the resolution for the discrete gradient flow,
-as we have will have less variables to minimise over anyways.
+as we have will have less variables to minimise over.
 The smoothness of the evolving curve follows since it is represented as a finite sum of infinitely smooth function,
 so there is no misbehaviour from sharp points as in Figure \ref{fig: L2Derivative}.
 

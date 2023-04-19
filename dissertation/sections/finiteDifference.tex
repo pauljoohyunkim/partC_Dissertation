@@ -4,7 +4,7 @@
 \subsection{Motivating Example: Heat Equation}
 Suppose one needs to solve the heat equation $\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2}$ for $u = u(x,t)$ over $\left[ -L, L \right] \times \left[ 0, T_f \right]$
 with initial data $u\left( x,0 \right) = u_0 (x)$
-and Neumann boundary condition $f'(-L) = f'(L) = 0$.
+and Neumann boundary condition $u'(-L) = u'(L) = 0$.
 
 One could diescretise the problem by constructing a mesh;
 taking equispaced points on the spatial domain $\left[ -L,L \right]$
@@ -16,7 +16,7 @@ and the time domain $\left[ 0,T_f \right]$.
 where $N, M$ are the resolution of respective domains,
 and $\Delta X \coloneqq \frac{2L}{N}$ and $\Delta T \coloneqq \frac{T_f}{M}$.
 
-Now the idea is to approximate the actual solution $u$ at $\left( x,t \right) = \left( X_i, T_j \right)$ of the heat equation by the following algebraic (difference) equations.
+Now the idea is to approximate the initial boundary value problem by the following algebraic (difference) equations.
 \begin{align}
     \mathcal{D}_t U_{i}^j &= \mathcal{D}_x^+ \mathcal{D}_x^- U_{i}^j 
     \label{equ: Discretised Heat Equation}

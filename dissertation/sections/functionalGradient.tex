@@ -10,9 +10,9 @@ that is,
 \end{equation}
 While this is not a conventional definition of function gradient, it is an equivalent definition.
 
-One could analogously motivate the definition of gradient of a functional.
-\begin{definition}[Gradient of Functional]
-    For a functional $F:\mathcal{X} \rightarrow \mathbb{R}$, define functional gradient $\grad_{\mathcal{X}} F (f)$ as:
+One could analogously motivate the definition of functional gradient.
+\begin{definition}[Functional Gradient]
+    For a functional $F:\mathcal{X} \rightarrow \mathbb{R}$, define \textit{functional gradient} $\grad_{\mathcal{X}} F (f)$ as:
     \begin{equation}
         \forall f, g \in \mathcal{X} \; \; \inner{\grad_{\mathcal{X}} F (f), g}_{\mathcal{X}} = \left.\frac{\partial}{\partial \epsilon} F \left( f + \epsilon g \right)\right|_{\epsilon = 0}
         \label{equ: Functional Gradient Definition}
@@ -105,7 +105,7 @@ So,
             \end{equation}
             (Refer to Figure \ref{fig: GF} for the case $\Omega = (-1, 1)$.)
             However, note that one could ``reduce the order'' or the RHS by considering the gradient flow in $H^1$.
-            Observe from (\ref{equ: H1 Gradient}) that $\grad_{H^1} \mathcal{E} (f) = \idf_{\Omega}$, where $\idf_{\Omega}$ is the identity function over $\Omega$.
+            Observe from (\ref{equ: H1 Gradient}) that $\grad_{H^1} \mathcal{E} (f) = \idf_{\Omega} \, f$, where $\idf_{\Omega}$ is the identity operator.
             Solving $H^1$ gradient flow equation
             \begin{equation}
                 \frac{\partial f}{\partial t} = -f
@@ -139,7 +139,7 @@ the following derivative operators replace the traditional derivative operators,
 
 Similarly, for Laplacian,
 \begin{definition}[Second Derivative Laplacian Operator ``Curve Laplacian'']
-    Define second derivative operator $\curvelaplacian$ in a way that for $f: M \rightarrow \mathbb{R}$,
+    Define second derivative operator $\curvelaplacian$ in a way that for $u \left( \gammabf \left( \cdot \right) \right): M \rightarrow \mathbb{R}$,
     \begin{equation}
         \curvelaplacian_{\gammabf} u \left( \gammabf (s) \right) = \curvenabla_{\gammabf}^{T} \curvenabla_{\gammabf} u \left( \gammabf (s) \right)
     \end{equation}
