@@ -186,11 +186,12 @@ In order to proceed, one needs to ``regularise'' the Laplacian to make it invert
 \subsubsection{Finite Difference Scheme of Curve Untangling Process}
 Based on (\ref{equ: Curve Untangling Process}), one writes the following finite difference scheme:
 \begin{equation}
-    \mathcal{D}_{t} \Gammabf^{k} = -\Grad_{X} E_{\beta}^{\alpha} (\Gammabf^k) - \Grad_{X} C \left( \Gammabf^k \right) \hspace{1cm} \text{for } k=0,1,\cdots
+    \mathcal{D}_{t} \Gammabf^{k} = -\Grad_{\mathcal{X}} E_{\beta}^{\alpha} (\Gammabf^k) - \Grad_{\mathcal{X}} C \left( \Gammabf^k \right) \hspace{1cm} \text{for } k=0,1,\cdots
     \label{equ: Finite Difference Scheme for Curve Untangling Process}
 \end{equation}
 where $\mathcal{D}_t$ is the finite difference operator over time,
-$\Grad_{X}$ is discrete equivalent\footnote{Worth noting that $\Grad_X:\mathbb{T} \rightarrow \mathbb{T}$ where $\mathbb{T}$ is a set of arrays of certain shape; $\Grad_X$ maps arrays to arrays of the same shape.}  of $\grad_{\mathcal{X}}$ on discrete inner product space $X$ (which may be omitted in the notation),
+$\Grad_{\mathcal{X}}$ is discrete equivalent\footnote{Worth noting that $\Grad_{\mathcal{X}}:\mathbb{T} \rightarrow \mathbb{T}$ where $\mathbb{T}$ is a set of arrays of certain shape; $\Grad_{\mathcal{X}}$ maps arrays to arrays of the same shape.}  of $\grad_{\mathcal{X}}$,
+%on discrete inner product space $X$ (which may be omitted in the notation),
 $E_{\beta}^{\alpha}$ is the TPE quadrature defined as (\ref{equ: Tangent-Point Energy Quadrature}),
 and $C$ is the discretisation of the constraint energy $\mathcal{C}$ (See section \ref{sct: Constraint Energy}).
 Often times, however, it is easier to construct finite difference scheme directly from (\ref{equ: Curve Untangling Process}) after some simplification,
@@ -208,12 +209,12 @@ where one justifies this by noting that first-order perturbation in a curve is a
  %$\Grad_{\ell^2} = \nabla_{\Gammabf}$.
 Taking $\mathcal{D}_t = \mathcal{D}_t^+$ from (\ref{equ: Finite Difference Scheme for Curve Untangling Process}),
 \begin{equation}
-    \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
+    \frac{\Gammabf^{k+1} - \Gammabf^k}{\Delta T} = - \Grad_{L^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
     \label{equ: L2 Explicit Euler}
 \end{equation}
-where one could explicitly write $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right)$ as
+where one could explicitly write $\Grad_{L^2} E_{\beta}^\alpha \left( \Gammabf^k \right)$ as
 \begin{equation}
-    \Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right)
+    \Grad_{L^2} E_{\beta}^\alpha \left( \Gammabf^k \right)
     =
     \underbrace{
         \begin{pmatrix}
@@ -239,8 +240,8 @@ where $x_{j,i}$ refers to the $\left( j,i \right)$ coordinate variable for $3 \t
     $\Grad_{\ell^2}$ is in fact a linear operator with respect to its input, energy.
 \end{remark}
 
-One could use this exact form of $\Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ as given in appendix \ref{sct: Exact Gradient}, but it could be considered cumbersome (even though there are benefits to implementing this as stated in section \ref{sct: L2 Complexity}).
-One could alternatively approximate $\Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ by central difference scheme, for example:
+One could use this exact form of $\Grad_{L^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ as given in appendix \ref{sct: Exact Gradient}, but it could be considered cumbersome (even though there are benefits to implementing this as stated in section \ref{sct: L2 Complexity}).
+One could alternatively approximate $\Grad_{L^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)$ by central difference scheme, for example:
 for $i=0,1,\cdots,N-1$ and $j = 1,2,3$,
 \begin{equation}
     \ebf_j \cdot \left( \Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) [i] \right)
@@ -332,7 +333,7 @@ $p > 0$ is the order of ``thresholding'', where higher $p$ would lead to harsher
 \label{sct: L2 Complexity}
 Since we expect to take $N$ to be very large, it is reasonable to consider the computational work.
 
-If we \textit{use a difference scheme} to approximate $\Grad_{\ell^2} E_{\beta}^\alpha \left( \Gammabf^k \right)$,
+If we \textit{use a difference scheme} to approximate $\Grad_{L^2} E_{\beta}^\alpha \left( \Gammabf^k \right)$,
 for every time step, one needs to be able to evaluate $E_{\beta}^\alpha$ for a given $\Gammabf^k \in \mathbb{R}^{3\times N}$.
 From (\ref{equ: Tangent-Point Energy Quadrature}),
 it takes $O \left( N^2 \right)$ evaluations of the kernel.
@@ -350,7 +351,7 @@ A problem with explicit schemes is that, there often exists some sort of conditi
 For unconditional stability, one may attempt implicit Euler scheme, that is,
 taking $\mathcal{D}_t = \mathcal{D}_t^-$ in (\ref{equ: Finite Difference Scheme for Curve Untangling Process}),
 \begin{equation}
-    \frac{\Gammabf^{k} - \Gammabf^{k-1}}{\Delta T} = -\Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
+    \frac{\Gammabf^{k} - \Gammabf^{k-1}}{\Delta T} = -\Grad_{L^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right)
 \end{equation}
 This scheme however involves solving a nonlinear equation.
 One needs an efficient rootfinding algorithm (such as Newton's method) to compute each time step.
@@ -367,7 +368,7 @@ By (\ref{equ: H-1 Gradient}), we may write $\grad_{H^{-1}} \mathcal{E}_{\beta}^{
 %where we do not necessarily assume scale-invariance.
 For the discrete equivalent, take
 \begin{equation}
-    \Grad E_{\beta}^{\alpha} = - \curvelaplacian_{\Gammabf^k} \left( \Grad_{\ell^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = - \curvelaplacian_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
+    \Grad E_{\beta}^{\alpha} = - \curvelaplacian_{\Gammabf^k} \left( \Grad_{L^2} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right) = - \curvelaplacian_{\Gammabf^k} \left( \nabla_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
     %= -\nabla_{\Gammabf^k} \left( \curvelaplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right) \right)
 \end{equation}
 %where the last equality is from the fact that Laplacian and gradient operators commute \cite{679160}.
