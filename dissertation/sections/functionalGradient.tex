@@ -94,9 +94,10 @@ So,
         \inner{\grad_{L^2} \mathcal{E} (f), g}_{L^2} &= \left.\frac{\partial}{\partial \epsilon} \mathcal{E} \left( f + \epsilon g \right)\right|_{\epsilon=0} \\
             &= \left.\frac{\partial}{\partial \epsilon} \int_{\Omega} \left( \nabla f + \epsilon \nabla g \right) \cdot \left( \nabla f + \epsilon \nabla g \right) \intd V\right|_{\epsilon=0} \\
                 &= \int_{\Omega} \nabla f \cdot \nabla g \intd V \\
-                &\stackrel{\text{IBP}}{=} \underbrace{\oint_{\partial \Omega} g \frac{\partial f}{\partial n} \intd S}_{\text{Boundary Term}} - \int_{\Omega} g \laplacian f \intd V \\
+                &\stackrel{\text{IBP\footnotemark}}{=} \underbrace{\oint_{\partial \Omega} g \frac{\partial f}{\partial n} \intd S}_{\text{Boundary Term}} - \int_{\Omega} g \laplacian f \intd V \\
                 &= \underbrace{\oint_{\partial \Omega} g \frac{\partial f}{\partial n} \intd S}_{\text{Boundary Term}} + \inner{-\laplacian f, g}_{L^2}
             \end{align*}
+            \footnotetext{Integration by parts}
             Assuming natural boundary condition $\frac{\partial f}{\partial n} = 0$, or restricting our interest to periodic functions such that there is no boundary, we may set the boundary term to zero.
             We can then read off $L^2$ gradient to be $\grad_{L^2} \mathcal{E} (f) = h = -\laplacian f$. 
             The gradient flow equation turns out to be the heat equation:
