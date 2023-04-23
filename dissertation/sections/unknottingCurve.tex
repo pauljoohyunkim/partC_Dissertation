@@ -361,8 +361,7 @@ We will stick to explicit Euler scheme for simplicity from now on.
 %Another potential scheme is the Crank-Nicolson scheme,
 %where one combines both explicit and implicit scheme to achieve higher order of error.
 
-\subsection{Example: Euler Scheme in $H^{-1}$ and $H^1$}
-\label{sct: Example: Euler Scheme in Other Spaces}
+\subsection{Discussion of Euler Scheme in $H^{-1}$}
 Consider curve untangling process in $H^{-1}$.
 By (\ref{equ: H-1 Gradient}), we may write $\grad_{H^{-1}} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \curvelaplacian_{\gammabf} \left( \grad_{L^2} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right)\right)$.
 %where we do not necessarily assume scale-invariance.
@@ -377,6 +376,8 @@ could increase complexity of the scheme.
 In fact, if one approximates the Laplacian as (\ref{equ: Discrete Curve Laplacian}), 
 %$\curvelaplacian_{\Gammabf^k} E_{\beta}^{\alpha} \left( \Gammabf^k \right)\approx \frac{\bar{E}_{\beta}^{\alpha} (i) - 2 E_{\beta}^{\alpha} \left( \Gammabf^k \right) + \underaccent{\bar}E_{\beta}^{\alpha} (i)}{\Delta X^2}$,
 for each time step, it takes $O \left( N^4 \right)$ evaluations of the kernel, so the scheme becomes impractical.
+\subsection{Example: Euler Scheme in $H^1$}
+\label{sct: Example: Euler Scheme in Other Spaces}
 
 Conversely, consider curve untangling process in $H^1$.
 By (\ref{equ: H1 Gradient}), we write $\grad_{H^1} \mathcal{E}_{\beta}^{\alpha} \left( \gammabf \right) = - \curvelaplacian_{\gammabf}^{-1} \grad_{L^2} \mathcal{E}_{\beta}^{\alpha}$,
